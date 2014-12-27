@@ -1,0 +1,14 @@
+eventProcessor.observe([arduino.button0]).match("== 'hold'").call(function(){
+   console.log(arduino.led0);
+	
+   if (arduino.led0.__state.light == 'off')
+   {
+      arduino.led0.blink();
+      arduino.led1.blink();
+   }
+   else
+   {
+      arduino.led0.off();
+      arduino.led1.off();
+   }	
+});
