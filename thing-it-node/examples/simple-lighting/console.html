@@ -3,36 +3,36 @@
 <head>
 <link href='http://fonts.googleapis.com/css?family=Titillium+Web'
 	rel='stylesheet' type='text/css'>
-<link href="./css/thirdparty/jquery/jquery-ui-1.10.2.custom.css"
-	rel="stylesheet" type="text/css"></link>
-<link href="./css/thirdparty/font-awesome/font-awesome.min.css"
-	rel="stylesheet">
-<link href="../css/thing-it.css" rel="stylesheet">
+<link rel="stylesheet"
+	href="http://code.jquery.com/mobile/git/jquery.mobile-git.css">
+<link href="../thing-it.css" rel="stylesheet">
 <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 <script
-	src="http://code.jquery.com/mobile/[version]/jquery.mobile-1.4.5.min.js"></script>
+	src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
 <script type="text/javascript">
 	jQuery(document).ready(function() {
+		jQuery("#toggleLed1Button").click(function() {
+			console.log("Clicked!");
+		});
 	});
 </script>
 </head>
 <body style="height: 100%;">
 	<div>
-
-		<div data-role="header">
-			<h1>Page Title</h1>
+		<div data-role="header" data-theme="b">
+			<h1>Simple Lighting</h1>
 		</div>
-		<!-- /header -->
-
 		<div role="main" class="ui-content">
-			<p>Page content goes here.</p>
+			<button id="toggleLed1Button" class="ui-btn ui-corner-all">Toggle
+				LED1</button>
+			<button id="toggleLed2Button" class="ui-btn ui-corner-all">Toggle
+				LED2</button>
+			<button id="toggleAllButton" class="ui-btn ui-corner-all">Toggle
+				All</button>
 		</div>
-		<!-- /content -->
-
 		<div data-role="footer">
-			<h4>Page Footer</h4>
+			<h4>thing-it-node</h4>
 		</div>
-		<!-- /footer -->
 	</div>
 	<!-- /page -->
 </body>

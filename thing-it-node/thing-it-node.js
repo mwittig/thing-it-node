@@ -38,7 +38,7 @@ var server = app
 							.log("-----------------------------------------------------------------------------");
 					console.log("\n");
 
-					initializeNode();
+					//initializeNode();
 				});
 
 /**
