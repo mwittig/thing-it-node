@@ -2,7 +2,7 @@
 * connect controllers like Arduino Uno to your computer (e.g. a Raspberry Pi) to centralize Internet access to a scalable set of Sensors and Actors,
 * invoke REST services on all Actors,
 * receive WebSocket notifications on all Sensor data changes and events,
-* define higher-level services on multiple Actors and invoke those via REST and
+* define higher-level services on multiple Actors and also invoke those via REST and
 * define Complex Event Processing on Sensor data changes and events. 
 
 All of the above is controlled by a **[nodejs](http://nodejs.org/)** server which is bootstrapped from a simple JSON configuration.
@@ -46,10 +46,10 @@ in a directory _installDir_.
 
 For our example above modify the file _installDir_/**configuration.js** as follows
 
-`module.exports = {`
-	`port : 3001,`
-	`nodeConfigurationFile : "_installDir_/examples/simple-lighting/configuration.json"`
-`};`
+`module.exports = {
+	port : 3001,
+	nodeConfigurationFile : "_installDir_/examples/simple-lighting/configuration.json"
+};`
 
 Start the thing-it-node from _installDir_ via
 
