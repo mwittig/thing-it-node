@@ -58,7 +58,28 @@ Start the thing-it-node from _installDir_ via
 
 You will see something like
 
-which means that your **thing-it-node** server has started properly, found its configuration but determined that your Arduino Board is not configured yet. Hence,
+`---------------------------------------------------------------------------
+ thing-it Node at http://0.0.0.0:3001
+
+
+ Copyright (c) 2014-2015 Marc Gille. All rights reserved.
+-----------------------------------------------------------------------------
+
+
+Loading plugin <arduino>.
+Starting Node <Home>.
+	Starting Controller <Arduino Uno 1>
+		Actor <LED1> started.
+Published message Cannot initialize arduino1/led1:TypeError: Cannot read property 'type' of null
+		Actor <LED2> started.
+Published message Cannot initialize arduino1/led1:TypeError: Cannot read property 'type' of null
+		Sensor <Button> started.
+Published message Cannot initialize arduino1/button1:TypeError: Cannot read property 'type' of null
+		Sensor <Button> started.
+Published message Cannot initialize arduino1/button1:TypeError: Cannot read property 'type' of null
+	Controller <Arduino Uno 1> started.`
+
+which means that your **thing-it-node** server has started properly, found its configuration but determined that your Arduino Board is not wired up yet. Hence,
 
 * connect your Arduino Board via USB,
 * connect the LEDs to Pin 12 and 13.
