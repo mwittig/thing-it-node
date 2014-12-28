@@ -50,7 +50,7 @@ For our example above modify the file _installDir_/**configuration.js** as follo
 
 `nodeConfigurationFile : "_installDir_/examples/simple-lighting/configuration.json"`
 
-If you are interested, have a look at the [configuration file](./examples/simple-lighting/configuration.json).
+If you are interested, have a look at the [configuration file](./thing-it-node/examples/simple-lighting/configuration.json).
 
 Start the thing-it-node from _installDir_ via
 
