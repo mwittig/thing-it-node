@@ -58,7 +58,7 @@ Start the thing-it-node from _installDir_ via
 
 You will see something like
 
-`---------------------------------------------------------------------------
+---------------------------------------------------------------------------
  thing-it Node at http://0.0.0.0:3001
 
 
@@ -77,7 +77,7 @@ Published message Cannot initialize arduino1/led1:TypeError: Cannot read propert
 Published message Cannot initialize arduino1/button1:TypeError: Cannot read property 'type' of null
 		Sensor <Button> started.
 Published message Cannot initialize arduino1/button1:TypeError: Cannot read property 'type' of null
-	Controller <Arduino Uno 1> started.`
+	Controller <Arduino Uno 1> started.
 
 which means that your **thing-it-node** server has started properly, found its configuration but determined that your Arduino Board is not wired up yet. Hence,
 
