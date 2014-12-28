@@ -63,6 +63,19 @@ function Led() {
 	/**
 	 * 
 	 */
+	Led.prototype.toggle = function() {
+		if (this.led) {
+			this.led.stop().off();
+		}
+
+		this.state = "off";
+
+		this.publishStateChange();
+	}
+
+	/**
+	 * 
+	 */
 	Led.prototype.blink = function() {
 		if (this.led) {
 			this.led.blink();

@@ -10,11 +10,22 @@
 <script
 	src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
 <script type="text/javascript">
-	jQuery(document).ready(function() {
-		jQuery("#toggleLed1Button").click(function() {
-			console.log("Clicked!");
-		});
-	});
+	jQuery(document).ready(
+			function() {
+				jQuery("#toggleLed1Button").click(
+						function() {
+							jQuery.ajax(
+									{
+										url : "http://"
+												+ document.location.host
+												+ "/arduino1/led1/toggle",
+										type : "POST"
+									}).done(function(data) {
+							}).fail(function(data) {
+								console.log("Fail!");
+							});
+						});
+			});
 </script>
 </head>
 <body style="height: 100%;">
