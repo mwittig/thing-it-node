@@ -9,9 +9,10 @@ All of the above is controlled by a **[nodejs](http://nodejs.org/)** server whic
 
 # Philosophy
 
-**thing-it-node** is created because we felt the need for a scalable management entity which bridges Internet services and devices. It is not intended to compete with but rather complement and use (great) libraries like
+**thing-it-node** is created because we felt the need for a scalable management entity which bridges Internet services and multiple, possibly heterogenous devices. It is not intended to compete with, but rather complement and use great libraries and frameworks like
 
-* **[Johnny Five](https://github.com/rwaldron/johnny-five/wiki/Board)** or
+* **[](http://fritzing.org/)** by FH Potsdam
+* **[Johnny Five](https://github.com/rwaldron/johnny-five/wiki/Board)** by Rick Waldron or
 * aREST from Marco Schwarz
 
 # Getting Started
@@ -25,18 +26,19 @@ Let's try to set up a simple - but not too simple - home automation scenario:
 
 To setup this scenario you need the following hardware
 
-* an Arduino Uno board
-* two LEDs e.g.
-* an LDR, e.g. 
+* an Arduino Uno board [http://www.adafruit.com/product/50](http://www.adafruit.com/product/50),
+* two LEDs e.g. [https://www.sparkfun.com/products/9590](https://www.sparkfun.com/products/9590),
+* a Photocell, e.g. [http://www.adafruit.com/product/161](http://www.adafruit.com/product/161),
 * two buttons, e.g.
-* possibly a breadboard (e.g. ) and some jumper cables
+* possibly a breadboard (e.g. [http://www.adafruit.com/product/64](http://www.adafruit.com/product/64)) and 
+* some jumper wires [http://www.adafruit.com/product/758](http://www.adafruit.com/product/758)
 
 all of the above is also available with Arduino Starter Kits like
 
 * or
 *
 
-To configure and run *thing-it-node*, install *nodejs* and *npm* on your computer. 
+To configure and run *thing-it-node*, install *nodejs* and *npm* on your computer Raspberry Pi. 
 
 Then install **thing-it-node**:
 
@@ -46,10 +48,9 @@ in a directory _installDir_.
 
 For our example above modify the file _installDir_/**configuration.js** as follows
 
-`module.exports = {
-	port : 3001,
-	nodeConfigurationFile : "_installDir_/examples/simple-lighting/configuration.json"
-};`
+`nodeConfigurationFile : "_installDir_/examples/simple-lighting/configuration.json"`
+
+If you are interested, have a look at the [configuration file](/examples/simple-lighting/configuration.json).
 
 Start the thing-it-node from _installDir_ via
 
@@ -57,11 +58,11 @@ Start the thing-it-node from _installDir_ via
 
 You will see something like
 
-which means that your **thing-it-node** server has started properly, found its configuration but determined that your Arduino Board is not configured properly. Hence,
+which means that your **thing-it-node** server has started properly, found its configuration but determined that your Arduino Board is not configured yet. Hence,
 
 * connect your Arduino Board via USB,
-* connect Relay R1 to Pin and Relay R2 to Pin.
-* connect Button B1 to Pin and Button B2 to Pin.
+* connect the LEDs to Pin 12 and 13.
+* connect the Buttons to Pin and .
 * connect the LDR to Pin
 
 Restart the **thing-it-node** server. The server output should now look like 
@@ -76,4 +77,11 @@ Finally, connect your browser to
 
 Browser content should look like
 
+If you have remote (e.g. Wifi) access to the computer running the **thing-it Server**, you may also use a mobile device (e.g. an iPhone or iPad) to connect to your simple lighting system.
+
 # Taking it further
+
+If you have the **Getting Started** example running, you may want to
+
+* understand the concepts of *thing-it* better
+* have a look at further examples
