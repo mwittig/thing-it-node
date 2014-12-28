@@ -3,9 +3,9 @@
    "id": "home",
    "devices": [
       {
-    	  "type": {
-            "plugin": "arduino",
-            "label": "Arduino Uno 1"},
+      	 "label": "Arduino Uno 1",
+      	 "id": "arduino1",
+         "plugin": "arduino",
          "actors": [
             {
                "id": "led1",
@@ -16,7 +16,7 @@
                }
             },
             {
-               "id": "led1",
+               "id": "led2",
                "label": "LED2",
                "type": "led",
                "configuration": {
@@ -44,7 +44,11 @@
          ]
       }
    ],
-   "services": [],
+   "services": [
+   		{
+   			"id": "toggleAll",
+   			"script" : "arduino1.led1.toggle(); arduino1.led2.toggle();"
+   		}],
    "eventProcessors": [
       {
          "id": "eventProcessor1",

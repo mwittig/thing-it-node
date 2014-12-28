@@ -64,11 +64,19 @@ function Led() {
 	 * 
 	 */
 	Led.prototype.toggle = function() {
-		if (this.led) {
-			this.led.stop().off();
-		}
+		if (this.state == "off") {
+			this.state = "on";
 
-		this.state = "off";
+			if (this.led) {
+				this.led.on();
+			}
+		} else {
+			this.state = "off";
+
+			if (this.led) {
+				this.led.stop().off();
+			}
+		}
 
 		this.publishStateChange();
 	}

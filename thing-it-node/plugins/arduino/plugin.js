@@ -1,7 +1,7 @@
 module.exports = {
 	metadata : {
 		plugin : "arduino",
-		label : "Arduino Uno 1",
+		label : "Arduino",
 		actorTypes : [ {
 			plugin : "led",
 			label : "LED",
@@ -241,7 +241,7 @@ function Arduino() {
 		}, 10000);
 
 		board.on("ready", function() {
-			if (!initialized()) {
+			if (!initialized) {
 				initialized = true;
 
 				self.startDevice(app, io, hub);

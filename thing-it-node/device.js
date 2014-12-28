@@ -1,12 +1,13 @@
 module.exports = {
 	create : function(node, device) {
+		device.type = node.plugins[device.plugin].metadata;
+		
 		utils.inheritMethods(device, new Device());
-		utils.inheritMethods(device, require(
-				"./plugins/" + device.type.plugin + "/plugin").create());
+		utils.inheritMethods(device, node.plugins[device.plugin].create());
 
 		device.node = node;
 		node[device.id] = device;
-
+		
 		return device;
 	}
 };
@@ -20,12 +21,12 @@ function Device() {
 	 * 
 	 */
 	Device.prototype.startDevice = function(app, io) {
-		console.log("\tStarting Device <" + this.label + ">");
+		console.log("\tStarting Controller <" + this.label + ">");
 
 		this.startActors(app, io);
 		this.startSensors(app, io);
 
-		console.log("\tDevice <" + this.label + "> started.");
+		console.log("\tController <" + this.label + "> started.");
 	};
 
 	/**
@@ -50,7 +51,6 @@ function Device() {
 		}
 
 		throw "Cannot find Actor Type <" + plugin + ">.";
-
 	};
 
 	/**
@@ -96,7 +96,7 @@ function Device() {
 	 * 
 	 */
 	Device.prototype.stop = function() {
-		console.log("\tStopping Device <" + this.label + ">.");
+		console.log("\tStopping Controller <" + this.label + ">.");
 
 		for (var n = 0; n < this.actors.length; ++n) {
 			this.actors[n].stop();
@@ -110,6 +110,6 @@ function Device() {
 			// this.services[n];
 		}
 
-		console.log("\tDevice <" + this.label + "> stopped.");
+		console.log("\tController <" + this.label + "> stopped.");
 	};
 }

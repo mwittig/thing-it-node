@@ -9,23 +9,82 @@
 <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 <script
 	src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+<script src="/socket.io/socket.io.js"></script>
 <script type="text/javascript">
-	jQuery(document).ready(
-			function() {
-				jQuery("#toggleLed1Button").click(
-						function() {
-							jQuery.ajax(
-									{
-										url : "http://"
-												+ document.location.host
-												+ "/arduino1/led1/toggle",
-										type : "POST"
-									}).done(function(data) {
-							}).fail(function(data) {
-								console.log("Fail!");
-							});
+	jQuery(document)
+			.ready(
+					function() {
+						var socket = new io("http://" + document.location.host
+								+ "/");
+
+						socket.on("event", function(event) {
+							jQuery("#message").empty();
+							jQuery("#message").append("Button clicked.");
+
+							window.setTimeout(function() {
+								jQuery("#message").empty();
+								jQuery("#message").append("Idle");
+							}, 2000);
 						});
-			});
+						socket.on("actorStateChange", function(stateChange) {
+							jQuery("#message").empty();
+							jQuery("#message").append(stateChange);
+
+							window.setTimeout(function() {
+								jQuery("#message").empty();
+								jQuery("#message").append("Idle");
+							}, 2000);
+						});
+
+						jQuery("#toggleLamp1Button")
+								.click(
+										function() {
+											jQuery
+													.ajax(
+															{
+																url : "http://"
+																		+ document.location.host
+																		+ "/devices/arduino1/actors/led1/services/toggle",
+																type : "POST"
+															}).done(
+															function(data) {
+															}).fail(
+															function(data) {
+															});
+										});
+						jQuery("#toggleLamp2Button")
+								.click(
+										function() {
+											jQuery
+													.ajax(
+															{
+																url : "http://"
+																		+ document.location.host
+																		+ "/devices/arduino1/actors/led2/services/toggle",
+																type : "POST"
+															}).done(
+															function(data) {
+															}).fail(
+															function(data) {
+															});
+										});
+						jQuery("#toggleAllButton")
+								.click(
+										function() {
+											jQuery
+													.ajax(
+															{
+																url : "http://"
+																		+ document.location.host
+																		+ "/services/toggleAll",
+																type : "POST"
+															}).done(
+															function(data) {
+															}).fail(
+															function(data) {
+															});
+										});
+					});
 </script>
 </head>
 <body style="height: 100%;">
@@ -34,10 +93,11 @@
 			<h1>Simple Lighting</h1>
 		</div>
 		<div role="main" class="ui-content">
-			<button id="toggleLed1Button" class="ui-btn ui-corner-all">Toggle
-				LED1</button>
-			<button id="toggleLed2Button" class="ui-btn ui-corner-all">Toggle
-				LED2</button>
+			<div id="message">Idle</div>
+			<button id="toggleLamp1Button" class="ui-btn ui-corner-all">Toggle
+				Lamp 1</button>
+			<button id="toggleLamp2Button" class="ui-btn ui-corner-all">Toggle
+				Lamp 2</button>
 			<button id="toggleAllButton" class="ui-btn ui-corner-all">Toggle
 				All</button>
 		</div>

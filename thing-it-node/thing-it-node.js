@@ -38,21 +38,42 @@ var server = app
 							.log("-----------------------------------------------------------------------------");
 					console.log("\n");
 
-					//initializeNode();
+					initializeNode();
 				});
 
 /**
  * 
  */
-function initializeNode() {
-	var arduino = require("./plugins/arduino/plugin");
-	var angelband = require("./plugins/angelband/plugin");
-	var metadata = [ arduino.metadata, angelband.metadata ];
+function loadPlugins() {
+	var files = fs.readdirSync("./plugins");
+	var plugins = {};
+
+	for (var n = 0; n < files.length; ++n) {
+		console.log("Loading plugin <" + files[n] + ">.");
+
+		try {
+			plugins[files[n]] = require("./plugins/" + files[n] + "/plugin");
+		} catch (x) {
+			console.log("Failed to load plugin <" + files[n] + ">:");
+			console.log(x);
+		}
+	}
+
+	return plugins;
+}
+
+/**
+ * 
+ */
+function initializeNode(plugins) {
 	var nodeConfiguration = loadNodeConfiguration();
 	var node = loadNodeConfiguration();
+	var plugins = loadPlugins();
 
 	if (node) {
 		node = require("./node").create(node);
+
+		node.plugins = plugins;
 
 		node.start(app, io.listen(server))
 	} else {
@@ -63,7 +84,7 @@ function initializeNode() {
 	// Initialize REST API
 
 	app.get("/plugins", function(req, res) {
-		res.send(metadata);
+		res.send(plugins);
 	});
 	app.get("/state", function(req, res) {
 		res.send({

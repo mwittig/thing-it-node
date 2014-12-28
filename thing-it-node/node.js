@@ -164,8 +164,13 @@ function Node() {
 
 		console.log(processedScript);
 
-		with (this) {
-			eval(processedScript);
+		try {
+			with (this) {
+				eval(processedScript);
+			}
+		} catch (x) {
+			console.log("Failed to invoke Service <" + serviceId + ">:");
+			console.log(x);
 		}
 	};
 
