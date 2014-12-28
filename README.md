@@ -11,9 +11,9 @@ All of the above is controlled by a **[nodejs](http://nodejs.org/)** server whic
 
 **thing-it-node** is created because we felt the need for a scalable management entity which bridges Internet services and multiple, possibly heterogenous devices. It is not intended to compete with, but rather complement and use great libraries and frameworks like
 
-* **[](http://fritzing.org/)** by FH Potsdam
+* **[Fritzing](http://fritzing.org/)** by FH Potsdam,
 * **[Johnny Five](https://github.com/rwaldron/johnny-five/wiki/Board)** by Rick Waldron or
-* aREST from Marco Schwarz
+* aREST by Marco Schwarz
 
 # Getting Started
 
@@ -50,7 +50,7 @@ For our example above modify the file _installDir_/**configuration.js** as follo
 
 `nodeConfigurationFile : "_installDir_/examples/simple-lighting/configuration.json"`
 
-If you are interested, have a look at the [configuration file](/examples/simple-lighting/configuration.json).
+If you are interested, have a look at the [configuration file](./examples/simple-lighting/configuration.json).
 
 Start the thing-it-node from _installDir_ via
 
