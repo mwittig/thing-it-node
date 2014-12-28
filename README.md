@@ -62,8 +62,8 @@ which means that your **thing-it-node** server has started properly, found its c
 
 * connect your Arduino Board via USB,
 * connect the LEDs to Pin 12 and 13.
-* connect the Buttons to Pin and .
-* connect the LDR to Pin
+* connect the Buttons to Pin 2 and 4.
+* connect the Photocell to Pin A0.
 
 e.g. like
 
@@ -72,7 +72,7 @@ Restart the **thing-it-node** server. The server output should now look like
 
 
 
-You should also be able switch both LEDs on and off via the respective buttons or by covering the LDR.
+You should also be able switch both LEDs on and off via the respective buttons or switch both LEDs on by covering the Photocell.
 
 Finally, connect your browser to 
 
@@ -81,6 +81,16 @@ Finally, connect your browser to
 Browser content should look like
 
 If you have remote (e.g. Wifi) access to the computer running the **thing-it Server**, you may also use a mobile device (e.g. an iPhone or iPad) to connect to your simple lighting system.
+
+Let us recap what we did:
+
+With
+
+* a simple confirguration file,
+* the corresponding wiring of the Arduino and 
+* a very simple HTML file
+
+but **no programming** we were able to create a simple but realistic home automation scenario.
 
 # Taking it further
 
