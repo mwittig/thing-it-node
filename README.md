@@ -65,6 +65,9 @@ which means that your **thing-it-node** server has started properly, found its c
 * connect the Buttons to Pin and .
 * connect the LDR to Pin
 
+e.g. like
+
+![wiring](./thing-it-node/examples/simple-lighting/wiring.png)
 Restart the **thing-it-node** server. The server output should now look like 
 
 
