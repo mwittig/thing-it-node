@@ -1,0 +1,55 @@
+{
+   "label": "Home",
+   "id": "home",
+   "devices": [
+      {
+    	  "type": {
+            "plugin": "arduino",
+            "label": "Arduino Uno 1"},
+         "actors": [
+            {
+               "id": "led1",
+               "label": "LED1",
+               "type": "led",
+               "configuration": {
+                  "pin": 12
+               }
+            },
+            {
+               "id": "led1",
+               "label": "LED2",
+               "type": "led",
+               "configuration": {
+                  "pin": 13
+               }
+            }
+         ],
+         "sensors": [
+            {
+               "id": "button1",
+               "label": "Button",
+               "type": "button",
+               "configuration": {
+                  "pin": 2
+               }
+            },
+            {
+               "id": "button1",
+               "label": "Button",
+               "type": "button",
+               "configuration": {
+                  "pin": 3
+               }
+            }
+         ]
+      }
+   ],
+   "services": [],
+   "eventProcessors": [
+      {
+         "id": "eventProcessor1",
+         "label": "Event Processor 1",
+         "script": "eventProcessor.observe([arduino.button0]).match(\"== 'hold'\").call(function(){\n   console.log(arduino.led0);\n\t\n   if (arduino.led0.__state.light == 'off')\n   {\n      arduino.led0.blink();\n      arduino.led1.blink();\n   }\n   else\n   {\n      arduino.led0.off();\n      arduino.led1.off();\n   }\t\n});"
+      }
+   ]
+}

@@ -18,6 +18,7 @@ app.use(function(req, res, next) {
 	res.header('Access-Control-Allow-Headers', 'Content-Type');
 	next();
 });
+app.use('/examples', express.static(__dirname + '/examples'));
 
 var server = app
 		.listen(
@@ -117,6 +118,7 @@ function loadNodeConfiguration() {
 					encoding : "utf-8"
 				}));
 	} catch (x) {
+		console.log(x);
 		console.log("Cannot read node configuration from file "
 				+ configuration.nodeConfigurationFile + ".");
 
@@ -136,4 +138,3 @@ function saveNodeConfiguration(node) {
 				encoding : "utf-8"
 			})
 }
-
