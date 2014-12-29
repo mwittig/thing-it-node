@@ -49,36 +49,61 @@ function Node() {
 
 		// Simulate deferred for device initialization
 
-		setTimeout(function() {
-			app.post("/services/:service", function(req, res) {
-				console.log("Call service " + req.params.service);
+		setTimeout(
+				function() {
+					for (var n = 0; n < self.services.length; ++n) {
+						try {
+							self[self.services[n].id] = new Function(
+									'input',
+									self
+											.preprocessScript(self.services[n].script));
 
-				self.callService(req.params.service);
-
-				res.send("");
-			});
-
-			for (var n = 0; n < self.eventProcessors.length; ++n) {
-				try {
-					with (self) {
-						eval(self.eventProcessors[n].script);
+							console.log("\tService <" + self.services[n].id
+									+ "> available.");
+						} catch (x) {
+							console.log("\tFailed to initialize Service <"
+									+ self.services[n].id + ">:");
+							console.log(x);
+						}
 					}
-					console.log("\tEvent Processor <"
-							+ self.eventProcessors[n].label + "> started.");
-				} catch (x) {
-					console.log("\tFailed to start Event Processor <"
-							+ self.eventProcessors[n].label + ">: " + x);
-				}
-			}
 
-			self.heartbeat = setInterval(function() {
-				self.publishHeartbeat();
-			}, 10000);
+					app.post("/services/:service", function(req, res) {
+						console.log("Call service " + req.params.service);
 
-			self.publishHeartbeat();
+						self[req.params.service](req.params.service);
 
-			console.log("Node <" + self.label + "> started.");
-		}, 5000);
+						res.send("");
+					});
+
+					for (var n = 0; n < self.eventProcessors.length; ++n) {
+						try {
+							eventProcessor
+									.create(self, self.eventProcessors[n])
+									.start();
+
+							self[self.eventProcessors[n].id] = new Function(
+									'input',
+									self
+											.preprocessScript(self.eventProcessors[n].script));
+							console.log("\tEvent Processor <"
+									+ self.eventProcessors[n].label
+									+ "> started.");
+						} catch (x) {
+							console
+									.log("\tFailed to start Event Processor <"
+											+ self.eventProcessors[n].label
+											+ ">: " + x);
+						}
+					}
+
+					self.heartbeat = setInterval(function() {
+						self.publishHeartbeat();
+					}, 10000);
+
+					self.publishHeartbeat();
+
+					console.log("Node <" + self.label + "> started.");
+				}, 5000);
 
 		this.state = "running";
 	};

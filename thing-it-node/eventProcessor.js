@@ -1,10 +1,16 @@
 module.exports = {
-	observe : function(sensors) {
-		var eventProcessor = new EventProcessor();
+	create : function(node, eventProcessor) {
+		utils.inheritMethods(eventProcessor, new EventProcessor());
 
-		return eventProcessor.observe(sensors);
+		eventProcessor.node = node;
+
+		eventProcessor.register();
+
+		return eventProcessor;
 	}
 };
+
+var utils = require("./utils");
 
 /**
  * 
@@ -13,72 +19,79 @@ function EventProcessor() {
 	/**
 	 * 
 	 */
-	EventProcessor.prototype.observe = function(sensors) {
-		this.sensors = sensors;
-
-		return this;
-	};
-
-	/**
-	 * 
-	 */
-	EventProcessor.prototype.window = function(length) {
-		this.length = length;
-
-		return this;
-	};
-
-	/**
-	 * 
-	 */
-	EventProcessor.prototype.match = function(pattern) {
-		this.pattern = pattern;
-
-		return this;
-	};
-
-	/**
-	 * 
-	 */
-	EventProcessor.prototype.call = function(callback) {
+	EventProcessor.prototype.register = function(callback) {
 		this.series = [];
 		this.callback = callback;
 
-		for (var n = 0; n < this.sensors.length; ++n) {
-			this.sensors[n].eventProcessors.push(this);
+		for (var n = 0; n < this.observables.length; ++n) {
+			var path = this.observables[n].split(".");
+
+			this.node[path[0]][path[1]].eventProcessors.push(this);
 		}
 	};
 
 	/**
-	 * 
+	 * Records Sensor data for evaluation at the end of the window
 	 */
-	EventProcessor.prototype.push = function(data) {
+	EventProcessor.prototype.push = function(sensor, data) {
 		console.log("Pushing data " + data);
 
 		this.series.push({
 			data : data,
 			timestamp : new Date().getTime()
 		});
+	};
 
-		if (this.series.length >= this.length) {
-			console.log("===> Callback");
+	/**
+	 * Notifies the Event Processor of an Event on a Sensor.
+	 */
+	EventProcessor.prototype.notify = function(sensor, event) {
+		event = sensor.device.id + "." + sensor.id + event;
 
-			// Should be events and series for all sensors
+		// TODO Evaluate event only if "event" property was set, otherwise
+		// collect events
 
-			this.callback(this.series, this.event);
-			this.series = [];
+		if (true/* eval("event " + event) */) {
+			this.event = event;
+
+			this.execute();
 		}
 	};
 
 	/**
-	 * 
+	 * Notifies the Event Processor of an Event on a Sensor.
 	 */
-	EventProcessor.prototype.notify = function(event) {
-		if (true/* eval("event " + event) */) {
-			console.log("===> Callback");
+	EventProcessor.prototype.start = function() {
+		if (this.window) {
+			var self = this;
 
-			this.event = event;
-			this.callback(this.series, this.event);
+			setInterval(function() {
+				console.log("Evaluating interval");
+				console.log(self.series);
+
+				// if (this.series.length >= this.length) {
+				// console.log("===> Callback");
+				//
+				// // Should be events and series for all sensors
+				//
+				// this.callback(this.series, this.event);
+				// }
+
+				self.series = [];
+			}, this.window.duration)
+		}
+	};
+
+	/**
+	 * Execute the Event Processor logic.
+	 */
+	EventProcessor.prototype.execute = function() {
+		try {
+			this.node[this.id]();
+		} catch (x) {
+			console.log("Failed to invoke script for Event Processor <"
+					+ this.id + ">:");
+			console.log(x);
 		}
 	};
 }

@@ -39,14 +39,14 @@ function Sensor() {
 	 * 
 	 */
 	Sensor.prototype.change = function(event) {
-		// Publish change only if specified so
+		// TODO Publish change only if specified so
 
 		if (true) {
 			this.publishData(event);
 		}
 
 		for (var n = 0; n < this.eventProcessors.length; ++n) {
-			this.eventProcessors[n].notify(event);
+			this.eventProcessors[n].notify(this, event);
 		}
 	};
 
@@ -61,7 +61,7 @@ function Sensor() {
 		}
 
 		for (var n = 0; n < this.eventProcessors.length; ++n) {
-			this.eventProcessors[n].push(data);
+			this.eventProcessors[n].push(this, data);
 		}
 	};
 

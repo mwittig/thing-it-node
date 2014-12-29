@@ -173,6 +173,20 @@ module.exports = {
 				unit : "ms"
 			} ]
 		}, {
+			plugin : "photocell",
+			label : "Photocell",
+			configuration : [ {
+				label : "Pin",
+				id : "pin",
+				type : "string"
+			}, {
+				label : "Rate",
+				id : "rate",
+				type : "integer",
+				defaultValue : 1000,
+				unit : "ms"
+			} ]
+		}, {
 			plugin : "button",
 			label : "Button",
 			configuration : [ {

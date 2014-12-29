@@ -27,18 +27,26 @@
          "sensors": [
             {
                "id": "button1",
-               "label": "Button",
+               "label": "Button 1",
                "type": "button",
                "configuration": {
                   "pin": 2
                }
             },
             {
-               "id": "button1",
-               "label": "Button",
+               "id": "button2",
+               "label": "Button 2",
                "type": "button",
                "configuration": {
-                  "pin": 3
+                  "pin": 4
+               }
+            }, 
+            {
+               "id": "photocell1",
+               "label": "Photocell 1",
+               "type": "photocell",
+               "configuration": {
+                  "pin": "A0"
                }
             }
          ]
@@ -47,13 +55,21 @@
    "services": [
    		{
    			"id": "toggleAll",
-   			"script" : "arduino1.led1.toggle(); arduino1.led2.toggle();"
+   			"script" : "this.arduino1.led1.toggle(); this.arduino1.led2.toggle();"
    		}],
    "eventProcessors": [
       {
          "id": "eventProcessor1",
          "label": "Event Processor 1",
-         "script": "eventProcessor.observe([arduino.button0]).match(\"== 'hold'\").call(function(){\n   console.log(arduino.led0);\n\t\n   if (arduino.led0.__state.light == 'off')\n   {\n      arduino.led0.blink();\n      arduino.led1.blink();\n   }\n   else\n   {\n      arduino.led0.off();\n      arduino.led1.off();\n   }\t\n});"
+         "observables": ["arduino1.button1", "arduino1.button2"],
+         "match" : ["arduino1.button1.hold || arduino1.button2.hold"],
+         "script": "this.toggleAll();"
+      }, {
+         "id": "eventProcessor2",
+         "label": "Event Processor 2",
+         "observables": ["arduino1.photocell1"],
+         "window" : {"duration": 5000},
+         "script": "this.arduino1.led1.on(); this.arduino1.led2.on();"
       }
    ]
 }
