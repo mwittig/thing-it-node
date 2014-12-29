@@ -27,13 +27,6 @@
 							}, 2000);
 						});
 						socket.on("actorStateChange", function(stateChange) {
-							jQuery("#message").empty();
-							jQuery("#message").append(stateChange);
-
-							window.setTimeout(function() {
-								jQuery("#message").empty();
-								jQuery("#message").append("Idle");
-							}, 2000);
 						});
 
 						jQuery("#toggleLamp1Button")

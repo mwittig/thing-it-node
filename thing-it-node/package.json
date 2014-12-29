@@ -1,13 +1,13 @@
 {
-  "name": "thingo",
-  "version": "1.0.0",
-  "description": "thingo server",
-  "main": "index.js",
+  "name": "thing-it-node",
+  "version": "0.1.0",
+  "description": "thing-it Node Server",
+  "main": "thing-it-node.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Marc Gille",
+  "license": "MIT",
   "dependencies": {
     "express": "^4.10.1"
   }

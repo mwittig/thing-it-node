@@ -55,20 +55,21 @@
    "services": [
    		{
    			"id": "toggleAll",
-   			"script" : "this.arduino1.led1.toggle(); this.arduino1.led2.toggle();"
+   			"script" : "if (this.arduino1.led1.state == 'on') {this.arduino1.led1.off(); this.arduino1.led2.off();} else {this.arduino1.led1.on(); this.arduino1.led2.on();}"
    		}],
    "eventProcessors": [
       {
          "id": "eventProcessor1",
          "label": "Event Processor 1",
          "observables": ["arduino1.button1", "arduino1.button2"],
-         "match" : ["arduino1.button1.hold || arduino1.button2.hold"],
+         "match" : "arduino1.button1.hold || arduino1.button2.hold",
          "script": "this.toggleAll();"
       }, {
          "id": "eventProcessor2",
          "label": "Event Processor 2",
          "observables": ["arduino1.photocell1"],
          "window" : {"duration": 5000},
+         "match" : "this.minimum(this.arduino1.photocell1.series)< 700",
          "script": "this.arduino1.led1.on(); this.arduino1.led2.on();"
       }
    ]
