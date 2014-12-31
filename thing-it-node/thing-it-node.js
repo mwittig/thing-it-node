@@ -52,7 +52,7 @@ function loadPlugins() {
 		console.log("Loading plugin <" + files[n] + ">.");
 
 		try {
-			plugins[files[n]] = require("./plugins/" + files[n] + "/plugin");
+			plugins[files[n]] = require("./plugins/" + files[n] + "/plugin").create();
 		} catch (x) {
 			console.log("Failed to load plugin <" + files[n] + ">:");
 			console.log(x);

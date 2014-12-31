@@ -1,13 +1,13 @@
 module.exports = {
 	create : function(node, device) {
-		device.type = node.plugins[device.plugin].metadata;
-		
+		device.type = node.plugins[device.plugin];
+
 		utils.inheritMethods(device, new Device());
-		utils.inheritMethods(device, node.plugins[device.plugin].create());
+		utils.inheritMethods(device, device.type);
 
 		device.node = node;
 		node[device.id] = device;
-		
+
 		return device;
 	}
 };
