@@ -47,7 +47,7 @@ var server = app
  */
 function initializeNode() {
 	// TODO Get rid of the two variables
-	
+
 	var nodeConfiguration = loadNodeConfiguration();
 	var activeNode = loadNodeConfiguration();
 

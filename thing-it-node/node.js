@@ -19,7 +19,7 @@ var fs = require("fs");
  * 
  */
 function loadPlugins() {
-	var files = fs.readdirSync("./plugins");
+	var files = fs.readdirSync(__dirname + "/plugins");
 	var plugins = {};
 
 	for (var n = 0; n < files.length; ++n) {
