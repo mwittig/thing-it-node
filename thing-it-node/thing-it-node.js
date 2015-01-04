@@ -1,6 +1,7 @@
 // Imports
 
 var configuration = require("./configuration");
+var node = require("./node");
 var bodyParser = require('body-parser')
 var express = require('express');
 var app = express();
@@ -44,51 +45,29 @@ var server = app
 /**
  * 
  */
-function loadPlugins() {
-	var files = fs.readdirSync("./plugins");
-	var plugins = {};
-
-	for (var n = 0; n < files.length; ++n) {
-		console.log("Loading plugin <" + files[n] + ">.");
-
-		try {
-			plugins[files[n]] = require("./plugins/" + files[n] + "/plugin").create();
-		} catch (x) {
-			console.log("Failed to load plugin <" + files[n] + ">:");
-			console.log(x);
-		}
-	}
-
-	return plugins;
-}
-
-/**
- * 
- */
-function initializeNode(plugins) {
+function initializeNode() {
+	// TODO Get rid of the two variables
+	
 	var nodeConfiguration = loadNodeConfiguration();
-	var node = loadNodeConfiguration();
-	var plugins = loadPlugins();
+	var activeNode = loadNodeConfiguration();
 
-	if (node) {
-		node = require("./node").create(node);
+	if (activeNode) {
+		activeNode = node.create(activeNode);
 
-		node.plugins = plugins;
-
-		node.start(app, io.listen(server))
+		activeNode.start(app, io.listen(server))
 	} else {
 		console
 				.log("No Node Configuration present. Configuration push required.");
 	}
 
-	// Initialize REST API
+	// Initialize REST API for server
 
 	app.get("/plugins", function(req, res) {
-		res.send(plugins);
+		res.send(node.plugins);
 	});
 	app.get("/state", function(req, res) {
 		res.send({
-			state : node == null ? "pending" : node.state,
+			state : activeNode == null ? "pending" : activeNode.state,
 			configuration : nodeConfiguration
 		});
 	});
@@ -96,30 +75,30 @@ function initializeNode(plugins) {
 		res.send(nodeConfiguration);
 	});
 	app.post("/configure", function(req, res) {
-		if (node) {
-			node.stop();
+		if (activeNode) {
+			activeNode.stop();
 		}
 
 		saveNodeConfiguration(req.body);
 
 		nodeConfiguration = loadNodeConfiguration();
-		node = loadNodeConfiguration();
+		activeNode = loadNodeConfiguration();
 
-		node = require("./node").create(node);
+		activeNode = node.create(activeNode);
 
 		res.send("");
 	});
 	app.post("/start", function(req, res) {
-		if (node) {
-			node.start(app, io.listen(server));
+		if (activeNode) {
+			activeNode.start(app, io.listen(server));
 			res.send("");
 		} else {
 			res.send("Node is not configured.");
 		}
 	});
 	app.post("/stop", function(req, res) {
-		if (node) {
-			node.stop();
+		if (activeNode) {
+			activeNode.stop();
 
 			res.send("");
 		} else {

@@ -1,7 +1,9 @@
 module.exports = {
+	plugins : loadPlugins,
 	create : function(node) {
 		utils.inheritMethods(node, new Node());
 
+		node.plugins = loadPlugins();
 		node.state = "configured";
 
 		return node;
@@ -11,6 +13,29 @@ module.exports = {
 var utils = require("./utils");
 var device = require("./device");
 var eventProcessor = require("./eventProcessor");
+var fs = require("fs");
+
+/**
+ * 
+ */
+function loadPlugins() {
+	var files = fs.readdirSync("./plugins");
+	var plugins = {};
+
+	for (var n = 0; n < files.length; ++n) {
+		console.log("Loading plugin <" + files[n] + ">.");
+
+		try {
+			plugins[files[n]] = require("./plugins/" + files[n] + "/plugin")
+					.create();
+		} catch (x) {
+			console.log("Failed to load plugin <" + files[n] + ">:");
+			console.log(x);
+		}
+	}
+
+	return plugins;
+}
 
 /**
  * 
