@@ -111,9 +111,9 @@ Let us recap what we did:
 
 With
 
-* a simple confirguration file,
+* a simple configuration file,
 * the corresponding wiring of the Arduino and 
-* a very simple HTML file
+* a very simple HTML file for mobile
 
 but **no programming** we were able to create a simple but realistic home automation scenario.
 
