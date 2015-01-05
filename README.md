@@ -1,11 +1,13 @@
 **thing-it-node** allows you to 
-* connect controllers like Arduino Uno to your computer (e.g. a Raspberry Pi) to centralize Internet access to a scalable set of Sensors and Actors,
+* connect multiple devices like an Arduino Uno or a Bluetooth-enabled Wristband to your computer (e.g. a Raspberry Pi) to centralize Internet access to a scalable set of Sensors and Actors connected to these devices,
 * invoke REST services on all Actors,
 * receive WebSocket notifications on all Sensor data changes and events,
 * define higher-level services on multiple Actors and also invoke those via REST and
 * define Complex Event Processing on Sensor data changes and events. 
 
-All of the above is controlled by a **[nodejs](http://nodejs.org/)** server which is bootstrapped from a simple JSON configuration.
+All of the above is controlled by a **[nodejs](http://nodejs.org/)** server which is bootstrapped from a simple JSON configuration as oppsed to a complex program.
+
+This allows you to build e.g. a home automation system just with some minimal Web programming.
 
 # Philosophy
 
@@ -13,16 +15,16 @@ All of the above is controlled by a **[nodejs](http://nodejs.org/)** server whic
 
 * **[Fritzing](http://fritzing.org/)** by FH Potsdam,
 * **[Johnny Five](https://github.com/rwaldron/johnny-five/wiki/Board)** by Rick Waldron or
-* aREST by Marco Schwarz
+* aREST by Marco Schwarz.
 
 # Getting Started
 
 Let's try to set up a simple - but not too simple - home automation scenario:
 
 1. Two LEDs representing e.g. two lamps.
-1. An LDR to detect the light in a room and event processing to switch both lamps if the light goes below some threshold.
+1. An LDR to detect the ambient light in a room and event processing to switch both lamps if the light goes below some threshold.
 1. Two buttons to toggle the state of each lamps.
-1. A simple (mobile capable) web application to toggle the state of both lamps individually and together and to display the event under 2.
+1. A simple (mobile capable) web application to toggle the state of both lamps individually and together and to display the event under 2 - alternatively to using the buttons.
 
 To setup this scenario you need the following hardware
 
@@ -35,8 +37,8 @@ To setup this scenario you need the following hardware
 
 all of the above is also available with Arduino Starter Kits like
 
-* or
-*
+* the [Arduino Starter Kit](http://www.amazon.com/Arduino-Starter-Official-170-page-Projects/dp/B009UKZV0A/ref=sr_1_1?s=electronics&ie=UTF8&qid=1420481357&sr=1-1&keywords=arduino+starter+kit) or 
+* the [Fritzing Creator Kit](http://shop.fritzing.org/en/a-136/).
 
 To configure and run *thing-it-node*, install *nodejs* and *npm* on your computer Raspberry Pi. 
 
