@@ -101,7 +101,7 @@ Finally, connect your browser to
 
 Browser content should look like
 
-<img src="./thing-it-node/examples/simple-lighting/mobile-ui.png" alt="Mobile UI" style="width:50%;height:50%">
+<img src="./thing-it-node/examples/simple-lighting/mobile-ui.png" alt="Mobile UI" style="width:400px;height:600px;">
 
 If you have remote (e.g. Wifi) access to the computer running the **thing-it Server**, you may also use a mobile device (e.g. an iPhone or iPad) to connect to your simple lighting system.
 
