@@ -12,6 +12,7 @@ module.exports = {
 	}
 };
 
+var q = require('q');
 var utils = require("./utils");
 var sensor = require("./sensor");
 var actor = require("./actor");
@@ -21,23 +22,40 @@ function Device() {
 	 * 
 	 */
 	Device.prototype.startDevice = function(app, io) {
-		console.log("\tStarting Controller <" + this.label + ">");
+		var deferred = q.defer();
+		var self = this;
 
-		this.startActors(app, io);
-		this.startSensors(app, io);
+		console.log("\tStarting Device <" + this.label + ">");
 
-		console.log("\tController <" + this.label + "> started.");
-	};
-
-	/**
-	 * 
-	 */
-	Device.prototype.startActors = function(app, io) {
-		if (this.actors) {
-			for (var n = 0; n < this.actors.length; ++n) {
-				actor.create(this, this.actors[n]).start(app, io);
-			}
+		if (!this.actors) {
+			this.actors = [];
 		}
+
+		if (!this.sensors) {
+			this.sensors = [];
+		}
+
+		for (var n = 0; n < this.actors.length; ++n) {
+			actor.create(this, this.actors[n]);
+		}
+
+		for (var n = 0; n < this.sensors.length; ++n) {
+			sensor.create(this, this.sensors[n]);
+		}
+
+		utils.promiseSequence(this.actors, 0, "start").then(function() {
+			for (var n = 0; n < self.sensors.length; ++n) {
+				self.sensors[n].start();
+			}
+
+			console.log("\tDevice <" + self.label + "> started.");
+
+			deferred.resolve();
+		}).fail(function(error) {
+			deferred.reject(error);
+		});
+
+		return deferred.promise;
 	};
 
 	/**
@@ -56,12 +74,7 @@ function Device() {
 	/**
 	 * 
 	 */
-	Device.prototype.startSensors = function(app, io) {
-		if (this.actors) {
-			for (var n = 0; n < this.sensors.length; ++n) {
-				sensor.create(this, this.sensors[n]).start(app, io);
-			}
-		}
+	Device.prototype.startSensors = function() {
 	};
 
 	/**
@@ -75,7 +88,6 @@ function Device() {
 		}
 
 		throw "Cannot find Sensor Type <" + plugin + ">.";
-
 	};
 
 	/**
@@ -112,4 +124,12 @@ function Device() {
 
 		console.log("\tController <" + this.label + "> stopped.");
 	};
+
+	/**
+	 * 
+	 */
+	Device.prototype.isSimulated = function() {
+		return this.node.isSimulated();
+	};
+
 }

@@ -4,6 +4,7 @@ module.exports = {
 	}
 };
 
+var q = require('q');
 var five = require("johnny-five");
 
 /**
@@ -13,16 +14,30 @@ function Relay() {
 	/**
 	 * 
 	 */
-	Relay.prototype.start = function(app, io) {
-		this.startActor(app, io);
+	Relay.prototype.start = function() {
+		var deferred = q.defer();
+		var self = this;
 
-		try {
-			this.relay = new five.Relay(this.configuration.pin,
-					this.configuration.type);
-		} catch (x) {
-			this.device.node.publishMessage("Cannot initialize "
-					+ this.device.id + "/" + this.id + ":" + x);
-		}
+		this.startActor().then(
+				function() {
+					if (!self.isSimulated()) {
+						try {
+							self.relay = new five.Relay(self.configuration.pin,
+									self.configuration.type);
+						} catch (x) {
+							self.device.node
+									.publishMessage("Cannot initialize "
+											+ self.device.id + "/" + self.id
+											+ ":" + x);
+						}
+					}
+
+					deferred.resolve();
+				}).fail(function(error) {
+			deferred.reject(error);
+		});
+
+		return deferred.promise;
 	};
 
 	/**
@@ -33,7 +48,7 @@ function Relay() {
 			gate : this.state
 		};
 	};
-	
+
 	/**
 	 * 
 	 */
@@ -58,14 +73,5 @@ function Relay() {
 
 			this.publishStateChange();
 		}
-	};
-
-	/**
-	 * 
-	 */
-	Relay.prototype.publishStateChange = function() {
-		this.device.node.publishActorStateChange(this.device, this, {
-			state : this.state
-		});
 	};
 };

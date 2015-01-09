@@ -4,6 +4,7 @@ module.exports = {
 	}
 };
 
+var q = require('q');
 var five = require("johnny-five");
 
 /**
@@ -13,16 +14,31 @@ function Led() {
 	/**
 	 * 
 	 */
-	Led.prototype.start = function(app, io) {
-		this.startActor(app, io);
+	Led.prototype.start = function() {
+		var deferred = q.defer();
+		var self = this;
 
-		try {
-			this.led = new five.Led(this.configuration.pin);
-		} catch (x) {
-			this.device.node.publishMessage("Cannot initialize "
-					+ this.device.id + "/" + this.id + ":" + x);
-			this.state = "off";
-		}
+		this.startActor().then(
+				function() {
+					self.state = "off";
+
+					if (!self.isSimulated()) {
+						try {
+							self.led = new five.Led(self.configuration.pin);
+						} catch (x) {
+							self.device.node
+									.publishMessage("Cannot initialize "
+											+ self.device.id + "/" + self.id
+											+ ":" + x);
+						}
+					}
+
+					deferred.resolve();
+				}).fail(function(error) {
+			deferred.reject(error);
+		});
+
+		return deferred.promise;
 	};
 
 	/**

@@ -5,6 +5,7 @@ module.exports = {
 };
 
 var utils = require("../../utils");
+var q = require('q');
 var five = require("johnny-five");
 var board = new five.Board();
 
@@ -237,26 +238,29 @@ function Arduino() {
 		} ]
 	} ];
 
-	Arduino.prototype.start = function(app, io, hub) {
+	/**
+	 * 
+	 */
+	Arduino.prototype.start = function() {
+		var deferred = q.defer();
 		var self = this;
-		var initialized = false;
 
-		// TODO board fail, initialize for simulation -> Simulation as flag
+		if (this.isSimulated()) {
+			self.startDevice().then(function() {
+				deferred.resolve();
+			}).fail(function() {
+				deferred.reject();
+			});
+		} else {
+			board.on("ready", function() {
+				self.startDevice().then(function() {
+					deferred.resolve();
+				}).fail(function(error) {
+					deferred.reject(error);
+				});
+			});
+		}
 
-		setTimeout(function() {
-			if (!initialized) {
-				initialized = true;
-
-				self.startDevice(app, io, hub);
-			}
-		}, 10000);
-
-		board.on("ready", function() {
-			if (!initialized) {
-				initialized = true;
-
-				self.startDevice(app, io, hub);
-			}
-		});
+		return deferred.promise;
 	};
 }

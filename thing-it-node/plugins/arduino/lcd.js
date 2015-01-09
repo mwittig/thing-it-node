@@ -4,6 +4,7 @@ module.exports = {
 	}
 };
 
+var q = require('q');
 var five = require("johnny-five");
 
 /**
@@ -14,33 +15,55 @@ function Lcd() {
 	 * 
 	 */
 	Lcd.prototype.start = function(app, io) {
-		this.startActor(app, io);
+		var deferred = q.defer();
+		var self = this;
 
-		this.column = 0;
-		this.row = 0;
-		this.text = [
-				[ ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
-						' ', ' ', ' ', ' ' ],
-				[ ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
-						' ', ' ', ' ', ' ' ] ];
+		this.startActor(app, io)
+				.then(
+						function() {
+							self.column = 0;
+							self.row = 0;
 
-		try {
-			lcd = new five.LCD({
-				pins : [ this.configuration.rsPin, this.configuration.enPin,
-						this.configuration.db4Pin, this.configuration.db5Pin,
-						db6Pin, db7Pin ],
-			// Options:
-			// bitMode: 4 or 8, defaults to 4
-			// lines: number of lines, defaults to 2
-			// dots: matrix dimensions, defaults to "5x8"
-			// bitMode: this.configuration.bitMode,
-			// lines: this.configuration.noOfLines,
-			// dots: this.configuration.matrix
-			});
+							// TODO Redesign: Other dimensions
 
-		} catch (x) {
-			// throw "Cannot initialize Lcd."
-		}
+							self.text = [
+									[ ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
+											' ', ' ', ' ', ' ', ' ', ' ', ' ',
+											' ' ],
+									[ ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
+											' ', ' ', ' ', ' ', ' ', ' ', ' ',
+											' ' ] ];
+
+							if (!self.isSimulated()) {
+								try {
+									lcd = new five.LCD({
+										pins : [ self.configuration.rsPin,
+												self.configuration.enPin,
+												self.configuration.db4Pin,
+												self.configuration.db5Pin,
+												self.configuration.db6Pin,
+												self.configuration.db7Pin ],
+									// Options:
+									// bitMode: 4 or 8, defaults to 4
+									// lines: number of lines, defaults to 2
+									// dots: matrix dimensions, defaults to
+									// "5x8"
+									// bitMode: this.configuration.bitMode,
+									// lines: this.configuration.noOfLines,
+									// dots: this.configuration.matrix
+									});
+								} catch (error) {
+									deferred.resolve("Cannot initialize LCD: "
+											+ error);
+								}
+							}
+
+							deferred.resolve();
+						}).fail(function(error) {
+					deferred.reject(error);
+				});
+
+		return deferred.promise;
 	};
 
 	/**

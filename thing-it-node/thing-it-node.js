@@ -90,10 +90,13 @@ function initializeNode() {
 	});
 	app.post("/start", function(req, res) {
 		if (activeNode) {
-			activeNode.start(app, io.listen(server));
-			res.send("");
+			activeNode.start(app, io.listen(server)).then(function() {
+				res.send("");
+			}).fail(function(error) {
+				res.status(500).send(error);
+			});
 		} else {
-			res.send("Node is not configured.");
+			res.status(500).send("Node is not configured.");
 		}
 	});
 	app.post("/stop", function(req, res) {

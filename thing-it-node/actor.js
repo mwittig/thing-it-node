@@ -12,6 +12,7 @@ module.exports = {
 	}
 };
 
+var q = require('q');
 var utils = require("./utils");
 
 /**
@@ -21,30 +22,39 @@ function Actor() {
 	/**
 	 * 
 	 */
-	Actor.prototype.startActor = function(app, io) {
-		this.local = {};
-
+	Actor.prototype.startActor = function() {
+		var deferred = q.defer();
 		var self = this;
 
-		app.post("/devices/" + this.device.id + "/actors/" + this.id
-				+ "/services/:service", function(req, res) {
-			console.log("Call service on " + self.id);
-			console.log(req.params);
-			console.log(req.body);
+		try {
+			self.device.node.app.post("/devices/" + self.device.id + "/actors/"
+					+ self.id + "/services/:service", function(req, res) {
+				console.log("Call service on " + self.id);
+				console.log(req.params);
+				console.log(req.body);
 
-			try {
-				self[req.params.service](req.body);
+				try {
+					self[req.params.service](req.body);
 
-				res.send(self.getState());
-			} catch (x) {
-				console.log("Failed to invoke service <" + req.params.service
-						+ ">: " + x);
-				res.send("Failed to invoke service <" + req.params.service
-						+ ">: " + x);
-			}
-		});
+					res.send(self.getState());
+				} catch (x) {
+					console.log("Failed to invoke service <"
+							+ req.params.service + ">: " + x);
+					res.status(500).send(
+							"Failed to invoke service <" + req.params.service
+									+ ">: " + x);
+				}
+			});
 
-		console.log("\t\tActor <" + this.label + "> started.");
+			console.log("\t\tActor <" + self.label + "> started.");
+
+			deferred.resolve();
+		} catch (error) {
+			deferred.reject("Failed to start Actor <" + self.label
+					+ "> started: " + error);
+		}
+
+		return deferred.promise;
 	};
 
 	/**
@@ -58,8 +68,14 @@ function Actor() {
 	 * 
 	 */
 	Actor.prototype.publishStateChange = function() {
-		this.device.node.publishActorStateChange(this.device, this, {
-			state : this.state
-		});
+		this.device.node.publishActorStateChange(this.device, this, this
+				.getState());
 	}
+
+	/**
+	 * 
+	 */
+	Actor.prototype.isSimulated = function() {
+		return this.device.isSimulated();
+	};
 }

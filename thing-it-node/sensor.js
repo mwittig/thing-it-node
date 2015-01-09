@@ -22,8 +22,8 @@ function Sensor() {
 	/**
 	 * 
 	 */
-	Sensor.prototype.startSensor = function(app, io) {
-		this.initializeSimulation(app, io);
+	Sensor.prototype.startSensor = function() {
+		this.initializeSimulation();
 
 		console.log("\t\tSensor <" + this.label + "> started.");
 	};
@@ -39,6 +39,9 @@ function Sensor() {
 	 * 
 	 */
 	Sensor.prototype.change = function(event) {
+		console.log("Change on " + this.id + " " + event);
+		console.log(this.eventProcessors);
+
 		// TODO Publish change only if specified so
 
 		if (false) {
@@ -89,20 +92,26 @@ function Sensor() {
 	/**
 	 * 
 	 */
-	Sensor.prototype.initializeSimulation = function(app, io) {
+	Sensor.prototype.isSimulated = function() {
+		return this.device.isSimulated();
+	};
+
+	/**
+	 * 
+	 */
+	Sensor.prototype.initializeSimulation = function() {
 		var self = this;
 
-		app.post(
-				"/devices/" + this.device.id + "/sensors/" + this.id + "/data",
-				function(req, res) {
-					res.send("");
-					console.log("Push data on " + self.id);
-					console.log(req.body);
+		this.device.node.app.post("/devices/" + this.device.id + "/sensors/"
+				+ this.id + "/data", function(req, res) {
+			res.send("");
+			console.log("Push data on " + self.id);
+			console.log(req.body);
 
-					self.data(req.body.value);
-				});
-		app.post("/devices/" + this.device.id + "/sensors/" + this.id
-				+ "/event", function(req, res) {
+			self.data(req.body.value);
+		});
+		this.device.node.app.post("/devices/" + this.device.id + "/sensors/"
+				+ this.id + "/event", function(req, res) {
 			res.send("");
 			console.log("Push event on " + self.id);
 			console.log(req.body);

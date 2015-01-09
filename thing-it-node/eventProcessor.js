@@ -4,18 +4,35 @@ module.exports = {
 
 		eventProcessor.node = node;
 
-		eventProcessor.register();
+		node[eventProcessor.id] = new Function('input', node
+				.preprocessScript(eventProcessor.script));
 
 		return eventProcessor;
 	}
 };
 
 var utils = require("./utils");
+var q = require('q');
 
 /**
  * 
  */
 function EventProcessor() {
+	/**
+	 * 
+	 */
+	EventProcessor.prototype.start = function() {
+		var deferred = q.defer();
+
+		this.register();
+
+		console.log("\tEvent Processor <" + this.label + "> started.");
+
+		deferred.resolve();
+
+		return deferred.promise;
+	};
+
 	/**
 	 * 
 	 */
@@ -51,6 +68,8 @@ function EventProcessor() {
 	 * Notifies the Event Processor of an Event on a Sensor.
 	 */
 	EventProcessor.prototype.notify = function(sensor, event) {
+		console.log("Processing event " + event + " on sensor " + sensor.id);
+
 		event = sensor.device.id + "." + sensor.id + event;
 
 		// TODO Evaluate event only if "event" property was set, otherwise
@@ -110,6 +129,7 @@ function EventProcessor() {
 	 */
 	EventProcessor.prototype.execute = function() {
 		try {
+			console.log("Execute");
 			this.node[this.id]();
 		} catch (x) {
 			console.log("Failed to invoke script for Event Processor <"

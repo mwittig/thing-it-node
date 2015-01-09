@@ -6,9 +6,15 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Marc Gille",
+  "author": {
+    "name": "Marc Gille"
+  },
   "license": "MIT",
   "dependencies": {
     "express": "^4.10.1"
-  }
+  },
+  "readme": "ERROR: No README data found!",
+  "_id": "thing-it-node@0.3.0",
+  "_shasum": "19135244b31f607be6b283cc328fdd2501783050",
+  "_from": "thing-it-node@"
 }
