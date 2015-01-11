@@ -4,8 +4,6 @@ module.exports = {
 	}
 };
 
-var five = require("johnny-five");
-
 /**
  * 
  */
@@ -19,17 +17,21 @@ function Photocell() {
 		var self = this;
 
 		try {
-			this.photocell = new five.Sensor({
-				pin : this.configuration.pin,
-				freq : 5000
-			});
+			if (!self.isSimulated()) {
+				var five = require("johnny-five");
 
-			this.photocell.on("change", function(event) {
-				self.change(event);
-			});
-			this.photocell.on("data", function() {
-				self.data(self.photocell.value);
-			});
+				this.photocell = new five.Sensor({
+					pin : this.configuration.pin,
+					freq : 5000
+				});
+
+				this.photocell.on("change", function(event) {
+					self.change(event);
+				});
+				this.photocell.on("data", function() {
+					self.data(self.photocell.value);
+				});
+			}
 		} catch (x) {
 			this.publishMessage("Cannot initialize " + this.device.id + "/"
 					+ this.id + ":" + x);

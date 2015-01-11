@@ -51,6 +51,8 @@ function initializeNode() {
 	var nodeConfiguration = loadNodeConfiguration();
 	var activeNode = loadNodeConfiguration();
 
+	activeNode.__simulated = configuration.simulated;
+
 	if (activeNode) {
 		activeNode = node.create(activeNode);
 

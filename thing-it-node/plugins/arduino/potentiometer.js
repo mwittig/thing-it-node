@@ -4,8 +4,6 @@ module.exports = {
 	}
 };
 
-var five = require("johnny-five");
-
 /**
  * 
  */
@@ -19,14 +17,18 @@ function Potentiometer() {
 		var self = this;
 
 		try {
-			this.potentiometer = new five.Potentiometer();
+			if (!self.isSimulated()) {
+				var five = require("johnny-five");
 
-			this.potentiometer.on("change", function(data) {
-				self.change(data);
-			});
-			this.potentiometer.on("data", function(event) {
-				self.data(event);
-			});
+				this.potentiometer = new five.Potentiometer();
+
+				this.potentiometer.on("change", function(data) {
+					self.change(data);
+				});
+				this.potentiometer.on("data", function(event) {
+					self.data(event);
+				});
+			}
 		} catch (x) {
 			this.publishMessage("Cannot initialize " + this.device.id + "/"
 					+ this.id + ":" + x);

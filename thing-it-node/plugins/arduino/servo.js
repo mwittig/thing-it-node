@@ -5,7 +5,6 @@ module.exports = {
 };
 
 var q = require('q');
-var five = require("johnny-five");
 
 /**
  * 
@@ -20,6 +19,8 @@ function Servo() {
 
 		this.startActor().then(function() {
 			if (!self.isSimulated()) {
+				var five = require("johnny-five");
+
 				try {
 					self.servo = new five.Servo(self.configuration.pin);
 				} catch (x) {

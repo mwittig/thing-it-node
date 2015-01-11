@@ -5,7 +5,6 @@ module.exports = {
 };
 
 var q = require('q');
-var five = require("johnny-five");
 
 /**
  * 
@@ -24,6 +23,8 @@ function Led() {
 
 					if (!self.isSimulated()) {
 						try {
+							var five = require("johnny-five");
+
 							self.led = new five.Led(self.configuration.pin);
 						} catch (x) {
 							self.device.node

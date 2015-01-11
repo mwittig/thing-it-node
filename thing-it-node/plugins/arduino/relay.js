@@ -5,7 +5,6 @@ module.exports = {
 };
 
 var q = require('q');
-var five = require("johnny-five");
 
 /**
  * 
@@ -22,6 +21,8 @@ function Relay() {
 				function() {
 					if (!self.isSimulated()) {
 						try {
+							var five = require("johnny-five");
+ 
 							self.relay = new five.Relay(self.configuration.pin,
 									self.configuration.type);
 						} catch (x) {

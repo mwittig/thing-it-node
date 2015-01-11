@@ -4,8 +4,6 @@ module.exports = {
 	}
 };
 
-var five = require("johnny-five");
-
 /**
  * 
  */
@@ -21,6 +19,8 @@ function Button() {
 
 		if (!this.isSimulated()) {
 			try {
+				var five = require("johnny-five");
+
 				this.button = new five.Button(this.configuration.pin);
 
 				this.button.on("hold", function() {

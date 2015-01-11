@@ -6,8 +6,6 @@ module.exports = {
 
 var utils = require("../../utils");
 var q = require('q');
-var five = require("johnny-five");
-var board = new five.Board();
 
 function Arduino() {
 	this.plugin = "arduino";
@@ -252,6 +250,9 @@ function Arduino() {
 				deferred.reject();
 			});
 		} else {
+			var five = require("johnny-five");
+			var board = new five.Board();
+
 			board.on("ready", function() {
 				self.startDevice().then(function() {
 					deferred.resolve();

@@ -5,7 +5,6 @@ module.exports = {
 };
 
 var q = require('q');
-var five = require("johnny-five");
 
 /**
  * 
@@ -36,6 +35,8 @@ function Lcd() {
 
 							if (!self.isSimulated()) {
 								try {
+									var five = require("johnny-five");
+
 									lcd = new five.LCD({
 										pins : [ self.configuration.rsPin,
 												self.configuration.enPin,
