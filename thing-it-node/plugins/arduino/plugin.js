@@ -9,10 +9,82 @@ var q = require('q');
 
 function Arduino() {
 	this.plugin = "arduino";
-	this.label = "Arduino";
-	this.actorTypes = [ {
+	this.label = "Arduino Uno";
+	this.manufacturer = "Arduino";
+	this.connectionTypes = [ "USB", "ZigBee", "Ethernet", "Wifi" ];
+	this.dataTypes = {
+		digital : {
+			type : "enumeration",
+			values : [ {
+				id : "0"
+				label : "0"
+			}, {
+				id : "1"
+				label : "1"
+			}, {
+				id : "2"
+				label : "2"
+			}, {
+				id : "~3"
+				label : "~3"
+			}, {
+				id : "4"
+				label : "4"
+			}, {
+				id : "~5"
+				label : "~5"
+			}, {
+				id : "~6"
+				label : "~6"
+			}, {
+				id : "7"
+				label : "7"
+			}, {
+				id : "8"
+				label : "8"
+			}, {
+				id : "~9"
+				label : "~9"
+			}, {
+				id : "~10"
+				label : "~10"
+			}, {
+				id : "~11"
+				label : "~11"
+			}, {
+				id : "12"
+				label : "12"
+			}, {
+				id : "13"
+				label : "13"
+			} ]
+		},
+		analogIn : {
+			type : "enumeration",
+			values : [ {
+				id : "A0"
+				label : "A0"
+			}, {
+				id : "A1"
+				label : "A1"
+			}, {
+				id : "A2"
+				label : "A2"
+			}, {
+				id : "A3"
+				label : "A3"
+			}, {
+				id : "A4"
+				label : "A4"
+			}, {
+				id : "A5"
+				label : "A5"
+			} ]
+		}
+	}, this.actorTypes = [ {
 		plugin : "led",
 		label : "LED",
+		family : "light",
 		services : [ {
 			id : "on",
 			label : "On"
@@ -30,11 +102,12 @@ function Arduino() {
 		configuration : [ {
 			label : "Pin",
 			id : "pin",
-			type : "integer"
+			type : "deviceDefined"
 		} ]
 	}, {
 		plugin : "lcd",
 		label : "LCD Display",
+		family : "textDisplay",
 		services : [ {
 			id : "clear",
 			label : "Clear",
@@ -73,42 +146,36 @@ function Arduino() {
 		configuration : [ {
 			label : "RS Pin",
 			id : "rsPin",
-			type : "integer"
+			type : "deviceDefined"
 		}, {
 			label : "EN Pin",
 			id : "enPin",
-			type : "integer"
+			type : "deviceDefined"
 		}, {
 			label : "DB4 Pin",
 			id : "db4Pin",
-			type : "integer"
+			type : "deviceDefined"
 		}, {
 			label : "DB5 Pin",
 			id : "db5Pin",
-			type : "integer"
+			type : "deviceDefined"
 		}, {
 			label : "DB6 Pin",
 			id : "db6Pin",
-			type : "integer"
+			type : "deviceDefined"
 		}, {
 			label : "DB7 Pin",
 			id : "db7Pin",
-			type : "integer"
+			type : "deviceDefined"
 		}, {
 			label : "Bit-Mode",
 			id : "bitMode",
-			type : "enumeration",
-			values : [ {
-				label : "4",
-				id : "4"
-			}, {
-				label : "8",
-				id : "8"
-			} ]
+			type : "deviceDefined"
 		} ]
 	}, {
 		plugin : "servo",
 		label : "Servo",
+		family : "servo",
 		services : [ {
 			id : "sweep",
 			label : "Sweep",
@@ -121,7 +188,7 @@ function Arduino() {
 		configuration : [ {
 			label : "Pin",
 			id : "pin",
-			type : "integer"
+			type : "deviceDefined"
 		}, {
 			label : "Is Inverted",
 			id : "isInverted",
@@ -139,6 +206,7 @@ function Arduino() {
 	}, {
 		plugin : "relay",
 		label : "Relay",
+		family : "switch",
 		services : [ {
 			id : "open",
 			label : "Open"
@@ -152,7 +220,8 @@ function Arduino() {
 		} ],
 		configuration : [ {
 			label : "Pin",
-			type : "integer"
+			id : "pin",
+			type : "deviceDefined"
 		}, {
 			label : "Type",
 			id : "type",
@@ -169,10 +238,12 @@ function Arduino() {
 	this.sensorTypes = [ {
 		plugin : "potentiometer",
 		label : "Potentiometer",
+		family : "rangeSensor",
+		unit : "Degrees",
 		configuration : [ {
 			label : "Pin",
 			id : "pin",
-			type : "integer"
+			type : "deviceDefined"
 		}, {
 			label : "Rate",
 			id : "rate",
@@ -183,10 +254,12 @@ function Arduino() {
 	}, {
 		plugin : "photocell",
 		label : "Photocell",
+		family : "rangeSensor",
+		unit : "LUX",
 		configuration : [ {
 			label : "Pin",
 			id : "pin",
-			type : "string"
+			type : "deviceDefined"
 		}, {
 			label : "Rate",
 			id : "rate",
@@ -197,10 +270,11 @@ function Arduino() {
 	}, {
 		plugin : "button",
 		label : "Button",
+		family : "button",
 		configuration : [ {
 			label : "Pin",
 			id : "pin",
-			type : "integer"
+			type : "deviceDefined"
 		}, {
 			label : "Holdtime",
 			id : "holdtime",
