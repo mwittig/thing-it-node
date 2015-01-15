@@ -13,71 +13,71 @@ function Arduino() {
 	this.manufacturer = "Arduino";
 	this.connectionTypes = [ "USB", "ZigBee", "Ethernet", "Wifi" ];
 	this.dataTypes = {
-		digital : {
-			type : "enumeration",
+		digitalInOutPin : {
+			family : "enumeration",
 			values : [ {
-				id : "0"
+				id : "0",
 				label : "0"
 			}, {
-				id : "1"
+				id : "1",
 				label : "1"
 			}, {
-				id : "2"
+				id : "2",
 				label : "2"
 			}, {
-				id : "~3"
+				id : "~3",
 				label : "~3"
 			}, {
-				id : "4"
+				id : "4",
 				label : "4"
 			}, {
-				id : "~5"
+				id : "~5",
 				label : "~5"
 			}, {
-				id : "~6"
+				id : "~6",
 				label : "~6"
 			}, {
-				id : "7"
+				id : "7",
 				label : "7"
 			}, {
-				id : "8"
+				id : "8",
 				label : "8"
 			}, {
-				id : "~9"
+				id : "~9",
 				label : "~9"
 			}, {
-				id : "~10"
+				id : "~10",
 				label : "~10"
 			}, {
-				id : "~11"
+				id : "~11",
 				label : "~11"
 			}, {
-				id : "12"
+				id : "12",
 				label : "12"
 			}, {
-				id : "13"
+				id : "13",
 				label : "13"
 			} ]
 		},
-		analogIn : {
-			type : "enumeration",
+		analogInPin : {
+			family : "enumeration",
 			values : [ {
-				id : "A0"
+				id : "A0",
 				label : "A0"
 			}, {
-				id : "A1"
+				id : "A1",
 				label : "A1"
 			}, {
-				id : "A2"
+				id : "A2",
 				label : "A2"
 			}, {
-				id : "A3"
+				id : "A3",
 				label : "A3"
 			}, {
-				id : "A4"
+				id : "A4",
 				label : "A4"
 			}, {
-				id : "A5"
+				id : "A5",
 				label : "A5"
 			} ]
 		}
@@ -102,7 +102,7 @@ function Arduino() {
 		configuration : [ {
 			label : "Pin",
 			id : "pin",
-			type : "deviceDefined"
+			type: {family: "reference", id: "digitalInOutPin"}
 		} ]
 	}, {
 		plugin : "lcd",
@@ -118,7 +118,7 @@ function Arduino() {
 			parameters : [ {
 				label : "Text",
 				id : "text",
-				type : "string"
+				type : {id: "string"}
 			} ]
 		}, {
 			id : "cursorAt",
@@ -126,11 +126,11 @@ function Arduino() {
 			parameters : [ {
 				label : "Row",
 				id : "row",
-				type : "integer"
+				type : {id: "integer"}
 			}, {
 				label : "Column",
 				id : "column",
-				type : "integer"
+				type : {id: "integer"}
 			} ]
 		} ],
 		state : [ {
@@ -146,31 +146,31 @@ function Arduino() {
 		configuration : [ {
 			label : "RS Pin",
 			id : "rsPin",
-			type : "deviceDefined"
+			type: {family: "reference", id: "digitalInOutPin"}
 		}, {
 			label : "EN Pin",
 			id : "enPin",
-			type : "deviceDefined"
+			type: {family: "reference", id: "digitalInOutPin"}
 		}, {
 			label : "DB4 Pin",
 			id : "db4Pin",
-			type : "deviceDefined"
+			type: {family: "reference", id: "digitalInOutPin"}
 		}, {
 			label : "DB5 Pin",
 			id : "db5Pin",
-			type : "deviceDefined"
+			type: {family: "reference", id: "digitalInOutPin"}
 		}, {
 			label : "DB6 Pin",
 			id : "db6Pin",
-			type : "deviceDefined"
+			type: {family: "reference", id: "digitalInOutPin"}
 		}, {
 			label : "DB7 Pin",
 			id : "db7Pin",
-			type : "deviceDefined"
+			type: {family: "reference", id: "digitalInOutPin"}
 		}, {
 			label : "Bit-Mode",
 			id : "bitMode",
-			type : "deviceDefined"
+			type: {family: "reference", id: "digitalInOutPin"}
 		} ]
 	}, {
 		plugin : "servo",
@@ -188,20 +188,20 @@ function Arduino() {
 		configuration : [ {
 			label : "Pin",
 			id : "pin",
-			type : "deviceDefined"
+			type: {family: "reference", id: "digitalInOutPin"}
 		}, {
 			label : "Is Inverted",
 			id : "isInverted",
-			type : "boolean"
+			type : {id: "boolean"}
 		}, {
 			label : "Start At",
 			id : "startAt",
-			type : "integer",
+			type : {id: "integer"},
 			defaultValue : 0
 		}, {
 			label : "Center",
 			id : "center",
-			type : "boolean"
+			type : {id: "boolean"}
 		} ]
 	}, {
 		plugin : "relay",
@@ -221,18 +221,18 @@ function Arduino() {
 		configuration : [ {
 			label : "Pin",
 			id : "pin",
-			type : "deviceDefined"
+			type: {family: "reference", id: "digitalInOutPin"}
 		}, {
 			label : "Type",
 			id : "type",
-			type : "enumeration",
+			type : {family: "enumeration",
 			values : [ {
 				label : "Normally Open",
 				id : "NO"
 			}, {
 				label : "Normally Close",
 				id : "NC"
-			} ]
+			} ]}
 		} ]
 	} ];
 	this.sensorTypes = [ {
@@ -243,11 +243,11 @@ function Arduino() {
 		configuration : [ {
 			label : "Pin",
 			id : "pin",
-			type : "deviceDefined"
+			type: {family: "reference", id: "analogInPin"}
 		}, {
 			label : "Rate",
 			id : "rate",
-			type : "integer",
+			type : {id: "integer"},
 			defaultValue : 1000,
 			unit : "ms"
 		} ]
@@ -259,11 +259,11 @@ function Arduino() {
 		configuration : [ {
 			label : "Pin",
 			id : "pin",
-			type : "deviceDefined"
+			type: {family: "reference", id: "analogInPin"}
 		}, {
 			label : "Rate",
 			id : "rate",
-			type : "integer",
+			type : {id: "integer"},
 			defaultValue : 1000,
 			unit : "ms"
 		} ]
@@ -274,37 +274,37 @@ function Arduino() {
 		configuration : [ {
 			label : "Pin",
 			id : "pin",
-			type : "deviceDefined"
+			type: {family: "reference", id: "digitalInOutPin"}
 		}, {
 			label : "Holdtime",
 			id : "holdtime",
-			type : "integer",
+			type : {id: "integer"},
 			defaultValue : 500,
 			unit : "ms"
 		}, {
 			label : "Send Click Events",
 			id : "sendClickEvents",
-			type : "boolean",
+			type : {id: "boolean"},
 			defaultValue : true
 		}, , {
 			label : "Send Down Events",
 			id : "sendDownEvents",
-			type : "boolean",
+			type : {id: "boolean"},
 			defaultValue : false
 		}, {
 			label : "Send Down Events",
 			id : "sendDownEvents",
-			type : "boolean",
+			type : {id: "boolean"},
 			defaultValue : false
 		}, {
 			label : "Send Hold Events",
 			id : "sendHoldEvents",
-			type : "boolean",
+			type : {id: "boolean"},
 			defaultValue : false
 		}, {
 			label : "Holdtime",
 			id : "holdtime",
-			type : "integer",
+			type : {id: "integer"},
 			defaultValue : 500,
 			unit : "ms"
 		} ]

@@ -254,11 +254,11 @@ function Node() {
 	 * 
 	 */
 	Node.prototype.preprocessScript = function(script) {
-		
+
 		// Wrap to avoid this
-		
-		script += "with (this) {" + script + "}"
-		
+
+		script = "with (this) {" + script + "}";
+
 		// Built-in functions
 
 		script = script.replace(new RegExp("delay", "g"), "this.delay");
