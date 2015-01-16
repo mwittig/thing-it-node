@@ -11,7 +11,7 @@ This allows you to build e.g. a home automation system just with some minimal We
 
 # Dual License
 
-**thing-it-node** is available under the **[MIT License]()** and the **[Eclipse Public License](https://eclipse.org/org/documents/epl-v10.html)**.
+**thing-it-node** is available under the **[MIT License](./thing-it-node/license.mit)** and the **[Eclipse Public License](https://eclipse.org/org/documents/epl-v10.html)**.
 
 # Philosophy
 
