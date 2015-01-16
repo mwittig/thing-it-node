@@ -136,6 +136,20 @@ With
 
 but **no programming** we were able to create a simple but realistic home automation scenario.
 
+If you still find the creation of the configuration file too technical - you may consider to use the free services if **[www.thing-it.com](http://www.thing-it.com)** to create and simulate your setup and then just download the configuration file.
+
+On **[www.thing-it.com](http://www.thing-it.com)** you would define a Node
+
+<img src="./thing-it-node/documentation/thing-it-node.png" style="">
+
+put Actors, Sensors, Services and Event Processors together
+
+<img src="./thing-it-node/documentation/thing-it-node.png" style="">
+
+and edit the logic of Event Processors.
+
+<img src="./thing-it-node/documentation/thing-it-node.png" style="">
+
 # Taking it further
 
 If you have the **Getting Started** example running, you may want to
