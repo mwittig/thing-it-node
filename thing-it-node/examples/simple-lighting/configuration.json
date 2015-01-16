@@ -55,7 +55,7 @@
    "services": [
    		{
    			"id": "toggleAll",
-   			"script" : "if (this.arduino1.led1.state == 'on') {this.arduino1.led1.off(); this.arduino1.led2.off();} else {this.arduino1.led1.on(); this.arduino1.led2.on();}"
+   			"script" : "if (arduino1.led1.state == 'on') {arduino1.led1.off(); arduino1.led2.off();} else {arduino1.led1.on(); .arduino1.led2.on();}"
    		}],
    "eventProcessors": [
       {
