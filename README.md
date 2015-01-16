@@ -152,7 +152,7 @@ edit the logic of **Event Processors**
 
 <img src="./thing-it-node/documentation/images/thing-it-event-processor.png" style="">
 
-and **Services** and then simulate and test the configuration before you download it to your *thing-it-node** deployment.
+and **Services** and then simulate and test the configuration before you download it to your **thing-it-node** deployment.
 
 # Taking it further
 
