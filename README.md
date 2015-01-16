@@ -140,17 +140,19 @@ If you still find the creation of the configuration file too technical - you may
 
 **[www.thing-it.com](http://www.thing-it.com) will be live soon!**
 
-On **[www.thing-it.com](http://www.thing-it.com)** you would define a Node
+On **[www.thing-it.com](http://www.thing-it.com)** you would define **Nodes** and **Devices**
 
 <img src="./thing-it-node/documentation/images/thing-it-node-configuration.png" style="">
 
-put Actors, Sensors, Services and Event Processors together
+put **Actors**, **Sensors**, **Services** and **Event Processors** together,
 
 <img src="./thing-it-node/documentation/images/thing-it-switchboard.png" style="">
 
-and edit the logic of Event Processors.
+edit the logic of Event Processors
 
-<img src="./thing-it-node/documentation/thing-it-event-processor.png" style="">
+<img src="./thing-it-node/documentation/images/thing-it-event-processor.png" style="">
+
+and **Services** and then simulate and test the configuration before you download it to your *thing-it-node** deployment.
 
 # Taking it further
 
