@@ -138,17 +138,19 @@ but **no programming** we were able to create a simple but realistic home automa
 
 If you still find the creation of the configuration file too technical - you may consider to use the free services if **[www.thing-it.com](http://www.thing-it.com)** to create and simulate your setup and then just download the configuration file.
 
+**[www.thing-it.com](http://www.thing-it.com) will be live soon!**
+
 On **[www.thing-it.com](http://www.thing-it.com)** you would define a Node
 
-<img src="./thing-it-node/documentation/thing-it-node.png" style="">
+<img src="./thing-it-node/documentation/images/thing-it-node-configuration.png" style="">
 
 put Actors, Sensors, Services and Event Processors together
 
-<img src="./thing-it-node/documentation/thing-it-node.png" style="">
+<img src="./thing-it-node/documentation/images/thing-it-switchboard.png" style="">
 
 and edit the logic of Event Processors.
 
-<img src="./thing-it-node/documentation/thing-it-node.png" style="">
+<img src="./thing-it-node/documentation/thing-it-event-processor.png" style="">
 
 # Taking it further
 
