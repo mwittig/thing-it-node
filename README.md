@@ -42,9 +42,24 @@ To setup this scenario you need the following hardware
 all of the above is also available with Arduino Starter Kits like
 
 * the [Arduino Starter Kit](http://www.amazon.com/Arduino-Starter-Official-170-page-Projects/dp/B009UKZV0A/ref=sr_1_1?s=electronics&ie=UTF8&qid=1420481357&sr=1-1&keywords=arduino+starter+kit) or 
+* the [Sparkfun Inventor's Kit]() or
 * the [Fritzing Creator Kit](http://shop.fritzing.org/en/a-136/).
 
-To configure and run *thing-it-node*, install *nodejs* and *npm* on your computer Raspberry Pi. 
+To get the Arduino connected
+
+* Download and install the Arduino IDE
+* Plug in your Arduino or Arduino compatible microcontroller via USB,
+* Open the Arduino IDE, select: *File &raquo; Examples &raquo; Firmata &raquo; StandardFirmata*,
+* Click *Upload*.
+* 
+If the upload was successful, the board is now prepared and you can close the Arduino IDE.
+
+To configure and run *thing-it-node*, 
+
+* install *nodejs* and 
+* run *npm* 
+ 
+on your computer (e.g. your Raspberry Pi). 
 
 Then install **thing-it-node**:
 
