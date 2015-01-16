@@ -5,9 +5,13 @@
 * define higher-level services on multiple Actors and also invoke those via REST and
 * define Complex Event Processing on Sensor data changes and events. 
 
-All of the above is controlled by a **[nodejs](http://nodejs.org/)** server which is bootstrapped from a simple JSON configuration as oppsed to a complex program.
+All of the above is controlled by a **[nodejs](http://nodejs.org/)** server which is bootstrapped from a simple JSON configuration as opposed to a complex program.
 
 This allows you to build e.g. a home automation system just with some minimal Web programming.
+
+# Dual License
+
+**thing-it-node** is available under the **[MIT License]()** and the **[Eclipse Public License](https://eclipse.org/org/documents/epl-v10.html)**.
 
 # Philosophy
 
