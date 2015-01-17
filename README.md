@@ -136,11 +136,11 @@ With
 
 but **no programming** we were able to create a simple but realistic home automation scenario.
 
-If you still find the creation of the configuration file too technical - you may consider to use the free services of **[www.thing-it.com](http://www.thing-it.com)** to create and simulate your setup and then just download the configuration file.
+If you still find the creation of the configuration file too technical - you may consider to use the free services of [www.thing-it.com](http://www.thing-it.com) to create and simulate your setup and then just download the configuration file.
 
-**[www.thing-it.com](http://www.thing-it.com) will be live soon!**
+[www.thing-it.com](http://www.thing-it.com) will be live soon!**
 
-On **[www.thing-it.com](http://www.thing-it.com)** you would define **Nodes** and **Devices**
+On [www.thing-it.com](http://www.thing-it.com) you would define **Nodes** and **Devices**
 
 <img src="./thing-it-node/documentation/images/thing-it-node-configuration.png" style="">
 
