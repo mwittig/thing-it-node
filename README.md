@@ -47,12 +47,12 @@ all of the above is also available with Arduino Starter Kits like
 
 To get the Arduino connected
 
-* Download and install the Arduino IDE
-* Plug in your Arduino or Arduino compatible microcontroller via USB,
-* Open the Arduino IDE, select: *File &raquo; Examples &raquo; Firmata &raquo; StandardFirmata*,
-* Click *Upload*.
-* 
-If the upload was successful, the board is now prepared and you can close the Arduino IDE.
+* download and install the Arduino IDE
+* plug in your Arduino or Arduino compatible microcontroller via USB,
+* open the Arduino IDE, select: *File &raquo; Examples &raquo; Firmata &raquo; StandardFirmata*,
+* click *Upload*.
+
+If the upload was successful, the board is now prepared.
 
 To configure and run *thing-it-node*, 
 
