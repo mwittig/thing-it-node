@@ -34,10 +34,10 @@ Let's try to set up a simple - but not too simple - home automation scenario:
 
 ## Installing, Configuring and Running thing-it-node
 
-To install, configure and run  *thing-it-node*, first
+To install, configure and run  *thing-it-node*, first install
 
-* install *nodejs* and 
-* run *npm* 
+* **nodejs** and 
+* **npm** 
  
 on your computer (e.g. your Raspberry Pi). 
 
@@ -45,15 +45,15 @@ Then install **thing-it-node**:
 
 `npm install thing-it-node`
 
-in a directory _installDir_.
+in a directory _&lt;installDir&gt;_.
 
-For our example above modify the file _installDir_/**configuration.js** as follows
+For our example above modify the file **_&lt;installDir&gt;_/configuration.js** as follows
 
-`nodeConfigurationFile : "_installDir_/examples/simple-lighting/configuration.json"`
+`nodeConfigurationFile : "&lt;installDir&gt;/examples/simple-lighting/configuration.json"`
 
-If you are interested, have a look at the [configuration file](./thing-it-node/examples/simple-lighting/configuration.json).
+If you are interested, have a look at the [configuration file](./thing-it-node/examples/simple-lighting/configuration.json) - the content should be self-explanatory.
 
-Start the thing-it-node from _installDir_ via
+Start the thing-it-node from _&lt;installDir&gt;_ via
 
 `node thing-it-node.js`
 
