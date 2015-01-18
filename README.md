@@ -34,7 +34,7 @@ Let's set up a simple - but not too simple - home automation scenario:
 
 ## Installing, Configuring and Running thing-it-node
 
-To install, configure and run  *thing-it-node*, first install
+To install, configure and run  **thing-it-node**, first install
 
 * **nodejs** and 
 * **npm** 
