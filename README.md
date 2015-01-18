@@ -23,6 +23,8 @@ This allows you to build e.g. a home automation system just with some minimal We
 
 # Getting Started
 
+## The Scenario
+
 Let's try to set up a simple - but not too simple - home automation scenario:
 
 1. Two LEDs representing e.g. two lamps.
@@ -30,31 +32,9 @@ Let's try to set up a simple - but not too simple - home automation scenario:
 1. Two buttons to toggle the state of each lamps.
 1. A simple (mobile capable) web application to toggle the state of both lamps individually and together and to display the event under 2 - alternatively to using the buttons.
 
-To setup this scenario you need the following hardware
+## Installing, Configuring and Running thing-it-node
 
-* an Arduino Uno board [http://www.adafruit.com/product/50](http://www.adafruit.com/product/50),
-* two LEDs e.g. [https://www.sparkfun.com/products/9590](https://www.sparkfun.com/products/9590),
-* a Photocell, e.g. [http://www.adafruit.com/product/161](http://www.adafruit.com/product/161),
-* two buttons, e.g.
-* possibly a breadboard (e.g. [http://www.adafruit.com/product/64](http://www.adafruit.com/product/64)) and 
-* some jumper wires [http://www.adafruit.com/product/758](http://www.adafruit.com/product/758)
-
-all of the above is also available with Arduino Starter Kits like
-
-* the [Arduino Starter Kit](http://www.amazon.com/Arduino-Starter-Official-170-page-Projects/dp/B009UKZV0A/ref=sr_1_1?s=electronics&ie=UTF8&qid=1420481357&sr=1-1&keywords=arduino+starter+kit) or 
-* the [Sparkfun Inventor's Kit]() or
-* the [Fritzing Creator Kit](http://shop.fritzing.org/en/a-136/).
-
-To get the Arduino connected
-
-* download and install the Arduino IDE
-* plug in your Arduino or Arduino compatible microcontroller via USB,
-* open the Arduino IDE, select: *File &raquo; Examples &raquo; Firmata &raquo; StandardFirmata*,
-* click *Upload*.
-
-If the upload was successful, the board is now prepared.
-
-To configure and run *thing-it-node*, 
+To install, configure and run  *thing-it-node*, first
 
 * install *nodejs* and 
 * run *npm* 
@@ -90,17 +70,43 @@ You will see something like
     Loading plugin <arduino>.
     Starting Node <Home>.
      	Starting Controller <Arduino Uno 1>
-		Actor <LED1> started.
+		Actor <LED 1> started.
     Published message Cannot initialize arduino1/led1:TypeError: Cannot read property 'type' of null
-		Actor <LED2> started.
+		Actor <LED 2> started.
     Published message Cannot initialize arduino1/led1:TypeError: Cannot read property 'type' of null
-		Sensor <Button> started.
+		Sensor <Button 1> started.
     Published message Cannot initialize arduino1/button1:TypeError: Cannot read property 'type' of null
-		Sensor <Button> started.
-    Published message Cannot initialize arduino1/button1:TypeError: Cannot read property 'type' of null
+		Sensor <Button 2> started.
+    Published message Cannot initialize arduino1/button2:TypeError: Cannot read property 'type' of null
 	Controller <Arduino Uno 1> started.
 
-which means that your **thing-it-node** server has started properly, found its configuration but determined that your Arduino Board is not wired up yet. Hence,
+which means that your **thing-it-node** server has started properly, found its configuration but determined that your Arduino Board is not wired up yet.
+
+## Setting up Board, Actors and Sensors
+
+To setup your board you need the following hardware
+
+* an Arduino Uno board [http://www.adafruit.com/product/50](http://www.adafruit.com/product/50),
+* two LEDs e.g. [https://www.sparkfun.com/products/9590](https://www.sparkfun.com/products/9590),
+* a Photocell, e.g. [http://www.adafruit.com/product/161](http://www.adafruit.com/product/161),
+* two buttons, e.g.
+* possibly a breadboard (e.g. [http://www.adafruit.com/product/64](http://www.adafruit.com/product/64)) and 
+* possibly some jumper wires [http://www.adafruit.com/product/758](http://www.adafruit.com/product/758)
+
+all of the above is also available with Arduino Starter Kits like
+
+* the [Arduino Starter Kit](http://www.amazon.com/Arduino-Starter-Official-170-page-Projects/dp/B009UKZV0A/ref=sr_1_1?s=electronics&ie=UTF8&qid=1420481357&sr=1-1&keywords=arduino+starter+kit) or 
+* the [Sparkfun Inventor's Kit]() or
+* the [Fritzing Creator Kit](http://shop.fritzing.org/en/a-136/).
+
+To get the Arduino connected
+
+* download and install the Arduino IDE
+* plug in your Arduino or Arduino compatible microcontroller via USB,
+* open the Arduino IDE, select: *File &raquo; Examples &raquo; Firmata &raquo; StandardFirmata*,
+* click *Upload*.
+
+If the upload was successful, the board is now prepared. Now,
 
 * connect your Arduino Board via USB,
 * connect the LEDs to Pin 12 and 13.
@@ -110,9 +116,25 @@ which means that your **thing-it-node** server has started properly, found its c
 e.g. like
 
 ![wiring](./thing-it-node/examples/simple-lighting/wiring.png)
-Restart the **thing-it-node** server. The server output should now look like 
+
+Restart the **thing-it-node** server. The output should now look like 
+
+    ---------------------------------------------------------------------------
+     thing-it Node at http://0.0.0.0:3001
 
 
+     Copyright (c) 2014-2015 Marc Gille. All rights reserved.
+    -----------------------------------------------------------------------------
+
+
+    Loading plugin <arduino>.
+    Starting Node <Home>.
+     	Starting Device <Arduino Uno 1>
+		Actor <LED 1> started.
+		Actor <LED 2> started.
+		Sensor <Button 1> started.
+		Sensor <Button 2> started.
+	Device <Arduino Uno 1> started.
 
 You should also be able switch both LEDs on and off via the respective buttons or switch both LEDs on by covering the Photocell.
 
