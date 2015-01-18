@@ -25,7 +25,7 @@ This allows you to build e.g. a home automation system just with some minimal We
 
 ## The Scenario
 
-Let's try to set up a simple - but not too simple - home automation scenario:
+Let's set up a simple - but not too simple - home automation scenario:
 
 1. Two LEDs representing e.g. two lamps.
 1. A Photocell to detect the ambient light in a room and event processing to switch on both lamps if the light goes below some threshold.
