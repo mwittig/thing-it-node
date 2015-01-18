@@ -49,7 +49,7 @@ in a directory _&lt;installDir&gt;_.
 
 For our example above modify the file **_&lt;installDir&gt;_/configuration.js** as follows
 
-`nodeConfigurationFile : "&lt;installDir&gt;/examples/simple-lighting/configuration.json"`
+`nodeConfigurationFile : "<installDir>/examples/simple-lighting/configuration.json"`
 
 If you are interested, have a look at the [configuration file](./thing-it-node/examples/simple-lighting/configuration.json) - the content should be self-explanatory.
 
