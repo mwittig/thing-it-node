@@ -53,7 +53,7 @@ For our example above modify the file **_&lt;installDir&gt;_/configuration.js** 
 
 If you are interested, have a look at the [configuration file](./thing-it-node/examples/simple-lighting/configuration.json) - the content should be self-explanatory.
 
-Start the thing-it-node from _&lt;installDir&gt;_ via
+Start the **thing-it-node** from _&lt;installDir&gt;_ via
 
 `node thing-it-node.js`
 
