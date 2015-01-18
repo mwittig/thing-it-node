@@ -29,8 +29,8 @@ Let's set up a simple - but not too simple - home automation scenario:
 
 1. Two LEDs representing e.g. two lamps.
 1. A Photocell to detect the ambient light in a room and event processing to switch on both lamps if the light goes below some threshold.
-1. Two buttons to toggle the state of each lamps.
-1. A simple (mobile capable) web application to toggle the state of both lamps individually and together and to display the event under 2 - alternatively to using the buttons.
+1. Two buttons to toggle the state of each lamp.
+1. A simple (mobile capable) web application to toggle the state of both lamps individually and together - alternatively to using the buttons - and to display the event under 2.
 
 ## Installing, Configuring and Running thing-it-node
 
