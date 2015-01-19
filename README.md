@@ -1,9 +1,17 @@
-**thing-it-node** allows you to 
-* connect multiple devices like an Arduino Uno or a Bluetooth-enabled Wristband to your computer (e.g. a Raspberry Pi) to centralize Internet access to a scalable set of Sensors and Actors connected to these devices,
-* invoke REST services on all Actors,
-* receive WebSocket notifications on all Sensor data changes and events,
-* define higher-level services on multiple Actors and also invoke those via REST and
-* define Complex Event Processing on Sensor data changes and events. 
+**thing-it-node** allows you to connect multiple devices like an Arduino Uno or a Bluetooth-enabled Wristband to your computer (e.g. a Raspberry Pi) to centralize Internet access to a scalable set of Sensors and Actors connected to these devices, invoke REST services on all Actors, e.g.
+ 
+	jQuery.ajax({url : "http://yournode/devices/arduino1/actors/led1/services/on”, type : "POST"}).done(
+
+and receive WebSocket notifications on all Sensor data changes and events, e.g. via
+
+	var socket = new io("http://yournode/");
+	
+	socket.on("actorStateChange", function(event) {
+		console.log(event.device);
+		console.log(event.actor);
+	});
+
+Furthermore, you can define higher-level services on multiple Actors and also invoke those via REST and define Complex Event Processing on Sensor data changes and events. 
 
 All of the above is controlled by a **[nodejs](http://nodejs.org/)** server which is bootstrapped from a simple JSON configuration as opposed to a complex program.
 
