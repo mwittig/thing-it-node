@@ -1,6 +1,6 @@
 **thing-it-node** allows you to connect multiple devices like an Arduino Uno or a Bluetooth-enabled Wristband to your node computer (e.g. a regular server, a Raspberry Pi or a BeagleBone Black) to centralize Internet access to a scalable set of Sensors and Actors connected to these devices, invoke REST services on all Actors, e.g.
  
-	jQuery.ajax({url : "http://yournode/devices/arduino1/actors/led1/services/on”, type : "POST"}).done(
+	jQuery.ajax({url : "http://yournode/devices/arduino1/actors/led1/services/on”, type : "POST"}).done(...).fail(...);
 
 and receive WebSocket notifications on all Sensor data changes and events, e.g. via
 
@@ -13,15 +13,27 @@ and receive WebSocket notifications on all Sensor data changes and events, e.g. 
 		console.log(event.data);
 	});
 
-Furthermore, you can define higher-level services on multiple Actors and also invoke those via REST and define Complex Event Processing on Sensor data changes and events. 
+Furthermore, you can define **Higher-level Services** on multiple Actors, e.g. to
 
-All of the above is controlled by a **[nodejs](http://nodejs.org/)** server which is bootstrapped from a simple JSON configuration as opposed to a complex program.
+* switch multiple LEDs on or off or close and open multiple Relays or
+* create output on an LCD display and create a sound on a Piezo.
+
+and also invoke those via REST, e.g.
+
+	jQuery.ajax({url : "http://yournode/services/allLEDsOn”, type : "POST"}).done(...).fail(...);
+
+and define Complex Event Processing on Sensor data changes and events, e.g.
+
+* to produce LCD and Piezo output on simultaneous data changes on a motion detector, a thermo sensor and a sound detector for an alarm system or
+* open the door if an RFID tag approaches an RFID receiver.
+
+All of the above is controlled by a [nodejs](http://nodejs.org/) server which is bootstrapped from a simple JSON configuration as opposed to a complex program.
 
 This allows you to build e.g. a home automation system just with some minimal Web programming.
 
 # Dual License
 
-**thing-it-node** is available under the **[MIT License](./thing-it-node/license.mit)** and the **[Eclipse Public License](https://eclipse.org/org/documents/epl-v10.html)**.
+**thing-it-node** is available under the [MIT License](./thing-it-node/license.mit) and the [Eclipse Public License](https://eclipse.org/org/documents/epl-v10.html).
 
 # Philosophy
 
