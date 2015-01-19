@@ -1,10 +1,10 @@
 **thing-it-node** allows you to connect multiple devices like an Arduino Uno or a Bluetooth-enabled Wristband to your node computer (e.g. a regular server, a Raspberry Pi or a BeagleBone Black) to centralize Internet access to a scalable set of Sensors and Actors connected to these devices, invoke REST services on all Actors, e.g.
  
-	jQuery.ajax({url : "http://yournode/devices/arduino1/actors/led1/services/on”, type : "POST"}).done(...).fail(...);
+	jQuery.ajax({url : "https://yournode/devices/arduino1/actors/led1/services/on”, type : "POST"}).done(...).fail(...);
 
 and receive WebSocket notifications on all Sensor data changes and events, e.g. via
 
-	var socket = new io("http://yournode/");
+	var socket = new io("httpss://yournode/");
 	
 	socket.on("event", function(event) {
 		console.log(event.device);
@@ -20,7 +20,7 @@ Furthermore, you can define **Higher-level Services** on multiple Actors, e.g. t
 
 and also invoke those via REST, e.g.
 
-	jQuery.ajax({url : "http://yournode/services/allLEDsOn”, type : "POST"}).done(...).fail(...);
+	jQuery.ajax({url : "https://yournode/services/allLEDsOn”, type : "POST"}).done(...).fail(...);
 
 and define Complex Event Processing on Sensor data changes and events, e.g.
 
