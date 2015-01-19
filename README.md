@@ -148,6 +148,8 @@ Restart the **thing-it-node** server. The output should now look like
 
 You should also be able switch both LEDs on and off via the respective buttons or switch both LEDs on by covering the Photocell.
 
+## Running a Mobile Web App
+
 Finally, connect your browser to 
 
 `http://localhost:3001/examples/simple-lighting/console.html`
@@ -158,6 +160,8 @@ Browser content should look like
 
 If you have remote (e.g. Wifi) access to the computer running the **thing-it Server**, you may also use a mobile device (e.g. an iPhone or iPad) to connect to your simple lighting system.
 
+## Summary
+
 Let us recap what we did:
 
 With
@@ -167,6 +171,8 @@ With
 * a very simple HTML file for mobile
 
 but **no programming** we were able to create a simple but realistic home automation scenario.
+
+## Using <thing-it>
 
 If you still find the creation of the configuration file too technical - you may consider to use the free services of [www.thing-it.com](http://www.thing-it.com) to create and simulate your setup and then just download the configuration file.
 
