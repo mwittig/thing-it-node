@@ -108,20 +108,20 @@ which means that your **thing-it-node** server has started properly, found its c
 
 To setup your board you need the following hardware
 
-* an Arduino Uno board [http://www.adafruit.com/product/50](http://www.adafruit.com/product/50),
-* two LEDs e.g. [https://www.sparkfun.com/products/9590](https://www.sparkfun.com/products/9590),
-* a Photocell, e.g. [http://www.adafruit.com/product/161](http://www.adafruit.com/product/161),
-* two buttons, e.g.
+* an Arduino Uno board (e.g. [http://www.adafruit.com/product/50](http://www.adafruit.com/product/50)),
+* two LEDs (e.g. [https://www.sparkfun.com/products/9590](https://www.sparkfun.com/products/9590)),
+* a Photocell (e.g. [http://www.adafruit.com/product/161](http://www.adafruit.com/product/161)),
+* two buttons (e.g.),
 * possibly a breadboard (e.g. [http://www.adafruit.com/product/64](http://www.adafruit.com/product/64)) and 
-* possibly some jumper wires [http://www.adafruit.com/product/758](http://www.adafruit.com/product/758)
+* possibly some jumper wires (e.g. [http://www.adafruit.com/product/758](http://www.adafruit.com/product/758)).
 
-all of the above is also available with Arduino Starter Kits like
+All of the above is also available with Arduino Starter Kits like
 
 * the [Arduino Starter Kit](http://www.amazon.com/Arduino-Starter-Official-170-page-Projects/dp/B009UKZV0A/ref=sr_1_1?s=electronics&ie=UTF8&qid=1420481357&sr=1-1&keywords=arduino+starter+kit) or 
 * the [Sparkfun Inventor's Kit]() or
 * the [Fritzing Creator Kit](http://shop.fritzing.org/en/a-136/).
 
-To get the Arduino connected
+To get the Arduino Uno connected
 
 * download and install the Arduino IDE
 * plug in your Arduino or Arduino compatible microcontroller via USB,
