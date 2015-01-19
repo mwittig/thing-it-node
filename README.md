@@ -8,7 +8,9 @@ and receive WebSocket notifications on all Sensor data changes and events, e.g. 
 	
 	socket.on("event", function(event) {
 		console.log(event.device);
-		console.log(event.sensor);
+		console.log(event.device);
+		console.log(event.type);
+		console.log(event.data);
 	});
 
 Furthermore, you can define higher-level services on multiple Actors and also invoke those via REST and define Complex Event Processing on Sensor data changes and events. 
