@@ -1,8 +1,8 @@
-**thing-it-node** allows you to connect multiple devices like an Arduino Uno or a Bluetooth-enabled Wristband to your node computer (e.g. a regular server, a Raspberry Pi or a BeagleBone Black) to centralize Internet access to a scalable set of Sensors and Actors connected to these devices, invoke REST services on all Actors, e.g.
+**thing-it-node** allows you to connect multiple devices like an Arduino Uno or a Bluetooth-enabled Wristband to your node computer (e.g. a regular server, a Raspberry Pi or a BeagleBone Black) to centralize Internet access to a scalable set of Sensors and Actors connected to these devices, invoke **REST Services** on all Actors, e.g.
  
 	jQuery.ajax({url : "https://yournode/devices/arduino1/actors/led1/services/on”, type : "POST"}).done(...).fail(...);
 
-and receive WebSocket notifications on all Sensor data changes and events, e.g. via
+and receive **WebSocket Notifications** on all Sensor data changes and events, e.g. via
 
 	var socket = new io("httpss://yournode/");
 	
@@ -22,7 +22,7 @@ and also invoke those via REST, e.g.
 
 	jQuery.ajax({url : "https://yournode/services/allLEDsOn”, type : "POST"}).done(...).fail(...);
 
-and define Complex Event Processing on Sensor data changes and events, e.g.
+and define **Complex Event Processing** on Sensor data changes and events to invoke the above Actor or Node Services, e.g.
 
 * to produce LCD and Piezo output on simultaneous data changes on a motion detector, a thermo sensor and a sound detector for an alarm system or
 * open the door if an RFID tag approaches an RFID receiver.
