@@ -7,7 +7,7 @@ and receive **WebSocket Notifications** on all Sensor data changes and events, e
 	var socket = new io("https://yournode/");
 	
 	socket.on("event", function(event) {
-		console.log(event.device);
+		console.log(event.node);
 		console.log(event.device);
 		console.log(event.type);
 		console.log(event.data);
