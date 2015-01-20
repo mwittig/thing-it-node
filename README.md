@@ -39,9 +39,9 @@ This allows you to build e.g. a home automation system just with some minimal We
 
 **thing-it-node** is created because we felt the need for a scalable management entity which bridges Internet services and multiple, possibly heterogenous devices. It is not intended to compete with, but rather complement and use great libraries and frameworks like
 
-* **[Fritzing](http://fritzing.org/)** by FH Potsdam,
-* **[Johnny Five](https://github.com/rwaldron/johnny-five/wiki/Board)** by Rick Waldron or
-* aREST by Marco Schwarz.
+* [Fritzing](http://fritzing.org/) by FH Potsdam,
+* [Johnny Five](https://github.com/rwaldron/johnny-five/wiki/Board) by Rick Waldron or
+* [aREST](https://github.com/marcoschwartz/aREST) by Marco Schwarz.
 
 # Getting Started
 
