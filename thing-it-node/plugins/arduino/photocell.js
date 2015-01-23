@@ -22,7 +22,7 @@ function Photocell() {
 
 				this.photocell = new five.Sensor({
 					pin : this.configuration.pin,
-					freq : 5000
+					freq : this.configuration.rate
 				});
 
 				this.photocell.on("change", function(event) {

@@ -25,7 +25,7 @@ function Device() {
 		var deferred = q.defer();
 		var self = this;
 
-		console.log("\tStarting Device <" + this.label + ">");
+		console.log("\tStarting Device [" + this.label + "]");
 
 		if (!this.actors) {
 			this.actors = [];
@@ -48,7 +48,7 @@ function Device() {
 				self.sensors[n].start();
 			}
 
-			console.log("\tDevice <" + self.label + "> started.");
+			console.log("\tDevice [" + self.label + "] started.");
 
 			deferred.resolve();
 		}).fail(function(error) {

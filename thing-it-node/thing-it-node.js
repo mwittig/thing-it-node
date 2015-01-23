@@ -29,7 +29,7 @@ var server = app
 					console.log("\n");
 					console
 							.log("---------------------------------------------------------------------------");
-					console.log(" thing-it-node at http://%s:%s", host, port);
+					console.log(" [thing-it-node] at http://%s:%s", host, port);
 					console.log("\n");
 					console.log(" Node Configuration File: %s",
 							options.nodeConfigurationFile);

@@ -25,23 +25,20 @@ function Sensor() {
 	Sensor.prototype.startSensor = function() {
 		this.initializeSimulation();
 
-		console.log("\t\tSensor <" + this.label + "> started.");
+		console.log("\t\tSensor [" + this.label + "] started.");
 	};
 
 	/**
 	 * 
 	 */
 	Sensor.prototype.stopSensor = function() {
-		console.log("\t\tSensor <" + this.name + "> stopped.");
+		console.log("\t\tSensor [" + this.name + "] stopped.");
 	};
 
 	/**
 	 * 
 	 */
 	Sensor.prototype.change = function(event) {
-		console.log("Change on " + this.id + " " + event);
-		console.log(this.eventProcessors);
-
 		// TODO Publish change only if specified so
 
 		if (false) {

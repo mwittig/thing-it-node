@@ -50,8 +50,6 @@ function loadNodeConfiguration(nodeConfigurationFile) {
  * @param node
  */
 function saveNodeConfiguration(node) {
-	console.log("Persist node configuration");
-
 	fs.writeFileSync(nodeConfigurationFile, JSON.stringify(node), {
 		encoding : "utf-8"
 	});
@@ -148,13 +146,13 @@ function Node() {
 		this.plugins = {};
 
 		for (var n = 0; n < files.length; ++n) {
-			console.log("Loading plugin <" + files[n] + ">.");
+			console.log("Loading plugin [" + files[n] + "].");
 
 			try {
 				this.plugins[files[n]] = require(
 						"./plugins/" + files[n] + "/plugin").create();
 			} catch (x) {
-				console.log("Failed to load plugin <" + files[n] + ">:");
+				console.log("Failed to load plugin [" + files[n] + "]:");
 				console.log(x);
 			}
 		}
@@ -183,6 +181,9 @@ function Node() {
 		}
 	};
 
+	/**
+	 * 
+	 */
 	Node.prototype.verifyCallSignature = function(request, response, node,
 			callback) {
 		if (this.__configuration.verifyCallSignature) {
@@ -219,7 +220,7 @@ function Node() {
 
 		// Initialization
 
-		console.log("Starting Node <" + self.label + ">.");
+		console.log("Starting Node [" + self.label + "].");
 
 		// Open namespace for web socket connections
 
@@ -246,58 +247,66 @@ function Node() {
 				.promiseSequence(this.devices, 0, "start")
 				.then(
 						function() {
-							// Event Processors
+							try {
+								// Event Processors
 
-							for (var n = 0; n < self.eventProcessors.length; ++n) {
-								eventProcessor.create(self,
-										self.eventProcessors[n]).start();
-							}
-
-							for (var n = 0; n < self.services.length; ++n) {
-								try {
-									self[self.services[n].id] = new Function(
-											'input',
-											self
-													.preprocessScript(self.services[n].script));
-
-									console.log("\tService <"
-											+ self.services[n].id
-											+ "> available.");
-								} catch (x) {
-									console
-											.log("\tFailed to initialize Service <"
-													+ self.services[n].id
-													+ ">:");
-									console.log(x);
+								for (var n = 0; n < self.eventProcessors.length; ++n) {
+									eventProcessor.create(self,
+											self.eventProcessors[n]).start();
 								}
+
+								for (var n = 0; n < self.services.length; ++n) {
+									try {
+										self[self.services[n].id] = new Function(
+												'input',
+												self
+														.preprocessScript(self.services[n].script));
+
+										console.log("\tService ["
+												+ self.services[n].id
+												+ "] available.");
+									} catch (x) {
+										console
+												.log("\tFailed to initialize Service ["
+														+ self.services[n].id
+														+ "]:");
+										console.log(x);
+									}
+								}
+
+								self.app.post("/services/:service", function(
+										req, res) {
+									security.verifyCallSignature(req, res,
+											self, function() {
+
+												console.log("Call service "
+														+ req.params.service);
+
+												self[req.params.service]
+														(req.params.service);
+
+												res.send("");
+											});
+								});
+
+								self.heartbeat = setInterval(function() {
+									self.publishHeartbeat();
+								}, 10000);
+
+								self.publishHeartbeat();
+
+								self.state = "running";
+
+								console.log("Node [" + self.label
+										+ "] started.");
+
+								deferred.resolve();
+							} catch (x) {
+								console.log(x);
+
+								deferred.reject(x);
 							}
 
-							self.app.post("/services/:service", function(req,
-									res) {
-								security.verifyCallSignature(req, res, self,
-										function() {
-
-											console.log("Call service "
-													+ req.params.service);
-
-											self[req.params.service]
-													(req.params.service);
-
-											res.send("");
-										});
-							});
-
-							self.heartbeat = setInterval(function() {
-								self.publishHeartbeat();
-							}, 10000);
-
-							self.publishHeartbeat();
-
-							self.state = "running";
-
-							console.log("Node <" + self.label + "> started.");
-
-							deferred.resolve();
 						});
 
 		return deferred.promise;
@@ -327,7 +336,7 @@ function Node() {
 	 * 
 	 */
 	Node.prototype.stop = function() {
-		console.log("Stopping Node <" + this.label + ">.");
+		console.log("Stopping Node [" + this.label + "].");
 
 		for (var n = 0; n < this.devices.length; ++n) {
 			this.devices[n].stop();
@@ -341,7 +350,7 @@ function Node() {
 
 		this.polling = null;
 
-		console.log("Stopped Node <" + this.label + ">.");
+		console.log("Stopped Node [" + this.label + "].");
 
 		this.state = "configured";
 	};
@@ -351,8 +360,6 @@ function Node() {
 	 */
 	Node.prototype.publishMessage = function(message) {
 		this.namespace.emit('message', message);
-
-		console.log("Published message " + message);
 	};
 
 	/**
@@ -360,8 +367,6 @@ function Node() {
 	 */
 	Node.prototype.publishEvent = function(event) {
 		this.namespace.emit('event', event);
-
-		console.log("Published event " + event);
 	};
 
 	/**
@@ -375,9 +380,6 @@ function Node() {
 	 * 
 	 */
 	Node.prototype.publishActorStateChange = function(device, actor, state) {
-		console.log("Publis state change");
-		console.log(state);
-
 		this.namespace.emit('actorStateChange', {
 			device : device.id,
 			actor : actor.id,

@@ -39,21 +39,21 @@ function Actor() {
 
 						res.send(self.getState());
 					} catch (x) {
-						console.log("Failed to invoke service <"
-								+ req.params.service + ">: " + x);
+						console.log("Failed to invoke service ["
+								+ req.params.service + "]: " + x);
 						res.status(500).send(
-								"Failed to invoke service <"
-										+ req.params.service + ">: " + x);
+								"Failed to invoke service ["
+										+ req.params.service + "]: " + x);
 					}
 				});
 			});
 
-			console.log("\t\tActor <" + self.label + "> started.");
+			console.log("\t\tActor [" + self.label + "] started.");
 
 			deferred.resolve();
 		} catch (error) {
-			deferred.reject("Failed to start Actor <" + self.label
-					+ "> started: " + error);
+			deferred.reject("Failed to start Actor [" + self.label
+					+ "] started: " + error);
 		}
 
 		return deferred.promise;
