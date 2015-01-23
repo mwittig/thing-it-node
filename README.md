@@ -229,7 +229,7 @@ With
 
 but **no programming** we were able to create a simple but realistic home automation scenario.
 
-## Using <thing-it>
+## Using thing-it.com
 
 If you still find the creation of the configuration file too technical - you may consider to use the free services of [www.thing-it.com](http://www.thing-it.com) to create and simulate your setup and then just download the configuration file.
 
