@@ -212,5 +212,5 @@ If you have the **Getting Started** example running, you may want to
 
 * understand the concepts of *thing-it* better
 * have a look at further examples
-* [Connect your [thing-it-node] to the Internet](./thing-it-node/wiki/Connecting-%5Bthing-it-node%5D-to-the-Internet)
-* [apply security measures for your thing-it-node[]]()
+* [Connect your [thing-it-node] to the Internet](https://github.com/marcgille/thing-it-node/wiki/Connecting-%5Bthing-it-node%5D-to-the-Internet)
+* [apply security measures for your [thing-it-node]]()
