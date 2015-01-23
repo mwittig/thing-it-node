@@ -184,8 +184,7 @@ function Node() {
 	/**
 	 * 
 	 */
-	Node.prototype.verifyCallSignature = function(request, response, node,
-			callback) {
+	Node.prototype.verifyCallSignature = function(request, response, callback) {
 		if (this.__configuration.verifyCallSignature) {
 			var verify = crypto
 					.createVerify(this.__configuration.signingAlgorithm);
@@ -276,12 +275,8 @@ function Node() {
 
 								self.app.post("/services/:service", function(
 										req, res) {
-									security.verifyCallSignature(req, res,
-											self, function() {
-
-												console.log("Call service "
-														+ req.params.service);
-
+									self.verifyCallSignature(req, res,
+											function() {
 												self[req.params.service]
 														(req.params.service);
 

@@ -1,6 +1,7 @@
 {
    "label": "Home",
    "id": "home",
+   "uuid": "1234567890",
    "devices": [
       {
       	 "label": "Arduino Uno 1",

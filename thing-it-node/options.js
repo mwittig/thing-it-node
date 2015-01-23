@@ -4,7 +4,7 @@ module.exports = {
 	nodeConfigurationFile : "/Users/marcgille/git/thing-it-node/thing-it-node/examples/simple-lighting/configuration.json",
 	simulated : false,
 	hotDeployment : false,
-	verifyCallSignature : true,
+	verifyCallSignature : false,
 	publicKeyFile : "/Users/marcgille/git/thing-it-node/thing-it-node/examples/simple-lighting/cert.pem",
 	signingAlgorithm : "RSA-SHA256"
 };

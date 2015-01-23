@@ -15,11 +15,11 @@
 			.ready(
 					function() {
 						var socket = new io("http://" + document.location.host
-								+ "/");
+								+ "/nodes/1234567890/events");
 
 						socket.on("event", function(event) {
 							jQuery("#message").empty();
-							jQuery("#message").append("Button clicked.");
+							jQuery("#message").append(event);
 
 							window.setTimeout(function() {
 								jQuery("#message").empty();
@@ -27,6 +27,13 @@
 							}, 2000);
 						});
 						socket.on("actorStateChange", function(stateChange) {
+							jQuery("#message").empty();
+							jQuery("#message").append(stateChange);
+
+							window.setTimeout(function() {
+								jQuery("#message").empty();
+								jQuery("#message").append("Idle");
+							}, 2000);
 						});
 
 						jQuery("#toggleLamp1Button")

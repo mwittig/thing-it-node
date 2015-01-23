@@ -41,7 +41,7 @@ function Sensor() {
 	Sensor.prototype.change = function(event) {
 		// TODO Publish change only if specified so
 
-		if (false) {
+		if (true) {
 			this.publishData(event);
 		}
 
@@ -56,7 +56,7 @@ function Sensor() {
 	Sensor.prototype.data = function(data) {
 		// Publish data only if specified so
 
-		if (false) {
+		if (true) {
 			this.publishData(data);
 		}
 

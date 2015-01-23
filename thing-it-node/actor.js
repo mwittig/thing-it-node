@@ -30,10 +30,6 @@ function Actor() {
 			self.device.node.app.post("/devices/" + self.device.id + "/actors/"
 					+ self.id + "/services/:service", function(req, res) {
 				self.device.node.verifyCallSignature(req, res, function() {
-					console.log("Call service on " + self.id);
-					console.log(req.params);
-					console.log(req.body);
-
 					try {
 						self[req.params.service](req.body);
 
