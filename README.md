@@ -213,9 +213,9 @@ Browser content should look like
 
 <img src="./thing-it-node/examples/simple-lighting/mobile-ui.png" alt="Mobile UI" style="width:400px;height:600px;">
 
-You should be able to switch the LEDs on individually (**Toggle Lamp 1**, **Toggle Lamp 2**) and together (**Toggle All**) and also see notifications on Button events or Photocell data changes in the first line (which is showing "Idle" in the screenshot).
+You should be able to switch the LEDs on individually (**Toggle Lamp 1**, **Toggle Lamp 2**) and together (**Toggle All**) and also see notifications on Button events or Photocell data changes in the first line (which is showing **Idle** in the screenshot).
 
-If you have remote (e.g. Wifi) access to the computer running the **thing-it Server**, you may also use a mobile device (e.g. an iPhone or iPad) to connect to your simple lighting system.
+If you have remote (e.g. Wifi) access to the computer running the **[thing-it-node]**, you may also use a mobile device (e.g. an iPhone or iPad) to connect to your simple lighting system.
 
 ## Summary
 
