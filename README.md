@@ -50,7 +50,7 @@ This allows you to build e.g. a home automation system just with some minimal We
 Let's set up a simple - but not too simple - home automation scenario:
 
 1. Two LEDs representing e.g. two lamps.
-1. A Photocell to detect the ambient light in a room and event processing to switch on both lamps if the light goes below some threshold.
+1. A Photocell to detect the ambient light in a room and event processing to switch on both lamps if the light goes below some threshold for a while (to distinguish sunset from the Photocell being temporarily covered).
 1. Two buttons to toggle the state of each lamp.
 1. A simple (mobile capable) web application to toggle the state of both lamps individually and together - alternatively to using the buttons - and to display the event under 2.
 
@@ -77,6 +77,31 @@ so that the thing-it-node server will be booted against the Node configuration f
 
 If you are interested, have a look at the [configuration file](./thing-it-node/examples/simple-lighting/configuration.json) - the content should be self-explanatory.
 
+Probably the most interesting part is the definition of the Photocell 
+
+    {
+       "id": "photocell1",
+       "label": "Photocell 1",
+       "type": "photocell",
+       "configuration": {
+       "pin": "A0",
+       "rate": 2000
+       }
+    }
+
+and the Event Processing for the same
+
+    {
+       "id": "eventProcessor3",
+       "label": "Event Processor 3",
+       "observables": ["arduino1.photocell1"],
+       "window" : {"duration": 10000},
+       "match" : "minimum(arduino1.photocell1.series) < 700 && deviation(arduino1.photocell1.series) < 100 && arduino1.photocell1.series.length > 1",
+       "script": "arduino1.led1.on(); arduino1.led2.on();"
+    }
+
+which ensures that the setup only reacts to a slow, consistent reduction of the ambient light.
+
 Start the **thing-it-node** from _&lt;installDir&gt;_ via
 
 `node thing-it-node.js`
@@ -84,27 +109,26 @@ Start the **thing-it-node** from _&lt;installDir&gt;_ via
 You will see something like
 
     ---------------------------------------------------------------------------
-     thing-it Node at http://0.0.0.0:3001
+     [thing-it-node] at http://0.0.0.0:3001
+
+
+     Node Configuration File: /Users/marcgille/git/thing-it-node/thing-it-node/examples/simple-lighting/configuration.json
+     Simulated              : false
+     Hot Deployment         : false
+     Verify Call Signature  : true
+     Public Key File        : /Users/marcgille/git/thing-it-node/thing-it-node/examples/simple-lighting/cert.pem
+     Signing Algorithm      : sha256
 
 
      Copyright (c) 2014-2015 Marc Gille. All rights reserved.
     -----------------------------------------------------------------------------
 
 
-    Loading plugin <arduino>.
-    Starting Node <Home>.
-     	Starting Controller <Arduino Uno 1>
-		Actor <LED 1> started.
-    Published message Cannot initialize arduino1/led1:TypeError: Cannot read property 'type' of null
-		Actor <LED 2> started.
-    Published message Cannot initialize arduino1/led1:TypeError: Cannot read property 'type' of null
-		Sensor <Button 1> started.
-    Published message Cannot initialize arduino1/button1:TypeError: Cannot read property 'type' of null
-		Sensor <Button 2> started.
-    Published message Cannot initialize arduino1/button2:TypeError: Cannot read property 'type' of null
-	Controller <Arduino Uno 1> started.
+    Loading plugin [arduino].
+    Starting Node [Home].
+    1422043760747 Looking for connected device  
 
-which means that your **thing-it-node** server has started properly, found its configuration but determined that your Arduino Board is not wired up yet.
+but no further output, which means that your **thing-it-node** server has started properly, found its configuration but determined that your Arduino Board is not wired up yet.
 
 ## Setting up Board, Actors and Sensors
 
@@ -144,23 +168,40 @@ e.g. like
 Restart the **thing-it-node** server. The output should now look like 
 
     ---------------------------------------------------------------------------
-     thing-it Node at http://0.0.0.0:3001
+     [thing-it-node] at http://0.0.0.0:3001
+
+
+     Node Configuration File: /Users/marcgille/git/thing-it-node/thing-it-node/examples/simple-lighting/configuration.json
+     Simulated              : false
+     Hot Deployment         : false
+     Verify Call Signature  : true
+     Public Key File        : /Users/marcgille/git/thing-it-node/thing-it-node/examples/simple-lighting/cert.pem
+     Signing Algorithm      : sha256
 
 
      Copyright (c) 2014-2015 Marc Gille. All rights reserved.
     -----------------------------------------------------------------------------
 
 
-    Loading plugin <arduino>.
-    Starting Node <Home>.
-     	Starting Device <Arduino Uno 1>
-		Actor <LED 1> started.
-		Actor <LED 2> started.
-		Sensor <Button 1> started.
-		Sensor <Button 2> started.
-	Device <Arduino Uno 1> started.
+    Loading plugin [arduino].
+    Starting Node [Home].
+    1422043614997 Device(s) /dev/cu.usbmodem1411 
+    1422043618304 Connected /dev/cu.usbmodem1411 
+    1422043618305 Repl Initialized 
+    >> 	Starting Device [Arduino Uno 1]
+ 		    Actor [LED1] started.
+		    Actor [LED2] started.
+		    Sensor [Button 1] started.
+		    Sensor [Button 2] started.
+		    Sensor [Photocell 1] started.
+	    Device [Arduino Uno 1] started.
+	    Event Processor [Event Processor 1] listening.
+	    Event Processor [Event Processor 2] listening.
+	    Event Processor [Event Processor 3] listening.
+	    Service [toggleAll] available.
+    Node [Home] started.
 
-You should also be able switch both LEDs on and off via the respective buttons or switch both LEDs on by covering the Photocell.
+You should also be able switch both LEDs on and off via the respective buttons or switch both LEDs on by covering the Photocell for more than a few seconds.
 
 ## Running a Mobile Web App
 
