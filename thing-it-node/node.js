@@ -1,12 +1,20 @@
 module.exports = {
-	plugins : loadPlugins,
-	create : function(node) {
-		utils.inheritMethods(node, new Node());
+	bootstrap : function(configuration, app, io, server) {
+		var node = loadNodeConfiguration(configuration.nodeConfigurationFile);
 
-		node.plugins = loadPlugins();
-		node.state = "configured";
+		if (node) {
+			utils.inheritMethods(node, new Node());
 
-		return node;
+			node.initialize(configuration, app, io, server);
+			node.start(app, io.listen(server))
+		} else {
+			node = new Node();
+
+			node.initialize(configuration, app, io, server);
+
+			console
+					.log("No Node Configuration present. Configuration push required.");
+		}
 	}
 };
 
@@ -15,33 +23,187 @@ var device = require("./device");
 var eventProcessor = require("./eventProcessor");
 var fs = require("fs");
 var q = require('q');
+var crypto = require('crypto');
 
 /**
  * 
+ * @returns
  */
-function loadPlugins() {
-	var files = fs.readdirSync(__dirname + "/plugins");
-	var plugins = {};
+function loadNodeConfiguration(nodeConfigurationFile) {
+	try {
+		var node = JSON.parse(fs.readFileSync(nodeConfigurationFile, {
+			encoding : "utf-8"
+		}));
 
-	for (var n = 0; n < files.length; ++n) {
-		console.log("Loading plugin <" + files[n] + ">.");
+		node.state = "configured";
 
-		try {
-			plugins[files[n]] = require("./plugins/" + files[n] + "/plugin")
-					.create();
-		} catch (x) {
-			console.log("Failed to load plugin <" + files[n] + ">:");
-			console.log(x);
-		}
+		return node;
+	} catch (x) {
+		console.log(x);
+		throw "Cannot read node configuration from file "
+				+ nodeConfigurationFile + ".";
 	}
+}
 
-	return plugins;
+/**
+ * 
+ * @param node
+ */
+function saveNodeConfiguration(node) {
+	console.log("Persist node configuration");
+
+	fs.writeFileSync(nodeConfigurationFile, JSON.stringify(node), {
+		encoding : "utf-8"
+	});
 }
 
 /**
  * 
  */
 function Node() {
+	this.state = "pending";
+
+	/**
+	 * 
+	 */
+	Node.prototype.initialize = function(configuration, app, io, server) {
+		this.__configuration = configuration;
+
+		// TODO Get rid of this
+
+		this.__simulated = configuration.simulated;
+
+		this.initializeSecurityConfiguration();
+		this.loadPlugins();
+
+		// Initialize REST API for server
+
+		var self = this;
+
+		app.get("/plugins", function(req, res) {
+			security.verifyCallSignature(req, res, self, function() {
+				res.send(self.plugins);
+			});
+		});
+		app.get("/state", function(req, res) {
+			security.verifyCallSignature(req, res, self, function() {
+				res.send({
+					state : self.state,
+					configuration : self
+				});
+			});
+		});
+		app.get("/configuration", function(req, res) {
+			self.verifyCallSignature(req, res, function() {
+				res.send(self);
+			});
+		});
+		app.post("/configure", function(req, res) {
+			self.verifyCallSignature(req, res, node, function() {
+				if (self.state == "running") {
+					self.stop();
+				}
+
+				saveNodeConfiguration(req.body);
+
+				node = loadNodeConfiguration();
+
+				// TODO Is the recursive closure an issue for thousands of
+				// configure calls, possibly load into node?
+
+				utils.inheritMethods(node, new Node());
+				node.initialize(configuration, app, io, server);
+				node.start(app, io.listen(server))
+
+				res.send("");
+			});
+		});
+		app.post("/start", function(req, res) {
+			self.verifyCallSignature(req, res, node, function() {
+				if (self.state == "configured") {
+					self.start(app, io.listen(server)).then(function() {
+						res.send("");
+					}).fail(function(error) {
+						res.status(500).send(error);
+					});
+				} else {
+					res.status(500).send("Node is not configured.");
+				}
+			});
+		});
+		app.post("/stop", function(req, res) {
+			self.verifyCallSignature(req, res, node, function() {
+				self.stop();
+				res.send("");
+			});
+		});
+	};
+
+	/**
+	 * 
+	 */
+	Node.prototype.loadPlugins = function() {
+		var files = fs.readdirSync(__dirname + "/plugins");
+
+		this.plugins = {};
+
+		for (var n = 0; n < files.length; ++n) {
+			console.log("Loading plugin <" + files[n] + ">.");
+
+			try {
+				this.plugins[files[n]] = require(
+						"./plugins/" + files[n] + "/plugin").create();
+			} catch (x) {
+				console.log("Failed to load plugin <" + files[n] + ">:");
+				console.log(x);
+			}
+		}
+	};
+
+	/**
+	 * 
+	 */
+	Node.prototype.initializeSecurityConfiguration = function() {
+		if (this.__configuration.verifyCallSignature) {
+			if (!this.__configuration.publicKeyFile) {
+				throw "No Public Key File defined. Please define in option [publicKeyFile] or set option [verifyCallSignature] to [false].";
+			}
+
+			try {
+				this.__publicKey = fs
+						.readFileSync(this.__configuration.publicKeyFile);
+			} catch (x) {
+				throw "Cannot read Public Key File"
+						+ configuration.publicKeyFile + ": " + x;
+			}
+
+			if (!this.__configuration.signingAlgorithm) {
+				throw "No Signing Algorithm defined. Set [verifyCallSignature] to [false].";
+			}
+		}
+	};
+
+	Node.prototype.verifyCallSignature = function(request, response, node,
+			callback) {
+		if (this.__configuration.verifyCallSignature) {
+			var verify = crypto
+					.createVerify(this.__configuration.signingAlgorithm);
+			var data = request.body == null ? "" : JSON.stringify(request.body);
+
+			verify.update(request.url + request.method + data);
+
+			if (!request.header.Signature
+					|| !verify.verify(this.__publicKey,
+							request.header.Signature, 'hex')) {
+				res.status(404).send("Signature verification failed");
+			} else {
+				callback();
+			}
+		} else {
+			callback();
+		}
+	};
+
 	/**
 	 * 
 	 */
@@ -112,12 +274,17 @@ function Node() {
 
 							self.app.post("/services/:service", function(req,
 									res) {
-								console.log("Call service "
-										+ req.params.service);
+								security.verifyCallSignature(req, res, self,
+										function() {
 
-								self[req.params.service](req.params.service);
+											console.log("Call service "
+													+ req.params.service);
 
-								res.send("");
+											self[req.params.service]
+													(req.params.service);
+
+											res.send("");
+										});
 							});
 
 							self.heartbeat = setInterval(function() {
@@ -254,7 +421,6 @@ function Node() {
 	 * 
 	 */
 	Node.prototype.preprocessScript = function(script) {
-
 		// Wrap to avoid this
 
 		script = "with (this) {" + script + "}";

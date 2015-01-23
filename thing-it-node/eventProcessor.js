@@ -103,12 +103,22 @@ function EventProcessor() {
 				for (var n = 0; n < self.observables.length; ++n) {
 					var path = self.observables[n].split(".");
 
+					if (!self[path[0]]) {
+						self[path[0]] = {};
+					}
+
 					self[path[0]][path[1]] = {
 						series : []
 					};
 				}
 			}, this.window.duration)
 		}
+	};
+
+	/**
+	 * 
+	 */
+	EventProcessor.prototype.checkMatch = function() {
 	};
 
 	/**

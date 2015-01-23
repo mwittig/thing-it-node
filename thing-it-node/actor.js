@@ -29,21 +29,23 @@ function Actor() {
 		try {
 			self.device.node.app.post("/devices/" + self.device.id + "/actors/"
 					+ self.id + "/services/:service", function(req, res) {
-				console.log("Call service on " + self.id);
-				console.log(req.params);
-				console.log(req.body);
+				self.device.node.verifyCallSignature(req, res, function() {
+					console.log("Call service on " + self.id);
+					console.log(req.params);
+					console.log(req.body);
 
-				try {
-					self[req.params.service](req.body);
+					try {
+						self[req.params.service](req.body);
 
-					res.send(self.getState());
-				} catch (x) {
-					console.log("Failed to invoke service <"
-							+ req.params.service + ">: " + x);
-					res.status(500).send(
-							"Failed to invoke service <" + req.params.service
-									+ ">: " + x);
-				}
+						res.send(self.getState());
+					} catch (x) {
+						console.log("Failed to invoke service <"
+								+ req.params.service + ">: " + x);
+						res.status(500).send(
+								"Failed to invoke service <"
+										+ req.params.service + ">: " + x);
+					}
+				});
 			});
 
 			console.log("\t\tActor <" + self.label + "> started.");
