@@ -69,7 +69,7 @@ Then install **thing-it-node**:
 
 in a directory _&lt;installDir&gt;_.
 
-For our example above modify the bootstrap file **_&lt;installDir&gt;_/configuration.js** as follows
+For our example above modify the options file **_&lt;installDir&gt;_/options.js** as follows
 
 `nodeConfigurationFile : "<installDir>/examples/simple-lighting/configuration.json"`
 
