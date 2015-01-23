@@ -33,11 +33,11 @@ This allows you to build e.g. a home automation system just with some minimal We
 
 # Dual License
 
-**thing-it-node** is available under the [MIT License](./thing-it-node/license.mit) and the [Eclipse Public License](https://eclipse.org/org/documents/epl-v10.html).
+**[thing-it-node]** is available under the [MIT License](./thing-it-node/license.mit) and the [Eclipse Public License](https://eclipse.org/org/documents/epl-v10.html).
 
 # Philosophy
 
-**thing-it-node** is created because we felt the need for a scalable management entity which bridges Internet services and multiple, possibly heterogenous devices. It is not intended to compete with, but rather complement and use great libraries and frameworks like
+**[thing-it-node]** is created because we felt the need for a scalable management entity which bridges Internet services and multiple, possibly heterogenous devices. It is not intended to compete with, but rather complement and use great libraries and frameworks like
 
 * [Fritzing](http://fritzing.org/) by FH Potsdam,
 * [Johnny Five](https://github.com/rwaldron/johnny-five/wiki/Board) by Rick Waldron or
