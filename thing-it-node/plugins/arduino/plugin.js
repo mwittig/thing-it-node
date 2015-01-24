@@ -109,6 +109,68 @@ function Arduino() {
 			defaultValue : "12"
 		} ]
 	}, {
+		plugin : "rgbLed",
+		label : "LED (RGB)",
+		family : "coloredLight",
+		services : [ {
+			id : "on",
+			label : "On"
+		}, {
+			id : "off",
+			label : "Off"
+		}, {
+			id : "blink",
+			label : "Blink"
+		}, {
+			id : "color",
+			label : "Color",
+			parameters : [ {
+				label : "RGB-Color (hex.)",
+				id : "rgbColorHex",
+				type : {
+					id : "string"
+				}
+			} ]
+		} ],
+		state : [ {
+			id : "blink",
+			name : "Blink"
+		}, {
+			id : "red",
+			name : "Red"
+		}, {
+			id : "green",
+			name : "Green"
+		}, {
+			id : "blue",
+			name : "Blue"
+		} ],
+		configuration : [ {
+			label : "Pin (Red)",
+			id : "pinRed",
+			type : {
+				family : "reference",
+				id : "digitalInOutPin"
+			},
+			defaultValue : "12"
+		}, {
+			label : "Pin (Green)",
+			id : "pinGreen",
+			type : {
+				family : "reference",
+				id : "digitalInOutPin"
+			},
+			defaultValue : "13"
+		}, {
+			label : "Pin (Blue)",
+			id : "pinBlue",
+			type : {
+				family : "reference",
+				id : "digitalInOutPin"
+			},
+			defaultValue : "14"
+		} ]
+	}, {
 		plugin : "lcd",
 		label : "LCD Display",
 		family : "textDisplay",

@@ -1,0 +1,50 @@
+{
+   "label": "Home",
+   "id": "home",
+   "uuid": "1234567890",
+   "devices": [
+      {
+      	 "label": "Arduino Uno 1",
+      	 "id": "arduino1",
+         "plugin": "arduino",
+         "actors": [
+            {
+               "id": "rgbLed1",
+               "label": "LED (RGB)",
+               "type": "rgbLed",
+               "configuration": {
+                  "pinRed": 12,
+                  "pinGreen": 13,
+                  "pinBlue": 14
+               }
+            }
+         ],
+         "sensors": [
+            {
+               "id": "potentiometerRed",
+               "label": "Red Value",
+               "type": "potentiometer",
+               "configuration": {
+                  "pin": A0
+               }
+            }, {
+               "id": "potentiometerGreen",
+               "label": "Green Value",
+               "type": "potentiometer",
+               "configuration": {
+                  "pin": A1
+               }
+            }, {
+               "id": "potentiometerBlue",
+               "label": "Green Value",
+               "type": "potentiometer",
+               "configuration": {
+                  "pin": A2
+               }
+            }
+         ]
+      }
+   ],
+   "services": [],
+   "eventProcessors": []
+}
