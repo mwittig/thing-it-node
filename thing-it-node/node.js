@@ -1,4 +1,5 @@
 module.exports = {
+	plugins : loadPlugins,
 	bootstrap : function(configuration, app, io, server) {
 		var node = loadNodeConfiguration(configuration.nodeConfigurationFile);
 
@@ -54,6 +55,28 @@ function saveNodeConfiguration(node) {
 		encoding : "utf-8"
 	});
 }
+
+/**
+ * 
+ */
+function loadPlugins() {
+	var files = fs.readdirSync(__dirname + "/plugins");
+	var plugins = {};
+
+	for (var n = 0; n < files.length; ++n) {
+		console.log("Loading plugin [" + files[n] + "].");
+
+		try {
+			plugins[files[n]] = require("./plugins/" + files[n] + "/plugin")
+					.create();
+		} catch (x) {
+			console.log("Failed to load plugin [" + files[n] + "]:");
+			console.log(x);
+		}
+	}
+
+	return plugins;
+};
 
 /**
  * 
@@ -141,21 +164,7 @@ function Node() {
 	 * 
 	 */
 	Node.prototype.loadPlugins = function() {
-		var files = fs.readdirSync(__dirname + "/plugins");
-
-		this.plugins = {};
-
-		for (var n = 0; n < files.length; ++n) {
-			console.log("Loading plugin [" + files[n] + "].");
-
-			try {
-				this.plugins[files[n]] = require(
-						"./plugins/" + files[n] + "/plugin").create();
-			} catch (x) {
-				console.log("Failed to load plugin [" + files[n] + "]:");
-				console.log(x);
-			}
-		}
+		this.plugins = loadPlugins();
 	};
 
 	/**
