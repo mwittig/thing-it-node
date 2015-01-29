@@ -41,28 +41,30 @@ jQuery.ajax({url : "https://yournode/services/allLEDsOn”, type : "POST"}).done
 You can receive **WebSocket Notifications** on all Sensor data changes and events, e.g. via
 
 ```javascript
-	var socket = new io("https://yournode/node/4711/events");
+var socket = new io("https://yournode/node/4711/events");
 	
-	socket.on("event", function(event) {
-		console.log(event.node);
-		console.log(event.device);
-		console.log(event.type);
-		console.log(event.data);
-	});
+socket.on("event", function(event) {
+	console.log(event.node);
+	console.log(event.device);
+	console.log(event.type);
+	console.log(event.data);
+});
 ```
 
 ## Complex Event Processing
 
 You can define **Complex Event Processing** on Sensor data changes and events like
 
-    {
-         "id": "eventProcessor3",
-         "label": "Event Processor 3",
-         "observables": ["arduino1.photocell1"],
-         "window" : {"duration": 10000},
-         "match" : "minimum(arduino1.photocell1.series) < 700 && deviation(arduino1.photocell1.series) < 100 && arduino1.photocell1.series.length > 1",
-         "script": "arduino1.led1.on(); arduino1.led2.on();"
-    }
+```javascript    
+{
+	"id": "eventProcessor3",
+        "label": "Event Processor 3",
+        "observables": ["arduino1.photocell1"],
+        "window" : {"duration": 10000},
+        "match" : "minimum(arduino1.photocell1.series) < 700 && deviation(arduino1.photocell1.series) < 100 && arduino1.photocell1.series.length > 1",
+        "script": "arduino1.led1.on(); arduino1.led2.on();"
+}
+```
 
 to invoke the above Actor or Node Services, e.g.
 
@@ -73,15 +75,17 @@ to invoke the above Actor or Node Services, e.g.
 
 The **[thing-it-node]** Configuration File contains definitions of Devices, Actors, Sensors, Services, Event Processors and groups of those in a simple JSON string, e.g.
 
-    "actors": [
-                {
-                   "id": "led1",
-                   "label": "LED1",
-                   "type": "led",
-                   "configuration": {
-                      "pin": 12
-                   }
-                }, ...
+```javascript
+"actors": [
+	{
+        	"id": "led1",
+                "label": "LED1",
+                "type": "led",
+                "configuration": {
+                "pin": 12
+                }
+        }, ...
+```
 
 You can use [www.thing-it.com](http://www.thing-it.com) to create and simulate your setup and then just download the configuration file.
 
@@ -133,7 +137,8 @@ If you are interested, have a look at the [configuration file](./thing-it-node/e
 
 Probably the most interesting part is the definition of the Photocell 
 
-    {
+```javascript
+{
        "id": "photocell1",
        "label": "Photocell 1",
        "type": "photocell",
@@ -141,18 +146,21 @@ Probably the most interesting part is the definition of the Photocell
        "pin": "A0",
        "rate": 2000
        }
-    }
+}
+```
 
 and the Event Processing for the same
 
-    {
+```javascript
+{
        "id": "eventProcessor3",
        "label": "Event Processor 3",
        "observables": ["arduino1.photocell1"],
        "window" : {"duration": 10000},
        "match" : "minimum(arduino1.photocell1.series) < 700 && deviation(arduino1.photocell1.series) < 100 && arduino1.photocell1.series.length > 1",
        "script": "arduino1.led1.on(); arduino1.led2.on();"
-    }
+}
+```
 
 which ensures that the setup only reacts to a slow, consistent reduction of the ambient light.
 
