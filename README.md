@@ -3,13 +3,13 @@
 * connect multiple devices like an Arduino Uno or a Bluetooth-enabled Wristband to your node computer (e.g. a regular server, a Raspberry Pi or a BeagleBone Black) to centralize Internet access to a scalable set of Sensors and Actors connected to these devices, 
 * invoke **REST Services** on all Actors, 
 * receive **WebSocket Notifications** on all Sensor data changes and events,
-* define higher level REST Services to control multiple Actors,
-* define Event Processing to react on Sensor events and data changes,
-* use all of the above in a mobile client too control your devices.
+* define **Higher-level REST Services** to control multiple Actors,
+* define **Complex Event Processing** to react on Sensor events and data changes,
+* use all of the above in a **Mobile Client** to control your devices.
 
 All of the above is controlled by a [nodejs](http://nodejs.org/) server which is bootstrapped from a simple JSON configuration as opposed to a complex program.
 
-This allows you to **configure e.g. a home automation system in minutes**.
+This allows you to configure e.g. **a home automation system in minutes**.
 
 ## Mobile Client
 
@@ -51,7 +51,7 @@ You can define **Complex Event Processing** on Sensor data changes and events to
 * to produce LCD and Piezo output on simultaneous data changes on a motion detector, a thermo sensor and a sound detector for an alarm system or
 * open the door if an RFID tag approaches an RFID receiver.
 
-# Configuration File
+## Configuration File
 
 The **[thing-it-node]** Configuration File contains definitions of Devices, Actors, Sensors, Services, Event Processors and groups of those in a simple JSON string, e.g.
 
