@@ -75,8 +75,12 @@ function Sensor() {
 	 * 
 	 */
 	Sensor.prototype.publishData = function(data) {
-		this.device.node.publishEvent(this.device.node.id + "-"
-				+ this.device.id + "-" + this.id + ":" + data);
+		this.device.node.publishEvent({
+			node : this.device.node.id,
+			device : this.device.id,
+			sensor : this.id,
+			value : data
+		});
 	};
 
 	/**
@@ -102,16 +106,12 @@ function Sensor() {
 		this.device.node.app.post("/devices/" + this.device.id + "/sensors/"
 				+ this.id + "/data", function(req, res) {
 			res.send("");
-			console.log("Push data on " + self.id);
-			console.log(req.body);
 
 			self.data(req.body.value);
 		});
 		this.device.node.app.post("/devices/" + this.device.id + "/sensors/"
 				+ this.id + "/event", function(req, res) {
 			res.send("");
-			console.log("Push event on " + self.id);
-			console.log(req.body);
 
 			self.change(req.body.event);
 		});

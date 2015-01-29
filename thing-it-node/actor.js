@@ -35,8 +35,7 @@ function Actor() {
 
 						res.send(self.getState());
 					} catch (x) {
-						console.log("Failed to invoke service ["
-								+ req.params.service + "]: " + x);
+						console.error(x);
 						res.status(500).send(
 								"Failed to invoke service ["
 										+ req.params.service + "]: " + x);
@@ -48,6 +47,8 @@ function Actor() {
 
 			deferred.resolve();
 		} catch (error) {
+			console.error(x);
+			
 			deferred.reject("Failed to start Actor [" + self.label
 					+ "] started: " + error);
 		}

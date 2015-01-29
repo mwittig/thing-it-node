@@ -97,13 +97,13 @@ function EventProcessor() {
 			var self = this;
 
 			setInterval(function() {
-//				console.log("Interval for " + self.id);
-//
-//				for (var n = 0; n < self.observables.length; ++n) {
-//					var path = self.observables[n].split(".");
-//
-//					console.log(self.scope[path[0]][path[1]]);
-//				}
+				// console.log("Interval for " + self.id);
+				//
+				// for (var n = 0; n < self.observables.length; ++n) {
+				// var path = self.observables[n].split(".");
+				//
+				// console.log(self.scope[path[0]][path[1]]);
+				// }
 
 				try {
 					if (self.matchFunction(self.scope)) {
@@ -182,7 +182,7 @@ function Scope() {
 			sum += data[n].value;
 		}
 
-//		console.log("average() = " + sum / data.length);
+		// console.log("average() = " + sum / data.length);
 
 		return sum / data.length;
 	};
@@ -199,7 +199,7 @@ function Scope() {
 			sum = (data[n].value - average) * (data[n].value - average);
 		}
 
-//		console.log("deviation() = " + Math.sqrt(sum));
+		// console.log("deviation() = " + Math.sqrt(sum));
 
 		return Math.sqrt(sum);
 	};

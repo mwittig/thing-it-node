@@ -1,0 +1,105 @@
+/* http://paletton.com/#uid=64g0x0kcVuo1TSJ8hDLi1phnck0 */
+
+.toolbarButton {
+	border: none !important;
+	background-color: #E5DCE9 !important;
+	font-size: 14px !important;
+	box-shadow: none !important;
+	background-color: #E5DCE9 !important;
+}
+
+.ui-header {
+	background-color: #E5DCE9 !important;
+	border-bottom: 1px solid #8E63A1 !important;
+}
+
+.ui-footer {
+	border-top: 1px solid #8E63A1 !important;
+	background-color: #E5DCE9 !important;
+}
+
+.ui-collapsible {
+	padding: 0px !important;
+}
+
+.ui-collapsible-heading>.ui-btn {
+	border-radius: none !important;
+}
+
+.titleIcon {
+	margin-right: 5px;
+}
+
+/* Sensor and Actor Styling */
+.lightOff {
+	font-size: 25px;
+	color: #BBBBBB;
+}
+
+.lightOn {
+	font-size: 25px;
+	color: yellow;
+}
+
+.lightBlink {
+	font-size: 25px;
+	color: yellow;
+}
+
+@keyframes blink { 0% {
+	color: yellow;
+}
+
+100%
+{
+color:
+#999999;
+}
+}
+@-webkit-keyframes blink { 0% {
+	color: yellow;
+}
+
+100%
+{
+color
+:
+#999999
+;
+}
+}
+
+.lightBlink {
+	font-size: 25px;
+	-webkit-animation: blink 0.5s linear infinite;
+	-moz-animation: blink 0.5s linear infinite;
+	animation: blink 0.5s linear infinite;
+}
+
+.lcd table {
+	background-color: #EEEEEE;
+	border: 1px solid #888888;
+	border-collapse: collapse;
+}
+
+.lcd td {
+	border: 1px solid #888888;
+	}
+
+.lcd .matrix {
+	min-width: 15px;
+	width: 15px;
+	min-height: 20px;
+	height: 20px;
+	font-family: monospace;
+	font-size: 16px;
+	color: #000000;
+}
+
+.relay .closed {
+	font-size: 20px;
+}
+
+.relay .open {
+	font-size: 20px;
+}

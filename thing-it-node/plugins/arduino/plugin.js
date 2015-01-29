@@ -323,6 +323,9 @@ function Arduino() {
 		}, {
 			id : "close",
 			label : "Close"
+		}, {
+			id : "toggle",
+			label : "Toggle"
 		} ],
 		state : [ {
 			id : "gate",

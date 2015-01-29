@@ -10,6 +10,8 @@ var io = new Server({
 	transports : [ "websocket" ]
 });
 
+app.use(express.static(__dirname + "/web"));
+app.use("/plugins", express.static(__dirname + "/plugins"));
 app.use(bodyParser.json());
 app.use(function(req, res, next) {
 	res.header('Access-Control-Allow-Origin', '*');

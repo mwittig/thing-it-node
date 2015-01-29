@@ -1,17 +1,26 @@
 module.exports = {
 	plugins : loadPlugins,
-	bootstrap : function(configuration, app, io, server) {
-		var node = loadNodeConfiguration(configuration.nodeConfigurationFile);
+	create : function(node) {
+		utils.inheritMethods(node, new Node());
+
+		this.simulated = true;
+
+		node.loadPlugins();
+
+		return node;
+	},
+	bootstrap : function(options, app, io, server) {
+		var node = loadNodeConfiguration(options.nodeConfigurationFile);
 
 		if (node) {
 			utils.inheritMethods(node, new Node());
 
-			node.initialize(configuration, app, io, server);
+			node.initialize(options, app, io, server);
 			node.start(app, io.listen(server))
 		} else {
 			node = new Node();
 
-			node.initialize(configuration, app, io, server);
+			node.initialize(options, app, io, server);
 
 			console
 					.log("No Node Configuration present. Configuration push required.");
@@ -87,12 +96,12 @@ function Node() {
 	/**
 	 * 
 	 */
-	Node.prototype.initialize = function(configuration, app, io, server) {
-		this.__configuration = configuration;
+	Node.prototype.initialize = function(options, app, io, server) {
+		this.options = options;
 
-		// TODO Get rid of this
+		// TODO Map all relevant options
 
-		this.__simulated = configuration.simulated;
+		this.simulated = options.simulated;
 
 		this.initializeSecurityConfiguration();
 		this.loadPlugins();
@@ -101,22 +110,30 @@ function Node() {
 
 		var self = this;
 
+		app.post("/login", function(req, res) {
+			res.send(req.body);
+		});
+		app.post("/logout", function(req, res) {
+			res.send(req.body);
+		});
 		app.get("/plugins", function(req, res) {
-			security.verifyCallSignature(req, res, self, function() {
+			self.verifyCallSignature(req, res, function() {
 				res.send(self.plugins);
 			});
 		});
 		app.get("/state", function(req, res) {
-			security.verifyCallSignature(req, res, self, function() {
+			self.verifyCallSignature(req, res, function() {
 				res.send({
 					state : self.state,
-					configuration : self
+					configuration : loadNodeConfiguration(self.options.nodeConfigurationFile)
 				});
 			});
 		});
 		app.get("/configuration", function(req, res) {
 			self.verifyCallSignature(req, res, function() {
-				res.send(self);
+				// Send the plain configuration
+				
+				res.send(loadNodeConfiguration(self.options.nodeConfigurationFile));
 			});
 		});
 		app.post("/configure", function(req, res) {
@@ -127,7 +144,7 @@ function Node() {
 
 				saveNodeConfiguration(req.body);
 
-				node = loadNodeConfiguration();
+				node = loadNodeConfiguration(self.options.nodeConfigurationFile);
 
 				// TODO Is the recursive closure an issue for thousands of
 				// configure calls, possibly load into node?
@@ -171,20 +188,20 @@ function Node() {
 	 * 
 	 */
 	Node.prototype.initializeSecurityConfiguration = function() {
-		if (this.__configuration.verifyCallSignature) {
-			if (!this.__configuration.publicKeyFile) {
+		if (this.options.verifyCallSignature) {
+			if (!this.options.publicKeyFile) {
 				throw "No Public Key File defined. Please define in option [publicKeyFile] or set option [verifyCallSignature] to [false].";
 			}
 
 			try {
-				this.__publicKey = fs
-						.readFileSync(this.__configuration.publicKeyFile);
+				this.publicKey = fs
+						.readFileSync(this.options.publicKeyFile);
 			} catch (x) {
 				throw "Cannot read Public Key File"
 						+ configuration.publicKeyFile + ": " + x;
 			}
 
-			if (!this.__configuration.signingAlgorithm) {
+			if (!this.options.signingAlgorithm) {
 				throw "No Signing Algorithm defined. Set [verifyCallSignature] to [false].";
 			}
 		}
@@ -194,15 +211,15 @@ function Node() {
 	 * 
 	 */
 	Node.prototype.verifyCallSignature = function(request, response, callback) {
-		if (this.__configuration.verifyCallSignature) {
+		if (this.options.verifyCallSignature) {
 			var verify = crypto
-					.createVerify(this.__configuration.signingAlgorithm);
+					.createVerify(this.options.signingAlgorithm);
 			var data = request.body == null ? "" : JSON.stringify(request.body);
 
 			verify.update(request.url + request.method + data);
 
 			if (!request.header.Signature
-					|| !verify.verify(this.__publicKey,
+					|| !verify.verify(this.publicKey,
 							request.header.Signature, 'hex')) {
 				res.status(404).send("Signature verification failed");
 			} else {
@@ -232,7 +249,7 @@ function Node() {
 
 		// Open namespace for web socket connections
 
-		self.namespace = self.io.of("/nodes/" + self.uuid + "/events");
+		self.namespace = self.io.of("/events");
 
 		self.namespace.on("connection", function(socket) {
 			console.log("Websocket connection established for Node " + self.id
@@ -320,7 +337,7 @@ function Node() {
 	 * 
 	 */
 	Node.prototype.isSimulated = function() {
-		return this.__simulated;
+		return this.simulated;
 	};
 
 	/**
@@ -349,10 +366,6 @@ function Node() {
 		if (this.heartbeat) {
 			clearInterval(this.heartbeat);
 		}
-
-		// TODO Still needed?
-
-		this.polling = null;
 
 		console.log("Stopped Node [" + this.label + "].");
 
@@ -405,7 +418,7 @@ function Node() {
 				eval(processedScript);
 			}
 		} catch (x) {
-			console.log("Failed to invoke Service <" + serviceId + ">:");
+			console.log("Failed to invoke Service [" + serviceId + "]:");
 			console.log(x);
 		}
 	};
@@ -439,7 +452,7 @@ function Node() {
 	};
 
 	/**
-	 * For demo purposes.
+	 * For demo purposes only.
 	 */
 	Node.prototype.delay = function(time) {
 		console.log("Delaying by " + time);

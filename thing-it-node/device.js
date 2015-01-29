@@ -52,6 +52,8 @@ function Device() {
 
 			deferred.resolve();
 		}).fail(function(error) {
+			console.error(error);
+			
 			deferred.reject(error);
 		});
 

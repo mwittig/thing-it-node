@@ -11,26 +11,45 @@ module.exports = {
 };
 
 var q = require('q');
+var lodash = require('lodash');
 
-function cloneFiltered(obj, filter) {
-	if (obj == null || typeof (obj) != 'object')
-		return obj;
+/**
+ * 
+ */
+function cloneFiltered(object, filter) {
+	var clone = lodash.cloneDeep(object);
 
-	var temp = {};
+	// Traverse and delete all filtered
+	// TODO Check whether strip can be done in lodash callback
 
-	for ( var key in obj) {
-		if (key == filter) {
-			console.log("Skipping " + key);
+	stripFields(clone, filter);
+
+	return clone;
+}
+
+/**
+ * 
+ * @param object
+ * @param filter
+ */
+function stripFields(object, filter) {
+	if (typeof (object) !== "object") {
+		return;
+	}
+
+	for ( var key in object) {
+		if (!object.hasOwnProperty(key)) {
+			continue;
+		}
+
+		if (key.search(filter) == 0) {
+			delete object[key];
 
 			continue;
 		}
 
-		if (obj.hasOwnProperty(key)) {
-			temp[key] = cloneFiltered(obj[key], filter);
-		}
+		stripFields(object[key], filter);
 	}
-
-	return temp;
 }
 
 /**

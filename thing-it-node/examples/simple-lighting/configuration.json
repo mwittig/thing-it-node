@@ -54,9 +54,26 @@
          ]
       }
    ],
+   "groups" : [
+   		{
+   			"id" : "group1", 
+   			"label": "320, Whitman Park Drive", 
+   			"icon": "home",
+   			"subGroups": [
+   				{
+   					"id": "group2",
+   					"label" : "Dining Room",
+   					"icon" : "cutlery",
+   					"subGroups": [],
+   					"actors" : {"arduino1.led1": {}, "arduino1.led2": {}},
+   					"sensors" : {"arduino1.button1": {}, "arduino1.button2": {}, "arduino1.photocell1": {}},
+   					"services" : {"toggleAll": {}}
+   				}]
+   		}],
    "services": [
    		{
    			"id": "toggleAll",
+   			"label": "Toggle All",
    			"script" : "if (arduino1.led1.state == 'on') {arduino1.led1.off(); arduino1.led2.off();} else {arduino1.led1.on(); arduino1.led2.on();}"
    		}],
    "eventProcessors": [

@@ -22,7 +22,7 @@ function Relay() {
 					if (!self.isSimulated()) {
 						try {
 							var five = require("johnny-five");
- 
+
 							self.relay = new five.Relay(self.configuration.pin,
 									self.configuration.type);
 						} catch (x) {
@@ -75,4 +75,16 @@ function Relay() {
 			this.publishStateChange();
 		}
 	};
+
+	/**
+	 * 
+	 */
+	Relay.prototype.close = function() {
+		if (this.state == "closed") {
+			this.open();
+		} else {
+			this.close();
+		}
+	}
+};
 };
