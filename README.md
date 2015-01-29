@@ -1,8 +1,38 @@
-**[thing-it-node]** allows you to connect multiple devices like an Arduino Uno or a Bluetooth-enabled Wristband to your node computer (e.g. a regular server, a Raspberry Pi or a BeagleBone Black) to centralize Internet access to a scalable set of Sensors and Actors connected to these devices, invoke **REST Services** on all Actors, e.g.
+**[thing-it-node]** allows you to 
+
+* connect multiple devices like an Arduino Uno or a Bluetooth-enabled Wristband to your node computer (e.g. a regular server, a Raspberry Pi or a BeagleBone Black) to centralize Internet access to a scalable set of Sensors and Actors connected to these devices, 
+* invoke **REST Services** on all Actors, 
+* receive **WebSocket Notifications** on all Sensor data changes and events,
+* define higher level REST Services to control multiple Actors,
+* define Event Processing to react on Sensor events and data changes,
+* use all of the above in a mobile client too control your devices.
+
+All of the above is controlled by a [nodejs](http://nodejs.org/) server which is bootstrapped from a simple JSON configuration as opposed to a complex program.
+
+This allows you to **configure e.g. a home automation system in minutes**.
+
+## Mobile Client
+
+*[thing-it-node]* comes with a mobile client tested for iPhone, iPad and Android devices which allows you to control and monitor your devices.
+
+## REST Services
+
+You can invoke services of all Actors via
  
 	jQuery.ajax({url : "https://yournode/devices/arduino1/actors/led1/services/on”, type : "POST"}).done(...).fail(...);
 
-and receive **WebSocket Notifications** on all Sensor data changes and events, e.g. via
+You also can define **Higher-level Services** on multiple Actors, e.g. to
+
+* switch multiple LEDs on or off or close and open multiple Relays or
+* create output on an LCD display and create a sound on a Piezo.
+
+and also invoke those via REST, e.g.
+
+	jQuery.ajax({url : "https://yournode/services/allLEDsOn”, type : "POST"}).done(...).fail(...);
+
+## Web Socket Notifications
+
+You can receive **WebSocket Notifications** on all Sensor data changes and events, e.g. via
 
 	var socket = new io("https://yournode/node/4711/events");
 	
@@ -13,23 +43,29 @@ and receive **WebSocket Notifications** on all Sensor data changes and events, e
 		console.log(event.data);
 	});
 
-Furthermore, you can define **Higher-level Services** on multiple Actors, e.g. to
 
-* switch multiple LEDs on or off or close and open multiple Relays or
-* create output on an LCD display and create a sound on a Piezo.
+## Complex Event Processing
 
-and also invoke those via REST, e.g.
-
-	jQuery.ajax({url : "https://yournode/services/allLEDsOn”, type : "POST"}).done(...).fail(...);
-
-and define **Complex Event Processing** on Sensor data changes and events to invoke the above Actor or Node Services, e.g.
+You can define **Complex Event Processing** on Sensor data changes and events to invoke the above Actor or Node Services, e.g.
 
 * to produce LCD and Piezo output on simultaneous data changes on a motion detector, a thermo sensor and a sound detector for an alarm system or
 * open the door if an RFID tag approaches an RFID receiver.
 
-All of the above is controlled by a [nodejs](http://nodejs.org/) server which is bootstrapped from a simple JSON configuration as opposed to a complex program.
+# Configuration File
 
-This allows you to build e.g. a home automation system just with some minimal Web programming.
+The **[thing-it-node]** Configuration File contains definitions of Devices, Actors, Sensors, Services, Event Processors and groups of those in a simple JSON string, e.g.
+
+    "actors": [
+                {
+                   "id": "led1",
+                   "label": "LED1",
+                   "type": "led",
+                   "configuration": {
+                      "pin": 12
+                   }
+                }, ...
+
+You can use [www.thing-it.com](http://www.thing-it.com) to create and simulate your setup and then just download the configuration file.
 
 # Dual License
 
@@ -113,7 +149,7 @@ You will see something like
 
 
      Node Configuration File: /Users/marcgille/git/thing-it-node/thing-it-node/examples/simple-lighting/configuration.json
-     Simulated              : false
+     Simulated              : true
      Hot Deployment         : false
      Verify Call Signature  : true
      Public Key File        : /Users/marcgille/git/thing-it-node/thing-it-node/examples/simple-lighting/cert.pem
@@ -126,13 +162,23 @@ You will see something like
 
     Loading plugin [arduino].
     Starting Node [Home].
-    1422043760747 Looking for connected device  
+    Actor [LED1] started.
+		    Actor [LED2] started.
+		    Sensor [Button 1] started.
+		    Sensor [Button 2] started.
+		    Sensor [Photocell 1] started.
+	    Device [Arduino Uno 1] started.
+	    Event Processor [Event Processor 1] listening.
+	    Event Processor [Event Processor 2] listening.
+	    Event Processor [Event Processor 3] listening.
+	    Service [toggleAll] available.
+    Node [Home] started.  
 
-but no further output, which means that your **thing-it-node** server has started properly, found its configuration but determined that your Arduino Board is not wired up yet.
+which means that your **thing-it-node** server found its configuration and has been started properly. It is not doing anything because the option **simulated** is set to **true**. Stop the **[thing-it-node]** Server with **CTRL-C** and change its value to **false** to prepare [thing-it-node] to talk to the real device - which we still have to set up.
 
-## Setting up Board, Actors and Sensors
+## Setting up Device, Actors and Sensors
 
-To setup your board you need the following hardware
+To setup your Device you need the following hardware
 
 * an Arduino Uno board (e.g. [http://www.adafruit.com/product/50](http://www.adafruit.com/product/50)),
 * two LEDs (e.g. [https://www.sparkfun.com/products/9590](https://www.sparkfun.com/products/9590)),
@@ -203,17 +249,13 @@ Restart the **thing-it-node** server. The output should now look like
 
 You should also be able switch both LEDs on and off via the respective buttons or switch both LEDs on by covering the Photocell for more than a few seconds.
 
-## Running a Mobile Web App
+## Running the Mobile Web App
 
-Finally, connect your browser to 
+Connect your browser to 
 
-`http://localhost:3001/examples/simple-lighting/console.html`
+`http://localhost:3001/mobile/console.html`
 
 Browser content should look like
-
-<img src="./thing-it-node/examples/simple-lighting/mobile-ui.png" alt="Mobile UI" style="width:400px;height:600px;">
-
-You should be able to switch the LEDs on individually (**Toggle Lamp 1**, **Toggle Lamp 2**) and together (**Toggle All**) and also see notifications on Button events or Photocell data changes in the first line (which is showing **Idle** in the screenshot).
 
 If you have remote (e.g. Wifi) access to the computer running the **[thing-it-node]**, you may also use a mobile device (e.g. an iPhone or iPad) to connect to your simple lighting system.
 
@@ -224,8 +266,7 @@ Let us recap what we did:
 With
 
 * a simple configuration file,
-* the corresponding wiring of the Arduino and 
-* a very simple HTML file for mobile
+* the corresponding wiring of the Arduino 
 
 but **no programming** we were able to create a simple but realistic home automation scenario.
 
