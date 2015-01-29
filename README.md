@@ -46,7 +46,17 @@ You can receive **WebSocket Notifications** on all Sensor data changes and event
 
 ## Complex Event Processing
 
-You can define **Complex Event Processing** on Sensor data changes and events to invoke the above Actor or Node Services, e.g.
+You can define **Complex Event Processing** on Sensor data changes and events like
+
+    {
+         "id": "eventProcessor3",
+         "label": "Event Processor 3",
+         "observables": ["arduino1.photocell1"],
+         "window" : {"duration": 10000},
+         "match" : "minimum(arduino1.photocell1.series) < 700 && deviation(arduino1.photocell1.series) < 100 && arduino1.photocell1.series.length > 1",
+         "script": "arduino1.led1.on(); arduino1.led2.on();"
+    }
+to invoke the above Actor or Node Services, e.g.
 
 * to produce LCD and Piezo output on simultaneous data changes on a motion detector, a thermo sensor and a sound detector for an alarm system or
 * open the door if an RFID tag approaches an RFID receiver.
