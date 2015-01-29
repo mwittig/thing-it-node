@@ -7,7 +7,7 @@
 * define **Complex Event Processing** to react on Sensor events and data changes,
 * use all of the above in a **Mobile Client** to control your devices.
 
-All of the above is controlled by a [nodejs](http://nodejs.org/) server which is bootstrapped from a simple JSON configuration as opposed to a complex program.
+All of the above is controlled by a [nodejs](http://nodejs.org/) server which is bootstrapped from a simple JSON configuration.
 
 This allows you to configure e.g. **a home automation system in minutes**.
 
