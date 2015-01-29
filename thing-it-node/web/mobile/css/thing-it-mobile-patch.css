@@ -16,6 +16,8 @@
 .ui-footer {
 	border-top: 1px solid #8E63A1 !important;
 	background-color: #E5DCE9 !important;
+	font-size: 10px;
+	font-weight: normal;
 }
 
 .ui-collapsible {
@@ -32,17 +34,12 @@
 
 /* Sensor and Actor Styling */
 .lightOff {
-	font-size: 25px;
+	font-size: 35px;
 	color: #BBBBBB;
 }
 
 .lightOn {
-	font-size: 25px;
-	color: yellow;
-}
-
-.lightBlink {
-	font-size: 25px;
+	font-size: 35px;
 	color: yellow;
 }
 
@@ -70,7 +67,7 @@ color
 }
 
 .lightBlink {
-	font-size: 25px;
+	font-size: 35px;
 	-webkit-animation: blink 0.5s linear infinite;
 	-moz-animation: blink 0.5s linear infinite;
 	animation: blink 0.5s linear infinite;
