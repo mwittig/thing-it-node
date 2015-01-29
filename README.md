@@ -15,7 +15,7 @@ This allows you to configure e.g. **a home automation system in minutes**.
 
 *[thing-it-node]* comes with a mobile client tested for iPhone, iPad and Android devices which allows you to control and monitor your devices.
 
-<a href="./thing-it-node/documentation/images/mobile-client.png"><img src="./thing-it-node/documentation/images/mobile-client.png" width="40%" height="40%" align="center"></a>
+<p align="center"><a href="./thing-it-node/documentation/images/mobile-client.png"><img src="./thing-it-node/documentation/images/mobile-client.png" width="40%" height="40%"></a></p>
 
 ## REST Services
 
@@ -30,7 +30,9 @@ You also can define **Higher-level Services** on multiple Actors, e.g. to
 
 and also invoke those via REST, e.g.
 
+```javascript
 	jQuery.ajax({url : "https://yournode/services/allLEDsOn”, type : "POST"}).done(...).fail(...);
+```
 
 ## Web Socket Notifications
 
