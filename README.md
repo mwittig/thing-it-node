@@ -15,6 +15,8 @@ This allows you to configure e.g. **a home automation system in minutes**.
 
 *[thing-it-node]* comes with a mobile client tested for iPhone, iPad and Android devices which allows you to control and monitor your devices.
 
+<img src="./thing-it-node/documentation/images/mobile-client.png" style="">
+
 ## REST Services
 
 You can invoke services of all Actors via
@@ -266,6 +268,10 @@ Connect your browser to
 `http://localhost:3001/mobile/console.html`
 
 Browser content should look like
+
+<img src="./thing-it-node/documentation/images/mobile-client.png" style="">
+
+_(You can leave *Account* and *Password* empty for now. We will be adding security measures later.)_
 
 If you have remote (e.g. Wifi) access to the computer running the **[thing-it-node]**, you may also use a mobile device (e.g. an iPhone or iPad) to connect to your simple lighting system.
 
