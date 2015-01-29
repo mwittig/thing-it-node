@@ -21,7 +21,9 @@ This allows you to configure e.g. **a home automation system in minutes**.
 
 You can invoke services of all Actors via
  
-	jQuery.ajax({url : "https://yournode/devices/arduino1/actors/led1/services/on”, type : "POST"}).done(...).fail(...);
+```javascript
+jQuery.ajax({url : "https://yournode/devices/arduino1/actors/led1/services/on”, type : "POST"}).done(...).fail(...);
+```
 
 You also can define **Higher-level Services** on multiple Actors, e.g. to
 
@@ -31,13 +33,14 @@ You also can define **Higher-level Services** on multiple Actors, e.g. to
 and also invoke those via REST, e.g.
 
 ```javascript
-	jQuery.ajax({url : "https://yournode/services/allLEDsOn”, type : "POST"}).done(...).fail(...);
+jQuery.ajax({url : "https://yournode/services/allLEDsOn”, type : "POST"}).done(...).fail(...);
 ```
 
 ## Web Socket Notifications
 
 You can receive **WebSocket Notifications** on all Sensor data changes and events, e.g. via
 
+```javascript
 	var socket = new io("https://yournode/node/4711/events");
 	
 	socket.on("event", function(event) {
@@ -46,7 +49,7 @@ You can receive **WebSocket Notifications** on all Sensor data changes and event
 		console.log(event.type);
 		console.log(event.data);
 	});
-
+```
 
 ## Complex Event Processing
 
@@ -60,6 +63,7 @@ You can define **Complex Event Processing** on Sensor data changes and events li
          "match" : "minimum(arduino1.photocell1.series) < 700 && deviation(arduino1.photocell1.series) < 100 && arduino1.photocell1.series.length > 1",
          "script": "arduino1.led1.on(); arduino1.led2.on();"
     }
+
 to invoke the above Actor or Node Services, e.g.
 
 * to produce LCD and Piezo output on simultaneous data changes on a motion detector, a thermo sensor and a sound detector for an alarm system or
@@ -271,7 +275,7 @@ Connect your browser to
 
 Browser content should look like
 
-<img src="./thing-it-node/documentation/images/mobile-client.png" style="">
+<p align="center"><a href="./thing-it-node/documentation/images/mobile-client.png"><img src="./thing-it-node/documentation/images/mobile-client.png" width="40%" height="40%"></a></p>
 
 _(You can leave *Account* and *Password* empty for now. We will be adding security measures later.)_
 
