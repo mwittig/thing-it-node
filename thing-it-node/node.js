@@ -3,7 +3,8 @@ module.exports = {
 	create : function(node) {
 		utils.inheritMethods(node, new Node());
 
-		this.simulated = true;
+		node.simulated = true;
+		node.namespacePrefix = "/nodes/" + node.uuid;
 
 		node.loadPlugins();
 
@@ -16,6 +17,7 @@ module.exports = {
 			utils.inheritMethods(node, new Node());
 
 			node.initialize(options, app, io, server);
+			
 			node.start(app, io.listen(server))
 		} else {
 			node = new Node();
@@ -98,6 +100,7 @@ function Node() {
 	 */
 	Node.prototype.initialize = function(options, app, io, server) {
 		this.options = options;
+		this.namespacePrefix = "";
 
 		// TODO Map all relevant options
 
@@ -241,21 +244,21 @@ function Node() {
 		this.app = app;
 		this.io = io;
 
-		var self = this;
-
 		// Initialization
 
-		console.log("Starting Node [" + self.label + "].");
+		console.log("Starting Node [" + this.label + "].");
 
 		// Open namespace for web socket connections
 
-		self.namespace = self.io.of("/events");
+		this.namespace = this.io.of(this.namespacePrefix + "/events");
 
-		self.namespace.on("connection", function(socket) {
+		var self = this;
+
+		this.namespace.on("connection", function(socket) {
 			console.log("Websocket connection established for Node " + self.id
 					+ " (" + self.uuid + ")");
 		});
-		self.namespace.on("disconnect", function(socket) {
+		this.namespace.on("disconnect", function(socket) {
 			console.log("Websocket connection disconnected for Node " + self.id
 					+ " (" + self.uuid + ")");
 		});
