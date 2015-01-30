@@ -169,7 +169,7 @@ and the Event Processing for the same
 
 which ensures that the setup only reacts to a slow, consistent reduction of the ambient light.
 
-Start the **thing-it-node** from _&lt;installDir&gt;_ via
+Start the **[thing-it-node]** from _&lt;installDir&gt;_ via
 
 `node thing-it-node.js`
 
