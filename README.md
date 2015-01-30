@@ -87,6 +87,8 @@ The **[thing-it-node]** Configuration File contains definitions of Devices, Acto
         }, ...
 ```
 
+# [www.thing-it.com](http://www.thing-it.com)
+
 You can use [www.thing-it.com](http://www.thing-it.com) to create and simulate your setup and then just download the configuration file.
 
 # Dual License
