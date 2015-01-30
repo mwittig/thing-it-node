@@ -196,28 +196,35 @@ define(
 						console.log("Receiving message");
 						console.log(message);
 					});
-					this.namespace.on("event", function(event) {
-						console.log("Receiving event");
-						console.log(event);
-						console.log(self.node.getDevice(event.device)
-								.getSensor(event.sensor).device);
-
-						self.node.getDevice(event.device).getSensor(
-								event.sensor).value = event.value;
-
-						self.safeApply();
-					});
 					this.namespace
 							.on(
-									"actorStateChange",
-									function(stateChange) {
-										console.log("Actor State Changed");
-										console.log(stateChange);
-										self.node.getDevice(stateChange.device)
-												.getActor(stateChange.actor).state = stateChange.state;
+									"event",
+									function(event) {
+										console.log("Receiving event");
+										console.log(event);
+										console.log(self.node.getDevice(
+												event.device).getSensor(
+												event.sensor).device);
 
+										self.node.getDevice(event.device)
+												.getSensor(event.sensor).value = event.value;
+										self.node.getDevice(event.device)
+												.getSensor(event.sensor).lastEventTimestamp = new Date()
+												.getTime();
+
+										if (event.event == "valueChange") {
+											self.node.getDevice(event.device)
+													.getSensor(event.sensor).lastValueChangeTimestamp = new Date()
+													.getTime();
+										}
+										
 										self.safeApply();
 									});
+					this.namespace.on("actorStateChange", function(
+							actorStateChange) {
+						self.onActorStateChanged(actorStateChange);
+						self.safeApply();
+					});
 				};
 
 				/**
@@ -265,6 +272,9 @@ define(
 				 */
 				MobileConsole.prototype.pushSensorValue = function(sensor,
 						value) {
+					console.log("===>");
+					console.log(sensor);
+					console.log(value);
 					ConsoleService.instance().pushSensorValue(sensor).done(
 							function() {
 							}).fail(function() {
@@ -299,14 +309,14 @@ define(
 				 */
 				MobileConsole.prototype.onActorStateChanged = function(
 						stateChange) {
-					console.log("Actor State Change");
-					console.log(stateChange);
-
-					var device = this.node.getDevice(stateChange.device);
-					var actor = this.device.getActor(stateChange.actor);
+					var actor = this.node.getDevice(stateChange.device)
+							.getActor(stateChange.actor);
 
 					actor.state = stateChange.state;
-					actor.lastStateChange = new Date().getTime();
+					actor.lastStateChangeTimestamp = new Date().getTime();
+
+					console.log("Actor");
+					console.log(actor);
 				};
 
 				/*
@@ -314,7 +324,15 @@ define(
 				 */
 				MobileConsole.prototype.getComponentPluginPath = function(
 						component) {
-					return ConsoleService.instance().getComponentPluginPath(component);
+					return ConsoleService.instance().getComponentPluginPath(
+							component);
+				};
+
+				/**
+				 * 
+				 */
+				MobileConsole.prototype.formatDateTime = function(time) {
+					return Utils.formatDateTime(time);
 				};
 
 				/*

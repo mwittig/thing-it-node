@@ -11,7 +11,7 @@ define([ "mobile/js/Utils", "mobile/js/Device", "mobile/js/Group" ], function(
 			node.bind(deviceTypes);
 
 			console.log();
-			
+
 			return node;
 		}
 	};
@@ -28,6 +28,10 @@ define([ "mobile/js/Utils", "mobile/js/Device", "mobile/js/Group" ], function(
 				Device.bind(deviceTypes, this, this.devices[n]);
 			}
 
+			if (!this.groups) {
+				this.groups = [];
+			}
+			
 			for (var n = 0; n < this.groups.length; n++) {
 				Group.bind(this, this.groups[n]);
 			}

@@ -55,18 +55,18 @@ function EventProcessor() {
 	EventProcessor.prototype.push = function(sensor, value) {
 		// console.log("Add data " + value + " for " + sensor.id);
 
-		this.scope[sensor.device.id][sensor.id].series.push({
-			value : value,
-			timestamp : new Date().getTime()
-		});
+		if (this.window) {
+			this.scope[sensor.device.id][sensor.id].series.push({
+				value : value,
+				timestamp : new Date().getTime()
+			});
+		}
 	};
 
 	/**
 	 * Notifies the Event Processor of an Event on a Sensor.
 	 */
 	EventProcessor.prototype.notify = function(sensor, event) {
-		// console.log("Processing event " + event + " on sensor " + sensor.id);
-
 		for (var n = 0; n < this.observables.length; ++n) {
 			var path = this.observables[n].split(".");
 

@@ -22,7 +22,8 @@ function RgbLed() {
 					self.state = {
 						red : 0,
 						green : 0,
-						blue : 0
+						blue : 0,
+						hex : "#000000"
 					};
 
 					if (!self.isSimulated()) {
@@ -67,7 +68,9 @@ function RgbLed() {
 		this.state = {
 			red : 255,
 			green : 255,
-			blue : 255
+			blue : 255,
+			hex : "#FFFFFF"
+
 		};
 
 		this.publishStateChange();
@@ -84,7 +87,8 @@ function RgbLed() {
 		this.state = {
 			red : 0,
 			green : 0,
-			blue : 0
+			blue : 0,
+			hex : "#000000"
 		};
 
 		this.publishStateChange();
@@ -103,7 +107,65 @@ function RgbLed() {
 		this.state = {
 			red : rgb.r,
 			green : rgb.g,
-			blue : rgb.b
+			blue : rgb.b,
+			hex : parameters.rgbColorHex
+		};
+
+		this.publishStateChange();
+	};
+
+	/**
+	 * 
+	 */
+	RgbLed.prototype.setRedValue = function(parameters) {
+		if (this.led) {
+			this.led.color(rgbToHex(Math.min(parameters.value, 255),
+					this.state.green, this.state.blue));
+		}
+
+		this.state = {
+			red : Math.min(parameters.value, 255),
+			green : this.state.green,
+			blue : this.state.blue,
+			hex : rgbToHex(Math.min(parameters.value, 255), this.state.green, this.state.blue)
+		};
+
+		this.publishStateChange();
+	};
+
+	/**
+	 * 
+	 */
+	RgbLed.prototype.setGreenValue = function(parameters) {
+		if (this.led) {
+			this.led.color(rgbToHex(this.state.red, Math.min(parameters.value,
+					255), this.state.blue));
+		}
+
+		this.state = {
+			red : this.state.red,
+			green : Math.min(parameters.value, 255),
+			blue : this.state.blue,
+			hex : rgbToHex(this.state.red, Math.min(parameters.value, 255), this.state.blue)
+		};
+
+		this.publishStateChange();
+	};
+
+	/**
+	 * 
+	 */
+	RgbLed.prototype.setBlueValue = function(parameters) {
+		if (this.led) {
+			this.led.color(rgbToHex(this.state.red, this.state.green, Math.min(
+					parameters.value, 255)));
+		}
+
+		this.state = {
+			red : this.state.red,
+			green : this.state.green,
+			blue : Math.min(parameters.value, 255),
+			hex : rgbToHex(this.state.red, this.state.green, Math.min(parameters.value, 255))
 		};
 
 		this.publishStateChange();
@@ -123,6 +185,11 @@ function RgbLed() {
 	};
 };
 
+/**
+ * 
+ * @param hex
+ * @returns
+ */
 function hexToRgb(hex) {
 	// Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
 
@@ -139,4 +206,15 @@ function hexToRgb(hex) {
 		g : parseInt(result[2], 16),
 		b : parseInt(result[3], 16)
 	} : null;
+}
+
+/**
+ * 
+ * @param r
+ * @param g
+ * @param b
+ * @returns {String}
+ */
+function rgbToHex(r, g, b) {
+	return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
 }

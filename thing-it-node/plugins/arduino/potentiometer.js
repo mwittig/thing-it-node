@@ -14,19 +14,23 @@ function Potentiometer() {
 	Potentiometer.prototype.start = function(app, io) {
 		this.startSensor(app, io);
 
-		var self = this;
-
 		try {
 			if (!self.isSimulated()) {
 				var five = require("johnny-five");
 
 				this.potentiometer = new five.Potentiometer();
 
+				var self = this;
+
 				this.potentiometer.on("change", function(data) {
-					self.change(data);
+					self.value = self.potentiometer.value;
+
+					self.change(self.potentiometer.value);
 				});
-				this.potentiometer.on("data", function(event) {
-					self.data(event);
+				this.potentiometer.on("data", function(data) {
+					self.value = self.potentiometer.value;
+
+					self.data(self.potentiometer.value);
 				});
 			}
 		} catch (x) {

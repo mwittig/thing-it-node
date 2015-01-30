@@ -131,7 +131,7 @@
 					<li ng-repeat="service in nodePage.node.services" jqm-li><a
 						ng-click="topPage().callNodeService(service)"><i
 							class="fa fa-gear"></i>{{service.label}}</a></li>
-					<li class="ui-field-contain" ng-repeat="actor in topPage().actors"
+					<li ng-repeat="actor in topPage().actors"
 						jqm-li><table width="100%">
 							<tr valign="center">
 								<td width="45%" align="left"><label>{{actor.label}}</label></td>
@@ -144,7 +144,7 @@
 										class="fa fa-chevron-right"></i></a></td>
 							</tr>
 						</table></li>
-					<li class="ui-field-contain"
+					<li
 						ng-repeat="sensor in topPage().sensors">
 						<table width="100%">
 							<tr valign="center">
@@ -184,7 +184,8 @@
 									class="titleIcon fa fa-{{group.icon}}"></i></span><span
 								ng-hide="group.icon"><i class="titleIcon fa fa-home"></i></span>{{group.label}}</a></li>
 						<li ng-repeat="service in topPage().group.getServices()" jqm-li><a
-							ng-click="topPage().callNodeService(service)"><i class="titleIcon fa fa-gear"></i>{{service.label}}</a></li>
+							ng-click="topPage().callNodeService(service)"><i
+								class="titleIcon fa fa-gear"></i>{{service.label}}</a></li>
 						<li ng-repeat="actor in topPage().group.getActors()" jqm-li><table
 								width="100%">
 								<tr valign="center">
@@ -235,6 +236,7 @@
 								</td>
 							</tr>
 						</table></li>
+					<li class="ui-field-contain"><label for="lastStateChange">Last State Change</label>{{formatDateTime(topPage().actor.lastStateChangeTimestamp)}}</li>
 					<li ng-repeat="service in topPage().actor.__type.services" jqm-li><a
 						href="#" ng-click="topPage().callActorService(service)"><i
 							class="titleIcon fa fa-gear"></i>{{service.label}}</a></li>
@@ -261,9 +263,9 @@
 								</td>
 							</tr>
 						</table></li>
-					<li><label for="state">State</label>Test</li>
-					<li><label for="lastEvent">Last Event</label>Test</li>
-					<li><label for="lastValueChange">Last Value Change</label>Test</li>
+					<li class="ui-field-contain"><label for="value">Value</label>{{topPage().sensor.value}}</li>
+					<li class="ui-field-contain"><label for="lastEvent">Last Event</label>{{formatDateTime(topPage().sensor.lastEventTimestamp)}}</li>
+					<li class="ui-field-contain"><label for="lastValueChange">Last Value Change</label>{{formatDateTime(topPage().sensor.lastValueChangeTimestamp)}}</li>
 					<li><a ng-click="pushSensorMonitoringPage(sensor)"><i
 							class="titleIcon fa fa-chart"></i>Monitoring</a></li>
 				</ul>

@@ -1,5 +1,4 @@
 /* http://paletton.com/#uid=64g0x0kcVuo1TSJ8hDLi1phnck0 */
-
 .toolbarButton {
 	border: none !important;
 	background-color: #E5DCE9 !important;
@@ -13,11 +12,19 @@
 	border-bottom: 1px solid #8E63A1 !important;
 }
 
+.ui-header h1 {
+	font-weight: normal !important;
+}
+
 .ui-footer {
 	border-top: 1px solid #8E63A1 !important;
 	background-color: #E5DCE9 !important;
 	font-size: 10px;
-	font-weight: normal;
+	font-weight: normal !important;
+}
+
+.ui-footer h4 {
+	font-weight: normal !important;
 }
 
 .ui-collapsible {
@@ -49,8 +56,18 @@
 
 100%
 {
-color:
-#999999;
+color
+
+
+:
+
+
+
+
+#999999
+
+
+;
 }
 }
 @-webkit-keyframes blink { 0% {
@@ -60,17 +77,32 @@ color:
 100%
 {
 color
+
+
+
+
 :
+
+
+
+
 #999999
+
+
+
+
 ;
 }
 }
-
 .lightBlink {
 	font-size: 35px;
 	-webkit-animation: blink 0.5s linear infinite;
 	-moz-animation: blink 0.5s linear infinite;
 	animation: blink 0.5s linear infinite;
+}
+
+.ledRgb {
+	font-size: 35px;
 }
 
 .lcd table {
@@ -81,7 +113,7 @@ color
 
 .lcd td {
 	border: 1px solid #888888;
-	}
+}
 
 .lcd .matrix {
 	min-width: 15px;

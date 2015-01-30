@@ -23,7 +23,9 @@ function Sensor() {
 	 * 
 	 */
 	Sensor.prototype.startSensor = function() {
-		this.initializeSimulation();
+		if (this.isSimulated()) {
+			this.initializeSimulation();
+		}
 
 		console.log("\t\tSensor [" + this.label + "] started.");
 	};
@@ -42,7 +44,7 @@ function Sensor() {
 		// TODO Publish change only if specified so
 
 		if (true) {
-			this.publishData(event);
+			this.publishEvent(event);
 		}
 
 		for (var n = 0; n < this.eventProcessors.length; ++n) {
@@ -57,11 +59,12 @@ function Sensor() {
 		// Publish data only if specified so
 
 		if (true) {
-			this.publishData(data);
+			this.publishValueChangeEvent(data);
 		}
 
 		for (var n = 0; n < this.eventProcessors.length; ++n) {
 			this.eventProcessors[n].push(this, data);
+			this.eventProcessors[n].notify(this, "valueChange");
 		}
 	};
 
@@ -74,11 +77,24 @@ function Sensor() {
 	/**
 	 * 
 	 */
-	Sensor.prototype.publishData = function(data) {
+	Sensor.prototype.publishEvent = function(event) {
 		this.device.node.publishEvent({
 			node : this.device.node.id,
 			device : this.device.id,
 			sensor : this.id,
+			event : event
+		});
+	};
+
+	/**
+	 * 
+	 */
+	Sensor.prototype.publishValueChangeEvent = function(data) {
+		this.device.node.publishEvent({
+			node : this.device.node.id,
+			device : this.device.id,
+			sensor : this.id,
+			event : "valueChange",
 			value : data
 		});
 	};
@@ -107,6 +123,8 @@ function Sensor() {
 				+ this.id + "/data", function(req, res) {
 			res.send("");
 
+			self.value = req.body.value;
+			
 			self.data(req.body.value);
 		});
 		this.device.node.app.post("/devices/" + this.device.id + "/sensors/"

@@ -13,15 +13,14 @@ function Button() {
 	 */
 	Button.prototype.start = function() {
 		this.startSensor();
-		this.initializeSimulation();
 
-		var self = this;
-
-		if (!this.isSimulated()) {
-			try {
+		try {
+			if (!this.isSimulated()) {
 				var five = require("johnny-five");
 
 				this.button = new five.Button(this.configuration.pin);
+
+				var self = this;
 
 				this.button.on("hold", function() {
 					self.change("hold");
@@ -34,10 +33,10 @@ function Button() {
 				this.button.on("release", function() {
 					self.change("release");
 				});
-			} catch (x) {
-				this.publishMessage("Cannot initialize " + this.device.id + "/"
-						+ this.id + ":" + x);
 			}
+		} catch (x) {
+			this.publishMessage("Cannot initialize " + this.device.id + "/"
+					+ this.id + ":" + x);
 		}
 	};
 };

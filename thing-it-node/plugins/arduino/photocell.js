@@ -14,10 +14,8 @@ function Photocell() {
 	Photocell.prototype.start = function(app, io) {
 		this.startSensor(app, io);
 
-		var self = this;
-
 		try {
-			if (!self.isSimulated()) {
+			if (!this.isSimulated()) {
 				var five = require("johnny-five");
 
 				this.photocell = new five.Sensor({
@@ -25,10 +23,16 @@ function Photocell() {
 					freq : this.configuration.rate
 				});
 
+				var self = this;
+
 				this.photocell.on("change", function(event) {
+					self.value = self.photocell.value;
+
 					self.change(event);
 				});
 				this.photocell.on("data", function() {
+					self.value = self.photocell.value;
+
 					self.data(self.photocell.value);
 				});
 			}

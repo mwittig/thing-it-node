@@ -131,6 +131,36 @@ function Arduino() {
 					id : "string"
 				}
 			} ]
+		}, {
+			id : "setRedValue",
+			label : "Set Red Value",
+			parameters : [ {
+				label : "Red Value",
+				id : "value",
+				type : {
+					id : "integer"
+				}
+			} ]
+		}, {
+			id : "setGreenValue",
+			label : "Set Green Value",
+			parameters : [ {
+				label : "Green Value",
+				id : "value",
+				type : {
+					id : "integer"
+				}
+			} ]
+		}, {
+			id : "setBlueValue",
+			label : "Set Blue Value",
+			parameters : [ {
+				label : "Blue Value",
+				id : "value",
+				type : {
+					id : "integer"
+				}
+			} ]
 		} ],
 		state : [ {
 			id : "blink",
@@ -375,6 +405,20 @@ function Arduino() {
 			},
 			defaultValue : 1000,
 			unit : "ms"
+		}, {
+			label : "Minimum",
+			id : "min",
+			type : {
+				id : "integer"
+			},
+			defaultValue : 0
+		}, {
+			label : "Maximum",
+			id : "max",
+			type : {
+				id : "integer"
+			},
+			defaultValue : 1023
 		} ]
 	}, {
 		plugin : "photocell",
@@ -397,6 +441,20 @@ function Arduino() {
 			},
 			defaultValue : 1000,
 			unit : "ms"
+		}, {
+			label : "Minimum",
+			id : "min",
+			type : {
+				id : "integer"
+			},
+			defaultValue : 0
+		}, {
+			label : "Maximum",
+			id : "max",
+			type : {
+				id : "integer"
+			},
+			defaultValue : 1023
 		} ]
 	}, {
 		plugin : "button",
