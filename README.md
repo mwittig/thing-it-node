@@ -110,7 +110,7 @@ You can use [www.thing-it.com](http://www.thing-it.com) to create and simulate y
 
 Let's set up a simple - but not too simple - home automation scenario:
 
-1. Two LEDs representing e.g. two lamps.
+1. Two LEDs representing e.g. two lamps (you could actually immediately replace the LEDs by two relays to switch lamps on and off).
 1. A Photocell to detect the ambient light in a room and event processing to switch both LEDs on if the light goes below some threshold for a while (to distinguish sunset from the Photocell being temporarily covered by your curious cat).
 1. Two buttons to toggle the state of each lamp.
 1. A simple (mobile capable) web application to toggle the state of both lamps individually and together - alternatively to using the buttons - and to display the event under 2.
