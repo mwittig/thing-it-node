@@ -205,13 +205,15 @@ You will see something like
 	    Service [toggleAll] available.
     Node [Home] started.  
 
-which means that your **[thing-it-node]** server found its configuration and has been started properly. It is not doing anything because the option **simulated** is set to **true**. Stop the **[thing-it-node]** Server with **CTRL-C** and change its value to
+which means that your **[thing-it-node]** server found its configuration and has been started properly. It is not doing anything because the option **simulated** is set to **true** in the options file **_&lt;installDir&gt;_/options.js**. You could already use the **[thing-it-node]** Mobile Client against the simulated configuration (which you definitely would do on a ew configuration), but for now we want the real thing.
+
+Stop the **[thing-it-node]** Server with **CTRL-C** and change its value to
 
 ```javascript
 simulated : false
 ```
 
-to prepare **[thing-it-node]** to talk to the real device - which we still have to set up.
+to prepare **[thing-it-node]** to talk to a real device - which we still have to set up.
 
 ## Setting up Device, Actors and Sensors
 
