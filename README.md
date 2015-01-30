@@ -46,8 +46,9 @@ var socket = new io("https://yournode/node/4711/events");
 socket.on("event", function(event) {
 	console.log(event.node);
 	console.log(event.device);
+	console.log(event.actor);
 	console.log(event.type);
-	console.log(event.data);
+	console.log(event.value);
 });
 ```
 
