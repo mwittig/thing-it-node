@@ -13,7 +13,7 @@ This allows you to configure e.g. **a home automation system in minutes**.
 
 ## Mobile Client
 
-*[thing-it-node]* comes with a mobile client tested for iPhone, iPad and Android devices which allows you to control and monitor your devices.
+**[thing-it-node]** comes with a mobile client tested for iPhone, iPad and Android devices which allows you to control and monitor your devices.
 
 <p align="center"><a href="./thing-it-node/documentation/images/mobile-client.png"><img src="./thing-it-node/documentation/images/mobile-client.png" width="40%" height="40%"></a></p>
 
