@@ -130,13 +130,13 @@ Then install **thing-it-node**:
 
 in a directory _&lt;installDir&gt;_.
 
-The options file **_&lt;installDir&gt;_/options.js** is already as
+The options file **_&lt;installDir&gt;_/options.js** is already configured as
 
 ```javascript
 nodeConfigurationFile : "<installDir>/examples/simple-lighting/configuration.json"
 ```
 
-so that the thing-it-node server will be booted against the Configuration File for our simple lighting scenario.
+so that the **[thing-it-node]** server will be booted against the Configuration File for our simple lighting scenario.
 
 If you are interested, have a look at the [configuration file](./thing-it-node/examples/simple-lighting/configuration.json) - the content should be self-explanatory.
 
