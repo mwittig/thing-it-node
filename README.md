@@ -9,7 +9,7 @@
 
 All of the above is controlled by a [nodejs](http://nodejs.org/) server which is bootstrapped from a simple JSON configuration.
 
-This allows you to configure e.g. **a home automation system in minutes**.
+The above allows you to configure e.g. **a home automation system in minutes**.
 
 ## Mobile Client
 
