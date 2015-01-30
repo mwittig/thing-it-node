@@ -87,7 +87,7 @@ The **[thing-it-node]** Configuration File contains definitions of Devices, Acto
         }, ...
 ```
 
-# [www.thing-it.com](http://www.thing-it.com)
+# thing-it.com
 
 You can use [www.thing-it.com](http://www.thing-it.com) to create and simulate your setup and then just download the configuration file.
 
@@ -131,7 +131,9 @@ in a directory _&lt;installDir&gt;_.
 
 For our example above modify the options file **_&lt;installDir&gt;_/options.js** as follows
 
-`nodeConfigurationFile : "<installDir>/examples/simple-lighting/configuration.json"`
+```javascript
+nodeConfigurationFile : "<installDir>/examples/simple-lighting/configuration.json"
+```
 
 so that the thing-it-node server will be booted against the Node configuration for our simple lighting scenario.
 
@@ -204,7 +206,9 @@ You will see something like
 
 which means that your **[thing-it-node]** server found its configuration and has been started properly. It is not doing anything because the option **simulated** is set to **true**. Stop the **[thing-it-node]** Server with **CTRL-C** and change its value to
 
-`simulated : false`
+```javascript
+simulated : false
+```
 
 to prepare **[thing-it-node]** to talk to the real device - which we still have to set up.
 
