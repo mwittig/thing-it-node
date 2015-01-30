@@ -5,7 +5,7 @@
 * receive **WebSocket Notifications** on all Sensor data changes and events,
 * define **Higher-level REST Services** to control multiple Actors,
 * define **Complex Event Processing** to react on Sensor events and data changes and
-* usa a **Mobile Client** to control your devices.
+* use a **Mobile Client** to control your devices.
 
 All of the above is controlled by a [nodejs](http://nodejs.org/) server which is bootstrapped from a simple JSON configuration.
 
