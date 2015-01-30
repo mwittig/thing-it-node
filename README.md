@@ -200,7 +200,11 @@ You will see something like
 	    Service [toggleAll] available.
     Node [Home] started.  
 
-which means that your **thing-it-node** server found its configuration and has been started properly. It is not doing anything because the option **simulated** is set to **true**. Stop the **[thing-it-node]** Server with **CTRL-C** and change its value to **false** to prepare [thing-it-node] to talk to the real device - which we still have to set up.
+which means that your **[thing-it-node]** server found its configuration and has been started properly. It is not doing anything because the option **simulated** is set to **true**. Stop the **[thing-it-node]** Server with **CTRL-C** and change its value to
+
+`simulated : false`
+
+to prepare **[thing-it-node]** to talk to the real device - which we still have to set up.
 
 ## Setting up Device, Actors and Sensors
 
