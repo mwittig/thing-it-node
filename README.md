@@ -7,7 +7,7 @@
 * define **Complex Event Processing** to react on Sensor events and data changes and
 * use a **Mobile Client** to control your devices.
 
-<p align="center"><a href="https://github.com/marcgille/thing-it-node/blob/master/thing-it-node/documentation/architecture.png"><img src="https://github.com/marcgille/thing-it-node/blob/master/thing-it-node/documentation/architecture.png" width="100%" height="100%"></a></p>
+<p align="center"><a href="./thing-it-node/documentation/architecture.png"><img src="./thing-it-node/documentation/architecture.png" width="100%" height="100%"></a></p>
 
 All of the above is controlled by a [nodejs](http://nodejs.org/) server which is bootstrapped from a simple JSON configuration.
 
