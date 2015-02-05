@@ -128,14 +128,14 @@ on your computer (e.g. your Raspberry Pi).
 
 Then install **thing-it-node**:
 
-`npm install thing-it-node`
+`npm install --prefix <installDir> thing-it-node`
 
-in a directory _&lt;installDir&gt;_.
+which will install [thing-it-node] in a directory *_&lt;installDir&gt;_/node_modules*.
 
-The options file **_&lt;installDir&gt;_/options.js** is already configured as
+The options file **_&lt;installDir&gt;_/node_modules/options.js** is already configured as
 
 ```javascript
-nodeConfigurationFile : "<installDir>/examples/simple-lighting/configuration.json"
+nodeConfigurationFile : "./examples/simple-lighting/configuration.json"
 ```
 
 so that the **[thing-it-node]** server will be booted against the Configuration File for our simple lighting scenario.
@@ -171,7 +171,7 @@ and the Event Processing for the same
 
 which ensures that the setup only reacts to a slow, consistent reduction of the ambient light.
 
-Start the **[thing-it-node]** from _&lt;installDir&gt;_ via
+Start the **[thing-it-node]** from *_&lt;installDir&gt;_/node_modules* via
 
 `node thing-it-node.js`
 
