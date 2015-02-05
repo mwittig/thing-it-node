@@ -18,8 +18,8 @@ define([ "mobile/js/Utils", "mobile/js/ConsoleService" ], function(Utils,
 			this.console = console;
 			this.id = "loginPage";
 
-			this.account = "marc.gille@sungard.com";
-			this.password = "42";
+			this.account = "test";
+			this.password = "test";
 
 			return this;
 		};
