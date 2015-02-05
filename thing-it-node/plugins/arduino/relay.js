@@ -79,7 +79,7 @@ function Relay() {
 	/**
 	 * 
 	 */
-	Relay.prototype.close = function() {
+	Relay.prototype.toggle = function() {
 		if (this.state == "closed") {
 			this.open();
 		} else {
