@@ -299,11 +299,11 @@ Connect your browser to
 
 `http://localhost:3001/mobile/console.html`
 
-Browser content should look like
+You will see a Login Screen. _(You can leave *Account* and *Password* empty for now. We will be adding security measures later.)_
+
+Click Login. The browser content should look like
 
 <p align="center"><a href="./thing-it-node/documentation/images/mobile-client.png"><img src="./thing-it-node/documentation/images/mobile-client.png" width="40%" height="40%"></a></p>
-
-_(You can leave *Account* and *Password* empty for now. We will be adding security measures later.)_
 
 If you have remote (e.g. Wifi) access to the computer running the **[thing-it-node]**, you may also use a mobile device (e.g. an iPhone or iPad) to connect to your simple lighting system.
 
@@ -320,7 +320,7 @@ but **no programming** we were able to create a simple but realistic home automa
 
 ## Using thing-it.com
 
-If you still find the creation of the configuration file too technical - you may consider to use the free services of [www.thing-it.com](http://www.thing-it.com) to create and simulate your setup and then just download the configuration file.
+If you still find the creation of the configuration file too technical (we agree ...) - you may consider to use the free services of [www.thing-it.com](http://www.thing-it.com) to create and simulate your setup and then just download the configuration file.
 
 On [www.thing-it.com](http://www.thing-it.com) you would define **Nodes** and **Devices**
 
