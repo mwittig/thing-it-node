@@ -128,7 +128,10 @@ on your computer (e.g. your Raspberry Pi).
 
 Then install **thing-it-node**:
 
-`npm install --prefix <installDir> thing-it-node`
+```
+mkdir -p <installDir>/node_modules
+npm install --prefix <installDir> thing-it-node
+```
 
 which will install [thing-it-node] in a directory *_&lt;installDir&gt;_/node_modules*.
 
