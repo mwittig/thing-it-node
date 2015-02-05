@@ -133,7 +133,7 @@ mkdir -p <installDir>/node_modules
 npm install --prefix <installDir> thing-it-node
 ```
 
-which will install [thing-it-node] in a directory *_&lt;installDir&gt;_/node_modules*.
+which will install [thing-it-node] in the directory *_&lt;installDir&gt;_/node_modules*.
 
 The options file **_&lt;installDir&gt;_/node_modules/options.js** is already configured as
 
