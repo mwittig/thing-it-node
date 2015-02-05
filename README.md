@@ -133,7 +133,7 @@ mkdir -p <installDir>/node_modules
 npm install --prefix <installDir> thing-it-node
 ```
 
-which will install [thing-it-node] in the directory *_&lt;installDir&gt;_/node_modules*.
+which will install [thing-it-node] in the directory **_&lt;installDir&gt;_/node_modules**.
 
 The options file **_&lt;installDir&gt;_/node_modules/options.js** is already configured as
 
@@ -174,7 +174,7 @@ and the Event Processing for the same
 
 which ensures that the setup only reacts to a slow, consistent reduction of the ambient light.
 
-Start the **[thing-it-node]** from *_&lt;installDir&gt;_/node_modules* via
+Start the **[thing-it-node]** from **_&lt;installDir&gt;_/node_modules** via
 
 `node thing-it-node.js`
 
