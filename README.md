@@ -119,7 +119,7 @@ Let's set up a simple - but not too simple - home automation scenario:
 
 ## Installing, Configuring and Running [thing-it-node]
 
-To install, configure and run  **thing-it-node**, first install
+To install, configure and run  **[thing-it-node]**, first install
 
 * [Python](https://www.python.org/downloads/)
 
@@ -129,14 +129,14 @@ and then
  
 on your computer (e.g. your PC or your Raspberry Pi). 
 
-Then install **thing-it-node**:
+Then install **[thing-it-node]**:
 
 ```
 mkdir -p <installDir>/node_modules
 npm install --prefix <installDir> thing-it-node
 ```
 
-which will install [thing-it-node] in the directory **_&lt;installDir&gt;_/node_modules**.
+which will install **[thing-it-node]** in the directory **_&lt;installDir&gt;_/node_modules**.
 
 The options file **_&lt;installDir&gt;_/node_modules/options.js** is already configured as
 
