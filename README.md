@@ -125,7 +125,7 @@ To install, configure and run  **thing-it-node**, first install
 
 and then
 	
-* [nodejs](https://www.python.org/downloads/)
+* [nodejs](http://nodejs.org/download/)
  
 on your computer (e.g. your PC or your Raspberry Pi). 
 
