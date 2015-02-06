@@ -8,3 +8,5 @@
 * use a **Mobile Client** to control your devices.
 
 <p align="center"><a href="./documentation/images/architecture.png"><img src="./thing-it-node/documentation/images/architecture.png" width="80%" height="80%"></a></p>
+
+test 1 2
