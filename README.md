@@ -121,8 +121,12 @@ Let's set up a simple - but not too simple - home automation scenario:
 
 To install, configure and run  **thing-it-node**, first install
 
-* **nodejs** and 
-* **npm** 
+
+* [Python](https://www.python.org/downloads/)
+
+	and then
+	
+* [Nodejs](https://www.python.org/downloads/)
  
 on your computer (e.g. your Raspberry Pi). 
 
