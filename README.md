@@ -5,7 +5,7 @@
 * receive **WebSocket Notifications** on all Sensor data changes and events,
 * define **Higher-level REST Services** to control multiple Actors,
 * define **Complex Event Processing** to react on Sensor events and data changes,
-* define **Storyboards** for the animation of Actor State Changes,
+* define **Storyboards** for the timeline-based, animation of Actor State Changes,
 * define **Jobs** for calendar-based, recurring execution of Services or Storyboards and
 * use a **Mobile Client** to control your devices.
 
@@ -347,7 +347,7 @@ Consider the [[thing-it] Documentation](http://www.thing-it.com/thing-it/index.h
 
 If you have the **Getting Started** example running, you may want to
 
-* understand the concepts of *thing-it* better
+* understand the concepts of *[thing-it-node]* better
 * have a look at further examples e.g.
     * [Color Changes for an RGB LED with Potentiometers](https://github.com/marcgille/thing-it-node/wiki/RGB-LED-Example)
     * [Animation of RGB LED Color Changes using a Storyboard](https://github.com/marcgille/thing-it-node/wiki/RGB-LED-Color-Changing-Storyboard)
