@@ -5,15 +5,13 @@
 * receive **WebSocket Notifications** on all Sensor data changes and events,
 * define **Higher-level REST Services** to control multiple Actors,
 * define **Complex Event Processing** to react on Sensor events and data changes,
-* define **Storyboards** for the timeline-based, animation of Actor State Changes,
+* define **Storyboards** for the timeline-based, animation of Actor State Changes (e.g. for robotics),
 * define **Jobs** for calendar-based, recurring execution of Services or Storyboards and
 * use a **Mobile Client** to control your devices.
 
+<p style="color: #9062A1;">All of the above is controlled by a [nodejs](http://nodejs.org/) server which is bootstrapped from a simple JSON configuration, which allows you to configure a **home automation system in minutes**.</p>
+
 <p align="center"><a href="./thing-it-node/documentation/images/architecture.png"><img src="./thing-it-node/documentation/images/architecture.png" width="80%" height="80%"></a></p>
-
-All of the above is controlled by a [nodejs](http://nodejs.org/) server which is bootstrapped from a simple JSON configuration.
-
-The above allows you to configure e.g. **a home automation system in minutes**.
 
 ## Mobile Client
 
