@@ -28,8 +28,8 @@ define([ "mobile/js/Utils", "mobile/js/ConsoleService" ], function(Utils,
 		GroupPage.prototype.show = function() {
 			var deferred = jQuery.Deferred();
 
-			this.services = this.group.services;
-			
+			this.services = this.group.getServices();
+
 			deferred.resolve();
 
 			return deferred.promise();
@@ -61,12 +61,12 @@ define([ "mobile/js/Utils", "mobile/js/ConsoleService" ], function(Utils,
 		 * 
 		 */
 		GroupPage.prototype.callNodeService = function(service) {
-			ConsoleService.instance().callNodeService(service, {})
-					.done(function() {
+			ConsoleService.instance().callNodeService(service, {}).done(
+					function() {
 						jQuery.mobile.loading("hide");
 					}).fail(function() {
-						jQuery.mobile.loading("hide");
-					});
+				jQuery.mobile.loading("hide");
+			});
 		};
 	}
 });

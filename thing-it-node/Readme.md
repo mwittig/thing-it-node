@@ -5,7 +5,8 @@
 * receive **WebSocket Notifications** on all Sensor data changes and events,
 * define **Higher-level REST Services** to control multiple Actors,
 * define **Complex Event Processing** to react on Sensor events and data changes,
-* define **Storyboards** for the animation of Actor State Changes and
+* define **Storyboards** for the animation of Actor State Changes,
+* define **Jobs** for calendar-based, recurring execution of Services or Storyboards and
 * use a **Mobile Client** to control your devices.
 
 <p align="center"><a href="./documentation/images/architecture.png"><img src="./thing-it-node/documentation/images/architecture.png" width="80%" height="80%"></a></p>

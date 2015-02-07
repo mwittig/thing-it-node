@@ -33,6 +33,7 @@ module.exports = {
 var utils = require("./utils");
 var device = require("./device");
 var storyboard = require("./storyboard");
+var job = require("./job");
 var eventProcessor = require("./eventProcessor");
 var fs = require("fs");
 var q = require('q');
@@ -44,9 +45,21 @@ var crypto = require('crypto');
  */
 function loadNodeConfiguration(nodeConfigurationFile) {
 	try {
-		var node = JSON.parse(fs.readFileSync(nodeConfigurationFile, {
-			encoding : "utf-8"
-		}));
+		var node;
+
+		if (nodeConfigurationFile.indexOf(".js", nodeConfigurationFile.length
+				- ".js".length) !== -1) {
+			// Assuming that configuration file is a nodejs module and exports
+			// the node configuration
+
+			node = require(nodeConfigurationFile);
+			node.configuration = JSON.parse(JSON.stringify(node))
+		} else {
+			node = JSON.parse(fs.readFileSync(nodeConfigurationFile, {
+				encoding : "utf-8"
+			}));
+			node.configuration = JSON.parse(JSON.stringify(node))
+		}
 
 		node.state = "configured";
 
@@ -125,37 +138,20 @@ function Node() {
 				res.send(self.plugins);
 			});
 		});
-		app
-				.get(
-						"/state",
-						function(req, res) {
-							self
-									.verifyCallSignature(
-											req,
-											res,
-											function() {
-												res
-														.send({
-															state : self.state,
-															configuration : loadNodeConfiguration(self.options.nodeConfigurationFile)
-														});
-											});
-						});
-		app
-				.get(
-						"/configuration",
-						function(req, res) {
-							self
-									.verifyCallSignature(
-											req,
-											res,
-											function() {
-												// Send the plain configuration
-
-												res
-														.send(loadNodeConfiguration(self.options.nodeConfigurationFile));
-											});
-						});
+		app.get("/state", function(req, res) {
+			self.verifyCallSignature(req, res, function() {
+				res.send({
+					state : self.state,
+					configuration : self.configuration
+				});
+			});
+		});
+		app.get("/configuration", function(req, res) {
+			self.verifyCallSignature(req, res, function() {
+				// Send the plain configuration
+				res.send(self.configuration);
+			});
+		});
 		app
 				.post(
 						"/configure",
@@ -282,13 +278,15 @@ function Node() {
 
 		var self = this;
 
-		this.namespace.on("connection", function(socket) {
-			console.log("Websocket connection established for Node " + self.id
-					+ " (" + self.uuid + ")");
-		});
+		this.namespace.on("connection",
+				function(socket) {
+					console.log("Websocket connection established for Node "
+							+ self.id);
+				});
 		this.namespace.on("disconnect", function(socket) {
-			console.log("Websocket connection disconnected for Node " + self.id
-					+ " (" + self.uuid + ")");
+			console
+					.log("Websocket connection disconnected for Node "
+							+ self.id);
 		});
 
 		// TODO Bind before namespace initialization?
@@ -322,6 +320,14 @@ function Node() {
 			}
 		}
 
+		// Bind Jobs
+
+		if (this.jobs) {
+			for ( var n in this.jobs) {
+				job.bind(this, this.jobs[n]);
+			}
+		}
+
 		// Start Devices
 
 		utils.promiseSequence(this.devices, 0, "start").then(
@@ -342,6 +348,14 @@ function Node() {
 								res.send("");
 							});
 						});
+
+						// Activate Jobs
+
+						if (self.jobs) {
+							for ( var n in self.jobs) {
+								self.jobs[n].activate();
+							}
+						}
 
 						self.heartbeat = setInterval(function() {
 							self.publishHeartbeat();

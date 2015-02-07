@@ -119,7 +119,7 @@
 				<h1>
 					<i class="titleIcon fa fa-calculator"></i>{{topPage().node.label}}
 				</h1>
-				<a href="#" class="toolbarButton" ng-click="logout()"><i
+				<a class="toolbarButton" ng-click="logout()"><i
 					class="fa fa-power-off"></i></a>
 			</div>
 			<div role="main" class="ui-content">
@@ -159,7 +159,7 @@
 						</table>
 					</li>
 					<li ng-repeat="service in topPage().services" jqm-li><a
-						href="#" ng-click="topPage().callNodeService(service)"><i
+						ng-click="topPage().callNodeService(service)"><i
 							class="titleIcon fa fa-gear"></i>{{service.label}}</a></li>
 				</ul>
 			</div>
@@ -216,7 +216,7 @@
 							</table>
 						</li>
 						<li ng-repeat="service in topPage().services" jqm-li><a
-							href="#" ng-click="topPage().callNodeService(service)"><i
+							ng-click="topPage().callNodeService(service)"><i
 								class="titleIcon fa fa-gear"></i>{{service.label}}</a></li>
 					</ul>
 				</form>
@@ -228,7 +228,7 @@
 		<div id="actorPage" data-role="page">
 			<div data-role="header" data-position="fixed">
 				<h1>{{topPage().actor.label}}</h1>
-				<a href="#" class="toolbarButton" ng-click="popPage()"><i
+				<a class="toolbarButton" ng-click="popPage()"><i
 					class="fa fa-chevron-circle-left"></i></a>
 			</div>
 			<div role="main" class="ui-content">
@@ -244,7 +244,7 @@
 					<li class="ui-field-contain"><label for="lastStateChange">Last
 							State Change</label>{{formatDateTime(topPage().actor.lastStateChangeTimestamp)}}</li>
 					<li ng-repeat="service in topPage().actor.__type.services" jqm-li><a
-						href="#" ng-click="topPage().callActorService(service)"><i
+						ng-click="topPage().callActorService(service)"><i
 							class="titleIcon fa fa-gear"></i>{{service.label}}</a></li>
 				</ul>
 			</div>
@@ -255,7 +255,7 @@
 		<div id="sensorPage" data-role="page">
 			<div data-role="header" data-position="fixed">
 				<h1>{{topPage().sensor.label}}</h1>
-				<a href="#" class="toolbarButton" ng-click="popPage()"><i
+				<a class="toolbarButton" ng-click="popPage()"><i
 					class="fa fa-chevron-circle-left"></i></a>
 			</div>
 			<div role="main" class="ui-content"></div>
