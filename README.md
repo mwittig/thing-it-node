@@ -9,9 +9,7 @@
 * define **Jobs** for calendar-based, recurring execution of Services or Storyboards and
 * use a **Mobile Client** to control your devices.
 
-<div sytle="color: #9062A1 !important;">
 All of the above is controlled by a [nodejs](http://nodejs.org/) server which is bootstrapped from a simple JSON configuration, which allows you to configure a **home automation system in minutes**.
-</div>
 
 <p align="center"><a href="./thing-it-node/documentation/images/architecture.png"><img src="./thing-it-node/documentation/images/architecture.png" width="80%" height="80%"></a></p>
 
