@@ -351,5 +351,6 @@ If you have the **Getting Started** example running, you may want to
 * have a look at further examples e.g.
     * [Color Changes for an RGB LED with Potentiometers](https://github.com/marcgille/thing-it-node/wiki/RGB-LED-Example)
     * [Animation of RGB LED Color Changes using a Storyboard](https://github.com/marcgille/thing-it-node/wiki/RGB-LED-Color-Changing-Storyboard)
+    * [Recurring Service Execution with Jobs](https://github.com/marcgille/thing-it-node/wiki/Recurring-Service-Execution-with-Jobs)
 * [connect your [thing-it-node] to the Internet](https://github.com/marcgille/thing-it-node/wiki/Connecting-%5Bthing-it-node%5D-to-the-Internet)
 * [apply security measures for your [thing-it-node]](https://github.com/marcgille/thing-it-node/wiki/Using-Signature-and-Encryption-for-REST-Services-and-Web-Socket-Messages)
