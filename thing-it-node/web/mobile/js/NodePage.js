@@ -41,6 +41,8 @@ define([ "mobile/js/Utils", "mobile/js/ConsoleService" ], function(Utils,
 				}
 			}
 
+			this.services = this.node.services;
+			
 			deferred.resolve();
 
 			return deferred.promise();

@@ -15,17 +15,18 @@ function RgbLed() {
 	 */
 	RgbLed.prototype.start = function() {
 		var deferred = q.defer();
+
+		this.state = {
+			red : 0,
+			green : 0,
+			blue : 0,
+			hex : "#000000"
+		};
+
 		var self = this;
 
 		this.startActor().then(
 				function() {
-					self.state = {
-						red : 0,
-						green : 0,
-						blue : 0,
-						hex : "#000000"
-					};
-
 					if (!self.isSimulated()) {
 						try {
 							var five = require("johnny-five");
@@ -60,6 +61,26 @@ function RgbLed() {
 	/**
 	 * 
 	 */
+	RgbLed.prototype.setState = function(state) {
+		this.state = state;
+
+		this.state.hex = rgbToHex(this.state.red, this.state.green,
+				this.state.blue);
+
+		if (this.led) {
+			this.led.color(this.state.rgbColorHex);
+
+			if (this.state.blink) {
+				this.led.blink();
+			}
+		}
+
+		this.publishStateChange();
+	};
+
+	/**
+	 * 
+	 */
 	RgbLed.prototype.on = function() {
 		if (this.led) {
 			this.led.on();
@@ -70,7 +91,6 @@ function RgbLed() {
 			green : 255,
 			blue : 255,
 			hex : "#FFFFFF"
-
 		};
 
 		this.publishStateChange();
@@ -127,7 +147,8 @@ function RgbLed() {
 			red : Math.min(parameters.value, 255),
 			green : this.state.green,
 			blue : this.state.blue,
-			hex : rgbToHex(Math.min(parameters.value, 255), this.state.green, this.state.blue)
+			hex : rgbToHex(Math.min(parameters.value, 255), this.state.green,
+					this.state.blue)
 		};
 
 		this.publishStateChange();
@@ -146,7 +167,8 @@ function RgbLed() {
 			red : this.state.red,
 			green : Math.min(parameters.value, 255),
 			blue : this.state.blue,
-			hex : rgbToHex(this.state.red, Math.min(parameters.value, 255), this.state.blue)
+			hex : rgbToHex(this.state.red, Math.min(parameters.value, 255),
+					this.state.blue)
 		};
 
 		this.publishStateChange();
@@ -165,7 +187,8 @@ function RgbLed() {
 			red : this.state.red,
 			green : this.state.green,
 			blue : Math.min(parameters.value, 255),
-			hex : rgbToHex(this.state.red, this.state.green, Math.min(parameters.value, 255))
+			hex : rgbToHex(this.state.red, this.state.green, Math.min(
+					parameters.value, 255))
 		};
 
 		this.publishStateChange();

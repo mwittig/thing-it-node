@@ -28,6 +28,8 @@ define([ "mobile/js/Utils", "mobile/js/ConsoleService" ], function(Utils,
 		GroupPage.prototype.show = function() {
 			var deferred = jQuery.Deferred();
 
+			this.services = this.group.services;
+			
 			deferred.resolve();
 
 			return deferred.promise();

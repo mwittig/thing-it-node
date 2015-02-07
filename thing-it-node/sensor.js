@@ -1,5 +1,5 @@
 module.exports = {
-	create : function(device, sensor) {
+	bind : function(device, sensor) {
 		utils.inheritMethods(sensor, new Sensor());
 		utils.inheritMethods(sensor, require(
 				"./plugins/" + device.type.plugin + "/"

@@ -1,5 +1,5 @@
 module.exports = {
-	create : function(node, device) {
+	bind : function(node, device) {
 		device.type = node.plugins[device.plugin];
 
 		utils.inheritMethods(device, new Device());
@@ -36,11 +36,11 @@ function Device() {
 		}
 
 		for (var n = 0; n < this.actors.length; ++n) {
-			actor.create(this, this.actors[n]);
+			actor.bind(this, this.actors[n]);
 		}
 
 		for (var n = 0; n < this.sensors.length; ++n) {
-			sensor.create(this, this.sensors[n]);
+			sensor.bind(this, this.sensors[n]);
 		}
 
 		utils.promiseSequence(this.actors, 0, "start").then(function() {

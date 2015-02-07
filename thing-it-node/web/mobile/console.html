@@ -131,8 +131,8 @@
 					<li ng-repeat="service in nodePage.node.services" jqm-li><a
 						ng-click="topPage().callNodeService(service)"><i
 							class="fa fa-gear"></i>{{service.label}}</a></li>
-					<li ng-repeat="actor in topPage().actors"
-						jqm-li><table width="100%">
+					<li ng-repeat="actor in topPage().actors" jqm-li><table
+							width="100%">
 							<tr valign="center">
 								<td width="45%" align="left"><label>{{actor.label}}</label></td>
 								<td width="45%" align="center">
@@ -144,8 +144,7 @@
 										class="fa fa-chevron-right"></i></a></td>
 							</tr>
 						</table></li>
-					<li
-						ng-repeat="sensor in topPage().sensors">
+					<li ng-repeat="sensor in topPage().sensors">
 						<table width="100%">
 							<tr valign="center">
 								<td width="45%" align="left"><label>{{sensor.label}}</label></td>
@@ -159,6 +158,9 @@
 							</tr>
 						</table>
 					</li>
+					<li ng-repeat="service in topPage().services" jqm-li><a
+						href="#" ng-click="topPage().callNodeService(service)"><i
+							class="titleIcon fa fa-gear"></i>{{service.label}}</a></li>
 				</ul>
 			</div>
 			<div data-role="footer" data-position="fixed">
@@ -213,6 +215,9 @@
 								</tr>
 							</table>
 						</li>
+						<li ng-repeat="service in topPage().services" jqm-li><a
+							href="#" ng-click="topPage().callNodeService(service)"><i
+								class="titleIcon fa fa-gear"></i>{{service.label}}</a></li>
 					</ul>
 				</form>
 			</div>
@@ -236,7 +241,8 @@
 								</td>
 							</tr>
 						</table></li>
-					<li class="ui-field-contain"><label for="lastStateChange">Last State Change</label>{{formatDateTime(topPage().actor.lastStateChangeTimestamp)}}</li>
+					<li class="ui-field-contain"><label for="lastStateChange">Last
+							State Change</label>{{formatDateTime(topPage().actor.lastStateChangeTimestamp)}}</li>
 					<li ng-repeat="service in topPage().actor.__type.services" jqm-li><a
 						href="#" ng-click="topPage().callActorService(service)"><i
 							class="titleIcon fa fa-gear"></i>{{service.label}}</a></li>
@@ -264,8 +270,10 @@
 							</tr>
 						</table></li>
 					<li class="ui-field-contain"><label for="value">Value</label>{{topPage().sensor.value}}</li>
-					<li class="ui-field-contain"><label for="lastEvent">Last Event</label>{{formatDateTime(topPage().sensor.lastEventTimestamp)}}</li>
-					<li class="ui-field-contain"><label for="lastValueChange">Last Value Change</label>{{formatDateTime(topPage().sensor.lastValueChangeTimestamp)}}</li>
+					<li class="ui-field-contain"><label for="lastEvent">Last
+							Event</label>{{formatDateTime(topPage().sensor.lastEventTimestamp)}}</li>
+					<li class="ui-field-contain"><label for="lastValueChange">Last
+							Value Change</label>{{formatDateTime(topPage().sensor.lastValueChangeTimestamp)}}</li>
 					<li><a ng-click="pushSensorMonitoringPage(sensor)"><i
 							class="titleIcon fa fa-chart"></i>Monitoring</a></li>
 				</ul>

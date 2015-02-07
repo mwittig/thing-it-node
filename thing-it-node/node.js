@@ -17,7 +17,7 @@ module.exports = {
 			utils.inheritMethods(node, new Node());
 
 			node.initialize(options, app, io, server);
-			
+
 			node.start(app, io.listen(server))
 		} else {
 			node = new Node();
@@ -32,6 +32,7 @@ module.exports = {
 
 var utils = require("./utils");
 var device = require("./device");
+var storyboard = require("./storyboard");
 var eventProcessor = require("./eventProcessor");
 var fs = require("fs");
 var q = require('q');
@@ -124,41 +125,70 @@ function Node() {
 				res.send(self.plugins);
 			});
 		});
-		app.get("/state", function(req, res) {
-			self.verifyCallSignature(req, res, function() {
-				res.send({
-					state : self.state,
-					configuration : loadNodeConfiguration(self.options.nodeConfigurationFile)
-				});
-			});
-		});
-		app.get("/configuration", function(req, res) {
-			self.verifyCallSignature(req, res, function() {
-				// Send the plain configuration
-				
-				res.send(loadNodeConfiguration(self.options.nodeConfigurationFile));
-			});
-		});
-		app.post("/configure", function(req, res) {
-			self.verifyCallSignature(req, res, node, function() {
-				if (self.state == "running") {
-					self.stop();
-				}
+		app
+				.get(
+						"/state",
+						function(req, res) {
+							self
+									.verifyCallSignature(
+											req,
+											res,
+											function() {
+												res
+														.send({
+															state : self.state,
+															configuration : loadNodeConfiguration(self.options.nodeConfigurationFile)
+														});
+											});
+						});
+		app
+				.get(
+						"/configuration",
+						function(req, res) {
+							self
+									.verifyCallSignature(
+											req,
+											res,
+											function() {
+												// Send the plain configuration
 
-				saveNodeConfiguration(req.body);
+												res
+														.send(loadNodeConfiguration(self.options.nodeConfigurationFile));
+											});
+						});
+		app
+				.post(
+						"/configure",
+						function(req, res) {
+							self
+									.verifyCallSignature(
+											req,
+											res,
+											node,
+											function() {
+												if (self.state == "running") {
+													self.stop();
+												}
 
-				node = loadNodeConfiguration(self.options.nodeConfigurationFile);
+												saveNodeConfiguration(req.body);
 
-				// TODO Is the recursive closure an issue for thousands of
-				// configure calls, possibly load into node?
+												node = loadNodeConfiguration(self.options.nodeConfigurationFile);
 
-				utils.inheritMethods(node, new Node());
-				node.initialize(configuration, app, io, server);
-				node.start(app, io.listen(server))
+												// TODO Is the recursive closure
+												// an issue for thousands of
+												// configure calls, possibly
+												// load into node?
 
-				res.send("");
-			});
-		});
+												utils.inheritMethods(node,
+														new Node());
+												node.initialize(configuration,
+														app, io, server);
+												node.start(app, io
+														.listen(server))
+
+												res.send("");
+											});
+						});
 		app.post("/start", function(req, res) {
 			self.verifyCallSignature(req, res, node, function() {
 				if (self.state == "configured") {
@@ -197,8 +227,7 @@ function Node() {
 			}
 
 			try {
-				this.publicKey = fs
-						.readFileSync(this.options.publicKeyFile);
+				this.publicKey = fs.readFileSync(this.options.publicKeyFile);
 			} catch (x) {
 				throw "Cannot read Public Key File"
 						+ configuration.publicKeyFile + ": " + x;
@@ -215,15 +244,14 @@ function Node() {
 	 */
 	Node.prototype.verifyCallSignature = function(request, response, callback) {
 		if (this.options.verifyCallSignature) {
-			var verify = crypto
-					.createVerify(this.options.signingAlgorithm);
+			var verify = crypto.createVerify(this.options.signingAlgorithm);
 			var data = request.body == null ? "" : JSON.stringify(request.body);
 
 			verify.update(request.url + request.method + data);
 
 			if (!request.header.Signature
-					|| !verify.verify(this.publicKey,
-							request.header.Signature, 'hex')) {
+					|| !verify.verify(this.publicKey, request.header.Signature,
+							'hex')) {
 				res.status(404).send("Signature verification failed");
 			} else {
 				callback();
@@ -263,75 +291,76 @@ function Node() {
 					+ " (" + self.uuid + ")");
 		});
 
+		// TODO Bind before namespace initialization?
+
 		// Bind Devices
 
 		for (var n = 0; n < this.devices.length; ++n) {
-			device.create(this, this.devices[n]);
+			device.bind(this, this.devices[n]);
+		}
+
+		// Bind Services
+
+		for ( var n in this.services) {
+			if (this.services[n].type == "storyboard") {
+				storyboard.bind(this, this.services[n]);
+			} else {
+
+				// TODO Move to object/bind
+
+				try {
+					this[this.services[n].id] = new Function('input', this
+							.preprocessScript(this.services[n].script));
+
+					console.log("\tService [" + this.services[n].id
+							+ "] available.");
+				} catch (x) {
+					console.log("\tFailed to initialize Service ["
+							+ this.services[n].id + "]:");
+					console.log(x);
+				}
+			}
 		}
 
 		// Start Devices
 
-		utils
-				.promiseSequence(this.devices, 0, "start")
-				.then(
-						function() {
-							try {
-								// Event Processors
+		utils.promiseSequence(this.devices, 0, "start").then(
+				function() {
+					try {
+						// Event Processors
 
-								for (var n = 0; n < self.eventProcessors.length; ++n) {
-									eventProcessor.create(self,
-											self.eventProcessors[n]).start();
-								}
+						for (var n = 0; n < self.eventProcessors.length; ++n) {
+							eventProcessor
+									.create(self, self.eventProcessors[n])
+									.start();
+						}
 
-								for (var n = 0; n < self.services.length; ++n) {
-									try {
-										self[self.services[n].id] = new Function(
-												'input',
-												self
-														.preprocessScript(self.services[n].script));
+						self.app.post("/services/:service", function(req, res) {
+							self.verifyCallSignature(req, res, function() {
+								self[req.params.service](req.params.service);
 
-										console.log("\tService ["
-												+ self.services[n].id
-												+ "] available.");
-									} catch (x) {
-										console
-												.log("\tFailed to initialize Service ["
-														+ self.services[n].id
-														+ "]:");
-										console.log(x);
-									}
-								}
-
-								self.app.post("/services/:service", function(
-										req, res) {
-									self.verifyCallSignature(req, res,
-											function() {
-												self[req.params.service]
-														(req.params.service);
-
-												res.send("");
-											});
-								});
-
-								self.heartbeat = setInterval(function() {
-									self.publishHeartbeat();
-								}, 10000);
-
-								self.publishHeartbeat();
-
-								self.state = "running";
-
-								console.log("Node [" + self.label
-										+ "] started.");
-
-								deferred.resolve();
-							} catch (x) {
-								console.log(x);
-
-								deferred.reject(x);
-							}
-
+								res.send("");
+							});
 						});
+
+						self.heartbeat = setInterval(function() {
+							self.publishHeartbeat();
+						}, 10000);
+
+						self.publishHeartbeat();
+
+						self.state = "running";
+
+						console.log("Node [" + self.label + "] started.");
+
+						deferred.resolve();
+					} catch (x) {
+						console.log(x);
+
+						deferred.reject(x);
+					}
+
+				});
 
 		return deferred.promise;
 	};

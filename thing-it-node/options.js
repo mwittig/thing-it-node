@@ -1,7 +1,7 @@
 module.exports = {
 	port : 3001,
 	protocol : "http",
-	nodeConfigurationFile : "<install-dir>/examples/rgb-led/configuration.json",
+	nodeConfigurationFile : "./examples/simple-lighting/configuration.json",
 	simulated : true,
 	hotDeployment : false,
 	verifyCallSignature : false,

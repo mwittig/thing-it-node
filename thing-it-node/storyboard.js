@@ -1,16 +1,22 @@
 module.exports = {
-	create : function(node, storyboard) {
+	bind : function(node, storyboard) {
 		utils.inheritMethods(storyboard, new Storyboard());
 
 		storyboard.node = node;
-		node[storyboard.id] = storyboard;
+
+		try {
+			node[storyboard.id] = function() {
+				storyboard.start();
+			};
+
+			console.log("\tStoryboard [" + storyboard.id + "] available.");
+		} catch (x) {
+			console.log("\tFailed to initialize Service [" + storyboard.id
+					+ "]:");
+			console.log(x);
+		}
 
 		return storyboard;
-	},
-	test : function() {
-		var storyboard = new Storyboard();
-
-		storyboard.start();
 	}
 };
 
@@ -19,66 +25,30 @@ var q = require('q');
 var utils = require("./utils");
 
 /**
- * 
+ * TODO - Latency corrections during execution, reconcile next timestamp
  */
 function Storyboard() {
-	this.easingInterval = 500;
-	this.timeline = [ {
-		timestamp : 0,
-		entries : [ {
-			type : "nodeServiceCall",
-			service : "toggleLamps"
-		} ]
-	}, {
-		timestamp : 2000,
-		entries : [ {
-			type : "nodeServiceCall",
-			service : "toggleLamps"
-		}, {
-			type : "actorServiceCall",
-			device : "arduino1",
-			actor : "lcd1",
-			service : "print",
-			parameters : {
-				text : "Hello"
-			}
-		} ]
-	}, {
-		timestamp : 5000,
-		entries : [ {
-			type : "nodeServiceCall",
-			service : "toggleLamps"
-		}, {
-			type : "actorStateChange",
-			device : "arduino1",
-			actor : "rgbLed1",
-			state : {
-				red : 128,
-				green : 10,
-				blue : 200
-			},
-			easing : "linear"
-		} ]
-	}, {
-		timestamp : 8000,
-		entries : [ {
-			type : "actorStateChange",
-			device : "arduino1",
-			actor : "rgbLed1",
-			state : {
-				red : 0,
-				green : 0,
-				blue : 0
-			},
-			easing : "linear"
-		} ]
-	} ];
+
+	/**
+	 * 
+	 */
+	Storyboard.prototype.log = function(output) {
+		if (this.verbose) {
+			console.log(output);
+		}
+	};
 
 	/**
 	 * 
 	 */
 	Storyboard.prototype.start = function() {
-		console.log("Starting timeline");
+		this
+				.log("\n===================================================================");
+		this.log("   Storyboard [" + this.label + "] (" + this.id + ")\n");
+		this.log("   " + this.description);
+		this
+				.log("===================================================================\n");
+		this.log("Starting timeline");
 
 		this.start = new Date().getTime();
 		this.step(0, 0);
@@ -98,7 +68,7 @@ function Storyboard() {
 
 		setTimeout(
 				function() {
-					console.log("t = " + self.timeline[index].timestamp + " ("
+					self.log("t = " + self.timeline[index].timestamp + " ("
 							+ self.elapsedTime() + ")");
 
 					if (index < self.timeline.length - 1) {
@@ -129,7 +99,7 @@ function Storyboard() {
 					} else {
 						self.execute(self.timeline[index]);
 
-						console.log("Timeline completed");
+						self.log("Timeline completed");
 					}
 				}, self.timeline[index].timestamp - time);
 	};
@@ -145,7 +115,7 @@ function Storyboard() {
 			if (startEntry.type == "actorStateChange"
 					&& startEntry.device == endEntry.device
 					&& startEntry.actor == endEntry.actor) {
-				console.log("*** Matching Start Entry found");
+				this.log("*** Matching Start Entry found");
 
 				return startEntry;
 			}
@@ -173,21 +143,34 @@ function Storyboard() {
 	 * 
 	 */
 	Storyboard.prototype.callNodeService = function(call) {
-		console.log("\tCalling Node Service");
+		this.log("\tCalling Node Service " + call.service + "(");
+		this.log(call.parameters);
+		this.log(")");
+
+		if (!this.test) {
+			this.node[call.service](call.parameters);
+		}
 	};
 
 	/**
 	 * 
 	 */
 	Storyboard.prototype.callActorService = function(call) {
-		console.log("\tCalling Actor Service");
+		this.log("\tCalling Actor Service [" + call.device + "][" + call.actor
+				+ "]." + call.service + "(");
+		this.log(call.parameters);
+		this.log(")");
+
+		if (!this.test) {
+			this.node[call.device][call.actor][call.service](call.parameters);
+		}
 	};
 
 	/**
 	 * 
 	 */
 	Storyboard.prototype.applyActorStateChange = function(call) {
-		console.log("\tApply Actor State Change");
+		this.log("\tApply Actor State Change");
 	};
 
 	/**
@@ -205,10 +188,10 @@ function Storyboard() {
 			}
 		}
 
-		console.log("\tStarting easing sequence (" + startTimestamp + " to "
+		this.log("\tStarting easing sequence (" + startTimestamp + " to "
 				+ endTimestamp + ")");
-		console.log(startState);
-		console.log(endActorStateChange.state);
+		this.log(startState);
+		this.log(endActorStateChange.state);
 
 		this.stepEasingSequence(startState, endActorStateChange,
 				startTimestamp, endTimestamp, startTimestamp);
@@ -220,22 +203,29 @@ function Storyboard() {
 	Storyboard.prototype.stepEasingSequence = function(startState,
 			endActorStateChange, startTimestamp, endTimestamp, currentTimestamp) {
 		if (currentTimestamp >= endTimestamp) {
-			console.log("\tEnd easing sequence");
+			this.log("\tEnd easing sequence");
 
 			return;
+		}
+
+		this.log("t = " + currentTimestamp + " (" + this.elapsedTime() + ")");
+		this.log("\tExecute Easing Step");
+
+		if (this.test) {
+			this.getEasingValues(startState, endActorStateChange.state,
+					startTimestamp, endTimestamp, currentTimestamp,
+					endActorStateChange.easing);
+		} else {
+			this.node[endActorStateChange.device][endActorStateChange.actor]
+					.setState(this.getEasingValues(startState,
+							endActorStateChange.state, startTimestamp,
+							endTimestamp, currentTimestamp,
+							endActorStateChange.easing));
 		}
 
 		var self = this;
 
 		setTimeout(function() {
-			console.log("t = " + currentTimestamp + " (" + self.elapsedTime()
-					+ ")");
-			console.log("\tExecute Easing Step");
-
-			self.getEasingValues(startState, endActorStateChange.state,
-					startTimestamp, endTimestamp, currentTimestamp,
-					endActorStateChange.easing);
-
 			self.stepEasingSequence(startState, endActorStateChange,
 					startTimestamp, endTimestamp, currentTimestamp
 							+ self.easingInterval);
@@ -247,14 +237,16 @@ function Storyboard() {
 	 */
 	Storyboard.prototype.getEasingValues = function(startState, endState,
 			startTimestamp, endTimestamp, currentTimestamp, easing) {
+		var state = {};
+
 		for ( var field in startState) {
-			console.log("\t"
-					+ field
-					+ " = "
-					+ this.getEasingValue(startState[field], endState[field],
-							startTimestamp, endTimestamp, currentTimestamp,
-							easing));
+			state[field] = this.getEasingValue(startState[field],
+					endState[field], startTimestamp, endTimestamp,
+					currentTimestamp, easing);
+			this.log("\t" + field + " = " + state[field]);
 		}
+
+		return state;
 	};
 
 	/**

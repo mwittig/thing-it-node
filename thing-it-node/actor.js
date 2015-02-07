@@ -1,5 +1,5 @@
 module.exports = {
-	create : function(device, actor) {
+	bind : function(device, actor) {
 		utils.inheritMethods(actor, new Actor());
 		utils.inheritMethods(actor, require(
 				"./plugins/" + device.type.plugin + "/"

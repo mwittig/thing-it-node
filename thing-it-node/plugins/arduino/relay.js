@@ -15,6 +15,11 @@ function Relay() {
 	 */
 	Relay.prototype.start = function() {
 		var deferred = q.defer();
+
+		this.state = {
+			gate : "closed"
+		};
+		
 		var self = this;
 
 		this.startActor().then(
@@ -45,9 +50,22 @@ function Relay() {
 	 * 
 	 */
 	Relay.prototype.getState = function() {
-		return {
-			gate : this.state
-		};
+		return this.state;
+	};
+
+	/**
+	 * 
+	 */
+	Relay.prototype.setState = function(state) {
+		this.state = state;
+
+		if (this.relay) {
+			if (this.state.gate == "open") {
+				this.relay.open();
+			} else {
+				this.relay.close();
+			}
+		}
 	};
 
 	/**
@@ -56,11 +74,11 @@ function Relay() {
 	Relay.prototype.open = function() {
 		if (this.relay) {
 			this.relay.open();
-		} else {
-			this.state = "open";
-
-			this.publishStateChange();
 		}
+
+		this.state.gate = "open";
+
+		this.publishStateChange();
 	};
 
 	/**
@@ -69,11 +87,11 @@ function Relay() {
 	Relay.prototype.close = function() {
 		if (this.relay) {
 			this.relay.close();
-		} else {
-			this.state = "closed";
-
-			this.publishStateChange();
 		}
+
+		this.state.gate = "closed";
+
+		this.publishStateChange();
 	};
 
 	/**

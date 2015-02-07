@@ -15,12 +15,15 @@ function Led() {
 	 */
 	Led.prototype.start = function() {
 		var deferred = q.defer();
+
+		this.state = {
+			light : "off"
+		};
+
 		var self = this;
 
 		this.startActor().then(
 				function() {
-					self.state = "off";
-
 					if (!self.isSimulated()) {
 						try {
 							var five = require("johnny-five");
@@ -46,9 +49,24 @@ function Led() {
 	 * 
 	 */
 	Led.prototype.getState = function() {
-		return {
-			light : this.state
-		};
+		return this.state;
+	};
+
+	/**
+	 * 
+	 */
+	Led.prototype.setState = function(state) {
+		this.state = state;
+
+		if (this.led) {
+			if (this.state.light == "blink") {
+				this.led.blink();
+			} else if (this.state.light == "on") {
+				this.led.on();
+			} else {
+				this.led.stop().off();
+			}
+		}
 	};
 
 	/**
@@ -59,7 +77,7 @@ function Led() {
 			this.led.on();
 		}
 
-		this.state = "on";
+		this.state.light = "on";
 
 		this.publishStateChange();
 	}
@@ -72,7 +90,7 @@ function Led() {
 			this.led.stop().off();
 		}
 
-		this.state = "off";
+		this.state.light = "off";
 
 		this.publishStateChange();
 	}
@@ -81,14 +99,14 @@ function Led() {
 	 * 
 	 */
 	Led.prototype.toggle = function() {
-		if (this.state == "off") {
-			this.state = "on";
+		if (this.state.light == "off") {
+			this.state.light = "on";
 
 			if (this.led) {
 				this.led.on();
 			}
 		} else {
-			this.state = "off";
+			this.state.light = "off";
 
 			if (this.led) {
 				this.led.stop().off();
@@ -106,7 +124,7 @@ function Led() {
 			this.led.blink();
 		}
 
-		this.state = "blink";
+		this.state.light = "blink";
 
 		this.publishStateChange();
 	}
