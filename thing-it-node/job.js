@@ -42,7 +42,26 @@ function Job() {
 		this.occurences = 0;
 		this.activateTimestamp = new Date().getTime();
 
-		var startOffset = this.startTimestamp - this.activateTimestamp;
+		var startTimestamp = moment(this.startTimestamp);
+
+		if (this.fromNextFullOf) {
+			if (this.fromNextFullOf == "m") {
+				startTimestamp.endOf("minute");
+			} else if (this.fromNextFullOf == "h") {
+				startTimestamp.endOf("hour");
+			} else if (this.fromNextFullOf == "d") {
+				startTimestamp.endOf("day");
+			} else if (this.fromNextFullOf == "w") {
+				startTimestamp.endOf("week");
+			} else {
+				throw "Unsupported value for [fromNextFullOf]: "
+						+ this.fromNextFullOf;
+			}
+		}
+
+		console.log(startTimestamp.toISOString());
+
+		var startOffset = startTimestamp.valueOf() - this.activateTimestamp;
 
 		if (startOffset < 0) {
 			this.log("Job timestamp is in the past. Terminating.");

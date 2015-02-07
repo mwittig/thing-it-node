@@ -32,6 +32,7 @@ module.exports = {
 		label : "Job 1",
 		description : "One-time job.",
 		startTimestamp : new Date().getTime() + 10000,
+		fromNextFullOf: "m",
 		content : {
 			type : "nodeServiceCall",
 			service : "ledRed"

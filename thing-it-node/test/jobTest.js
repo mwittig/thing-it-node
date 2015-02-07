@@ -1,4 +1,5 @@
 var job = require('../job');
+var moment = require('moment');
 
 var job1 = {
 	id : "job1",
@@ -6,7 +7,8 @@ var job1 = {
 	description : "One-time job.",
 	verbose : true,
 	test : true,
-	startTimestamp : new Date().getTime() + 10000,
+	startTimestamp : moment(new Date().getTime() + 10000).toISOString(),
+	fromNextFullOf: "m",
 	content : {
 		type : "nodeServiceCall",
 		service : "toggleLamps"
@@ -19,7 +21,8 @@ var job2 = {
 	description : "Job executed every minute.",
 	verbose : true,
 	test : true,
-	startTimestamp : new Date().getTime() + 2000,
+	startTimestamp : moment(new Date().getTime() + 2000).toISOString(),
+	fromNextFullOf: "m",
 	recurrence : "m",
 	factor : 1,
 	endAfterOccurences : 3,
