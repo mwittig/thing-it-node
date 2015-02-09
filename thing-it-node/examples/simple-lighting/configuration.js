@@ -53,18 +53,10 @@ module.exports = {
 			label : "Dining Room",
 			icon : "cutlery",
 			subGroups : [],
-			actors : {
-				"arduino1.led1" : {},
-				"arduino1.led2" : {}
-			},
-			sensors : {
-				"arduino1.button1" : {},
-				"arduino1.button2" : {},
-				"arduino1.photocell1" : {}
-			},
-			services : {
-				"toggleAll" : {}
-			}
+			actors : [ "arduino1.led1", "arduino1.led2" ],
+			sensors : [ "arduino1.button1", "arduino1.button2",
+					"arduino1.photocell1" ],
+			services : [ "toggleAll" ]
 		} ]
 	} ],
 	services : [ {

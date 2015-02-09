@@ -31,7 +31,7 @@ define([ "mobile/js/Utils", "mobile/js/Device", "mobile/js/Group" ], function(
 			if (!this.groups) {
 				this.groups = [];
 			}
-			
+
 			for (var n = 0; n < this.groups.length; n++) {
 				Group.bind(this, this.groups[n]);
 			}
@@ -47,8 +47,7 @@ define([ "mobile/js/Utils", "mobile/js/Device", "mobile/js/Group" ], function(
 				}
 			}
 
-			throw "Cannot find Device [" + id
-			"].";
+			throw "Cannot find Device [" + id + "].";
 		};
 
 		/**
@@ -61,8 +60,7 @@ define([ "mobile/js/Utils", "mobile/js/Device", "mobile/js/Group" ], function(
 				}
 			}
 
-			throw "Cannot find Device [" + id
-			"].";
+			throw "Cannot find Services [" + id + "].";
 		};
 
 		/**

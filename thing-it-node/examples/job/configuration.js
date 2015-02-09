@@ -31,8 +31,10 @@ module.exports = {
 		id : "job1",
 		label : "Job 1",
 		description : "One-time job.",
+		test : true,
+		verbose : true,
 		startTimestamp : new Date().getTime() + 10000,
-		fromNextFullOf: "m",
+		fromNextFullOf : "m",
 		content : {
 			type : "nodeServiceCall",
 			service : "ledRed"
@@ -41,10 +43,13 @@ module.exports = {
 		id : "job2",
 		label : "Job 2",
 		description : "Job executed every minute.",
-		startTimestamp : new Date().getTime() + 2000,
+		test : true,
+		verbose : true,
+		startTimestamp : new Date().getTime() - 1000 * 60 * 5,
+		fromNextFullOf : "m",
 		recurrence : "m",
 		factor : 1,
-		endAfterOccurences : 3,
+		endAfterOccurences : 10,
 		content : {
 			type : "nodeServiceCall",
 			service : "ledGreen"

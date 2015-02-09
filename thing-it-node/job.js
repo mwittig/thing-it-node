@@ -39,89 +39,129 @@ function Job() {
 		this
 				.log("===================================================================\n");
 
-		this.occurences = 0;
-		this.activateTimestamp = new Date().getTime();
+		// Validations
 
-		var startTimestamp = moment(this.startTimestamp);
+		if (this.recurrence
+				&& (this.recurrence == "M" || this.recurrence == "Q" || this.recurrence == "y")) {
+			console
+					.error("Monthly, quarterly and yearly jobs are not supported yet.");
+
+			return;
+		}
+
+		// Initializations
+
+		if (!this.recurrence) {
+			this.endAfterOccurences = 1;
+		}
+
+		this.occurences = 0;
+		this.startTimestamp = moment(this.startTimestamp);
+
+		this.log("Raw Start Timestamp " + moment(this.startTimestamp).format());
+
+		this.forwardStartTimestamp();
+		this.calculateRepeatInterval();
+
+		// Forward to first execution - if any
+
+		this.log("Adjusted Start Timestamp "
+				+ moment(this.startTimestamp).format());
+
+		while (this.startTimestamp.valueOf() < new Date().getTime()) {
+			this.occurences++;
+
+			this.startTimestamp += this.repeatInterval;
+
+			this.log("Past execution " + this.occurences + " at "
+					+ moment(this.startTimestamp).format());
+
+			if (this.occurences > this.endAfterOccurences
+					|| this.startTimestamp > this.endTimestamp) {
+				this.log("All Job occurences is in the past. Terminating.");
+
+				return;
+			}
+		}
+
+		this.activateTimestamp = new Date().getTime();
+		this.startOffset = this.startTimestamp.valueOf()
+				- this.activateTimestamp;
+
+		var self = this;
+
+		setTimeout(function() {
+			if (self.recurrence) {
+				self.timerInterval = setInterval(function() {
+					if (self.endAtTimestamp
+							&& new Date().getTime() >= self.endAtTimestamp) {
+						clearInterval(self.timerInterval);
+
+						return;
+					}
+
+					self.occurences++;
+
+					self.execute();
+
+					if (self.endAfterOccurences
+							&& self.occurences >= self.endAfterOccurences) {
+						clearInterval(self.timerInterval);
+
+						return;
+					}
+				}, self.repeatInterval);
+			} else {
+				self.execute();
+			}
+		}, this.startOffset);
+	};
+
+	/**
+	 * 
+	 */
+	Job.prototype.forwardStartTimestamp = function() {
+		this.startTimestamp = moment(this.startTimestamp);
 
 		if (this.fromNextFullOf) {
 			if (this.fromNextFullOf == "m") {
-				startTimestamp.endOf("minute");
+				this.startTimestamp.endOf("minute");
 			} else if (this.fromNextFullOf == "h") {
-				startTimestamp.endOf("hour");
+				this.startTimestamp.endOf("hour");
 			} else if (this.fromNextFullOf == "d") {
-				startTimestamp.endOf("day");
+				this.startTimestamp.endOf("day");
 			} else if (this.fromNextFullOf == "w") {
-				startTimestamp.endOf("week");
+				this.startTimestamp.endOf("week");
 			} else {
 				throw "Unsupported value for [fromNextFullOf]: "
 						+ this.fromNextFullOf;
 			}
 		}
 
-		console.log(startTimestamp.toISOString());
+		this.startTimestamp = this.startTimestamp.add("ms", 1).valueOf();
+	};
 
-		var startOffset = startTimestamp.valueOf() - this.activateTimestamp;
+	/**
+	 * 
+	 */
+	Job.prototype.calculateRepeatInterval = function() {
+		this.repeatInterval = 0;
 
-		if (startOffset < 0) {
-			this.log("Job timestamp is in the past. Terminating.");
+		if (!this.factor) {
+			this.factor = 1;
 		}
 
-		var self = this;
+		if (this.recurrence == "m") {
+			this.repeatInterval = 1000 * 60 * this.factor;
+		} else if (this.recurrence == "h") {
+			this.repeatInterval = 1000 * 60 * 60 * this.factor;
+		} else if (this.recurrence == "d") {
+			this.repeatInterval = 1000 * 60 * 60 * 24 * this.factor;
+		} else if (this.recurrence == "w") {
+			this.repeatInterval = 1000 * 60 * 60 * 24 * 7 * this.factor;
+		}
 
-		setTimeout(
-				function() {
-					if (self.recurrence) {
-						if (self.recurrence == "M" || self.recurrence == "Q"
-								|| self.recurrence == "y") {
-							console
-									.error("Monthly, quarterly and yearly jobs are not supported yet.");
-
-							return;
-						} else {
-							var repeatInterval = 0;
-
-							if (!self.factor) {
-								self.factor = 1;
-							}
-
-							if (self.recurrence == "m") {
-								repeatInterval = 1000 * 60 * self.factor;
-							} else if (self.recurrence == "h") {
-								repeatInterval = 1000 * 60 * 60 * self.factor;
-							} else if (self.recurrence == "d") {
-								repeatInterval = 1000 * 60 * 60 * 24
-										* self.factor;
-							} else if (self.recurrence == "w") {
-								repeatInterval = 1000 * 60 * 60 * 24 * 7
-										* self.factor;
-							}
-
-							self.timerInterval = setInterval(
-									function() {
-										if (self.endAtTimestamp
-												&& new Date().getTime() >= self.endAtTimestamp) {
-											clearInterval(self.timerInterval);
-
-											return;
-										}
-
-										self.occurences++;
-
-										self.execute();
-
-										if (self.endAfterOccurences
-												&& self.occurences >= self.endAfterOccurences) {
-											clearInterval(self.timerInterval);
-
-											return;
-										}
-									}, repeatInterval);
-						}
-					} else {
-						self.execute();
-					}
-				}, startOffset);
+		return this.repeatInterval;
 	};
 
 	/**
@@ -129,12 +169,6 @@ function Job() {
 	 */
 	Job.prototype.elapsedTime = function() {
 		return new Date().getTime() - this.activateTimestamp;
-	};
-
-	/**
-	 * 
-	 */
-	Job.prototype.execute = function() {
 	};
 
 	/**
