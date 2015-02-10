@@ -1,8 +1,9 @@
 module.exports = {
 	bind : function(device, sensor) {
+		console.log("Loading sensor in " + device.type.directory);
 		utils.inheritMethods(sensor, new Sensor());
 		utils.inheritMethods(sensor, require(
-				"./plugins/" + device.type.plugin + "/"
+				device.type.directory + "/sensors/"
 						+ device.findSensorType(sensor.type).plugin).create());
 
 		sensor.device = device;
@@ -124,7 +125,7 @@ function Sensor() {
 			res.send("");
 
 			self.value = req.body.value;
-			
+
 			self.data(req.body.value);
 		});
 		this.device.node.app.post("/devices/" + this.device.id + "/sensors/"

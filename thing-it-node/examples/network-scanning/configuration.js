@@ -13,7 +13,7 @@ module.exports = {
 			"configuration" : {
 				"hostName" : "ZorgPhone",
 				"interval" : 10000,
-				"ipRange" : "192.168.0.1-20",
+				"ipRange" : "192.168.1.1-20",
 				"portRange" : "62078"
 			}
 		} ]

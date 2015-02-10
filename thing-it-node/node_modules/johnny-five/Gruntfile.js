@@ -30,7 +30,7 @@ module.exports = function(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON("package.json"),
     examples: {
-      files: ["programs.json"]
+      files: ["tpl/programs.json"]
     },
     nodeunit: {
       tests: [
@@ -46,7 +46,6 @@ module.exports = function(grunt) {
         "test/accelerometer.js",
         "test/animation.js",
         "test/button.js",
-        "test/distance.js",
         "test/esc.js",
         "test/fn.js",
         "test/gyro.js",
@@ -59,6 +58,7 @@ module.exports = function(grunt) {
         "test/piezo.js",
         "test/ping.js",
         "test/pir.js",
+        "test/proximity.js",
         "test/reflectancearray.js",
         "test/relay.js",
         "test/repl.js",
@@ -209,6 +209,7 @@ module.exports = function(grunt) {
   grunt.registerMultiTask("examples", "Generate examples", function() {
     // Concat specified files.
     var entries = JSON.parse(file.read(file.expand(this.data)));
+    var titles = JSON.parse(file.read("tpl/titles.json"));
     var readme = [];
     var tplType = "eg";
 
@@ -227,17 +228,6 @@ module.exports = function(grunt) {
         var md = "docs/" + value.replace(".js", ".md");
         var png = "docs/breadboard/" + value.replace(".js", ".png");
         var fzz = "docs/breadboard/" + value.replace(".js", ".fzz");
-        var title = value;
-
-        // Generate a title string from the file name
-        [
-          [/^.+\//, ""],
-          [/\.js/, ""],
-          [/\-/g, " "]
-        ].forEach(function(args) {
-          title = "".replace.apply(title, args);
-        });
-
         var fritzpath = fzz.split("/");
         var fritzfile = fritzpath[fritzpath.length - 1];
         var inMarkdown = false;
@@ -270,7 +260,7 @@ module.exports = function(grunt) {
         // console.log( markdown );
 
         var values = {
-          title: _.titleize(title),
+          title: titles[value],
           command: "node " + filepath,
           example: eg,
           file: md,
@@ -279,11 +269,13 @@ module.exports = function(grunt) {
           fritzing: hasFzz ? templates.fritzing({ fzz: fzz }) : ""
         };
 
-        // Write the file to /docs/*
-        file.write(md, templates[tplType](values));
+        if (titles[value]) {
+          // Write the file to /docs/*
+          file.write(md, templates[tplType](values));
 
-        // Push a rendered markdown link into the readme "index"
-        readme.push(templates.eglink(values));
+          // Push a rendered markdown link into the readme "index"
+          readme.push(templates.eglink(values));
+        }
       });
     });
 

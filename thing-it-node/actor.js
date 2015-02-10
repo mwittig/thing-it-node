@@ -2,7 +2,7 @@ module.exports = {
 	bind : function(device, actor) {
 		utils.inheritMethods(actor, new Actor());
 		utils.inheritMethods(actor, require(
-				"./plugins/" + device.type.plugin + "/"
+				device.type.directory + "/actors/"
 						+ device.findActorType(actor.type).plugin).create());
 
 		actor.device = device;

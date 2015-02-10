@@ -85,18 +85,38 @@ function saveNodeConfiguration(node) {
  * 
  */
 function loadPlugins() {
-	var files = fs.readdirSync(__dirname + "/plugins");
 	var plugins = {};
+	var list = fs.readdirSync(__dirname + "/default-devices");
 
-	for (var n = 0; n < files.length; ++n) {
-		console.log("Loading plugin [" + files[n] + "].");
+	for ( var n in list) {
+		var dirStat = fs.statSync(__dirname + "/default-devices/" + list[n]);
 
-		try {
-			plugins[files[n]] = require("./plugins/" + files[n] + "/plugin")
-					.create();
-		} catch (x) {
-			console.log("Failed to load plugin [" + files[n] + "]:");
-			console.log(x);
+		if (dirStat && dirStat.isDirectory()
+				&& list[n].indexOf("thing-it-device-") == 0) {
+			var pluginFiles = fs.readdirSync(__dirname + "/default-devices/" + list[n]);
+
+			for ( var m in pluginFiles) {
+				var fileStat = fs.statSync(__dirname + "/default-devices/" + list[n] + "/"
+						+ pluginFiles[m]);
+
+				if (fileStat && fileStat.isFile() && pluginFiles[m]) {
+					var pluginId = pluginFiles[m].substring(0, pluginFiles[m]
+							.indexOf(".js"));
+
+					console.log("Loading plugin [" + pluginId + "].");
+
+					try {
+						plugins[pluginId] = require(
+								__dirname + "/default-devices/" + list[n] + "/" + pluginId)
+								.create();
+					} catch (x) {
+						console
+								.log("Failed to load plugin [" + pluginId
+										+ "]:");
+						console.log(x);
+					}
+				}
+			}
 		}
 	}
 
@@ -293,6 +313,8 @@ function Node() {
 
 		// Bind Devices
 
+		console.log("Devices ===>");
+		
 		for (var n = 0; n < this.devices.length; ++n) {
 			device.bind(this, this.devices[n]);
 		}

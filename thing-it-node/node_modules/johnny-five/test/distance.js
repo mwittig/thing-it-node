@@ -4,18 +4,46 @@ var MockFirmata = require("./mock-firmata"),
   sinon = require("sinon"),
   Board = five.Board,
   Sensor = five.Sensor,
-  Distance = five.IR.Distance,
+  Proximity = five.IR.Proximity,
   board = new Board({
     io: new MockFirmata(),
     debug: false,
     repl: false
   });
 
-exports["IR.Distance"] = {
+
+// exports["IR.Distance: Deprecated"] = {
+//   setUp: function(done) {
+//     done();
+//   },
+//   tearDown: function(done) {
+//     done();
+//   },
+//   alias: function(test) {
+//     test.expect(Proximity.Controllers.length * 2);
+
+//     Proximity.Controllers.forEach(function(controller) {
+//       var proximity;
+
+//       test.doesNotThrow(function() {
+//         proximity = new five.IR.Proximity({
+//           controller: "GP2Y0A21YK"
+//         });
+//       });
+
+//       test.ok(proximity instanceof Proximity);
+//     });
+
+//     test.done();
+//   }
+// };
+
+exports["IR.Proximity"] = {
   setUp: function(done) {
     this.clock = sinon.useFakeTimers();
     this.analogRead = sinon.spy(board.io, "analogRead");
-    this.distance = new Distance({
+    this.distance = new Proximity({
+      controller: "GP2Y0A21YK",
       pin: "A1",
       board: board
     });
@@ -58,11 +86,11 @@ exports["IR.Distance"] = {
   }
 };
 
-exports["IR.Distance: GP2Y0A21YK"] = {
+exports["IR.Proximity: GP2Y0A21YK"] = {
   setUp: function(done) {
     this.clock = sinon.useFakeTimers();
     this.analogRead = sinon.spy(board.io, "analogRead");
-    this.distance = new Distance({
+    this.distance = new Proximity({
       controller: "GP2Y0A21YK",
       pin: "A1",
       board: board
@@ -94,11 +122,11 @@ exports["IR.Distance: GP2Y0A21YK"] = {
   }
 };
 
-exports["IR.Distance: GP2D120XJ00F"] = {
+exports["IR.Proximity: GP2D120XJ00F"] = {
   setUp: function(done) {
     this.clock = sinon.useFakeTimers();
     this.analogRead = sinon.spy(board.io, "analogRead");
-    this.distance = new Distance({
+    this.distance = new Proximity({
       controller: "GP2D120XJ00F",
       pin: "A1",
       board: board
@@ -129,11 +157,11 @@ exports["IR.Distance: GP2D120XJ00F"] = {
   }
 };
 
-exports["IR.Distance: GP2Y0A02YK0F"] = {
+exports["IR.Proximity: GP2Y0A02YK0F"] = {
   setUp: function(done) {
     this.clock = sinon.useFakeTimers();
     this.analogRead = sinon.spy(board.io, "analogRead");
-    this.distance = new Distance({
+    this.distance = new Proximity({
       controller: "GP2Y0A02YK0F",
       pin: "A1",
       board: board
@@ -165,11 +193,11 @@ exports["IR.Distance: GP2Y0A02YK0F"] = {
   }
 };
 
-exports["IR.Distance: GP2Y0A41SK0F"] = {
+exports["IR.Proximity: GP2Y0A41SK0F"] = {
   setUp: function(done) {
     this.clock = sinon.useFakeTimers();
     this.analogRead = sinon.spy(board.io, "analogRead");
-    this.distance = new Distance({
+    this.distance = new Proximity({
       controller: "GP2Y0A41SK0F",
       pin: "A1",
       board: board
