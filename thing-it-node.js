@@ -1,7 +1,7 @@
 // Imports
 
 var options = require("./options");
-var node = require("./node");
+var node = require("./lib/node");
 var bodyParser = require('body-parser')
 var express = require('express');
 var app = express();
