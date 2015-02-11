@@ -256,7 +256,7 @@ If the upload was successful, the board is now prepared. Now,
 
 e.g. like
 
-![wiring](./thing-it-node/examples/simple-lighting/wiring.png)
+![wiring](./examples/simple-lighting/wiring.png)
 
 Restart the **thing-it-node** server. The output should now look like 
 
