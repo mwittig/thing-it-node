@@ -328,7 +328,10 @@ If you still find the creation of the configuration file too technical (we agree
 The Simple Lighting solution presented here is available as a Mesh under
 
 [http://www.thing-it.com/thing-it/index.html?offer=54d417205a538cc81b0d31c9#/meshOfferPanel](http://www.thing-it.com/thing-it/index.html?offer=54d417205a538cc81b0d31c9#/meshOfferPanel)
-On [www.thing-it.com](http://www.thing-it.com) you would define **Nodes** and **Devices**
+
+You can find other Meshes in the [thing-it] [Mesh Market](http://www.thing-it.com/thing-it/index.html#/searchPanel) for free simulation and download.
+
+To create your own solutions on [www.thing-it.com](http://www.thing-it.com) you would define **Nodes** and **Devices**
 
 <img src="./documentation/images/thing-it-node-configuration.png" style="">
 
