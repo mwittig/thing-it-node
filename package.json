@@ -1,0 +1,46 @@
+{
+  "name": "thing-it-node",
+  "version": "0.9.31",
+  "description": "thing-it Node Server",
+  "main": "node.js",
+  "scripts": {},
+  "author": "Marc Gille",
+  "license": "MIT, EPL",
+  "dependencies": {
+    "bluetooth-serial-port": "^1.2.1",
+    "body-parser": "^1.11.0",
+    "bunyan": "^1.3.3",
+    "cors": "^2.5.3",
+    "express": "^4.11.2",
+    "johnny-five": "^0.8.42",
+    "lodash": "^3.1.0",
+    "moment": "^2.9.0",
+    "q": "^1.1.2",
+    "socket.io": "^1.3.3"
+  },
+  "_shasum": "19135244b31f607be6b283cc328fdd2501783050",
+  "_from": "thing-it-node@",
+  "directories": {
+    "example": "examples",
+    "test": "test"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/marcgille/thing-it-node"
+  },
+  "keywords": [
+    "IoT",
+    "nodejs",
+    "REST",
+    "WebSocket",
+    "Actor Animation",
+    "Arduino",
+    "BeagleBone Black",
+    "Raspberry Pi"
+  ],
+  "bugs": {
+    "url": "https://github.com/marcgille/thing-it-node/issues"
+  },
+  "homepage": "https://github.com/marcgille/thing-it-node"
+}
