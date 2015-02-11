@@ -11,7 +11,7 @@
 
 All of the above is controlled by a [nodejs](http://nodejs.org/) server which is bootstrapped from a **simple JSON configuration**, which allows you to configure a **home automation system in minutes**.
 
-<p align="center"><a href="./thing-it-node/documentation/images/architecture.png"><img src="./thing-it-node/documentation/images/architecture.png" width="80%" height="80%"></a></p>
+<p align="center"><a href="./documentation/images/architecture.png"><img src="./documentation/images/architecture.png" width="80%" height="80%"></a></p>
 
 ## Mobile Client
 
@@ -306,7 +306,7 @@ You will see a Login Screen. _You can leave *Account* and *Password* empty for n
 
 Click Login. The browser content should look like
 
-<p align="center"><a href="./thing-it-node/documentation/images/mobile-client.png"><img src="./thing-it-node/documentation/images/mobile-client.png" width="40%" height="40%"></a></p>
+<p align="center"><a href="./documentation/images/mobile-client.png"><img src="./documentation/images/mobile-client.png" width="40%" height="40%"></a></p>
 
 If you have remote (e.g. Wifi) access to the computer running the **[thing-it-node]**, you may also use a mobile device (e.g. an iPhone or iPad) to connect to your simple lighting system.
 
@@ -327,15 +327,15 @@ If you still find the creation of the configuration file too technical (we agree
 
 On [www.thing-it.com](http://www.thing-it.com) you would define **Nodes** and **Devices**
 
-<img src="./thing-it-node/documentation/images/thing-it-node-configuration.png" style="">
+<img src="./documentation/images/thing-it-node-configuration.png" style="">
 
 put **Actors**, **Sensors**, **Services** and **Event Processors** together,
 
-<img src="./thing-it-node/documentation/images/thing-it-switchboard.png" style="">
+<img src="./documentation/images/thing-it-switchboard.png" style="">
 
 edit the logic of **Event Processors**
 
-<img src="./thing-it-node/documentation/images/thing-it-event-processor.png" style="">
+<img src="./documentation/images/thing-it-event-processor.png" style="">
 
 and **Services** and then simulate and test the configuration before you download it to your **[thing-it-node]** deployment.
 
