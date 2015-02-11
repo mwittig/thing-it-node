@@ -325,6 +325,9 @@ but **no programming** we were able to create a simple but realistic home automa
 
 If you still find the creation of the configuration file too technical (we agree ...) - you may consider to use the free services of [www.thing-it.com](http://www.thing-it.com) to create and simulate your setup and then just download the configuration file.
 
+The Simple Lighting solution presented here is available as a Mesh under
+
+[http://www.thing-it.com/thing-it/index.html?offer=54d417205a538cc81b0d31c9#/meshOfferPanel](http://www.thing-it.com/thing-it/index.html?offer=54d417205a538cc81b0d31c9#/meshOfferPanel)
 On [www.thing-it.com](http://www.thing-it.com) you would define **Nodes** and **Devices**
 
 <img src="./documentation/images/thing-it-node-configuration.png" style="">
