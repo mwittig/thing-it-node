@@ -17,7 +17,7 @@ All of the above is controlled by a [nodejs](http://nodejs.org/) server which is
 
 **[thing-it-node]** comes with a mobile client tested for iPhone, iPad and Android devices which allows you to control and monitor your devices.
 
-<p align="center"><a href="https://github.com/marcgille/thing-it-node/blob/master/thing-it-node/examples/rgb-led/mobile-ui.png"><img src="https://github.com/marcgille/thing-it-node/blob/master/thing-it-node/examples/rgb-led/mobile-ui.png" width="40%" height="40%"></a></p>
+<p align="center"><a href="https://github.com/marcgille/thing-it-node/blob/master/examples/rgb-led/mobile-ui.png"><img src="https://github.com/marcgille/thing-it-node/blob/master/examples/rgb-led/mobile-ui.png" width="40%" height="40%"></a></p>
 
 ## REST Services
 
