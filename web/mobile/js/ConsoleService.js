@@ -122,9 +122,12 @@ define([ "mobile/js/Utils" ], function(Utils) {
 			if (!component) {
 				return null;
 			}
-			
-			return this.rootUrl + "/plugins/" + component.device.plugin
-					+ "/web/" + component.__type.family + ".html";
+
+			var pluginPath = this.rootUrl + "/default-devices/thing-it-device-"
+					+ component.device.__type.family + "/web/"
+					+ component.__type.family + ".html";
+
+			return pluginPath;
 		};
 	}
 });

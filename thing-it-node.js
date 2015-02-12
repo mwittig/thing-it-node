@@ -11,7 +11,11 @@ var io = new Server({
 });
 
 app.use(express.static(__dirname + "/web"));
-app.use("/plugins", express.static(__dirname + "/plugins"));
+
+// TODO Provide all device plugin pathes
+
+app.use("/default-devices", express.static(__dirname + "/lib/default-devices"));
+
 app.use(bodyParser.json());
 app.use(function(req, res, next) {
 	res.header('Access-Control-Allow-Origin', '*');
