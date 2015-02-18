@@ -1,8 +1,8 @@
 {
   "name": "thing-it-node",
-  "version": "0.9.35",
+  "version": "0.9.36",
   "description": "thing-it Node Server",
-  "main": "node.js",
+  "main": "lib/node.js",
   "scripts": {},
   "author": "Marc Gille",
   "license": "MIT, EPL",
