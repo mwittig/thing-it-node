@@ -49,7 +49,10 @@ module.exports = {
 		fromNextFullOf : "m",
 		recurrence : "m",
 		factor : 1,
-		endAfterOccurences : 10,
+		end : {
+			type : "endAfter",
+			occurences : 10
+		},
 		content : {
 			type : "nodeServiceCall",
 			service : "ledGreen"

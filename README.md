@@ -13,86 +13,9 @@ All of the above is controlled by a [nodejs](http://nodejs.org/) server which is
 
 <p align="center"><a href="./documentation/images/architecture.png"><img src="./documentation/images/architecture.png" width="80%" height="80%"></a></p>
 
-## Mobile Client
-
-**[thing-it-node]** comes with a mobile client tested for iPhone, iPad and Android devices which allows you to control and monitor your devices.
-
-<p align="center"><a href="./examples/rgb-led/mobile-ui.png"><img src="./examples/rgb-led/mobile-ui.png" width="40%" height="40%"></a></p>
-
-## REST Services
-
-You can invoke services of all Actors via
- 
-```javascript
-jQuery.ajax({url : "https://yournode/devices/arduino1/actors/led1/services/on”, type : "POST"}).done(...).fail(...);
-```
-
-You also can define **Higher-level Services** on multiple Actors, e.g. to
-
-* switch multiple LEDs on or off or close and open multiple Relays or
-* create output on an LCD display and create a sound on a Piezo.
-
-and also invoke those via REST, e.g.
-
-```javascript
-jQuery.ajax({url : "https://yournode/services/allLEDsOn”, type : "POST"}).done(...).fail(...);
-```
-
-## Web Socket Notifications
-
-You can receive **WebSocket Notifications** on all Sensor data changes and events, e.g. via
-
-```javascript
-var socket = new io("https://yournode/node/4711/events");
-	
-socket.on("event", function(event) {
-	console.log(event.node);
-	console.log(event.device);
-	console.log(event.actor);
-	console.log(event.type);
-	console.log(event.value);
-});
-```
-
-## Complex Event Processing
-
-You can define **Complex Event Processing** on Sensor data changes and events like
-
-```javascript    
-{
-	"id": "eventProcessor3",
-        "label": "Event Processor 3",
-        "observables": ["arduino1.photocell1"],
-        "window" : {"duration": 10000},
-        "match" : "minimum(arduino1.photocell1.series) < 700 && deviation(arduino1.photocell1.series) < 100 && arduino1.photocell1.series.length > 1",
-        "script": "arduino1.led1.on(); arduino1.led2.on();"
-}
-```
-
-to invoke the above Actor or Node Services, e.g.
-
-* to produce LCD and Piezo output on simultaneous data changes on a motion detector, a thermo sensor and a sound detector for an alarm system or
-* open the door if an RFID tag approaches an RFID receiver.
-
-## Configuration File
-
-The **[thing-it-node]** Configuration File contains definitions of Devices, Actors, Sensors, Services, Event Processors and groups of those in a simple JSON string, e.g.
-
-```javascript
-"actors": [
-	{
-        	"id": "led1",
-                "label": "LED1",
-                "type": "led",
-                "configuration": {
-                "pin": 12
-                }
-        }, ...
-```
-
 # thing-it.com
 
-You can use [www.thing-it.com](http://www.thing-it.com) to create and simulate your setup and then just download the configuration file.
+You can use [www.thing-it.com](http://www.thing-it.com) to create and simulate your setup for **[thing-it-node]** and then just download the configuration file.
 
 # Dual License
 
