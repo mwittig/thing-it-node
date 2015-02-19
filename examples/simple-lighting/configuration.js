@@ -73,14 +73,20 @@ module.exports = {
 				label : "Event Processor 1",
 				observables : [ "arduino1.button1" ],
 				match : "arduino1.button1.event == 'hold'",
-				script : "if (arduino1.led1.state.light == 'on') {arduino1.led1.off(); } else {arduino1.led1.on();}"
+				content : {
+					type : "script",
+					script : "if (arduino1.led1.state.light == 'on') {arduino1.led1.off(); } else {arduino1.led1.on();}"
+				}
 			},
 			{
 				id : "eventProcessor2",
 				label : "Event Processor 2",
 				observables : [ "arduino1.button2" ],
 				match : "arduino1.button2.event == 'hold'",
-				script : "if (arduino1.led2.state.light == 'on') {arduino1.led2.off(); } else {arduino1.led2.on();}"
+				content : {
+					type : "script",
+					script : "if (arduino1.led2.state.light == 'on') {arduino1.led2.off(); } else {arduino1.led2.on();}"
+				}
 			},
 			{
 				id : "eventProcessor3",
@@ -90,6 +96,9 @@ module.exports = {
 					"duration" : 10000
 				},
 				match : "minimum(arduino1.photocell1.series) < 700 && deviation(arduino1.photocell1.series) < 100 && arduino1.photocell1.series.length > 1",
-				script : "arduino1.led1.on(); arduino1.led2.on();"
+				content : {
+					type : "script",
+					script : "arduino1.led1.on(); arduino1.led2.on();"
+				}
 			} ]
 };

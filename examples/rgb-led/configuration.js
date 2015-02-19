@@ -54,20 +54,29 @@ module.exports = {
 				label : "Event Processor 1",
 				observables : [ "arduino1.potentiometerRed" ],
 				match : "arduino1.potentiometerRed.event == 'valueChange'",
-				script : "arduino1.rgbLed1.setRedValue({value: arduino1.potentiometerRed.value})"
+				content : {
+					type : "script",
+					script : "arduino1.rgbLed1.setRedValue({value: arduino1.potentiometerRed.value})"
+				}
 			},
 			{
 				id : "eventProcessor2",
 				label : "Event Processor 2",
 				observables : [ "arduino1.potentiometerGreen" ],
 				match : "arduino1.potentiometerGreen.event == 'valueChange'",
-				script : "arduino1.rgbLed1.setGreenValue({value: arduino1.potentiometerGreen.value})"
+				content : {
+					type : "script",
+					script : "arduino1.rgbLed1.setGreenValue({value: arduino1.potentiometerGreen.value})"
+				}
 			},
 			{
 				id : "eventProcessor3",
 				label : "Event Processor 3",
 				observables : [ "arduino1.potentiometerBlue" ],
 				match : "arduino1.potentiometerBlue.event == 'valueChange'",
-				script : "arduino1.rgbLed1.setBlueValue({value: arduino1.potentiometerBlue.value})"
+				content : {
+					type : "script",
+					script : "arduino1.rgbLed1.setBlueValue({value: arduino1.potentiometerBlue.value})"
+				}
 			} ]
 };
