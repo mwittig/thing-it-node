@@ -20,11 +20,17 @@ module.exports = {
 	services : [ {
 		id : "ledRed",
 		label : "Led Red",
-		script : "arduino1.rgbLed1.color({rgbColorHex: '#FF0000'});"
+		content : {
+			type : "script",
+			script : "arduino1.rgbLed1.color({rgbColorHex: '#FF0000'});"
+		}
 	}, {
 		id : "ledGreen",
 		label : "Led Green",
-		script : "arduino1.rgbLed1.color({rgbColorHex: '#00FF00'});"
+		content : {
+			type : "script",
+			script : "arduino1.rgbLed1.color({rgbColorHex: '#00FF00'});"
+		}
 	} ],
 	eventProcessors : [],
 	jobs : [ {
