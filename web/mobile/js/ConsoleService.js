@@ -100,7 +100,7 @@ define([ "mobile/js/Utils" ], function(Utils) {
 			return Utils.ajax(this.rootUrl + "/devices/" + sensor.device.id
 					+ "/sensors/" + sensor.id + "/data", "POST",
 					"application/json", JSON.stringify({
-						value : sensor.value
+						data : sensor.value
 					}));
 		};
 
@@ -111,7 +111,7 @@ define([ "mobile/js/Utils" ], function(Utils) {
 			return Utils.ajax(this.rootUrl + "/devices/" + sensor.device.id
 					+ "/sensors/" + sensor.id + "/event", "POST",
 					"application/json", JSON.stringify({
-						event : event
+						type : event
 					}));
 		};
 
