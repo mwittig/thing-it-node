@@ -10,9 +10,9 @@ module.exports = {
 			label : "LED (RGB)",
 			type : "rgbLed",
 			configuration : {
-				"pinRed" : 12,
-				"pinGreen" : 13,
-				"pinBlue" : 14
+				"pinRed" : 3,
+				"pinGreen" : 5,
+				"pinBlue" : 6
 			}
 		} ],
 		sensors : [ {
@@ -53,7 +53,7 @@ module.exports = {
 				id : "eventProcessor1",
 				label : "Event Processor 1",
 				observables : [ "arduino1.potentiometerRed" ],
-				match : "arduino1.potentiometerRed.event == 'valueChange'",
+				match : "arduino1.potentiometerRed.event.type == 'valueChange'",
 				content : {
 					type : "script",
 					script : "arduino1.rgbLed1.setRedValue({value: arduino1.potentiometerRed.value})"
@@ -63,7 +63,7 @@ module.exports = {
 				id : "eventProcessor2",
 				label : "Event Processor 2",
 				observables : [ "arduino1.potentiometerGreen" ],
-				match : "arduino1.potentiometerGreen.event == 'valueChange'",
+				match : "arduino1.potentiometerGreen.event.type == 'valueChange'",
 				content : {
 					type : "script",
 					script : "arduino1.rgbLed1.setGreenValue({value: arduino1.potentiometerGreen.value})"
@@ -73,7 +73,7 @@ module.exports = {
 				id : "eventProcessor3",
 				label : "Event Processor 3",
 				observables : [ "arduino1.potentiometerBlue" ],
-				match : "arduino1.potentiometerBlue.event == 'valueChange'",
+				match : "arduino1.potentiometerBlue.event.type == 'valueChange'",
 				content : {
 					type : "script",
 					script : "arduino1.rgbLed1.setBlueValue({value: arduino1.potentiometerBlue.value})"

@@ -11,7 +11,6 @@ module.exports = {
 			label : "Host Detector 1",
 			"type" : "hostDetector",
 			"configuration" : {
-				"hostName" : "ZorgPhone",
 				"interval" : 10000,
 				"ipRange" : "192.168.1.1-20",
 				"portRange" : "62078"
@@ -23,10 +22,10 @@ module.exports = {
 		id : "eventProcessor1",
 		label : "Event Processor 1",
 		observables : [ "networkUtilities.hostDetector1" ],
-		match : "networkUtilities.hostDetector1.event == 'hostUp'",
+		match : "networkUtilities.hostDetector1.event.type == 'hostUp'",
 		content : {
 			type : "script",
-			script : "lastHost.name = 'ZorgPhone'; lastHost.time = new Date();"
+			script : "lastHost.name = networkUtilities.hostDetector1.event.data; lastHost.time = new Date();"
 		}
 	} ],
 	data : [ {

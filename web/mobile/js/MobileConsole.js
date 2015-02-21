@@ -212,7 +212,7 @@ define(
 												.getSensor(event.sensor).lastEventTimestamp = new Date()
 												.getTime();
 
-										if (event.event == "valueChange") {
+										if (event.type == "valueChange") {
 											self.node.getDevice(event.device)
 													.getSensor(event.sensor).lastValueChangeTimestamp = new Date()
 													.getTime();
@@ -270,11 +270,9 @@ define(
 				/**
 				 * 
 				 */
-				MobileConsole.prototype.pushSensorValue = function(sensor,
-						value) {
+				MobileConsole.prototype.pushSensorValue = function(sensor) {
 					console.log("===>");
 					console.log(sensor);
-					console.log(value);
 					ConsoleService.instance().pushSensorValue(sensor).done(
 							function() {
 							}).fail(function() {
