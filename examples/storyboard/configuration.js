@@ -10,19 +10,12 @@ module.exports = {
 			label : "LED (RGB)",
 			type : "rgbLed",
 			configuration : {
-				pinRed : 11,
-				pinGreen : 12,
-				pinBlue : 13
+				"pinRed" : 3,
+				"pinGreen" : 5,
+				"pinBlue" : 6
 			}
 		} ],
-		sensors : [ {
-			id : "button1",
-			label : "Button 1",
-			"type" : "button",
-			"configuration" : {
-				"pin" : 2
-			}
-		} ]
+		sensors : []
 	} ],
 	services : [ {
 		id : "ledRed",
@@ -122,15 +115,6 @@ module.exports = {
 			} ]
 		}
 	} ],
-	eventProcessors : [ {
-		id : "eventProcessor1",
-		label : "Event Processor 1",
-		observables : [ "arduino1.button1" ],
-		match : "arduino1.button1.event == 'hold'",
-		content : {
-			type : "nodeService",
-			service : "storyboard1"
-		}
-	} ],
+	eventProcessors : [],
 	data : []
 };
