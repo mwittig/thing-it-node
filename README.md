@@ -14,7 +14,7 @@ All of the above is controlled by a [nodejs](http://nodejs.org/) server which is
 
 <p align="center"><a href="./documentation/images/architecture.png"><img src="./documentation/images/architecture.png" width="80%" height="80%"></a></p>
 
-More details can be found on the [[thing-it-node] Wiki]](https://github.com/marcgille/thing-it-node/wiki).
+More details can be found on the [thing-it-node Wiki](https://github.com/marcgille/thing-it-node/wiki).
 
 # thing-it.com
 
