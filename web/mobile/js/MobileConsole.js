@@ -6,9 +6,9 @@ define(
 		[ "mobile/js/Utils", "mobile/js/Node", "mobile/js/ConsoleService",
 				"mobile/js/LoginPage", "mobile/js/NodePage",
 				"mobile/js/GroupPage", "mobile/js/ActorPage",
-				"mobile/js/SensorPage" ],
+				"mobile/js/SensorPage", "mobile/js/DataPage" ],
 		function(Utils, Node, ConsoleService, LoginPage, NodePage, GroupPage,
-				ActorPage, SensorPage) {
+				ActorPage, SensorPage, DataPage) {
 			return {
 				create : function() {
 					return new MobileConsole();
@@ -217,7 +217,7 @@ define(
 													.getSensor(event.sensor).lastValueChangeTimestamp = new Date()
 													.getTime();
 										}
-										
+
 										self.safeApply();
 									});
 					this.namespace.on("actorStateChange", function(
@@ -326,6 +326,13 @@ define(
 						component) {
 					return ConsoleService.instance().getComponentPluginPath(
 							component);
+				};
+
+				/**
+				 * 
+				 */
+				MobileConsole.prototype.pushDataPage = function(data) {
+					this.pushPage(DataPage.create(this, data));
 				};
 
 				/**

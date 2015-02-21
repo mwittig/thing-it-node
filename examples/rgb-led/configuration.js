@@ -78,5 +78,6 @@ module.exports = {
 					type : "script",
 					script : "arduino1.rgbLed1.setBlueValue({value: arduino1.potentiometerBlue.value})"
 				}
-			} ]
+			} ],
+	data : []
 };
