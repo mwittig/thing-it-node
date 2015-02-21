@@ -19,5 +19,23 @@ module.exports = {
 		} ]
 	} ],
 	services : [],
-	eventProcessors : []
+	eventProcessors : [ {
+		id : "eventProcessor1",
+		label : "Event Processor 1",
+		observables : [ "networkUtilities.hostDetector1" ],
+		match : "networkUtilities.hostDetector1.event == 'hostUp'",
+		content : {
+			type : "script",
+			script : "lastHost.name = 'ZorgPhone'; lastHost.time = new Date();"
+		}
+	} ],
+	data : [ {
+		id : "lastHost",
+		label : "Last Host",
+		type : "any"
+	}, {
+		id : "lightingConfigurations",
+		label : "Lighting Configurations",
+		type : "any"
+	} ]
 };

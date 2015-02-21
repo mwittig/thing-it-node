@@ -6,12 +6,15 @@
 * define **Higher-level REST Services** to control multiple Actors,
 * define **Complex Event Processing** to react on Sensor events and data changes,
 * define **Storyboards** for the timeline-based, animation of Actor State Changes (e.g. for robotics),
-* define **Jobs** for calendar-based, recurring execution of Services or Storyboards and
+* define **Jobs** for calendar-based, recurring execution of Services or Storyboards,
+* define **Complex Data Variables** to persistently store Event Data for later evaluation and
 * use a **Mobile Client** to control your devices.
 
 All of the above is controlled by a [nodejs](http://nodejs.org/) server which is bootstrapped from a **simple JSON configuration**, which allows you to configure a **home automation system in minutes**.
 
 <p align="center"><a href="./documentation/images/architecture.png"><img src="./documentation/images/architecture.png" width="80%" height="80%"></a></p>
+
+More details can be found on the ([thing-it-node] Wiki)[https://github.com/marcgille/thing-it-node/wiki].
 
 # thing-it.com
 

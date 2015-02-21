@@ -63,5 +63,6 @@ module.exports = {
 			type : "nodeServiceCall",
 			service : "ledGreen"
 		}
-	} ]
+	} ],
+	data : []
 };

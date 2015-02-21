@@ -100,5 +100,6 @@ module.exports = {
 					type : "script",
 					script : "arduino1.led1.on(); arduino1.led2.on();"
 				}
-			} ]
+			} ],
+	data : []
 };

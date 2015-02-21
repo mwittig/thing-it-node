@@ -161,7 +161,18 @@
 					</li>
 					<li ng-repeat="service in topPage().services" jqm-li><a
 						ng-click="topPage().callNodeService(service)"><i
-							class="titleIcon fa fa-gear"></i>{{service.label}}</a></li>
+							class="titleIcon fa fa-gear"></i> {{service.label}}</a></li>
+					<li ng-repeat="data in topPage().node.data">
+						<table width="100%">
+							<tr valign="center">
+								<td width="90%" align="left"><i
+									class="titleIcon fa fa-database"></i> {{data.label}}</td>
+								<td width="10%" align="right"><a
+									ng-click="pushDataPage(data)"><i
+										class="fa fa-chevron-right"></i></a></td>
+							</tr>
+						</table>
+					</li>
 				</ul>
 			</div>
 			<div data-role="footer" data-position="fixed">
@@ -279,6 +290,20 @@
 							class="titleIcon fa fa-chart"></i>Monitoring</a></li>
 				</ul>
 			</form>
+			<div data-role="footer" data-position="fixed">
+				<h4>Copyright &copy; 2015 thing-it</h4>
+			</div>
+		</div>
+		<div id="dataPage" data-role="page">
+			<div data-role="header" data-position="fixed">
+				<h1>{{topPage().data.label}}</h1>
+				<a class="toolbarButton" ng-click="popPage()"><i
+					class="fa fa-chevron-circle-left"></i></a>
+			</div>
+			<div role="main" class="ui-content">
+				<div ng-repeat="object in [topPage().dataValue]"
+					ng-include="'./anyPanel.html'"></div>
+			</div>
 			<div data-role="footer" data-position="fixed">
 				<h4>Copyright &copy; 2015 thing-it</h4>
 			</div>

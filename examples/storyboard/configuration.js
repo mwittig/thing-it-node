@@ -10,17 +10,27 @@ module.exports = {
 			label : "LED (RGB)",
 			type : "rgbLed",
 			configuration : {
-				pinRed : 12,
-				pinGreen : 13,
-				pinBlue : 14
+				pinRed : 11,
+				pinGreen : 12,
+				pinBlue : 13
 			}
 		} ],
-		sensors : []
+		sensors : [ {
+			id : "button1",
+			label : "Button 1",
+			"type" : "button",
+			"configuration" : {
+				"pin" : 2
+			}
+		} ]
 	} ],
 	services : [ {
 		id : "ledRed",
 		label : "LED Red",
-		script : "arduino1.rgbLed1.color({rgbColorHex: '#FF0000'});"
+		content : {
+			type : "script",
+			script : "arduino1.rgbLed1.color({rgbColorHex: '#FF0000'});"
+		}
 	}, {
 		id : "storyboard1",
 		label : "Storyboard 1",
@@ -112,5 +122,15 @@ module.exports = {
 			} ]
 		}
 	} ],
-	eventProcessors : []
+	eventProcessors : [ {
+		id : "eventProcessor1",
+		label : "Event Processor 1",
+		observables : [ "arduino1.button1" ],
+		match : "arduino1.button1.event == 'hold'",
+		content : {
+			type : "nodeService",
+			service : "storyboard1"
+		}
+	} ],
+	data : []
 };

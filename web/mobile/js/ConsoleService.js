@@ -118,6 +118,14 @@ define([ "mobile/js/Utils" ], function(Utils) {
 		/**
 		 * 
 		 */
+		ConsoleService.prototype.getDataValue = function(data) {
+			return Utils.ajax(this.rootUrl + "/data/" + data.id, "GET",
+					"application/json");
+		};
+
+		/**
+		 * 
+		 */
 		ConsoleService.prototype.getComponentPluginPath = function(component) {
 			if (!component) {
 				return null;
