@@ -275,8 +275,9 @@ define(
 					console.log(sensor);
 					ConsoleService.instance().pushSensorValue(sensor).done(
 							function() {
-							}).fail(function() {
-						this.openInfoDialog("Cannot push Sensor Event.");
+							}).fail(function(error) {
+						console.error(error);
+						// this.openInfoDialog("Cannot push Sensor Event.");
 					});
 				};
 
@@ -296,7 +297,8 @@ define(
 							.done(function() {
 							})
 							.fail(
-									function() {
+									function(error) {
+										console.error(error);
 										this
 												.openInfoDialog("Cannot push Sensor Event.");
 									});
@@ -313,7 +315,7 @@ define(
 					actor.state = stateChange.state;
 					actor.lastStateChangeTimestamp = new Date().getTime();
 
-					console.log("Actor");
+					console.log("Actor changed");
 					console.log(actor);
 				};
 

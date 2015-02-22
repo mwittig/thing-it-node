@@ -65,7 +65,8 @@ define([ "mobile/js/Utils" ], function(Utils) {
 			console.log(this.rootUrl);
 
 			var namespace = io.connect(this.rootUrl + "/events", {
-				transports : [ 'websocket' ],
+				transports : [ "websocket", "htmlfile", "xhr-polling",
+						"jsonp-polling" ],
 				reconnection : false
 			/*
 			 * , reconnectionDelay : 1000, reconnectionDelayMax : 5000,

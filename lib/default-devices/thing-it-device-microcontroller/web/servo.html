@@ -1,0 +1,12 @@
+<table>
+	<tr>
+		<td colspan="3" align="center">{{actor.state.position}}</td>
+	</tr>
+	<tr>
+		<td><label>{{actor.configuration.minimum}}</label></td>
+		<td><input type="range" name="slider" id="slider"
+			min="{{actor.configuration.minimum}}"
+			max="{{actor.configuration.maximum}}" data-highlight="true"></input></td>
+		<td><label>{{actor.configuration.maximum}}</label></td>
+	</tr>
+</table>
