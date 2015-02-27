@@ -4,41 +4,41 @@ module.exports = {
 	devices : [ {
 		label : "Arduino Uno 1",
 		id : "arduino1",
-		plugin : "arduino",
+		plugin : "microcontroller/arduino",
 		actors : [ {
 			id : "led1",
 			label : "LED1",
-			"type" : "led",
-			"configuration" : {
+			type : "led",
+			configuration : {
 				"pin" : 12
 			}
 		}, {
 			id : "led2",
 			label : "LED2",
-			"type" : "led",
-			"configuration" : {
+			type : "led",
+			configuration : {
 				"pin" : 13
 			}
 		} ],
 		sensors : [ {
 			id : "button1",
 			label : "Button 1",
-			"type" : "button",
-			"configuration" : {
+			type : "button",
+			configuration : {
 				"pin" : 2
 			}
 		}, {
 			id : "button2",
 			label : "Button 2",
-			"type" : "button",
-			"configuration" : {
+			type : "button",
+			configuration : {
 				"pin" : 4
 			}
 		}, {
 			id : "photocell1",
 			label : "Photocell 1",
-			"type" : "photocell",
-			"configuration" : {
+			type : "photocell",
+			configuration : {
 				"pin" : "A0",
 				"rate" : 2000
 			}
