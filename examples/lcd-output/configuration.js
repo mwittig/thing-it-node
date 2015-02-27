@@ -4,7 +4,7 @@ module.exports = {
 	devices : [ {
 		label : "Arduino Uno 1",
 		id : "arduino1",
-		plugin : "arduino",
+		plugin : "microcontroller/arduino",
 		actors : [ {
 			id : "lcd1",
 			label : "LCD1",

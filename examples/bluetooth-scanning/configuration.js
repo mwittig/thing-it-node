@@ -4,7 +4,7 @@ module.exports = {
 	devices : [ {
 		label : "Bluetooth",
 		id : "bluetooth",
-		plugin : "bluetooth",
+		plugin : "bluetooth/bluetooth",
 		actors : [],
 		sensors : [ {
 			id : "genericDeviceDetector1",

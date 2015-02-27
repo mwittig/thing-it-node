@@ -4,7 +4,7 @@ module.exports = {
 	devices : [ {
 		label : "Network Utilities",
 		id : "networkUtilities",
-		plugin : "network",
+		plugin : "network/network",
 		actors : [],
 		sensors : [ {
 			id : "hostDetector1",
