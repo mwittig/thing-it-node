@@ -7,7 +7,7 @@ var express = require('express');
 var app = express();
 var Server = require('socket.io');
 var io = new Server({
-	transports : [ "websocket" ]
+	transports : [ "websocket", "htmlfile", "xhr-polling", "jsonp-polling" ]
 });
 
 app.use(express.static(__dirname + "/web"));

@@ -60,18 +60,20 @@ define([ "mobile/js/Utils" ], function(Utils) {
 		 * 
 		 */
 		ConsoleService.prototype.connectNode = function(io, node) {
-			console.log("Connecting node");
-			console.log(node);
-			console.log(this.rootUrl);
+			var transports;
+
+			if ("WebSocket" in window && WebSocket.CLOSED > 2) {
+				transports: [ 'websocket', 'xhr-polling' ]
+
+				console.log("Support WebSocket");
+			} else {
+				transports: [ 'xhr-polling' ]
+
+				console.log("Does not Support WebSocket");
+			}
 
 			var namespace = io.connect(this.rootUrl + "/events", {
-				transports : [ "websocket", "htmlfile", "xhr-polling",
-						"jsonp-polling" ],
-				reconnection : false
-			/*
-			 * , reconnectionDelay : 1000, reconnectionDelayMax : 5000,
-			 * reconnectionAttempts : 5
-			 */
+				transports : transports,
 			});
 
 			return namespace;
