@@ -1,0 +1,70 @@
+<style>
+.circle {
+	border-radius: 50%;
+	width: 40px;
+	height: 40px;
+	padding: 8px;
+	background: none;
+	border: 1px solid #A498C5;
+	color: #A498C5;
+	vertical-align: middle;
+	text-align: center;
+	text-decoration: none;
+	font-weight: normal;
+}
+
+.circle:link {
+	text-decoration: none;
+}
+
+.circle:hover, .circle:focus {
+	color: #C9B758;
+	border: 1px solid #C9B758;
+}
+
+.matrixTable td {
+	width: 50px;
+}
+
+.matrixTable td {
+	height: 50px;
+}
+
+.appleLogo {
+	color: #DDDDDD;
+	font-size: 45px;
+}
+</style>
+<table class="matrixTable">
+	<tr valign="middle">
+		<td align="center"></td>
+		<td align="center"><a><i class="fa fa-chevron-up"></i></a></td>
+		<td align="center"></td>
+	</tr>
+	<tr valign="middle">
+		<td align="center"><a><i class="fa fa-chevron-left"></i></a></td>
+		<td align="center"><i class="fa fa-apple appleLogo" style=""></i></td>
+		<td align="center"><a><i class="fa fa-chevron-right"></i></a></td>
+	</tr>
+	<tr valign="middle">
+		<td align="center"></td>
+		<td align="center"><a><i class="fa fa-chevron-down"></i></a></td>
+		<td align="center"></td>
+	</tr>
+	<tr valign="middle">
+		<td align="center"></td>
+		<td align="center"><a ng-click="callActorService(actor, 'menu')"><div
+					class="circle">
+					<span
+						style="text-decoration: none !important; vertical-align: middle !important;">Menu</span>
+				</div></a></td>
+		<td align="center"><table>
+				<tr>
+					<td><a ng-click="callActorService(actor, 'play')"><i
+							class="fa fa-play"></i></a></td>
+					<td><a ng-click="callActorService(actor, 'pause')"><i
+							class="fa fa-pause"></i></a></td>
+				</tr>
+			</table></td>
+	</tr>
+</table>

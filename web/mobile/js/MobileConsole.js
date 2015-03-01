@@ -314,9 +314,36 @@ define(
 
 					actor.state = stateChange.state;
 					actor.lastStateChangeTimestamp = new Date().getTime();
+				};
 
-					console.log("Actor changed");
-					console.log(actor);
+				/**
+				 * 
+				 */
+				MobileConsole.prototype.callNodeService = function(service) {
+					jQuery.mobile.loading("show");
+
+					ConsoleService.instance().callNodeService(service, {})
+							.done(function() {
+								jQuery.mobile.loading("hide");
+							}).fail(function() {
+								jQuery.mobile.loading("hide");
+							});
+				};
+
+				/**
+				 * 
+				 */
+				MobileConsole.prototype.callActorService = function(actor,
+						service) {
+					jQuery.mobile.loading("show");
+
+					console.log(actor.id + " " + service);
+					ConsoleService.instance().callActorService(actor, service,
+							{}).done(function() {
+						jQuery.mobile.loading("hide");
+					}).fail(function() {
+						jQuery.mobile.loading("hide");
+					});
 				};
 
 				/*

@@ -64,12 +64,8 @@ define([ "mobile/js/Utils" ], function(Utils) {
 
 			if ("WebSocket" in window && WebSocket.CLOSED > 2) {
 				transports: [ 'websocket', 'xhr-polling' ]
-
-				console.log("Support WebSocket");
 			} else {
 				transports: [ 'xhr-polling' ]
-
-				console.log("Does not Support WebSocket");
 			}
 
 			var namespace = io.connect(this.rootUrl + "/events", {
@@ -92,7 +88,7 @@ define([ "mobile/js/Utils" ], function(Utils) {
 		 */
 		ConsoleService.prototype.callActorService = function(actor, service) {
 			return Utils.ajax(this.rootUrl + "/devices/" + actor.device.id
-					+ "/actors/" + actor.id + "/services/" + service.id,
+					+ "/actors/" + actor.id + "/services/" + service,
 					"POST", "application/json");
 		};
 

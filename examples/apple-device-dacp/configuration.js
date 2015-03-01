@@ -5,7 +5,11 @@ module.exports = {
 		label : "Apple TV",
 		id : "appleTv",
 		plugin : "apple-device/appleDevice",
-		actors : [], // Device has Default Actor
+		actors : [ {
+			label : "Apple TV",
+			id : "appleTv",
+			type : "dacpActor",
+		} ],
 		sensors : [],
 		configuration : {
 			host : "127.0.0.1",

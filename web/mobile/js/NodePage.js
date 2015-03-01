@@ -53,19 +53,5 @@ define([ "mobile/js/Utils", "mobile/js/ConsoleService" ], function(Utils,
 		 */
 		NodePage.prototype.leave = function() {
 		};
-
-		/**
-		 * 
-		 */
-		NodePage.prototype.callNodeService = function(service) {
-			jQuery.mobile.loading("show");
-
-			ConsoleService.instance().callNodeService(service, {}).done(
-					function() {
-						jQuery.mobile.loading("hide");
-					}).fail(function() {
-				jQuery.mobile.loading("hide");
-			});
-		};
 	}
 });

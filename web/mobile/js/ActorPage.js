@@ -38,19 +38,5 @@ define([ "mobile/js/Utils", "mobile/js/ConsoleService" ], function(Utils,
 		 */
 		ActorPage.prototype.leave = function() {
 		};
-
-		/**
-		 * 
-		 */
-		ActorPage.prototype.callActorService = function(service) {
-			jQuery.mobile.loading("show");
-
-			ConsoleService.instance().callActorService(this.actor, service, {})
-					.done(function() {
-						jQuery.mobile.loading("hide");
-					}).fail(function() {
-						jQuery.mobile.loading("hide");
-					});
-		};
 	}
 });
