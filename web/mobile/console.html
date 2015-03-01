@@ -33,6 +33,7 @@
 					'lodash' : [ 'mobile/js/libs/lodash/lodash.min' ],
 					'jquery' : [ 'mobile/js/libs/jquery/jquery-1.11.0.min' ],
 					'jquery-ui' : [ 'mobile/js/libs/jquery/plugins/jquery-ui-1.10.2.custom.min' ],
+					"jquery.knob" : [ 'mobile/js/libs/jquery/plugins/jquery.knob.min' ],
 					'jquery-mobile' : [ 'http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min' ],
 					'json' : [ 'mobile/js/libs/json/json2' ],
 					'angularjs' : [ 'mobile/js/libs/angular/angular-1.0.2' ],
@@ -43,6 +44,7 @@
 					'moment' : [ 'mobile/js/libs/moment/moment-2.8.4.min' ]
 				},
 				shim : {
+					"jquery.knob" : [ "jquery" ],
 					'jquery-mobile' : [ 'jquery' ],
 					'angularjs' : {
 						require : "jquery",
@@ -52,47 +54,130 @@
 				}
 			});
 	require(
-			[ "require", "jquery", "jquery-mobile", "json", "angularjs",
-					"socketio", "moment", "mobile/js/Utils",
-					"mobile/js/MobileConsole" ], function(require, jquery,
-					jqueryMobile, json, angularjs, socketio, moment, Utils,
-					MobileConsole) {
-				jQuery(document).ready(
-						function() {
-							var module = angularjs.module(
-									"mobileConsoleApplication", []);
+			[ "require", "jquery", "jquery.knob", "jquery-mobile", "json",
+					"angularjs", "socketio", "moment", "mobile/js/Utils",
+					"mobile/js/MobileConsole" ],
+			function(require, jquery, jqueryKnob, jqueryMobile, json,
+					angularjs, socketio, moment, Utils, MobileConsole) {
+				jQuery(document)
+						.ready(
+								function() {
+									var module = angularjs.module(
+											"mobileConsoleApplication", []);
 
-							module.controller('mobileConsole',
-									function($scope) {
-										Utils.inheritMethods($scope,
-												MobileConsole.create());
+									module
+											.controller(
+													'mobileConsole',
+													function($scope) {
+														Utils
+																.inheritMethods(
+																		$scope,
+																		MobileConsole
+																				.create());
 
-										$scope.initialize(socketio);
+														$scope
+																.initialize(socketio);
+													});
+
+									module.directive('ngBlur', function() {
+										return function(scope, elem, attrs) {
+											elem.bind('blur', function() {
+												scope.$apply(attrs.ngBlur);
+											});
+										};
 									});
+									module
+											.directive(
+													"jqmLi",
+													function() {
+														return function($scope,
+																element) {
+															$(element).hide();
+															setTimeout(
+																	function() {
+																		$scope
+																				.$on(
+																						'$viewContentLoaded',
+																						element
+																								.parent()
+																								.listview(
+																										'refresh'));
+																	}, 200);
+															$(element).show();
+														}
+													});
+									module
+											.directive(
+													'tiKnob',
+													function($timeout, $parse) {
+														return {
+															link : function(
+																	scope,
+																	element,
+																	attrs) {
+																var options = scope
+																		.$eval(attrs.tiKnob);
 
-							module.directive('ngBlur', function() {
-								return function(scope, elem, attrs) {
-									elem.bind('blur', function() {
-										scope.$apply(attrs.ngBlur);
-									});
-								};
-							});
-							module.directive("jqmLi", function() {
-								return function($scope, element) {
-									$(element).hide();
-									setTimeout(function() {
-										$scope.$on('$viewContentLoaded',
-												element.parent().listview(
-														'refresh'));
-									}, 200);
-									$(element).show();
-								}
-							});
+																if (!options) {
+																	options = {};
+																}
 
-							angular.bootstrap(document,
-									[ "mobileConsoleApplication" ]);
+																options.min = scope
+																		.$eval(attrs.tiMin);
+																options.max = scope
+																		.$eval(attrs.tiMax);
+																options.change = function(
+																		value) {
+																	var expression = attrs.tiModel
+																			+ "="
+																			+ value;
+																	scope
+																			.$eval(expression);
 
-						});
+																	if (attrs.tiChange) {
+																		scope
+																				.$eval(attrs.tiChange);
+																	}
+																}
+																options.release = function(
+																		value) {
+																	var expression = attrs.tiModel
+																			+ "="
+																			+ value;
+
+																	scope
+																			.$eval(expression);
+
+																	if (attrs.tiChange) {
+																		scope
+																				.$eval(attrs.tiChange);
+																	}
+																}
+
+																jQuery(element)
+																		.knob(
+																				options);
+
+																scope
+																		.$watch(
+																				attrs.tiModel,
+																				function(
+																						value) {
+																					jQuery(
+																							element)
+																							.val(
+																									value)
+																							.trigger(
+																									'change');
+																				});
+															}
+														};
+													});
+
+									angular.bootstrap(document,
+											[ "mobileConsoleApplication" ]);
+
+								});
 			});
 </script>
 </head>
@@ -137,8 +222,7 @@
 								class="titleIcon fa fa-{{group.icon}}"></i></span><span
 							ng-hide="group.icon"><i class="titleIcon fa fa-home"></i></span>{{group.label}}</a></li>
 					<li ng-repeat="service in nodePage.node.services" jqm-li><a
-						ng-click="topPage().callNodeService(service)"><i
-							class="fa fa-gear"></i>{{service.label}}</a></li>
+						ng-click="callNodeService(service)"><i class="fa fa-gear"></i>{{service.label}}</a></li>
 					<li ng-repeat="actor in topPage().actors" jqm-li><table
 							width="100%">
 							<tr valign="center">
@@ -167,7 +251,7 @@
 						</table>
 					</li>
 					<li ng-repeat="service in topPage().services" jqm-li><a
-						ng-click="topPage().callNodeService(service)"><i
+						ng-click="callNodeService(service)"><i
 							class="titleIcon fa fa-gear"></i> {{service.label}}</a></li>
 					<li ng-repeat="data in topPage().node.data">
 						<table width="100%">
@@ -205,7 +289,7 @@
 									class="titleIcon fa fa-{{group.icon}}"></i></span><span
 								ng-hide="group.icon"><i class="titleIcon fa fa-home"></i></span>{{group.label}}</a></li>
 						<li ng-repeat="service in topPage().group.getServices()" jqm-li><a
-							ng-click="topPage().callNodeService(service)"><i
+							ng-click="callNodeService(service)"><i
 								class="titleIcon fa fa-gear"></i>{{service.label}}</a></li>
 						<li ng-repeat="actor in topPage().group.getActors()" jqm-li><table
 								width="100%">
@@ -263,7 +347,7 @@
 					<li class="ui-field-contain"><label for="lastStateChange">Last
 							State Change</label>{{formatDateTime(topPage().actor.lastStateChangeTimestamp)}}</li>
 					<li ng-repeat="service in topPage().actor.__type.services" jqm-li><a
-						ng-click="topPage().callActorService(service)"><i
+						ng-click="callActorService(topPage().actor, service.id)"><i
 							class="titleIcon fa fa-gear"></i>{{service.label}}</a></li>
 				</ul>
 			</div>
