@@ -1,7 +1,7 @@
 module.exports = {
 	port : 3001,
 	protocol : "http",
-	nodeConfigurationFile : "../examples/simple-lighting/configuration.js",
+	nodeConfigurationFile : "../examples/apple-device-dacp/configuration.js",
 	dataDirectory : "../thing-it-data",
 	simulated : true,
 	hotDeployment : false,
