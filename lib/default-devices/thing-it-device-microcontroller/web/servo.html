@@ -1,12 +1,10 @@
 <table>
 	<tr>
-		<td colspan="3" align="center">{{actor.state.position}}</td>
-	</tr>
-	<tr>
-		<td><label>{{actor.configuration.minimum}}</label></td>
-		<td><input type="range" name="slider" id="slider"
+		<td><input ti-knob="{width: 80, fgColor: '#9F8D2C', bgColor: '#FFF4BD', angleOffset: actor.configuration.minimum, angleArc: actor.configuration.maximum - actor.configuration.minimum, font: '\'Titillium Web\', sans-serif'}"
+			style="height: 120px;" ti-model="actor.state.position"
 			min="{{actor.configuration.minimum}}"
-			max="{{actor.configuration.maximum}}" data-highlight="true" ng-model="actor.state.position"></input></td>
-		<td><label>{{actor.configuration.maximum}}</label></td>
+			max="{{actor.configuration.maximum}}" data-height="100"
+			data-width="30" data-skin="tron" data-cursor="true"
+			data-displayPrevious=true></td>
 	</tr>
 </table>

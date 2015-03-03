@@ -16,6 +16,8 @@
 <link rel="stylesheet" href="./css/jquery.mobile.icons.min.css" />
 <link rel="stylesheet" href="./css/thing-it-mobile.min.css">
 <link rel="stylesheet" href="./css/thing-it-mobile-patch.css">
+<link rel="stylesheet" href="./css/ion.rangeslider.css">
+<link rel="stylesheet" href="./css/ion.rangeslider.skinHTML5.css">
 <link rel="shortcut icon" sizes="196x196"
 	href="./css/images/thing-it-home-screen.png">
 <link rel="apple-touch-icon" sizes="196x196"
@@ -34,6 +36,7 @@
 					'jquery' : [ 'mobile/js/libs/jquery/jquery-1.11.0.min' ],
 					'jquery-ui' : [ 'mobile/js/libs/jquery/plugins/jquery-ui-1.10.2.custom.min' ],
 					"jquery.knob" : [ 'mobile/js/libs/jquery/plugins/jquery.knob.min' ],
+					"jquery.rangeslider" : [ 'mobile/js/libs/jquery/plugins/ion.rangeslider.min' ],
 					'jquery-mobile' : [ 'http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min' ],
 					'json' : [ 'mobile/js/libs/json/json2' ],
 					'angularjs' : [ 'mobile/js/libs/angular/angular-1.0.2' ],
@@ -44,8 +47,9 @@
 					'moment' : [ 'mobile/js/libs/moment/moment-2.8.4.min' ]
 				},
 				shim : {
-					"jquery.knob" : [ "jquery" ],
 					'jquery-mobile' : [ 'jquery' ],
+					"jquery.knob" : [ "jquery" ],
+					"jquery.rangeslider" : [ "jquery" ],
 					'angularjs' : {
 						require : "jquery",
 						exports : "angular"
@@ -53,132 +57,27 @@
 					'jquery.jqplot' : [ 'jquery' ]
 				}
 			});
-	require(
-			[ "require", "jquery", "jquery.knob", "jquery-mobile", "json",
-					"angularjs", "socketio", "moment", "mobile/js/Utils",
-					"mobile/js/MobileConsole" ],
-			function(require, jquery, jqueryKnob, jqueryMobile, json,
-					angularjs, socketio, moment, Utils, MobileConsole) {
-				jQuery(document)
-						.ready(
-								function() {
-									var module = angularjs.module(
-											"mobileConsoleApplication", []);
+	require([ "require", "jquery", "jquery.knob", "jquery-mobile",
+			"jquery.rangeslider", "json", "angularjs", "socketio", "moment",
+			"mobile/js/Utils", "mobile/js/AngularDirectives",
+			"mobile/js/MobileConsole" ], function(require, jquery, jqueryKnob,
+			jqueryMobile, jqueryRangeslider, json, angularjs, socketio, moment,
+			Utils, AngularDirectives, MobileConsole) {
+		jQuery(document).ready(function() {
+			var module = angularjs.module("mobileConsoleApplication", []);
 
-									module
-											.controller(
-													'mobileConsole',
-													function($scope) {
-														Utils
-																.inheritMethods(
-																		$scope,
-																		MobileConsole
-																				.create());
+			module.controller('mobileConsole', function($scope) {
+				Utils.inheritMethods($scope, MobileConsole.create());
 
-														$scope
-																.initialize(socketio);
-													});
-
-									module.directive('ngBlur', function() {
-										return function(scope, elem, attrs) {
-											elem.bind('blur', function() {
-												scope.$apply(attrs.ngBlur);
-											});
-										};
-									});
-									module
-											.directive(
-													"jqmLi",
-													function() {
-														return function($scope,
-																element) {
-															$(element).hide();
-															setTimeout(
-																	function() {
-																		$scope
-																				.$on(
-																						'$viewContentLoaded',
-																						element
-																								.parent()
-																								.listview(
-																										'refresh'));
-																	}, 200);
-															$(element).show();
-														}
-													});
-									module
-											.directive(
-													'tiKnob',
-													function($timeout, $parse) {
-														return {
-															link : function(
-																	scope,
-																	element,
-																	attrs) {
-																var options = scope
-																		.$eval(attrs.tiKnob);
-
-																if (!options) {
-																	options = {};
-																}
-
-																options.min = scope
-																		.$eval(attrs.tiMin);
-																options.max = scope
-																		.$eval(attrs.tiMax);
-																options.change = function(
-																		value) {
-																	var expression = attrs.tiModel
-																			+ "="
-																			+ value;
-																	scope
-																			.$eval(expression);
-
-																	if (attrs.tiChange) {
-																		scope
-																				.$eval(attrs.tiChange);
-																	}
-																}
-																options.release = function(
-																		value) {
-																	var expression = attrs.tiModel
-																			+ "="
-																			+ value;
-
-																	scope
-																			.$eval(expression);
-
-																	if (attrs.tiChange) {
-																		scope
-																				.$eval(attrs.tiChange);
-																	}
-																}
-
-																jQuery(element)
-																		.knob(
-																				options);
-
-																scope
-																		.$watch(
-																				attrs.tiModel,
-																				function(
-																						value) {
-																					jQuery(
-																							element)
-																							.val(
-																									value)
-																							.trigger(
-																									'change');
-																				});
-															}
-														};
-													});
-
-									angular.bootstrap(document,
-											[ "mobileConsoleApplication" ]);
-
-								});
+				$scope.initialize(socketio);
 			});
+
+			AngularDirectives.initialize(module);
+
+			angular.bootstrap(document, [ "mobileConsoleApplication" ]);
+
+		});
+	});
 </script>
 </head>
 <body style="height: 100%;" ng-controller="mobileConsole" ng-cloak>
