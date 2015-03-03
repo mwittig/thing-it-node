@@ -1,14 +1,11 @@
 <table>
-	<tr>
-		<td colspan="3" align="center">{{sensor.value}}</td>
-	</tr>
-	<tr>
-		<td><label>{{sensor.configuration.min}}</label></td>
-		<td><input type="range" name="slider" id="slider"
-			min="{{sensor.configuration.min}}" max="{{sensor.configuration.max}}"
-			ng-model="sensor.value" ng-change="pushSensorValue(sensor)"
-			data-highlight="true"></input></td>
-		<td><label>{{sensor.configuration.max}}</label></td>
+	<tr valign="bottom">
+		<td>{{sensor.configuration.min}}</td>
+		<td><input
+			ti-knob="{width: 80, fgColor: '#7A6BA6', bgColor: '#E1DEEA', angleOffset: -135, angleArc: 270, font: '\'Titillium Web\', sans-serif'}"
+			ti-model="sensor.value" ti-min="sensor.configuration.min"
+			ti-max="sensor.configuration.max" ti-change="pushSensorValue(sensor)"
+			data-height="80"></td>
+		<td>{{sensor.configuration.max}}</td>
 	</tr>
 </table>
-
