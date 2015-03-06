@@ -6,15 +6,19 @@ define(
 		[ "mobile/js/Utils", "mobile/js/Node", "mobile/js/ConsoleService",
 				"mobile/js/LoginPage", "mobile/js/NodePage",
 				"mobile/js/GroupPage", "mobile/js/ActorPage",
-				"mobile/js/SensorPage", "mobile/js/DataPage" ],
+				"mobile/js/SensorPage", "mobile/js/DataPage",
+				"mobile/js/SensorMonitoringPage" ],
 		function(Utils, Node, ConsoleService, LoginPage, NodePage, GroupPage,
-				ActorPage, SensorPage, DataPage) {
+				ActorPage, SensorPage, DataPage, SensorMonitoringPage) {
 			return {
 				create : function() {
 					return new MobileConsole();
 				}
 			};
 
+			/**
+			 * 
+			 */
 			function MobileConsole() {
 				/**
 				 * 
@@ -22,6 +26,7 @@ define(
 				MobileConsole.prototype.initialize = function(io) {
 					this.io = io;
 					this.pageStack = [ this.loginPage = LoginPage.create(this) ];
+					this.sensorPlotData = {};
 
 					this.showPage(this.loginPage);
 				};
@@ -30,8 +35,6 @@ define(
 				 * 
 				 */
 				MobileConsole.prototype.showPage = function(page, object) {
-					var self = this;
-
 					var promise;
 
 					if (object) {
@@ -40,14 +43,20 @@ define(
 						promise = page.show();
 					}
 
-					self.safeApply();
+					jQuery(document).on('pagebeforeshow', function() {
+						console.log("pagebeforeshow");
+						// self.safeApply();
+					});
+
+					var self = this;
 
 					promise.done(function() {
 						self.safeApply();
 
 						window.setTimeout(function() {
+							console.log("changepage");
 							jQuery.mobile.changePage("#" + page.id);
-						}, 200);
+						}, 500);
 					}).fail(function(error) {
 						console.error(error);
 					});
@@ -174,11 +183,8 @@ define(
 					var self = this;
 
 					this.namespace.on("connection", function(socket) {
-						console.log("Websocket connection was established.");
 					});
 					this.namespace.on("disconnect", function(socket) {
-						console.log("Websocket connection was disconnected.");
-
 						self.node.state = "disconnected";
 
 						self.safeApply();
@@ -213,9 +219,19 @@ define(
 												.getTime();
 
 										if (event.type == "valueChange") {
+											console.log(event);
 											self.node.getDevice(event.device)
 													.getSensor(event.sensor).lastValueChangeTimestamp = new Date()
 													.getTime();
+
+											self.addValue(event.device,
+													event.sensor, event.value);
+
+											if (self.topPage().id == "sensorMonitoringPage"
+													&& self.topPage().sensor.device.id == event.device
+													&& self.topPage().sensor.id == event.sensor) {
+												self.topPage().updatePlot();
+											}
 										}
 
 										self.safeApply();
@@ -265,6 +281,14 @@ define(
 				 */
 				MobileConsole.prototype.pushSensorPage = function(sensor) {
 					this.pushPage(SensorPage.create(this, sensor));
+				};
+
+				/**
+				 * 
+				 */
+				MobileConsole.prototype.pushSensorMonitoringPage = function(
+						sensor) {
+					this.pushPage(SensorMonitoringPage.create(this, sensor));
 				};
 
 				/**
@@ -334,12 +358,12 @@ define(
 				 * 
 				 */
 				MobileConsole.prototype.callActorService = function(actor,
-						service) {
+						service, parameters) {
 					jQuery.mobile.loading("show");
 
 					console.log(actor.id + " " + service);
 					ConsoleService.instance().callActorService(actor, service,
-							{}).done(function() {
+							parameters).done(function() {
 						jQuery.mobile.loading("hide");
 					}).fail(function() {
 						jQuery.mobile.loading("hide");
@@ -360,6 +384,26 @@ define(
 				 */
 				MobileConsole.prototype.pushDataPage = function(data) {
 					this.pushPage(DataPage.create(this, data));
+				};
+
+				/**
+				 * 
+				 */
+				MobileConsole.prototype.addValue = function(device, sensor,
+						value) {
+					if (!this.sensorPlotData[device]
+							|| !this.sensorPlotData[device][sensor]) {
+						return;
+					}
+
+					var plotData = this.sensorPlotData[device][sensor];
+					var now = new Date().getTime()
+
+					while (plotData.series[0][0] < now - plotData.interval) {
+						plotData.series.shift();
+					}
+
+					plotData.series.push([ now, value ]);
 				};
 
 				/**

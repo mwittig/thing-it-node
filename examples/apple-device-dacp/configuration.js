@@ -10,9 +10,9 @@ module.exports = {
 			id : "appleTv",
 			type : "dacpActor",
 			configuration : {
-				host : "127.0.0.1",
+				host : "192.168.1.7",
 				port : 3689,
-				pairingCode : ""
+				pairingCode : "CB857BD60986A124"
 			}
 		}, {
 			label : "Pairing Agent",

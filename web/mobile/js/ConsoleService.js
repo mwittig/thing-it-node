@@ -86,10 +86,11 @@ define([ "mobile/js/Utils" ], function(Utils) {
 		/**
 		 * 
 		 */
-		ConsoleService.prototype.callActorService = function(actor, service) {
+		ConsoleService.prototype.callActorService = function(actor, service,
+				parameters) {
 			return Utils.ajax(this.rootUrl + "/devices/" + actor.device.id
-					+ "/actors/" + actor.id + "/services/" + service,
-					"POST", "application/json");
+					+ "/actors/" + actor.id + "/services/" + service, "POST",
+					"application/json", JSON.stringify(parameters));
 		};
 
 		/**

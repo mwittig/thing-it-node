@@ -75,30 +75,33 @@ define(
 
 							jQuery(element).ionRangeSlider(
 									{
+										type : "single",
+										min : scope.$eval(attrs.tiMin),
+										max : scope.$eval(attrs.tiMax),
 										rangeClass : 'rangeslider',
 										fillClass : 'rangeslider__fill',
 										handleClass : 'rangeslider__handle',
-										onChange : function(position, value) {
+										onChange : function(value) {
 											var expression = attrs.tiModel
-													+ "=" + value;
+													+ "=" + value.from;
 											scope.$eval(expression);
 
 											if (attrs.tiChange) {
 												bufferedChange(scope, element,
-														value, attrs.tiChange,
-														500);
+														value.from,
+														attrs.tiChange, 500);
 											}
 										},
-										onFinish : function(position, value) {
+										onFinish : function(value) {
 											var expression = attrs.tiModel
-													+ "=" + value;
+													+ "=" + value.from;
 
 											scope.$eval(expression);
 
 											if (attrs.tiChange) {
 												bufferedChange(scope, element,
-														value, attrs.tiChange,
-														500);
+														value.from,
+														attrs.tiChange, 500);
 											}
 										}
 									});
@@ -106,7 +109,43 @@ define(
 									new Date().getTime());
 
 							scope.$watch(attrs.tiModel, function(value) {
-								jQuery(element).val(value).change();
+								jQuery(element).data("ionRangeSlider").update({
+									from : value
+								});
+							});
+						}
+					};
+				});
+				module.directive('tiSwitch', function($timeout, $parse) {
+					return {
+						link : function(scope, element, attrs) {
+							var options = scope.$eval(attrs.tiSwitch);
+
+							if (!options) {
+								options = {};
+							}
+
+							jQuery(element).find("input")
+									.prop("checked", false);
+
+							jQuery(element).find("input").click(
+									function() {
+										var expression = attrs.tiModel
+												+ "="
+												+ jQuery(element).find("input")
+														.prop("checked");
+										scope.$eval(expression);
+
+										if (attrs.tiChange) {
+											console.log("Switch value change");
+
+											scope.$eval(attrs.tiChange);
+										}
+									});
+
+							scope.$watch(attrs.tiModel, function(value) {
+								jQuery(element).find("input").prop("checked",
+										value);
 							});
 						}
 					};

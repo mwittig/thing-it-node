@@ -18,6 +18,7 @@
 <link rel="stylesheet" href="./css/thing-it-mobile-patch.css">
 <link rel="stylesheet" href="./css/ion.rangeslider.css">
 <link rel="stylesheet" href="./css/ion.rangeslider.skinHTML5.css">
+<link rel="stylesheet" href="./css/thirdparty/jquery.jqplot.css" />
 <link rel="shortcut icon" sizes="196x196"
 	href="./css/images/thing-it-home-screen.png">
 <link rel="apple-touch-icon" sizes="196x196"
@@ -44,6 +45,7 @@
 							+ window.location.hostname + ":"
 							+ window.location.port + "/socket.io/socket.io" ],
 					'jquery.jqplot' : [ 'mobile/js/libs/jqplot/jquery.jqplot.min' ],
+					'jquery.jqplot.dateAxisRenderer' : [ 'mobile/js/libs/jqplot/plugins/jqplot.dateAxisRenderer.min' ],
 					'moment' : [ 'mobile/js/libs/moment/moment-2.8.4.min' ]
 				},
 				shim : {
@@ -54,16 +56,22 @@
 						require : "jquery",
 						exports : "angular"
 					},
-					'jquery.jqplot' : [ 'jquery' ]
+					'jquery.jqplot' : [ 'jquery' ],
+					'jquery.jqplot.dateAxisRenderer' : [ 'jquery.jqplot' ]
 				}
 			});
 	require([ "require", "jquery", "jquery.knob", "jquery-mobile",
+			"jquery.jqplot", "jquery.jqplot.dateAxisRenderer",
 			"jquery.rangeslider", "json", "angularjs", "socketio", "moment",
 			"mobile/js/Utils", "mobile/js/AngularDirectives",
 			"mobile/js/MobileConsole" ], function(require, jquery, jqueryKnob,
-			jqueryMobile, jqueryRangeslider, json, angularjs, socketio, moment,
-			Utils, AngularDirectives, MobileConsole) {
+			jqueryMobile, jqueryJqPlot, jqplotDateAxisRenderer,
+			jqueryRangeslider, json, angularjs, socketio, moment, Utils,
+			AngularDirectives, MobileConsole) {
 		jQuery(document).ready(function() {
+			//jQuery(document).on('pagecreate', function() {
+			console.log("Initialization");
+
 			var module = angularjs.module("mobileConsoleApplication", []);
 
 			module.controller('mobileConsole', function($scope) {
@@ -75,13 +83,12 @@
 			AngularDirectives.initialize(module);
 
 			angular.bootstrap(document, [ "mobileConsoleApplication" ]);
-
 		});
 	});
 </script>
 </head>
-<body style="height: 100%;" ng-controller="mobileConsole" ng-cloak>
-	<div>
+<body style="height: 100%;" ng-controller="mobileConsole">
+	<div id="deck">
 		<div id="loginPage" data-position="fixed">
 			<div data-role="header">
 				<h1>[thing-it] Mobile</h1>
@@ -276,7 +283,7 @@
 							Event</label>{{formatDateTime(topPage().sensor.lastEventTimestamp)}}</li>
 					<li class="ui-field-contain"><label for="lastValueChange">Last
 							Value Change</label>{{formatDateTime(topPage().sensor.lastValueChangeTimestamp)}}</li>
-					<li><a ng-click="pushSensorMonitoringPage(sensor)"><i
+					<li><a ng-click="pushSensorMonitoringPage(topPage().sensor)"><i
 							class="titleIcon fa fa-chart"></i>Monitoring</a></li>
 				</ul>
 			</form>
@@ -293,6 +300,29 @@
 			<div role="main" class="ui-content">
 				<div ng-repeat="object in [topPage().dataValue]"
 					ng-include="'./anyPanel.html'"></div>
+			</div>
+			<div data-role="footer" data-position="fixed">
+				<h4>Copyright &copy; 2015 thing-it</h4>
+			</div>
+		</div>
+		<div id="sensorMonitoringPage" data-role="page">
+			<div data-role="header" data-position="fixed">
+				<h1>{{topPage().data.label}}</h1>
+				<a class="toolbarButton" ng-click="popPage()"><i
+					class="fa fa-chevron-circle-left"></i></a>
+			</div>
+			<div role="main" class="ui-content">
+				<table style="padding: 5px;">
+					<tr valign="top">
+						<td align="left">
+							<div class="sensorName">{{topPage().sensor.label}}</div>
+						<td>
+						<td align="right">
+							<div class="sensorValue">{{topPage().sensor.value}}</div>
+						<td>
+					</tr>
+				</table>
+				<div id="plot" style="width: 100%; height: 100%;"></div>
 			</div>
 			<div data-role="footer" data-position="fixed">
 				<h4>Copyright &copy; 2015 thing-it</h4>
