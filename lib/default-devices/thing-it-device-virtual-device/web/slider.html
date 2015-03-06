@@ -1,2 +1,8 @@
-<input ti-slider="{type: 'single', min: 0, max: 100}"
-	ti-model="sensor.value" ti-change="pushSensorValue(sensor)">
+<style>
+.irs-min, .irs-max, .irs-from, .irs-to, .irs-single {
+	font-size: 16px !important;
+}
+</style>
+<input ti-slider=""
+	ti-model="sensor.value" ti-min="sensor.configuration.min"
+	ti-max="sensor.configuration.max" ti-change="pushSensorValue(sensor)">

@@ -12,22 +12,27 @@ module.exports = {
 			type : "button",
 			configuration : {}
 		}, {
+			id : "switch1",
+			label : "Switch 1",
+			type : "switch",
+			configuration : {}
+		}, {
 			id : "knob1",
 			label : "Knob 1",
 			type : "knob",
 			configuration : {
-				rate : 500,
+				rate : 1000,
 				min : 0,
-				max : 100
+				max : 1000
 			}
 		}, {
 			id : "slider1",
 			label : "Slider 1",
 			type : "slider",
 			configuration : {
-				rate : 500,
+				rate : 1000,
 				min : 0,
-				max : 100
+				max : 500
 			}
 		} ],
 	} ],

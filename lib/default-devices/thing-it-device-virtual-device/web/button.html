@@ -1,2 +1,20 @@
-<button class="ui-shadow ui-btn ui-corner-all"
-	ng-click="pushSensorEvent(sensor, 'hold')">{{sensor.label}}</button>
+<style>
+.pushButton {
+	-webkit-border-radius: 10;
+	-moz-border-radius: 10;
+	border-radius: 10px;
+	border: none;
+	font-family: 'Titillium Web', sans-serif;
+	color: #ffffff;
+	font-size: 16px;
+	background: #57458A;
+	padding: 10px 20px 10px 20px;
+	text-decoration: none;
+}
+
+.pushButton:hover {
+	background: #7A6BA6;
+	text-decoration: none;
+}
+</style>
+<button class="pushButton" ng-click="pushSensorEvent(sensor, 'hold')">{{sensor.label}}</button>
