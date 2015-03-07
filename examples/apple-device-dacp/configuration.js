@@ -12,7 +12,7 @@ module.exports = {
 			configuration : {
 				host : "192.168.1.7",
 				port : 3689,
-				pairingCode : "CB857BD60986A124"
+				pairingCode : "EE53C46CE0B5E4B6"
 			}
 		}, {
 			label : "Pairing Agent",
