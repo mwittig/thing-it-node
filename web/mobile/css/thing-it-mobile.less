@@ -1,34 +1,13 @@
 /* Style Configuration */
 
-/* http://paletton.com/#uid=64g0x0kcVuo1TSJ8hDLi1phnck0 */
-
-/*@primaryColorDarkest: #3A276D;
-@primaryColorDark: #57458A;
-@primaryColor: #7A6BA6;
-@primaryColorLight: @primaryColor;
-@primaryColorLightest: #E1DEEA;*/
-
-/* http://paletton.com/#uid=a3w0H0kpAsbaFIQkRuwsLncw0il */
-/* http://paletton.com/#uid=a002P0k00cO0dt101iB025I510u */
-/* http://paletton.com/#uid=a0e320kw0dWhIpvreiCHE9dSd4L */
-
-@primaryColorDarkest: #06395E;
-@primaryColorDark: #134D77;
 @primaryColor: #246390;
-@primaryColorLight: #3D749C;
-@primaryColorLightest: #8CB1CB;
-
-@secondaryColorDarkest: #040303;
-@secondaryColorDark: #2D2D2D;
 @secondaryColor: #666666;
-@secondaryColorLight: #949494;
-@secondaryColorLightest: #E7E6E6;
-
-@contrastColorDarkest: #260A00;
-@contrastColorDark: #491400;
 @contrastColor: #6F1E00;
-@contrastColorLight: #943816;
-@contrastColorLightest: #CB795B;
+
+@darkPercentage: 25%;
+@darkestPercentage: 50%;
+@lightPercentage: 25%;
+@lightestPercentage: 50%;
 
 @defaultFontFamily: 'Titillium Web', sans-serify;
 
@@ -494,9 +473,9 @@ button[disabled],
 /* Patched Theme Roller Settings */
 
 .ui-header {
-  background-color: @secondaryColorDarkest !important;
-  border-top: 1px solid @secondaryColorDarkest !important;
-  border-bottom: 1px solid @secondaryColorDarkest !important;
+  background-color: darken(@secondaryColor, @darkestPercentage) !important;
+  border-top: 1px solid darken(@secondaryColor, @darkestPercentage) !important;
+  border-bottom: 1px solid darken(@secondaryColor, @darkestPercentage) !important;
 }
 
 .ui-header h1 {
@@ -505,8 +484,8 @@ button[disabled],
 }
 
 .ui-footer {
-  border-top: 1px solid @secondaryColorDarkest !important;
-  background-color: @secondaryColorDarkest !important;
+  border-top: 1px solid darken(@secondaryColor, @darkestPercentage) !important;
+  background-color: darken(@secondaryColor, @darkestPercentage) !important;
   font-size: 10px;
   font-weight: normal !important;
 }
@@ -537,7 +516,7 @@ button[disabled],
 
 .ui-collapsible-heading > .ui-btn {
   border-radius: none !important;
-  background-color: @secondaryColorLightest !important;
+  background-color: lightest(@secondaryColor, @lightestPercentage) !important;
 }
 
 .toolbarButton {
@@ -545,13 +524,13 @@ button[disabled],
   font-size: 16px !important;
   line-height: 16px !important;
   box-shadow: none !important;
-  background-color: @secondaryColorDarkest !important;
+  background-color: darken(@secondaryColor, @darkestPercentage) !important;
 }
 
 .toolbarButton:HOVER {
   border: none !important;
   box-shadow: none !important;
-  background-color: @secondaryColorDarkest !important;
+  background-color: darken(@secondaryColor, @darkestPercentage) !important;
 }
 
 .titleIcon {
@@ -569,7 +548,7 @@ button[disabled],
 .jqplot-target {
   position: relative;
   color: #666666;
-  font-family: 'Titillium Web', sans-serif;
+  font-family: @defaultFontFamily;
   font-size: 1em;
 }
 
@@ -590,7 +569,7 @@ button[disabled],
 
 #sensorMonitoringPage .sensorValue {
   font-size: 80px;
-  color: @primaryColorLight;
+  color: lighten(@primaryColor, @lightPercentage);
 }
 
 /* Sensor and Actor Styling */
@@ -787,7 +766,7 @@ button[disabled],
 .irs-line {
   height: 10px;
   top: 33px;
-  background: @secondaryColorLightest;
+  background: lighten(@secondaryColor, @lightestPercentage);
   border: 1px solid #CCC;
   border-radius: 16px;
   -moz-border-radius: 16px;
