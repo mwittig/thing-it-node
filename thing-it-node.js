@@ -10,7 +10,7 @@ var io = new Server({
 	transports : [ "websocket", "htmlfile", "xhr-polling", "jsonp-polling" ]
 });
 
-app.use(express.static(__dirname + "/web"));
+app.use(express.static(__dirname + "/phonegap/www"));
 
 // TODO Provide all device plugin pathes
 
