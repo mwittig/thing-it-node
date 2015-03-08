@@ -1,0 +1,324 @@
+@import "./thing-it-settings";
+
+/* Sensor and Actor Styling */
+
+.lightOff {
+  font-size: 35px;
+  color: #BBBBBB;
+}
+
+.lightOn {
+  font-size: 35px;
+  color: yellow;
+}
+
+@keyframes blink {
+  0% {
+    color: yellow;
+  }
+
+  100% {
+    color: #999999;
+  }
+}
+
+@-webkit-keyframes blink {
+  0% {
+    color: yellow;
+  }
+
+  100% {
+    color: #999999;
+  }
+}
+
+.lightBlink {
+  font-size: 35px;
+  -webkit-animation: blink 0.5s linear infinite;
+  -moz-animation: blink 0.5s linear infinite;
+  animation: blink 0.5s linear infinite;
+}
+
+.ledRgb {
+  font-size: 35px;
+}
+
+.lcd table {
+  background-color: #EEEEEE;
+  border: 1px solid #888888;
+  border-collapse: collapse;
+}
+
+.lcd td {
+  border: 1px solid #888888;
+}
+
+.lcd .matrix {
+  min-width: 15px;
+  width: 15px;
+  min-height: 20px;
+  height: 20px;
+  font-family: monospace;
+  font-size: 16px;
+  color: #000000;
+}
+
+/* Relay */
+
+.relay .closed {
+  font-size: 20px;
+}
+
+.relay .open {
+  font-size: 20px;
+}
+
+/* Push Button */
+
+.pushButton {
+  -webkit-border-radius: 10;
+  -moz-border-radius: 10;
+  border-radius: 10px;
+  border: none;
+  font-family: @defaultFontFamily;
+  color: #ffffff;
+  font-size: 16px;
+  background: @primaryColor;
+  padding: 10px 20px 10px 20px;
+  text-decoration: none;
+}
+
+.pushButton:hover {
+  background: @contrastColor;
+  text-decoration: none;
+}
+
+/* Switch */
+
+.onoffswitch {
+  position: relative !important;
+  width: 90px !important;
+  -webkit-user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+}
+
+.onoffswitch-checkbox {
+  display: none !important;
+}
+
+.onoffswitch-label {
+  display: block;
+  overflow: hidden;
+  cursor: pointer;
+  border: 2px solid #999999;
+  border-radius: 20px;
+}
+
+.onoffswitch-inner {
+  display: block;
+  width: 200%;
+  margin-left: -100%;
+  -moz-transition: margin 0.2s ease-in 0s;
+  -webkit-transition: margin 0.2s ease-in 0s;
+  -o-transition: margin 0.2s ease-in 0s;
+  transition: margin 0.2s ease-in 0s;
+}
+
+.onoffswitch-inner:before, .onoffswitch-inner:after {
+  display: block;
+  float: left;
+  width: 50%;
+  height: 30px;
+  padding: 0;
+  line-height: 30px;
+  font-size: 16px;
+  color: white;
+  font-family: @defaultFontFamily;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+
+.onoffswitch-inner:before {
+  content: "ON";
+  padding-left: 10px;
+  background-color: @primaryColor;
+  color: #FFFFFF;
+}
+
+.onoffswitch-inner:after {
+  content: "OFF";
+  padding-right: 10px;
+  background-color: #EEEEEE;
+  color: #999999;
+  text-align: right;
+}
+
+.onoffswitch-switch {
+  display: block;
+  width: 18px;
+  margin: 6px;
+  background: #FFFFFF;
+  border: 1px solid #999999;
+  border-radius: 20px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 56px;
+  -moz-transition: all 0.2s ease-in 0s;
+  -webkit-transition: all 0.2s ease-in 0s;
+  -o-transition: all 0.2s ease-in 0s;
+  transition: all 0.2s ease-in 0s;
+}
+
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
+  margin-left: 0;
+}
+
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
+  right: 0px;
+}
+
+/* Slider */
+
+.irs {
+  height: 55px;
+  border: none !important;
+}
+
+.irs .ui-input-text {
+  border: none !important;
+}
+
+.irs-with-grid {
+  height: 75px;
+}
+
+.irs-line {
+  height: 10px;
+  top: 33px;
+  background: lighten(@secondaryColor, @lightestPercentage);
+  border: 1px solid #CCC;
+  border-radius: 16px;
+  -moz-border-radius: 16px;
+}
+
+.irs-line-left {
+  height: 8px;
+}
+
+.irs-line-mid {
+  height: 8px;
+}
+
+.irs-line-right {
+  height: 8px;
+}
+
+.irs-bar {
+  height: 15px;
+  top: 33px;
+  border-top: 1px solid @primaryColor;
+  border-bottom: 1px solid @primaryColor;
+  background: @primaryColor;
+}
+
+.irs-bar-edge {
+  height: 15px;
+  top: 33px;
+  width: 14px;
+  border: 1px solid @primaryColor;
+  border-right: 0;
+  background: @primaryColor;
+  border-radius: 16px 0 0 16px;
+  -moz-border-radius: 16px 0 0 16px;
+}
+
+.irs-shadow {
+  height: 2px;
+  top: 38px;
+  background: #000;
+  opacity: 0.3;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+}
+
+.lt-ie9 .irs-shadow {
+  //  filter: alpha(opacity = 30);
+}
+
+.irs-slider {
+  top: 25px;
+  width: 27px;
+  height: 27px;
+  border: 1px solid @primaryColor;
+  background: #FFFFFF;
+  border-radius: 27px;
+  -moz-border-radius: 27px;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+}
+
+.irs-slider.state_hover, .irs-slider:hover {
+  background: #FFF;
+}
+
+.irs-min, .irs-max {
+  color: #333;
+  font-size: 14px;
+  line-height: 1.333;
+  text-shadow: none;
+  top: 0;
+  padding: 1px 5px;
+  /*background: rgba(0, 0, 0, 0.1);*/
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+}
+
+.lt-ie9 .irs-min, .lt-ie9 .irs-max {
+  background: #ccc;
+}
+
+.irs-from, .irs-to, .irs-single {
+  color: #fff;
+  font-size: 14px;
+  line-height: 1.333;
+  font-size: 16px !important;
+  text-shadow: none;
+  padding: 1px 5px;
+  background: @primaryColor;
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+}
+
+.lt-ie9 .irs-from, .lt-ie9 .irs-to, .lt-ie9 .irs-single {
+  background: #999;
+}
+
+.irs-grid {
+  height: 27px;
+}
+
+.irs-grid-pol {
+  opacity: 0.5;
+  background: @primaryColor;
+}
+
+.irs-grid-pol.small {
+  background: #999;
+}
+
+.irs-grid-text {
+  bottom: 5px;
+  color: #99a4ac;
+}
+
+.irs-disabled {
+
+}
+
+
+
+			
