@@ -336,7 +336,7 @@ define(
 					var actor = this.node.getDevice(stateChange.device)
 							.getActor(stateChange.actor);
 
-					actor.state = stateChange.state;
+					actor._state = stateChange.state;
 					actor.lastStateChangeTimestamp = new Date().getTime();
 				};
 

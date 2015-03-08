@@ -101,7 +101,7 @@ define(["js/Utils"], function (Utils) {
             return Utils.ajax(this.rootUrl + "/devices/" + sensor.device.id
                 + "/sensors/" + sensor.id + "/data", "POST",
                 "application/json", JSON.stringify({
-                    data: sensor.value
+                    data: sensor._value
                 }));
         };
 
