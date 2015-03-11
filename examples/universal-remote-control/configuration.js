@@ -9,9 +9,7 @@ module.exports = {
             id: "samsungTVInfraredRemote",
             label: "Samsung TV Infrared Remote",
             type: "samsungTVInfraredRemote",
-            configuration: {
-                pin: 12
-            }
+            configuration: {}
         }],
         sensors: []
     }],
