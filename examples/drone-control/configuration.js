@@ -2,9 +2,9 @@ module.exports = {
 	label : "Home",
 	id : "home",
 	devices : [ {
-		label : "Parrot Helicopter Drone",
-		id : "parrotHelicopterDrone",
-		plugin : "ar-drone/ardrone",
+		label : "Parrot Rolling Spider Drone",
+		id : "parrotRollingSpiderDrone",
+		plugin : "ar-drone/ardroneBluetoothLE",
         configuration : [ ],
 		actors : [ ],
 		sensors : [ ]
