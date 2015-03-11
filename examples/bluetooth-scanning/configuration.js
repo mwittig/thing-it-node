@@ -2,7 +2,7 @@ module.exports = {
 	label : "Home",
 	id : "home",
 	devices : [ {
-		label : "Bluetooth",
+		label : "ArDrone",
 		id : "bluetooth",
 		plugin : "bluetooth/bluetooth",
 		actors : [],
