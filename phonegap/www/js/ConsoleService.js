@@ -79,9 +79,18 @@ define(["js/Utils"], function (Utils) {
         /**
          *
          */
-        ConsoleService.prototype.callNodeService = function (service) {
+        ConsoleService.prototype.callNodeService = function (service, parameters) {
             return Utils.ajax(this.rootUrl + "/services/" + service.id, "POST",
-                "application/json");
+                "application/json", JSON.stringify(parameters));
+        };
+
+        /**
+         *
+         */
+        ConsoleService.prototype.callDeviceService = function (device, service, parameters) {
+            return Utils.ajax(this.rootUrl + "/devices/" + device.id
+                + "/services/" + service, "POST",
+                "application/json", JSON.stringify(parameters));
         };
 
         /**
@@ -132,11 +141,21 @@ define(["js/Utils"], function (Utils) {
                 return null;
             }
 
-            var pluginPath = this.rootUrl + "/default-devices/thing-it-device-"
-                + component.device.__type.family + "/web/"
-                + component.__type.family + ".html";
+            if (component.device) {
+                // Actors and sensors
 
-            return pluginPath;
+                return this.rootUrl + "/default-devices/thing-it-device-"
+                    + component.device.__type.module + "/web/"
+                    + component.__type.family + ".html";
+            }
+            else {
+                console.log("Component Path for Device");
+                console.log(component);
+
+                return this.rootUrl + "/default-devices/thing-it-device-"
+                    + component.__type.module + "/web/"
+                    + component.__type.family + ".html";
+            }
         };
     }
 });

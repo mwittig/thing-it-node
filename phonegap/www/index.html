@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <!--<meta name="format-detection" content="telephone=no"/>-->
+    <!--<meta name="msapplication-tap-highlight" content="no"/>-->
+    <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+    <!--<meta name="viewport"-->
+    <!--content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi"/>-->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="stylesheet" type="text/css" href="css/index.css"/>
+    <title>Hello World</title>
+    <link href='http://fonts.googleapis.com/css?family=Titillium+Web'
+          rel='stylesheet' type='text/css'>
+    <link rel="stylesheet"
+          href="./css/thirdparty/jquery-mobile/jquery-mobile.css">
+    <link href="./css/font-awesome/css/font-awesome.min.css"
+          rel="stylesheet">
+    <link rel="stylesheet" href="./css/jquery.mobile.icons.min.css"/>
+    <link rel="stylesheet" href="./css/ion.rangeslider.css">
+    <link href="./css/thing-it-mobile.less" rel="stylesheet/less" type="text/css">
+    <link href="./css/thing-it-plugins.less" rel="stylesheet/less" type="text/css">
+    <link rel="stylesheet" href="./css/thirdparty/jquery.jqplot.css"/>
+    <link rel="shortcut icon" sizes="196x196"
+          href="./css/images/thing-it-home-screen.png">
+    <link rel="apple-touch-icon" sizes="196x196"
+          href="./css/images/thing-it-home-screen.png">
+    <link rel="apple-touch-icon-precomposed" sizes="196x196"
+          href="./css/images/thing-it-home-screen.png">
+    <link rel="apple-touch-startup-image"
+          href="./css/images/thing-it-splash.png">
+    <script src="./js/libs/require/2.0.5/require-min.js"></script>
+    <script type="text/javascript">
+        less = {
+            env: "development",
+            async: false,
+            fileAsync: false,
+            poll: 1000,
+            functions: {},
+            dumpLineNumbers: "comments",
+            relativeUrls: false
+        };
+
+        require
+                .config({
+                    baseUrl: "./",
+                    paths: {
+                        'lodash': ['js/libs/lodash/lodash.min'],
+                        'jquery': ['js/libs/jquery/jquery-1.11.0.min'],
+                        'jquery-ui': ['js/libs/jquery/plugins/jquery-ui-1.10.2.custom.min'],
+                        "jquery.knob": ['js/libs/jquery/plugins/jquery.knob.min'],
+                        "jquery.rangeslider": ['js/libs/jquery/plugins/ion.rangeslider.min'],
+                        'jquery-mobile': ['js/libs/jquery/plugins/jquery.mobile-1.4.5.min'],
+                        'json': ['js/libs/json/json2'],
+                        'angularjs': ['js/libs/angular/angular-1.0.2'],
+                        "socketio": [window.location.protocol + "//"
+                        + window.location.hostname + ":"
+                        + window.location.port + "/socket.io/socket.io"],
+                        'jquery.jqplot': ['js/libs/jqplot/jquery.jqplot.min'],
+                        'jquery.jqplot.dateAxisRenderer': ['js/libs/jqplot/plugins/jqplot.dateAxisRenderer.min'],
+                        'moment': ['js/libs/moment/moment-2.8.4.min'],
+                        less: ["js/libs/less/less.min"]
+                    },
+                    shim: {
+                        'jquery-mobile': ['jquery'],
+                        "jquery.knob": ["jquery"],
+                        "jquery.rangeslider": ["jquery"],
+                        'angularjs': {
+                            require: "jquery",
+                            exports: "angular"
+                        },
+                        'jquery.jqplot': ['jquery'],
+                        'jquery.jqplot.dateAxisRenderer': ['jquery.jqplot']
+                    }
+                });
+        require(["require", "jquery", "jquery.knob", "jquery-mobile",
+            "jquery.jqplot", "jquery.jqplot.dateAxisRenderer",
+            "jquery.rangeslider", "json", "angularjs", "socketio", "moment", "less",
+            "js/Utils", "js/AngularDirectives",
+            "js/MobileConsole"], function (require, jquery, jqueryKnob,
+                                           jqueryMobile, jqueryJqPlot, jqplotDateAxisRenderer,
+                                           jqueryRangeslider, json, angularjs, socketio, moment, less, Utils,
+                                           AngularDirectives, MobileConsole) {
+            jQuery(document).ready(function () {
+                //jQuery(document).on('pagecreate', function() {
+                console.log("Initialization");
+
+                var module = angularjs.module("mobileConsoleApplication", []);
+
+                module.controller('mobileConsole', function ($scope) {
+                    Utils.inheritMethods($scope, MobileConsole.create());
+
+                    $scope.initialize(socketio);
+                });
+
+                AngularDirectives.initialize(module);
+
+                angular.bootstrap(document, ["mobileConsoleApplication"]);
+            });
+        });
+    </script>
+</head>
+<body style="height: 100%;" ng-controller="mobileConsole">
+<div id="deck">
+    <div id="loginPage" data-position="fixed">
+        <div data-role="header">
+            <h1>[thing-it] Mobile</h1>
+        </div>
+        <div role="main" class="ui-content">
+            <table style="width: 100%;">
+                <tr valign="center">
+                    <td align="center"><img
+                            src="./css/images/thing-it-welcome-screen.png"></td>
+                </tr>
+            </table>
+            <label for="loginPage-account" class="ui-hidden-accessible">Account</label>
+            <input type="text" id="loginPage-account" placeholder="Account"
+                   ng-model="loginPage.account"> <label
+                for="loginPage-password" class="ui-hidden-accessible">Password</label>
+            <input type="password" id="loginPage-password"
+                   placeholder="Password" ng-model="loginPage.password">
+            <button id="loginPanel-login" class="ui-btn ui-corner-all"
+                    ng-click="login()">Login
+            </button>
+        </div>
+        <div data-role="footer" data-position="fixed">
+            <h4>Copyright &copy; 2015 thing-it</h4>
+        </div>
+    </div>
+    <div id="nodePage" data-role="page">
+        <div data-role="header" data-position="fixed">
+            <h1>
+                <i class="titleIcon fa fa-calculator"></i>{{topPage().node.label}}
+            </h1>
+            <a class="toolbarButton" ng-click="logout()"><i
+                    class="fa fa-power-off"></i></a>
+            <a class="toolbarButton" ng-click="pushSettingsPage()"><i
+                    class="fa fa-wrench"></i></a>
+        </div>
+        <div role="main" class="ui-content">
+            <ul data-role="listview">
+                <li ng-repeat="group in topPage().node.groups" jqm-list-item><a
+                        ng-click="pushGroupPage(group)"><span ng-show="group.icon"><i
+                        class="titleIcon fa fa-{{group.icon}}"></i></span><span
+                        ng-hide="group.icon"><i class="titleIcon fa fa-home"></i></span>{{group.label}}</a></li>
+                <li ng-repeat="service in topPage().node.services" jqm-li><a
+                        ng-click="callNodeService(service)"><i class="fa fa-gear"></i>{{service.label}}</a></li>
+                <li ng-repeat="device in topPage().node.devices" jqm-li>
+                    <table
+                            width="100%">
+                        <tr valign="center">
+                            <td width="45%" align="left"><label>{{device.label}}</label></td>
+                            <td width="45%" align="center">
+                                <div ng-include="getComponentPluginPath(device)"
+                                     ng-repeat="device in [device]"></div>
+                            </td>
+                            <td width="10%" align="right"><a
+                                    ng-click="pushDevicePage(device)">
+                                <div class="iconLink"><i
+                                        class="fa fa-chevron-right"></i></div>
+                            </a></td>
+                        </tr>
+                    </table>
+                </li>
+                <li ng-repeat="actor in topPage().actors" jqm-li>
+                    <table
+                            width="100%">
+                        <tr valign="center">
+                            <td width="45%" align="left"><label>{{actor.label}}</label></td>
+                            <td width="45%" align="center">
+                                <div ng-include="getComponentPluginPath(actor)"
+                                     ng-repeat="actor in [actor]"></div>
+                            </td>
+                            <td width="10%" align="right"><a
+                                    ng-click="pushActorPage(actor)">
+                                <div class="iconLink"><i
+                                        class="fa fa-chevron-right"></i></div>
+                            </a></td>
+                        </tr>
+                    </table>
+                </li>
+                <li ng-repeat="sensor in topPage().sensors">
+                    <table width="100%">
+                        <tr valign="center">
+                            <td width="45%" align="left"><label>{{sensor.label}}</label></td>
+                            <td width="45%" align="center">
+                                <div ng-include="getComponentPluginPath(sensor)"
+                                     ng-repeat="sensor in [sensor]"></div>
+                            </td>
+                            <td width="10%" align="right"><a
+                                    ng-click="pushSensorPage(sensor)">
+                                <div class="iconLink"><i
+                                        class="fa fa-chevron-right"></i></div>
+                            </a></td>
+                        </tr>
+                    </table>
+                </li>
+                <li ng-repeat="service in topPage().services" jqm-li><a
+                        ng-click="callNodeService(service)"><i
+                        class="titleIcon fa fa-gear"></i> {{service.label}}</a></li>
+                <li ng-repeat="data in topPage().node.data">
+                    <table width="100%">
+                        <tr valign="center">
+                            <td width="90%" align="left"><i
+                                    class="titleIcon fa fa-database"></i> {{data.label}}
+                            </td>
+                            <td width="10%" align="right"><a
+                                    ng-click="pushDataPage(data)">
+                                <div class="iconLink"><i
+                                        class="fa fa-chevron-right"></i></div>
+                            </a></td>
+                        </tr>
+                    </table>
+                </li>
+            </ul>
+        </div>
+        <div data-role="footer" data-position="fixed">
+            <h4>Copyright &copy; 2015 thing-it</h4>
+        </div>
+    </div>
+    <div id="groupPage" data-role="page">
+        <div data-role="header" data-position="fixed">
+            <h1>
+					<span ng-show="topPage().group.icon"><i
+                            class="titleIcon fa fa-{{topPage().group.icon}}"></i></span><span
+                    ng-hide="topPage().group.icon"><i
+                    class="titleIcon fa fa-home"></i></span>{{topPage().group.label}}
+            </h1>
+            <a class="toolbarButton" ng-click="popPage()"><i
+                    class="fa fa-chevron-circle-left"></i></a>
+        </div>
+        <div role="main" class="ui-content">
+            <form>
+                <ul data-role="listview">
+                    <li ng-repeat="group in topPage().group.subGroups" jqm-li><a
+                            ng-click="pushGroupPage(group)"><span ng-show="group.icon"><i
+                            class="titleIcon fa fa-{{group.icon}}"></i></span><span
+                            ng-hide="group.icon"><i class="titleIcon fa fa-home"></i></span>{{group.label}}</a></li>
+                    <li ng-repeat="service in topPage().group.getServices()" jqm-li><a
+                            ng-click="callNodeService(service)"><i
+                            class="titleIcon fa fa-gear"></i>{{service.label}}</a></li>
+                    <li ng-repeat="actor in topPage().group.getActors()" jqm-li>
+                        <table
+                                width="100%">
+                            <tr valign="center">
+                                <td width="45%" align="left"><label>{{actor.label}}</label></td>
+                                <td width="45%" align="center">
+                                    <div ng-include="getComponentPluginPath(actor)"
+                                         ng-repeat="actor in [actor]"></div>
+                                </td>
+                                <td width="10%" align="right"><a
+                                        ng-click="pushActorPage(actor)"><i
+                                        class="fa fa-chevron-right"></i></a></td>
+                            </tr>
+                        </table>
+                    </li>
+                    <li ng-repeat="sensor in topPage().group.getSensors()">
+                        <table width="100%">
+                            <tr valign="center">
+                                <td width="45%" align="left"><label>{{sensor.label}}</label></td>
+                                <td width="45%" align="center">
+                                    <div ng-include="getComponentPluginPath(sensor)"
+                                         ng-repeat="sensor in [sensor]"></div>
+                                </td>
+                                <td width="10%" align="right"><a
+                                        ng-click="pushSensorPage(sensor)"><i
+                                        class="fa fa-chevron-right"></i></a></td>
+                            </tr>
+                        </table>
+                    </li>
+                    <li ng-repeat="service in topPage().services" jqm-li><a
+                            ng-click="topPage().callNodeService(service)"><i
+                            class="titleIcon fa fa-gear"></i>{{service.label}}</a></li>
+                </ul>
+            </form>
+        </div>
+        <div data-role="footer" data-position="fixed">
+            <h4>Copyright &copy; 2015 thing-it</h4>
+        </div>
+    </div>
+    <div id="devicePage" data-role="page">
+        <div data-role="header" data-position="fixed">
+            <h1>{{topPage().device.label}}</h1>
+            <a class="toolbarButton" ng-click="popPage()"><i
+                    class="fa fa-chevron-circle-left"></i></a>
+        </div>
+        <div role="main" class="ui-content">
+            <ul data-role="listview">
+                <li>
+                    <table width="100%">
+                        <tr valign="center">
+                            <td align="center">
+                                {{getComponentPluginPath(device)}}
+                                <div ng-include="getComponentPluginPath(device)"
+                                     ng-repeat="device in [topPage().device]"></div>
+                            </td>
+                        </tr>
+                    </table>
+                </li>
+                <li class="ui-field-contain"><label>Last
+                    State Change</label>{{formatDateTime(topPage().device.lastStateChangeTimestamp)}}
+                </li>
+                <li ng-repeat="service in topPage().device.__type.services" jqm-li><a
+                        ng-click="callDeviceService(topPage().device, service.id)"><i
+                        class="titleIcon fa fa-gear"></i>{{service.label}}</a></li>
+            </ul>
+        </div>
+        <div data-role="footer" data-position="fixed">
+            <h4>Copyright &copy; 2015 thing-it</h4>
+        </div>
+    </div> <div id="actorPage" data-role="page">
+        <div data-role="header" data-position="fixed">
+            <h1>{{topPage().actor.label}}</h1>
+            <a class="toolbarButton" ng-click="popPage()"><i
+                    class="fa fa-chevron-circle-left"></i></a>
+        </div>
+        <div role="main" class="ui-content">
+            <ul data-role="listview">
+                <li>
+                    <table width="100%">
+                        <tr valign="center">
+                            <td align="center">
+                                <div ng-include="getComponentPluginPath(actor)"
+                                     ng-repeat="actor in [topPage().actor]"></div>
+                            </td>
+                        </tr>
+                    </table>
+                </li>
+                <li class="ui-field-contain"><label for="lastStateChange">Last
+                    State Change</label>{{formatDateTime(topPage().actor.lastStateChangeTimestamp)}}
+                </li>
+                <li ng-repeat="service in topPage().actor.__type.services" jqm-li><a
+                        ng-click="callActorService(topPage().actor, service.id)"><i
+                        class="titleIcon fa fa-gear"></i>{{service.label}}</a></li>
+            </ul>
+        </div>
+        <div data-role="footer" data-position="fixed">
+            <h4>Copyright &copy; 2015 thing-it</h4>
+        </div>
+    </div>
+    <div id="sensorPage" data-role="page">
+        <div data-role="header" data-position="fixed">
+            <h1>{{topPage().sensor.label}}</h1>
+            <a class="toolbarButton" ng-click="popPage()"><i
+                    class="fa fa-chevron-circle-left"></i></a>
+        </div>
+        <div role="main" class="ui-content"></div>
+        <form>
+            <ul data-role="listview">
+                <li>
+                    <table width="100%">
+                        <tr valign="center">
+                            <td align="center">
+                                <div ng-include="getComponentPluginPath(sensor)"
+                                     ng-repeat="sensor in [topPage().sensor]"></div>
+                            </td>
+                        </tr>
+                    </table>
+                </li>
+                <li class="ui-field-contain"><label for="value">Value</label>{{topPage().sensor.value}}</li>
+                <li class="ui-field-contain"><label for="lastEvent">Last
+                    Event</label>{{formatDateTime(topPage().sensor.lastEventTimestamp)}}
+                </li>
+                <li class="ui-field-contain"><label for="lastValueChange">Last
+                    Value Change</label>{{formatDateTime(topPage().sensor.lastValueChangeTimestamp)}}
+                </li>
+                <li><a ng-click="pushSensorMonitoringPage(topPage().sensor)"><i
+                        class="titleIcon fa fa-chart"></i>Monitoring</a></li>
+            </ul>
+        </form>
+        <div data-role="footer" data-position="fixed">
+            <h4>Copyright &copy; 2015 thing-it</h4>
+        </div>
+    </div>
+    <div id="dataPage" data-role="page">
+        <div data-role="header" data-position="fixed">
+            <h1>{{topPage().data.label}}</h1>
+            <a class="toolbarButton" ng-click="popPage()"><i
+                    class="fa fa-chevron-circle-left"></i></a>
+        </div>
+        <div role="main" class="ui-content">
+            <div ng-repeat="object in [topPage().dataValue]"
+                 ng-include="'./anyPanel.html'"></div>
+        </div>
+        <div data-role="footer" data-position="fixed">
+            <h4>Copyright &copy; 2015 thing-it</h4>
+        </div>
+    </div>
+    <div id="sensorMonitoringPage" data-role="page">
+        <div data-role="header" data-position="fixed">
+            <h1>{{topPage().sensor.label}}</h1>
+            <a class="toolbarButton" ng-click="popPage()"><i
+                    class="fa fa-chevron-circle-left"></i></a>
+        </div>
+        <div role="main" class="ui-content">
+            <table style="padding: 5px;">
+                <tr valign="top">
+                    <td align="left">
+                        <div class="sensorName">{{topPage().sensor.label}}</div>
+                    <td>
+                    <td align="right">
+                        <div class="sensorValue">{{topPage().sensor.value}}</div>
+                    <td>
+                </tr>
+            </table>
+            <div id="plot" style="width: 100%; height: 100%;"></div>
+        </div>
+        <div data-role="footer" data-position="fixed">
+            <h4>Copyright &copy; 2015 thing-it</h4>
+        </div>
+    </div>
+</div>
+</body>
+</html>

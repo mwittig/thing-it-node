@@ -1,0 +1,10 @@
+{
+    "lib": {
+        "www": {
+            "id": "thing-it-node",
+            "version": "master",
+            "uri": "",
+            "link": false
+        }
+    }
+}
