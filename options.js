@@ -1,7 +1,7 @@
 module.exports = {
     port: 3001,
     protocol: "http",
-    nodeConfigurationFile: "../examples/universal-remote-control/configuration.js",
+    nodeConfigurationFile: "../examples/universal-radio-remote-control/configuration.js",
     dataDirectory: "../thing-it-data",
     simulated: false,
     hotDeployment: false,
