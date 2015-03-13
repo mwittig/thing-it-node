@@ -9,7 +9,7 @@ module.exports = {
             id: "tenPoleDipSwitchSocketRadioRemote",
             label: "Ten pole Dip Switch Socket Radio Remote",
             type: "tenPoleDipSwitchSocketRadioRemote",
-            configuration: {}
+            configuration: {systemCode: 8, unitCode: 16}
         }],
         sensors: []
     }],
