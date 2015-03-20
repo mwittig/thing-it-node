@@ -1,12 +1,115 @@
+<style>
+    .circleButton {
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        padding: 12px;
+        background-color: #5E829A;
+        border: none;
+        color: #FFFFFF;
+        text-align: center;
+        vertical-align: middle;
+        font-size: 24px;
+    }
+
+    .circleButton:HOVER {
+        background-color: #BFAE99;
+    }
+
+</style>
 <table>
-    <tr>
-        <td>Channel: {{actor.__state.channel}}</td>
-    </tr>
-    <tr>
+    <tr valign="top">
         <td>
-            <a ng-click="callActorService(actor, 'channelUp')"><i class="fa fa-arrow-up"></i></a>
+            <div class="circleButton" ng-click="callActorService(actor, 'powerOn')"><i
+                    class="fa fa-power-off"></i></div>
         </td>
-        <td><a ng-click="callActorService(actor, 'channelDown')"><i class="fa fa-arrow-down"></i></a>
+        <td>{{actor.__state.channel}}</td>
+        <td>
+            <table style="margin-left: 20px;">
+                <tr>
+                    <td>
+                        <div class="circleButton" ng-click="callActorService(actor, 'channelUp')">1</div>
+                    </td>
+                    <td>
+                        <div class="circleButton" ng-click="callActorService(actor, 'channelUp')">2</div>
+                    </td>
+                    <td>
+                        <div class="circleButton" ng-click="callActorService(actor, 'channelUp')">3</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="circleButton" ng-click="callActorService(actor, 'channelUp')">4</div>
+                    </td>
+                    <td>
+                        <div class="circleButton" ng-click="callActorService(actor, 'channelUp')">5</div>
+                    </td>
+                    <td>
+                        <div class="circleButton" ng-click="callActorService(actor, 'channelUp')">6</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="circleButton" ng-click="callActorService(actor, 'channelUp')">7</div>
+                    </td>
+                    <td>
+                        <div class="circleButton" ng-click="callActorService(actor, 'channelUp')">8</div>
+                    </td>
+                    <td>
+                        <div class="circleButton" ng-click="callActorService(actor, 'channelUp')">9</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                    </td>
+                    <td>
+                        <div class="circleButton" ng-click="callActorService(actor, 'channelUp')">0</div>
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+            </table>
+        </td>
+        <td>
+            <table style="margin-left: 20px;">
+                <tr>
+                    <td align="center">
+                        <div class="circleButton" ng-click="callActorService(actor, 'channelUp')">+</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center">VOL</td>
+                </tr>
+                <tr>
+                    <td align="center">
+                        <div class="circleButton" ng-click="callActorService(actor, 'channelDown')">-</div>
+
+                    </td>
+                </tr>
+            </table>
+        </td>
+        <td>
+            <table style="margin-left: 10px;">
+                <tr>
+                    <td align="center">
+
+                        <div class="circleButton" ng-click="callActorService(actor, 'channelUp')"><i
+                                class="fa fa-chevron-up"></i></div>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center">CH</td>
+                </tr>
+                <tr>
+                    <td align="center">
+                        <div class="circleButton" ng-click="callActorService(actor, 'channelDown')"><i
+                                class="fa fa-chevron-down"></i></div>
+
+                    </td>
+                </tr>
+            </table>
         </td>
     </tr>
 </table>
+
