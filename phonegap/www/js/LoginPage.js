@@ -2,43 +2,51 @@
  * Copyright (c) 2014-2015 Marc Gille. All rights reserved.
  ******************************************************************************/
 
-define([ "js/Utils", "js/ConsoleService" ], function(Utils,
-		ConsoleService) {
-	return {
-		create : function() {
-			return new LoginPage().initialize(this);
-		}
-	};
+define(["js/Utils", "js/ConsoleService"], function (Utils,
+                                                    ConsoleService) {
+    return {
+        create: function (console) {
+            return new LoginPage().initialize(console);
+        }
+    };
 
-	function LoginPage() {
-		/**
-		 * 
-		 */
-		LoginPage.prototype.initialize = function(console) {
-			this.console = console;
-			this.id = "loginPage";
+    function LoginPage() {
+        /**
+         *
+         */
+        LoginPage.prototype.initialize = function (console) {
+            this.console = console;
+            this.id = "loginPage";
 
-			this.account = "test";
-			this.password = "test";
+            this.account = "test";
+            this.password = "test";
 
-			return this;
-		};
+            return this;
+        };
 
-		/**
-		 * 
-		 */
-		LoginPage.prototype.show = function() {
-			var deferred = jQuery.Deferred();
+        /**
+         *
+         */
+        LoginPage.prototype.show = function () {
+            var deferred = jQuery.Deferred();
 
-			deferred.resolve();
-			
-			return deferred.promise();			
-		};
+            deferred.resolve();
 
-		/**
-		 * 
-		 */
-		LoginPage.prototype.leave = function() {
-		};
-	}
+            return deferred.promise();
+        };
+
+        /**
+         *
+         */
+        LoginPage.prototype.leave = function () {
+        };
+
+        /**
+         *
+         */
+        LoginPage.prototype.login = function () {
+            console.log(this.console);
+            this.console.login({account: this.account, password: this.password});
+        };
+    }
 });
