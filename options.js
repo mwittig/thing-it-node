@@ -3,7 +3,7 @@ module.exports = {
     protocol: "http",
     nodeConfigurationFile: "../examples/simple-lighting/configuration.js",
     dataDirectory: "../thing-it-data",
-    simulated: false,
+    simulated: true,
     hotDeployment: false,
     verifyCallSignature: false,
     publicKeyFile: "",
