@@ -116,14 +116,15 @@
                             src="./css/images/thing-it-welcome-screen.png"></td>
                 </tr>
             </table>
-            <label for="loginPage-account" class="ui-hidden-accessible">Account</label>
+            <label for="loginPage-account" class="ui-hidden-accessible"
+                   ng-show="node.authentication == 'accountPassword'">Account</label>
             <input type="text" id="loginPage-account" placeholder="Account"
-                   ng-model="loginPage.account"> <label
+                   ng-model="loginPage.account" ng-show="node.authentication == 'accountPassword'"> <label
                 for="loginPage-password" class="ui-hidden-accessible">Password</label>
             <input type="password" id="loginPage-password"
                    placeholder="Password" ng-model="loginPage.password">
             <button id="loginPanel-login" class="ui-btn ui-corner-all"
-                    ng-click="login()">Login
+                    ng-click="loginPage.login()">Login
             </button>
         </div>
         <div data-role="footer" data-position="fixed">
@@ -311,7 +312,8 @@
         <div data-role="footer" data-position="fixed">
             <h4>Copyright &copy; 2015 thing-it</h4>
         </div>
-    </div> <div id="actorPage" data-role="page">
+    </div>
+    <div id="actorPage" data-role="page">
         <div data-role="header" data-position="fixed">
             <h1>{{topPage().actor.label}}</h1>
             <a class="toolbarButton" ng-click="popPage()"><i

@@ -33,12 +33,17 @@ define(["js/Utils"], function (Utils) {
         /**
          *
          */
-        ConsoleService.prototype.login = function (account, password) {
+        ConsoleService.prototype.getAuthenticationMode = function () {
+            return Utils.ajax(this.rootUrl + "/authentication", "GET",
+                "application/json");
+        };
+
+        /**
+         *
+         */
+        ConsoleService.prototype.login = function (credentials) {
             return Utils.ajax(this.rootUrl + "/login", "POST",
-                "application/json", JSON.stringify({
-                    account: account,
-                    password: password
-                }));
+                "application/json", JSON.stringify(credentials));
         };
 
         /**

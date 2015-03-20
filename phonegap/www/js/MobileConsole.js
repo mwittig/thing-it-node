@@ -25,10 +25,29 @@ define(
              */
             MobileConsole.prototype.initialize = function (io) {
                 this.io = io;
-                this.pageStack = [this.loginPage = LoginPage.create(this)];
+                this.pageStack = [];
                 this.sensorPlotData = {};
 
-                this.showPage(this.loginPage);
+                var self = this;
+
+                ConsoleService
+                    .instance()
+                    .getAuthenticationMode()
+                    .done(
+                    function (authenticationMode) {
+                        console.log("Authentication Mode");
+                        console.log(authenticationMode);
+
+                        if (authenticationMode.type == "none") {
+                            self.login();
+                        }
+                        else {
+                            self.pageStack.push(self.loginPage = LoginPage.create(self));
+
+                            self.showPage(self.loginPage);
+                        }
+                    }).fail(function () {
+                    });
             };
 
             /**
@@ -114,15 +133,14 @@ define(
             /**
              *
              */
-            MobileConsole.prototype.login = function () {
+            MobileConsole.prototype.login = function (credentials) {
                 var self = this;
 
                 jQuery.mobile.loading("show");
 
                 ConsoleService
                     .instance()
-                    .login(this.loginPage.account,
-                    this.loginPage.password)
+                    .login(credentials)
                     .done(
                     function (loggedInUser) {
                         self.loggedInUser = loggedInUser;
@@ -170,7 +188,7 @@ define(
                     }).fail(function () {
                         jQuery.mobile.loading("hide");
                     });
-            }
+            };
 
             /**
              *
