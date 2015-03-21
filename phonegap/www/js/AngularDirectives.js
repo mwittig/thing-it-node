@@ -1,181 +1,208 @@
 define(
-		[ "js/Utils" ],
-		function(Utils) {
-			return {
-				initialize : initialize
-			};
+    ["js/Utils"],
+    function (Utils) {
+        return {
+            initialize: initialize
+        };
 
-			function initialize(module) {
-				module.directive('ngBlur', function() {
-					return function(scope, elem, attrs) {
-						elem.bind('blur', function() {
-							scope.$apply(attrs.ngBlur);
-						});
-					};
-				});
-				module.directive("jqmLi", function() {
-					return function($scope, element) {
-						$(element).hide();
-						setTimeout(function() {
-							$scope.$on('$viewContentLoaded', element.parent()
-									.listview('refresh'));
-						}, 200);
-						$(element).show();
-					}
-				});
-				module.directive('tiKnob', function($timeout, $parse) {
-					return {
-						link : function(scope, element, attrs) {
-							var options = scope.$eval(attrs.tiKnob);
+        function initialize(module) {
+            module.directive('ngBlur', function () {
+                return function (scope, elem, attrs) {
+                    elem.bind('blur', function () {
+                        scope.$apply(attrs.ngBlur);
+                    });
+                };
+            });
+            module.directive("jqmLi", function () {
+                return function ($scope, element) {
+                    $(element).hide();
+                    setTimeout(function () {
+                        $scope.$on('$viewContentLoaded', element.parent()
+                            .listview('refresh'));
+                    }, 200);
+                    $(element).show();
+                }
+            });
 
-							if (!options) {
-								options = {};
-							}
+            module.directive('tiAudio', function ($timeout, $parse) {
+                return {
+                    restrict: "E",
+                    template: "<audio controls><source type='audio/wav'></audio>",
+                    link: function (scope, element, attrs) {
+                        scope.$watch(attrs.tiModel, function (value) {
+                            jQuery(element).children("audio").children("source").attr("src", "/stream/" + value);
+                            jQuery(element).children("audio").load();
+                        });
+                    }
+                };
+            });
 
-							options.min = scope.$eval(attrs.tiMin);
-							options.max = scope.$eval(attrs.tiMax);
-							options.change = function(value) {
-								var expression = attrs.tiModel + "=" + value;
-								scope.$eval(expression);
+            module.directive('tiVideo', function ($timeout, $parse) {
+                return {
+                    restrict: "E",
+                    template: "<video controls><source type='video/mp4'></video>",
+                    link: function (scope, element, attrs) {
+                        scope.$watch(attrs.tiModel, function (value) {
+                            jQuery(element).children("video").children("source").attr("src", "/stream/" + value);
+                            jQuery(element).children("video").load();
+                        });
+                    }
+                };
+            });
 
-								if (attrs.tiChange) {
-									bufferedChange(scope, element, value,
-											attrs.tiChange, 500);
-								}
-							}
-							options.release = function(value) {
-								var expression = attrs.tiModel + "=" + value;
+            module.directive('tiKnob', function ($timeout, $parse) {
+                return {
+                    link: function (scope, element, attrs) {
+                        var options = scope.$eval(attrs.tiKnob);
 
-								scope.$eval(expression);
+                        if (!options) {
+                            options = {};
+                        }
 
-								if (attrs.tiChange) {
-									bufferedChange(scope, element, value,
-											attrs.tiChange, 500);
-								}
-							}
+                        options.min = scope.$eval(attrs.tiMin);
+                        options.max = scope.$eval(attrs.tiMax);
+                        options.change = function (value) {
+                            var expression = attrs.tiModel + "=" + value;
+                            scope.$eval(expression);
 
-							jQuery(element).knob(options);
-							jQuery(element).data("lastChangeTimestamp",
-									new Date().getTime());
+                            if (attrs.tiChange) {
+                                bufferedChange(scope, element, value,
+                                    attrs.tiChange, 500);
+                            }
+                        }
+                        options.release = function (value) {
+                            var expression = attrs.tiModel + "=" + value;
 
-							scope.$watch(attrs.tiModel, function(value) {
-								jQuery(element).val(value).trigger('change');
-							});
-						}
-					};
-				});
-				module.directive('tiSlider', function($timeout, $parse) {
-					return {
-						link : function(scope, element, attrs) {
-							var options = scope.$eval(attrs.tiSlider);
+                            scope.$eval(expression);
 
-							if (!options) {
-								options = {};
-							}
+                            if (attrs.tiChange) {
+                                bufferedChange(scope, element, value,
+                                    attrs.tiChange, 500);
+                            }
+                        }
 
-							jQuery(element).ionRangeSlider(
-									{
-										type : "single",
-										min : scope.$eval(attrs.tiMin),
-										max : scope.$eval(attrs.tiMax),
-										rangeClass : 'rangeslider',
-										fillClass : 'rangeslider__fill',
-										handleClass : 'rangeslider__handle',
-										onChange : function(value) {
-											var expression = attrs.tiModel
-													+ "=" + value.from;
-											scope.$eval(expression);
+                        jQuery(element).knob(options);
+                        jQuery(element).data("lastChangeTimestamp",
+                            new Date().getTime());
 
-											if (attrs.tiChange) {
-												bufferedChange(scope, element,
-														value.from,
-														attrs.tiChange, 500);
-											}
-										},
-										onFinish : function(value) {
-											var expression = attrs.tiModel
-													+ "=" + value.from;
+                        scope.$watch(attrs.tiModel, function (value) {
+                            jQuery(element).val(value).trigger('change');
+                        });
+                    }
+                };
+            });
+            module.directive('tiSlider', function ($timeout, $parse) {
+                return {
+                    link: function (scope, element, attrs) {
+                        var options = scope.$eval(attrs.tiSlider);
 
-											scope.$eval(expression);
+                        if (!options) {
+                            options = {};
+                        }
 
-											if (attrs.tiChange) {
-												bufferedChange(scope, element,
-														value.from,
-														attrs.tiChange, 500);
-											}
-										}
-									});
-							jQuery(element).data("lastChangeTimestamp",
-									new Date().getTime());
+                        jQuery(element).ionRangeSlider(
+                            {
+                                type: "single",
+                                min: scope.$eval(attrs.tiMin),
+                                max: scope.$eval(attrs.tiMax),
+                                rangeClass: 'rangeslider',
+                                fillClass: 'rangeslider__fill',
+                                handleClass: 'rangeslider__handle',
+                                onChange: function (value) {
+                                    var expression = attrs.tiModel
+                                        + "=" + value.from;
+                                    scope.$eval(expression);
 
-							scope.$watch(attrs.tiModel, function(value) {
-								jQuery(element).data("ionRangeSlider").update({
-									from : value
-								});
-							});
-						}
-					};
-				});
-				module.directive('tiSwitch', function($timeout, $parse) {
-					return {
-						link : function(scope, element, attrs) {
-							var options = scope.$eval(attrs.tiSwitch);
+                                    if (attrs.tiChange) {
+                                        bufferedChange(scope, element,
+                                            value.from,
+                                            attrs.tiChange, 500);
+                                    }
+                                },
+                                onFinish: function (value) {
+                                    var expression = attrs.tiModel
+                                        + "=" + value.from;
 
-							if (!options) {
-								options = {};
-							}
+                                    scope.$eval(expression);
 
-							jQuery(element).find("input")
-									.prop("checked", false);
+                                    if (attrs.tiChange) {
+                                        bufferedChange(scope, element,
+                                            value.from,
+                                            attrs.tiChange, 500);
+                                    }
+                                }
+                            });
+                        jQuery(element).data("lastChangeTimestamp",
+                            new Date().getTime());
 
-							jQuery(element).find("input").click(
-									function() {
-										var expression = attrs.tiModel
-												+ "="
-												+ jQuery(element).find("input")
-														.prop("checked");
-										scope.$eval(expression);
+                        scope.$watch(attrs.tiModel, function (value) {
+                            jQuery(element).data("ionRangeSlider").update({
+                                from: value
+                            });
+                        });
+                    }
+                };
+            });
+            module.directive('tiSwitch', function ($timeout, $parse) {
+                return {
+                    link: function (scope, element, attrs) {
+                        var options = scope.$eval(attrs.tiSwitch);
 
-										if (attrs.tiChange) {
-											console.log("Switch value change");
+                        if (!options) {
+                            options = {};
+                        }
 
-											scope.$eval(attrs.tiChange);
-										}
-									});
+                        jQuery(element).find("input")
+                            .prop("checked", false);
 
-							scope.$watch(attrs.tiModel, function(value) {
-								jQuery(element).find("input").prop("checked",
-										value);
-							});
-						}
-					};
-				});
-			}
+                        jQuery(element).find("input").click(
+                            function () {
+                                var expression = attrs.tiModel
+                                    + "="
+                                    + jQuery(element).find("input")
+                                        .prop("checked");
+                                scope.$eval(expression);
 
-			/**
-			 * 
-			 */
-			function bufferedChange(scope, element, value, tiChange,
-					bufferLength) {
-				if (new Date().getTime()
-						- jQuery(element).data("lastChangeTimestamp") < bufferLength) {
-					console.log("" + new Date() + ": Overwrite buffered value "
-							+ value);
-				} else {
-					// Apply the change and start next buffer interval
+                                if (attrs.tiChange) {
+                                    console.log("Switch value change");
 
-					console.log("" + new Date()
-							+ ": Execute immediate change with " + value);
-					jQuery(element).data("lastChangeTimestamp",
-							new Date().getTime());
-					scope.$eval(tiChange);
+                                    scope.$eval(attrs.tiChange);
+                                }
+                            });
 
-					window.setTimeout(function() {
-						// Values are cached in the model
+                        scope.$watch(attrs.tiModel, function (value) {
+                            jQuery(element).find("input").prop("checked",
+                                value);
+                        });
+                    }
+                };
+            });
+        }
 
-						console.log("" + new Date() + ": Delayed execution");
-						scope.$eval(tiChange);
-					}, bufferLength);
-				}
-			}
-		});
+        /**
+         *
+         */
+        function bufferedChange(scope, element, value, tiChange,
+                                bufferLength) {
+            if (new Date().getTime()
+                - jQuery(element).data("lastChangeTimestamp") < bufferLength) {
+                console.log("" + new Date() + ": Overwrite buffered value "
+                + value);
+            } else {
+                // Apply the change and start next buffer interval
+
+                console.log("" + new Date()
+                + ": Execute immediate change with " + value);
+                jQuery(element).data("lastChangeTimestamp",
+                    new Date().getTime());
+                scope.$eval(tiChange);
+
+                window.setTimeout(function () {
+                    // Values are cached in the model
+
+                    console.log("" + new Date() + ": Delayed execution");
+                    scope.$eval(tiChange);
+                }, bufferLength);
+            }
+        }
+    });
