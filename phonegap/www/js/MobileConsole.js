@@ -207,9 +207,6 @@ define(
                     self.safeApply();
                 });
                 this.namespace.on("heartbeat", function (details) {
-                    console.log("Receiving heartbeat");
-                    console.log(details);
-
                     self.node.state = "running";
                     self.node.lastHeartbeat = new Date().getTime();
 

@@ -75,8 +75,16 @@ define(["js/Utils"], function (Utils) {
             }
 
             var namespace = io.connect(this.rootUrl + "/events", {
-                transports: transports,
+                transports: transports
             });
+
+            //namespace.on('connection', function () {
+            window.setTimeout(function () {
+                // Force Node to push state for all Devices and Actors
+
+                Utils.ajax(this.rootUrl + "/poll", "POST",
+                    "application/json");
+            }.bind(this), 500);
 
             return namespace;
         };
@@ -154,9 +162,6 @@ define(["js/Utils"], function (Utils) {
                     + component.__type.family + ".html";
             }
             else {
-                console.log("Component Path for Device");
-                console.log(component);
-
                 return this.rootUrl + "/default-devices/thing-it-device-"
                     + component.__type.module + "/web/"
                     + component.__type.family + ".html";
