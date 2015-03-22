@@ -30,7 +30,7 @@ define(
                     template: "<audio controls><source type='audio/wav'></audio>",
                     link: function (scope, element, attrs) {
                         scope.$watch(attrs.tiModel, function (value) {
-                            jQuery(element).children("audio").children("source").attr("src", "/stream/" + value);
+                            jQuery(element).children("audio").children("source").attr("src", value);
                             jQuery(element).children("audio").load();
                         });
                     }
@@ -40,18 +40,14 @@ define(
             module.directive('tiVideo', function ($timeout, $parse) {
                 return {
                     restrict: "E",
-                    template: "<canvas id='canvas' width='640' height='480'><p>Browser does not support canvas elements.</p></canvas>",
+                    template: "<video><source type='video/mp4'></video>",
                     link: function (scope, element, attrs) {
-                        var canvas = jQuery(element).children("videoCanvas");
-                        var ctx = canvas.getContext('2d');
+                        jQuery(element).children("video")[0].autoplay = true;
 
-                        ctx.fillStyle = '#444';
-                        ctx.fillText('Loading...', canvas.width / 2 - 30, canvas.height / 3);
-
-                        // Setup the WebSocket connection and start the player
-
-                        var client = new WebSocket('ws://example.com:8084/');
-                        var player = new jsmpeg(client, {canvas: canvas});
+                        scope.$watch(attrs.tiModel, function (value) {
+                            jQuery(element).children("video").children("source").attr("src", value);
+                            jQuery(element).children("video")[0].load();
+                        });
                     }
                 };
             });

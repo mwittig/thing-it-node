@@ -238,8 +238,13 @@ define(
                                 .getSensor(event.sensor).lastValueChangeTimestamp = new Date()
                                 .getTime();
 
-                            self.addValue(event.device,
-                                event.sensor, event.value);
+                            if (event.sensor) {
+                                self.addValue(event.device,
+                                    event.sensor, event.value);
+                            } else {
+                                self.writeToDeviceStream(event.device,
+                                    event.value);
+                            }
 
                             if (self.topPage().id == "sensorMonitoringPage"
                                 && self.topPage().sensor.device.id == event.device
@@ -452,6 +457,15 @@ define(
 
                 plotData.series.push([now, value]);
             };
+
+            /**
+             *
+             */
+            MobileConsole.prototype.writeToDeviceStream = function (device,
+                                                                    value) {
+
+            };
+
 
             /**
              *

@@ -3,7 +3,7 @@ module.exports = {
     protocol: "http",
     nodeConfigurationFile: "../examples/camera-and-microphone/configuration.js",
     dataDirectory: "../thing-it-data",
-    simulated: true,
+    simulated: false,
     hotDeployment: false,
     verifyCallSignature: false,
     publicKeyFile: "",
