@@ -5,7 +5,14 @@ module.exports = {
         label: "USB Camera",
         id: "usbCamera",
         plugin: "usb-camera/usbCamera",
-        configuration: [],
+        configuration: {
+            inputFormat: "avfoundation",
+            inputDevice: "0",
+            videoWidth: 320,
+            videoHeight: 180,
+            bufferFiles: 2,
+            latency: 5
+        },
         actors: [],
         sensors: []
     }, {

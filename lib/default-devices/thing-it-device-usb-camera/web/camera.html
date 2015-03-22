@@ -1,4 +1,1 @@
-<video width="320" height="240" controls>
-    <source src="/devices/{{device.id}}/streams/default" type="video/mp4">
-    Your browser does not support the video tag.
-</video>
+<ti-video ti-model="'/devices/' + device.id + '/streams/' + device._state.video"></ti-video>
