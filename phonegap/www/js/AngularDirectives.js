@@ -41,10 +41,60 @@ define(
                 return {
                     restrict: "E",
                     template: "<video><source type='video/mp4'></video>",
+                    //template: "<canvas width='320' height='180' style='border: 1px solid red;'></canvas>",
                     link: function (scope, element, attrs) {
+                        //var transports;
+                        //
+                        //if ("WebSocket" in window && WebSocket.CLOSED > 2) {
+                        //    transports: ['websocket', 'xhr-polling']
+                        //} else {
+                        //    transports: ['xhr-polling']
+                        //}
+                        //
+                        //var rootUrl = window.location.protocol + "//"
+                        //    + window.location.hostname + ":" + window.location.port;
+                        //
+                        //var ws = {OPEN: "OPEN"};
+                        //
+                        //var canvas = jQuery(element).children("canvas")[0];
+                        //
+                        //var ctx = canvas.getContext('2d');
+                        //
+                        //ctx.fillStyle = '#444';
+                        //ctx.fillText('Loading...', canvas.width / 2 - 30, canvas.height / 3);
+                        //
+                        //// Setup the WebSocket connection and start the player
+                        //
+                        //var player = new jsmpeg(ws, {canvas: canvas});
+                        //
+                        //ws.onopen(ws);
+                        //
+                        //var namespaceName = rootUrl + scope.$eval(attrs.tiModel);
+                        //
+                        //console.log("Connecting: " + namespaceName);
+                        //
+                        //namespace = scope.io.connect(namespaceName, {
+                        //    transports: transports
+                        //});
+                        //
+                        //namespace.on("connection", function (socket) {
+                        //    console.log("Data Stream connected");
+                        //
+                        //    ws.readyState = ws.OPEN;
+                        //});
+                        //namespace.on("disconnect", function (socket) {
+                        //    console.log("Data Stream disconnected");
+                        //});
+                        //namespace.on("data", function (message) {
+                        //    console.log("Data received");
+                        //
+                        //    ws.onmessage({data: message.raw});
+                        //});
+
                         jQuery(element).children("video")[0].autoplay = true;
 
                         scope.$watch(attrs.tiModel, function (value) {
+                            console.log(value);
                             jQuery(element).children("video").children("source").attr("src", value);
                             jQuery(element).children("video")[0].load();
                         });
