@@ -99,13 +99,17 @@
                 AngularDirectives.initialize(module);
 
                 angular.bootstrap(document, ["mobileConsoleApplication"]);
+
+                window.setTimeout(function () {
+                    jQuery("#deck").css("visibility", "visible");
+                }, 1000);
             });
         });
     </script>
 </head>
 <body style="height: 100%;" ng-controller="mobileConsole">
-<div id="deck">
-    <div id="loginPage" data-position="fixed">
+<div id="deck" style="visibility: hidden;">
+    <div id="loginPage" data-role="page">
         <div data-role="header">
             <h1>[thing-it] Mobile</h1>
         </div>
