@@ -28,8 +28,6 @@ define(
                 this.pageStack = [];
                 this.sensorPlotData = {};
 
-                var self = this;
-
                 ConsoleService
                     .instance()
                     .getAuthenticationMode()
@@ -38,14 +36,14 @@ define(
                         this.authenticationMode = authenticationMode;
 
                         if (this.authenticationMode.type == "none") {
-                            self.login();
+                            this.login();
                         }
                         else {
-                            self.pageStack.push(self.loginPage = LoginPage.create(self));
+                            this.pageStack.push(this.loginPage = LoginPage.create(this));
 
-                            self.showPage(self.loginPage);
+                            this.showPage(this.loginPage);
                         }
-                    }).fail(function () {
+                    }.bind(this)).fail(function () {
                     });
             };
 
