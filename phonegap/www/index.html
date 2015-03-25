@@ -121,9 +121,9 @@
                 </tr>
             </table>
             <label for="loginPage-account" class="ui-hidden-accessible"
-                   ng-show="node.authenticationMode.type == 'userCredentials'">Account</label>
+                   ng-show="authenticationMode.type == 'userCredentials'">Account</label>
             <input type="text" id="loginPage-account" placeholder="Account"
-                   ng-model="loginPage.account" ng-show="node.authenticationMode.type == 'userCredentials'"> <label
+                   ng-model="loginPage.account" ng-show="authenticationMode.type == 'userCredentials'"> <label
                 for="loginPage-password" class="ui-hidden-accessible">Password</label>
             <input type="password" id="loginPage-password"
                    placeholder="Password" ng-model="loginPage.password">
