@@ -163,7 +163,7 @@
             <form>
                 <ul data-role="listview">
                     <li ng-repeat="node in topPage().mesh.nodes" jqm-li><a
-                            ng-click="pushNodePage(node)"></span>{{node.label}}</a></li>
+                            ng-click="topPage().openNodePage(node)"></span>{{node.label}}</a></li>
                 </ul>
             </form>
         </div>

@@ -98,9 +98,15 @@ define(["js/Utils"], function (Utils) {
         /**
          *
          */
-        ConsoleService.prototype.getNode = function () {
-            return Utils.ajax(this.rootUrl + "/configuration", "GET",
-                "application/json");
+        ConsoleService.prototype.getNode = function (mesh, node) {
+            if (this.proxyMode == "local") {
+                return Utils.ajax(this.rootUrl + "/configuration", "GET",
+                    "application/json");
+            }
+            else {
+                return Utils.ajax(this.rootUrl + "/meshes/" + mesh._id + "/nodes/" + node._id, "GET",
+                    "application/json");
+            }
         };
 
         /**
