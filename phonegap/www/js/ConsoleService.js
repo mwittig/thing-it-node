@@ -56,10 +56,6 @@ define(["js/Utils"], function (Utils) {
                         this.proxyMode = authenticationMode.proxyMode;
                     }
 
-                    if (authenticationMode.proxyRootUrl) {
-                        this.rootUrl = authenticationMode.proxyRootUrl;
-                    }
-
                     deferred.resolve(authenticationMode);
                 }.bind(this)).fail(function () {
                     deferred.reject();
