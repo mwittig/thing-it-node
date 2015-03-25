@@ -121,15 +121,51 @@
                 </tr>
             </table>
             <label for="loginPage-account" class="ui-hidden-accessible"
-                   ng-show="node.authentication == 'accountPassword'">Account</label>
+                   ng-show="node.authentication == 'userCredentials'">Account</label>
             <input type="text" id="loginPage-account" placeholder="Account"
-                   ng-model="loginPage.account" ng-show="node.authentication == 'accountPassword'"> <label
+                   ng-model="loginPage.account" ng-show="node.authentication == 'userCredentials'"> <label
                 for="loginPage-password" class="ui-hidden-accessible">Password</label>
             <input type="password" id="loginPage-password"
                    placeholder="Password" ng-model="loginPage.password">
             <button id="loginPanel-login" class="ui-btn ui-corner-all"
                     ng-click="loginPage.login()">Login
             </button>
+        </div>
+        <div data-role="footer" data-position="fixed">
+            <h4>Copyright &copy; 2015 thing-it</h4>
+        </div>
+    </div>
+    <div id="meshesPage" data-role="page">
+        <div data-role="header" data-position="fixed">
+            <h1>Meshes</h1>
+            <a class="toolbarButton" ng-click="popPage()"><i
+                    class="fa fa-chevron-circle-left"></i></a>
+        </div>
+        <div role="main" class="ui-content">
+            <form>
+                <ul data-role="listview">
+                    <li ng-repeat="mesh in topPage().meshes" jqm-li><a
+                            ng-click="pushMeshPage(mesh)"></span>{{mesh.label}}</a></li>
+                </ul>
+            </form>
+        </div>
+        <div data-role="footer" data-position="fixed">
+            <h4>Copyright &copy; 2015 thing-it</h4>
+        </div>
+    </div>
+    <div id="meshPage" data-role="page">
+        <div data-role="header" data-position="fixed">
+            <h1>Nodes</h1>
+            <a class="toolbarButton" ng-click="popPage()"><i
+                    class="fa fa-chevron-circle-left"></i></a>
+        </div>
+        <div role="main" class="ui-content">
+            <form>
+                <ul data-role="listview">
+                    <li ng-repeat="node in topPage().mesh.nodes" jqm-li><a
+                            ng-click="pushNodePage(node)"></span>{{node.label}}</a></li>
+                </ul>
+            </form>
         </div>
         <div data-role="footer" data-position="fixed">
             <h4>Copyright &copy; 2015 thing-it</h4>

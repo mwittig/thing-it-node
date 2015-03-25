@@ -4,11 +4,11 @@
 
 define(
     ["js/Utils", "js/Node", "js/ConsoleService",
-        "js/LoginPage", "js/NodePage",
+        "js/LoginPage", "js/MeshesPage", "js/MeshPage", "js/NodePage",
         "js/GroupPage", "js/DevicePage", "js/ActorPage",
         "js/SensorPage", "js/DataPage",
         "js/SensorMonitoringPage"],
-    function (Utils, Node, ConsoleService, LoginPage, NodePage, GroupPage, DevicePage,
+    function (Utils, Node, ConsoleService, LoginPage, MeshesPage, MeshPage, NodePage, GroupPage, DevicePage,
               ActorPage, SensorPage, DataPage, SensorMonitoringPage) {
         return {
             create: function () {
@@ -155,30 +155,34 @@ define(
                                 console
                                     .log(self.deviceTypes);
 
-                                ConsoleService
-                                    .instance()
-                                    .getNode()
-                                    .done(
-                                    function (node) {
-                                        self.node = Node
-                                            .bind(
-                                            self.deviceTypes,
-                                            node);
-                                        self
-                                            .connectNode(node);
-                                        self
-                                            .pushPage(NodePage
-                                                .create(
-                                                this,
-                                                node));
-                                        jQuery.mobile
-                                            .loading("hide");
-                                    })
-                                    .fail(
-                                    function () {
-                                        jQuery.mobile
-                                            .loading("hide");
-                                    });
+                                if (false/*ConsoleService.instance().proxyMode == "local"*/) {
+                                    ConsoleService
+                                        .instance()
+                                        .getNode()
+                                        .done(
+                                        function (node) {
+                                            self.node = Node
+                                                .bind(
+                                                self.deviceTypes,
+                                                node);
+                                            self
+                                                .connectNode(node);
+                                            self
+                                                .pushNodePage(
+                                                node);
+                                            jQuery.mobile
+                                                .loading("hide");
+                                        })
+                                        .fail(
+                                        function () {
+                                            jQuery.mobile
+                                                .loading("hide");
+                                        });
+                                }
+                                else {
+                                    self
+                                        .pushMeshesPage();
+                                }
                             })
                             .fail(
                             function () {
@@ -287,6 +291,27 @@ define(
             /**
              *
              */
+            MobileConsole.prototype.pushMeshesPage = function () {
+                this.pushPage(MeshesPage.create(this));
+            };
+
+            /**
+             *
+             */
+            MobileConsole.prototype.pushMeshPage = function (mesh) {
+                this.pushPage(MeshPage.create(this, mesh));
+            };
+
+            /**
+             *
+             */
+            MobileConsole.prototype.pushNodePage = function (node) {
+                this.pushPage(NodePage.create(this, node));
+            };
+
+            /**
+             *
+             */
             MobileConsole.prototype.pushGroupPage = function (group) {
                 this.pushPage(GroupPage.create(this, group));
             };
@@ -322,10 +347,15 @@ define(
             /**
              *
              */
+            MobileConsole.prototype.pushDataPage = function (data) {
+                this.pushPage(DataPage.create(this, data));
+            };
+
+            /**
+             *
+             */
             MobileConsole.prototype.pushSensorValue = function (sensor) {
-                console.log("===>");
-                console.log(sensor);
-                ConsoleService.instance().pushSensorValue(sensor).done(
+                ConsoleService.instance().pushSensorValue(this.node, sensor).done(
                     function () {
                     }).fail(function (error) {
                         console.error(error);
@@ -338,14 +368,11 @@ define(
              */
             MobileConsole.prototype.pushSensorEvent = function (sensor,
                                                                 event) {
-                console.log("===>");
-                console.log(sensor);
-
                 var self = this;
 
                 ConsoleService
                     .instance()
-                    .pushSensorEvent(sensor, event)
+                    .pushSensorEvent(this.node, sensor, event)
                     .done(function () {
                     })
                     .fail(
@@ -385,7 +412,7 @@ define(
             MobileConsole.prototype.callNodeService = function (service) {
                 jQuery.mobile.loading("show");
 
-                ConsoleService.instance().callNodeService(service, {})
+                ConsoleService.instance().callNodeService(this.node, service, {})
                     .done(function () {
                         jQuery.mobile.loading("hide");
                     }).fail(function () {
@@ -399,7 +426,7 @@ define(
             MobileConsole.prototype.callDeviceService = function (device, service) {
                 jQuery.mobile.loading("show");
 
-                ConsoleService.instance().callDeviceService(device, service, {})
+                ConsoleService.instance().callDeviceService(this.node, device, service, {})
                     .done(function () {
                         jQuery.mobile.loading("hide");
                     }).fail(function () {
@@ -414,8 +441,7 @@ define(
                                                                  service, parameters) {
                 jQuery.mobile.loading("show");
 
-                console.log(actor.id + " " + service);
-                ConsoleService.instance().callActorService(actor, service,
+                ConsoleService.instance().callActorService(this.node, actor, service,
                     parameters).done(function () {
                         jQuery.mobile.loading("hide");
                     }).fail(function () {
@@ -429,13 +455,6 @@ define(
             MobileConsole.prototype.getComponentPluginPath = function (component) {
                 return ConsoleService.instance().getComponentPluginPath(
                     component);
-            };
-
-            /**
-             *
-             */
-            MobileConsole.prototype.pushDataPage = function (data) {
-                this.pushPage(DataPage.create(this, data));
             };
 
             /**
@@ -463,9 +482,7 @@ define(
              */
             MobileConsole.prototype.writeToDeviceStream = function (device,
                                                                     value) {
-
             };
-
 
             /**
              *
