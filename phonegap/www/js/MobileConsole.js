@@ -35,10 +35,9 @@ define(
                     .getAuthenticationMode()
                     .done(
                     function (authenticationMode) {
-                        console.log("Authentication Mode");
-                        console.log(authenticationMode);
+                        this.authenticationMode = authenticationMode;
 
-                        if (authenticationMode.type == "none") {
+                        if (this.authenticationMode.type == "none") {
                             self.login();
                         }
                         else {
