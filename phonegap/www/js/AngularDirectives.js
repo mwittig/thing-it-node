@@ -19,7 +19,7 @@ define(
                     setTimeout(function () {
                         $scope.$on('$viewContentLoaded', element.parent()
                             .listview('refresh'));
-                    }, 200);
+                    }, 500);
                     $(element).show();
                 }
             });
