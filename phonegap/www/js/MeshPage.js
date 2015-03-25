@@ -50,7 +50,7 @@ define(["js/Utils", "js/ConsoleService"], function (Utils,
                 .instance()
                 .getNode(this.mesh, node)
                 .done(
-                function (mesh) {
+                function (node) {
                     this.console.pushNodePage(node);
                 }.bind(this));
         };

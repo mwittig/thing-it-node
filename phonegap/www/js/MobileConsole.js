@@ -303,6 +303,8 @@ define(
              *
              */
             MobileConsole.prototype.pushNodePage = function (node) {
+                this.node = node;
+
                 this.pushPage(NodePage.create(this, node));
             };
 
