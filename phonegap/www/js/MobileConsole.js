@@ -152,7 +152,7 @@ define(
                                 console
                                     .log(self.deviceTypes);
 
-                                if (false/*ConsoleService.instance().proxyMode == "local"*/) {
+                                if (ConsoleService.instance().proxyMode == "local") {
                                     ConsoleService
                                         .instance()
                                         .getNode()
@@ -305,7 +305,12 @@ define(
             MobileConsole.prototype.pushNodePage = function (node) {
                 this.node = node;
 
+                console.log("Node Page");
+                console.log(this.node);
+
                 this.pushPage(NodePage.create(this, node));
+
+                console.log(this.node);
             };
 
             /**
