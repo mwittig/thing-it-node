@@ -18,9 +18,23 @@ define(["js/Utils"], function (Utils) {
      *
      */
     function ConsoleService() {
+        this.rootUrl = "";
         //this.rootUrl = "http://localhost:3001";
-        this.rootUrl = window.location.protocol + "//"
-        + window.location.hostname + ":" + window.location.port;
+        //this.rootUrl = window.location.protocol + "//"
+        //+ window.location.hostname + ":" + window.location.port;
+        this.proxyMode = "local";
+
+        /**
+         * TODO May homogenize local URL to contain UUID as well.
+         */
+        ConsoleService.prototype.getNodeRootUrl = function (node) {
+            if (this.proxyMode == "local") {
+                return this.rootUrl;
+            }
+            else {
+                return this.rootUrl + "/nodes/" + node.uuid;
+            }
+        };
 
         /**
          *
@@ -34,8 +48,24 @@ define(["js/Utils"], function (Utils) {
          *
          */
         ConsoleService.prototype.getAuthenticationMode = function () {
-            return Utils.ajax(this.rootUrl + "/authentication", "GET",
-                "application/json");
+            var deferred = jQuery.Deferred();
+
+            Utils.ajax(this.rootUrl + "/authentication", "GET",
+                "application/json").done(function (authenticationMode) {
+                    if (authenticationMode.proxyMode) {
+                        this.proxyMode = authenticationMode.proxyMode;
+                    }
+
+                    if (authenticationMode.proxyRootUrl) {
+                        this.rootUrl = authenticationMode.proxyRootUrl;
+                    }
+
+                    deferred.resolve(authenticationMode);
+                }.bind(this)).fail(function () {
+                    deferred.reject();
+                });
+
+            return deferred.promise();
         };
 
         /**
@@ -52,6 +82,21 @@ define(["js/Utils"], function (Utils) {
         ConsoleService.prototype.logout = function () {
             return Utils.ajax(this.rootUrl + "/logout", "POST",
                 "application/json");
+        };
+
+        /**
+         *
+         */
+        ConsoleService.prototype.getMeshes = function () {
+            return Utils.ajax(this.rootUrl + "/meshes", "GET",
+                "application/json");
+        };
+
+        /**
+         *
+         */
+        ConsoleService.prototype.getMesh = function (mesh) {
+            return Utils.ajax(this.rootUrl + "/meshes/" + mesh.id, "GET");
         };
 
         /**
@@ -74,7 +119,7 @@ define(["js/Utils"], function (Utils) {
                 transports: ['xhr-polling']
             }
 
-            var namespace = io.connect(this.rootUrl + "/events", {
+            var namespace = io.connect(this.getNodeRootUrl(node) + "/events", {
                 transports: transports
             });
 
@@ -92,16 +137,16 @@ define(["js/Utils"], function (Utils) {
         /**
          *
          */
-        ConsoleService.prototype.callNodeService = function (service, parameters) {
-            return Utils.ajax(this.rootUrl + "/services/" + service.id, "POST",
+        ConsoleService.prototype.callNodeService = function (node, service, parameters) {
+            return Utils.ajax(this.getNodeRootUrl(node) + "/services/" + service.id, "POST",
                 "application/json", JSON.stringify(parameters));
         };
 
         /**
          *
          */
-        ConsoleService.prototype.callDeviceService = function (device, service, parameters) {
-            return Utils.ajax(this.rootUrl + "/devices/" + device.id
+        ConsoleService.prototype.callDeviceService = function (node, device, service, parameters) {
+            return Utils.ajax(this.getNodeRootUrl(node) + "/devices/" + device.id
                 + "/services/" + service, "POST",
                 "application/json", JSON.stringify(parameters));
         };
@@ -109,9 +154,9 @@ define(["js/Utils"], function (Utils) {
         /**
          *
          */
-        ConsoleService.prototype.callActorService = function (actor, service,
+        ConsoleService.prototype.callActorService = function (node, actor, service,
                                                               parameters) {
-            return Utils.ajax(this.rootUrl + "/devices/" + actor.device.id
+            return Utils.ajax(this.getNodeRootUrl(node) + "/devices/" + actor.device.id
                 + "/actors/" + actor.id + "/services/" + service, "POST",
                 "application/json", JSON.stringify(parameters));
         };
@@ -119,8 +164,8 @@ define(["js/Utils"], function (Utils) {
         /**
          *
          */
-        ConsoleService.prototype.pushSensorValue = function (sensor, value) {
-            return Utils.ajax(this.rootUrl + "/devices/" + sensor.device.id
+        ConsoleService.prototype.pushSensorValue = function (node, sensor, value) {
+            return Utils.ajax(this.getNodeRootUrl(node) + "/devices/" + sensor.device.id
                 + "/sensors/" + sensor.id + "/data", "POST",
                 "application/json", JSON.stringify({
                     data: sensor._value
@@ -130,8 +175,8 @@ define(["js/Utils"], function (Utils) {
         /**
          *
          */
-        ConsoleService.prototype.pushSensorEvent = function (sensor, event) {
-            return Utils.ajax(this.rootUrl + "/devices/" + sensor.device.id
+        ConsoleService.prototype.pushSensorEvent = function (node, sensor, event) {
+            return Utils.ajax(this.getNodeRootUrl(node) + "/devices/" + sensor.device.id
                 + "/sensors/" + sensor.id + "/event", "POST",
                 "application/json", JSON.stringify({
                     type: event
@@ -141,8 +186,8 @@ define(["js/Utils"], function (Utils) {
         /**
          *
          */
-        ConsoleService.prototype.getDataValue = function (data) {
-            return Utils.ajax(this.rootUrl + "/data/" + data.id, "GET",
+        ConsoleService.prototype.getDataValue = function (node, data) {
+            return Utils.ajax(this.getNodeRootUrl(node) + "/data/" + data.id, "GET",
                 "application/json");
         };
 
