@@ -92,7 +92,7 @@ define(["js/Utils"], function (Utils) {
          *
          */
         ConsoleService.prototype.getMesh = function (mesh) {
-            return Utils.ajax(this.rootUrl + "/meshes/" + mesh.id, "GET");
+            return Utils.ajax(this.rootUrl + "/meshes/" + mesh._id, "GET");
         };
 
         /**
