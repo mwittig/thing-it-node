@@ -32,7 +32,7 @@ define(["js/Utils"], function (Utils) {
                 return this.rootUrl;
             }
             else {
-                return this.rootUrl + "/nodes/" + node.uuid;
+                return this.rootUrl + "/proxy/nodes/" + node.uuid;
             }
         };
 

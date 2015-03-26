@@ -5,7 +5,7 @@ module.exports = {
     dataDirectory: "../thing-it-data",
     simulated: true,
     hotDeployment: false,
-    reverseProxy: "http://www.thing-it.com/",
+    reverseProxy: "http://localhost:3000",
     verifyCallSignature: false,
     publicKeyFile: "",
     signingAlgorithm: "RSA-SHA256",

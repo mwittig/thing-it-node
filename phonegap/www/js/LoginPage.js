@@ -18,9 +18,6 @@ define(["js/Utils", "js/ConsoleService"], function (Utils,
             this.console = console;
             this.id = "loginPage";
 
-            this.account = "test";
-            this.password = "test";
-
             return this;
         };
 
