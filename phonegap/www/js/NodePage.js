@@ -28,9 +28,6 @@ define([ "js/Utils", "js/ConsoleService" ], function(Utils,
 		NodePage.prototype.show = function() {
 			var deferred = jQuery.Deferred();
 
-            console.log("In Node Page");
-            console.log(this.console.node);
-
 			this.sensors = [];
 			this.actors = [];
 
