@@ -45,19 +45,6 @@ define(["js/Utils", "js/ConsoleService"], function (Utils,
         /**
          *
          */
-        MeshPage.prototype.openNodePage = function (node) {
-            ConsoleService
-                .instance()
-                .getNode(this.mesh, node)
-                .done(
-                function (node) {
-                    this.console.pushNodePage(node);
-                }.bind(this));
-        };
-
-        /**
-         *
-         */
         MeshPage.prototype.leave = function () {
         };
     }
