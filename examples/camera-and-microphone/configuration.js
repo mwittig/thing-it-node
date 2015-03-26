@@ -1,6 +1,7 @@
 module.exports = {
     label: "Home",
     id: "home",
+    uuid: 100001,
     devices: [{
         label: "USB Camera",
         id: "usbCamera",

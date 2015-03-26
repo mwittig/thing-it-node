@@ -163,7 +163,7 @@
             <form>
                 <ul data-role="listview">
                     <li ng-repeat="node in topPage().mesh.nodes" jqm-li><a
-                            ng-click="openNodePage(topPage().mesh, node)"></span>{{node.label}}</a></li>
+                            ng-click="$parent.openNodePage(topPage().mesh, node)"></span>{{node.label}}</a></li>
                 </ul>
             </form>
         </div>
@@ -188,7 +188,7 @@
                         class="titleIcon fa fa-{{group.icon}}"></i></span><span
                         ng-hide="group.icon"><i class="titleIcon fa fa-home"></i></span>{{group.label}}</a></li>
                 <li ng-repeat="service in topPage().node.services" jqm-li><a
-                        ng-click="callNodeService(service)"><i class="fa fa-gear"></i>{{service.label}}</a></li>
+                        ng-click="$parent.callNodeService(service)"><i class="fa fa-gear"></i>{{service.label}}</a></li>
                 <li ng-repeat="device in topPage().node.devices" ng-show="device.__type.tangible" jqm-li>
                     <table
                             width="100%">
