@@ -305,12 +305,7 @@ define(
             MobileConsole.prototype.pushNodePage = function (node) {
                 this.node = node;
 
-                console.log("Node Page");
-                console.log(this.node);
-
                 this.pushPage(NodePage.create(this, node));
-
-                console.log(this.node);
             };
 
             /**
@@ -415,6 +410,9 @@ define(
              */
             MobileConsole.prototype.callNodeService = function (service) {
                 jQuery.mobile.loading("show");
+
+                console.log("Call Node Service");
+                console.log(this.node);
 
                 ConsoleService.instance().callNodeService(this.node, service, {})
                     .done(function () {
