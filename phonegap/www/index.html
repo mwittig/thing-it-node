@@ -163,7 +163,7 @@
             <form>
                 <ul data-role="listview">
                     <li ng-repeat="node in topPage().mesh.nodes" jqm-li><a
-                            ng-click="topPage().openNodePage(node)"></span>{{node.label}}</a></li>
+                            ng-click="openNodePage(topPage().mesh, node)"></span>{{node.label}}</a></li>
                 </ul>
             </form>
         </div>
@@ -174,7 +174,7 @@
     <div id="nodePage" data-role="page">
         <div data-role="header" data-position="fixed">
             <h1>
-                <i class="titleIcon fa fa-calculator"></i>{{topPage().node.label}} x {{node.label}} y
+                <i class="titleIcon fa fa-calculator"></i>{{topPage().node.label}}
             </h1>
             <a class="toolbarButton" ng-click="logout()"><i
                     class="fa fa-power-off"></i></a>

@@ -302,6 +302,18 @@ define(
             /**
              *
              */
+            MobileConsole.prototype.openNodePage = function (mesh, node) {
+                ConsoleService
+                    .instance()
+                    .getNode(mesh, node)
+                    .done(
+                    function (node) {
+                        this.pushNodePage(node);
+                    }.bind(this));
+            };
+            /**
+             *
+             */
             MobileConsole.prototype.pushNodePage = function (node) {
                 this.node = node;
 
