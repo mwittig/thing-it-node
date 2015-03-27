@@ -129,7 +129,7 @@ define(["js/Utils"], function (Utils) {
             window.setTimeout(function () {
                 // Force Node to push state for all Devices and Actors
 
-                Utils.ajax(this.rootUrl + "/poll", "POST",
+                Utils.ajax(this.getNodeRootUrl(node) + "/poll", "POST",
                     "application/json");
             }.bind(this), 500);
 
