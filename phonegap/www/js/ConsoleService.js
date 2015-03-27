@@ -83,7 +83,7 @@ define(["js/Utils"], function (Utils) {
                         this.proxyMode = authenticationMode.proxyMode;
                     }
 
-                    console.log("Proxy Mode: " + this.proxyMode);
+                    console.debug("Proxy Mode: " + this.proxyMode);
 
                     deferred.resolve(authenticationMode);
                 }.bind(this)).fail(function () {
