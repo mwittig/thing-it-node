@@ -163,8 +163,6 @@ define(
                                                 self.deviceTypes,
                                                 node);
                                             self
-                                                .connectNode(node);
-                                            self
                                                 .pushNodePage(
                                                 node);
                                             jQuery.mobile
@@ -317,6 +315,8 @@ define(
             MobileConsole.prototype.pushNodePage = function (node) {
                 this.node = node;
 
+                this
+                    .connectNode(this.node);
                 this.pushPage(NodePage.create(this, node));
             };
 
