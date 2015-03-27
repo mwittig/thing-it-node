@@ -158,10 +158,6 @@ define(
                                         .getNode()
                                         .done(
                                         function (node) {
-                                            self.node = Node
-                                                .bind(
-                                                self.deviceTypes,
-                                                node);
                                             self
                                                 .pushNodePage(
                                                 node);
@@ -313,7 +309,10 @@ define(
              *
              */
             MobileConsole.prototype.pushNodePage = function (node) {
-                this.node = node;
+                this.node = Node
+                    .bind(
+                    self.deviceTypes,
+                    node);
 
                 this
                     .connectNode(this.node);
