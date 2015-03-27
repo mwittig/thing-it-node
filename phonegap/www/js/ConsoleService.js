@@ -130,7 +130,7 @@ define(["js/Utils"], function (Utils) {
                 transports: ['xhr-polling']
             }
 
-            var namespace = io.connect(this.getEventNamespaceUrl(), {
+            var namespace = io.connect(this.getEventNamespaceUrl(node), {
                 transports: transports
             });
 
