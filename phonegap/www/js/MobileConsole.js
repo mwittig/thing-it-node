@@ -311,7 +311,7 @@ define(
             MobileConsole.prototype.pushNodePage = function (node) {
                 this.node = Node
                     .bind(
-                    self.deviceTypes,
+                    this.deviceTypes,
                     node);
 
                 this
