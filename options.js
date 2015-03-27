@@ -1,4 +1,5 @@
 module.exports = {
+    logLevel: "debug",
     port: 3001,
     protocol: "http",
     nodeConfigurationFile: "../examples/simple-lighting/configuration.js",
