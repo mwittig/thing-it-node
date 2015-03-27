@@ -6,6 +6,11 @@ var bodyParser = require('body-parser')
 var express = require('express');
 var app = express();
 var Server = require('socket.io');
+
+console.debug = function(output) {
+    console.log(output);
+};
+
 var io = new Server({
 	transports : [ "websocket", "htmlfile", "xhr-polling", "jsonp-polling" ]
 });
