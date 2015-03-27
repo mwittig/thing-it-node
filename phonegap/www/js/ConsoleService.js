@@ -35,12 +35,31 @@ define(["js/Utils"], function (Utils) {
             }
         };
 
+        /**
+         *
+         * @param node
+         * @returns {string}
+         */
         ConsoleService.prototype.getEventNamespaceUrl = function (node) {
             if (this.proxyMode == "local") {
                 return this.rootUrl + "/events";
             }
             else {
-                return this.rootUrl + "/reverse-proxy/nodes/" + node.uuid + "/events";
+                return this.rootUrl + "/reverse-proxy/nodes/" + node.uuid + "/client/events";
+            }
+        };
+
+        /**
+         *
+         * @param node
+         * @returns {string}
+         */
+        ConsoleService.prototype.getComponentRootUrl = function (node) {
+            if (this.proxyMode == "local") {
+                return this.rootUrl;
+            }
+            else {
+                return this.rootUrl + "/thing-it-node";
             }
         };
 
@@ -131,14 +150,11 @@ define(["js/Utils"], function (Utils) {
                 transports: ['xhr-polling']
             }
 
-            console.log("Connecting NS: " + this.getEventNamespaceUrl(node));
-
             var namespace = io.connect(this.getEventNamespaceUrl(node), {
                 transports: transports
             });
 
             namespace.on('connect', function () {
-                console.log("NS connected!!!");
             });
 
             window.setTimeout(function () {
@@ -219,13 +235,12 @@ define(["js/Utils"], function (Utils) {
             if (component.device) {
                 // Actors and sensors
 
-                return this.rootUrl + "/default-devices/thing-it-device-"
-                    + component.device.__type.module + "/web/"
+                return this.getComponentRootUrl()
+                    + component.device.__type.pluginDirectory + "/web/"
                     + component.__type.family + ".html";
             }
             else {
-                return this.rootUrl + "/default-devices/thing-it-device-"
-                    + component.__type.module + "/web/"
+                return this.getComponentRootUrl() + component.__type.pluginDirectory + "/web/"
                     + component.__type.family + ".html";
             }
         };
