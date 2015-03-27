@@ -18,10 +18,9 @@ define(["js/Utils"], function (Utils) {
      *
      */
     function ConsoleService() {
-        this.rootUrl = "";
-        //this.rootUrl = "http://localhost:3001";
-        //this.rootUrl = window.location.protocol + "//"
-        //+ window.location.hostname + ":" + window.location.port;
+        //this.rootUrl = "";
+        this.rootUrl = window.location.protocol + "//"
+        + window.location.hostname + ":" + window.location.port;
         this.proxyMode = "local";
 
         /**
@@ -64,6 +63,8 @@ define(["js/Utils"], function (Utils) {
                     if (authenticationMode.proxyMode) {
                         this.proxyMode = authenticationMode.proxyMode;
                     }
+
+                    console.log("Proxy Mode: " + this.proxyMode);
 
                     deferred.resolve(authenticationMode);
                 }.bind(this)).fail(function () {
@@ -130,11 +131,16 @@ define(["js/Utils"], function (Utils) {
                 transports: ['xhr-polling']
             }
 
+            console.log("Connecting NS: " + this.getEventNamespaceUrl(node));
+
             var namespace = io.connect(this.getEventNamespaceUrl(node), {
                 transports: transports
             });
 
-            //namespace.on('connection', function () {
+            namespace.on('connect', function () {
+                console.log("NS connected!!!");
+            });
+
             window.setTimeout(function () {
                 // Force Node to push state for all Devices and Actors
 
