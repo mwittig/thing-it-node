@@ -32,7 +32,16 @@ define(["js/Utils"], function (Utils) {
                 return this.rootUrl;
             }
             else {
-                return this.rootUrl + "/proxy/nodes/" + node.uuid;
+                return this.rootUrl + "/reverse-proxy/nodes/" + node.uuid;
+            }
+        };
+
+        ConsoleService.prototype.getEventNamespaceUrl = function (node) {
+            if (this.proxyMode == "local") {
+                return this.rootUrl + "/events";
+            }
+            else {
+                return this.rootUrl + "/reverse-proxy/nodes/" + node.uuid + "/events";
             }
         };
 
@@ -121,7 +130,7 @@ define(["js/Utils"], function (Utils) {
                 transports: ['xhr-polling']
             }
 
-            var namespace = io.connect(this.getNodeRootUrl(node) + "/events", {
+            var namespace = io.connect(this.getEventNamespaceUrl(), {
                 transports: transports
             });
 
