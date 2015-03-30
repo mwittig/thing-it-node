@@ -1,5 +1,5 @@
 module.exports = {
-    uuid: "9570a530-d405-11e4-a884-5746f4ba583e",
+    uuid: "791cb970-d408-11e4-b424-7b0ff9c5b77e",
     label: "Home",
     id: "home",
     devices: [{
