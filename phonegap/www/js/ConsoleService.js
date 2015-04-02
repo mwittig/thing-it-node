@@ -227,6 +227,14 @@ define(["js/Utils"], function (Utils) {
         /**
          *
          */
+        ConsoleService.prototype.registerDevice = function (node, device) {
+            return Utils.ajax(this.getNodeRootUrl(node) + "/devices/" + device.id + "/register", "POST",
+                "application/json");
+        };
+
+        /**
+         *
+         */
         ConsoleService.prototype.getComponentPluginPath = function (component) {
             if (!component) {
                 return null;

@@ -27,7 +27,9 @@ app.use(express.static(__dirname + "/phonegap/www"));
 
 // TODO Provide all device plugin pathes
 
-app.use("/default-devices", express.static(__dirname + "/lib/default-devices"));
+//app.use("/default-devices", express.static(__dirname + "/lib/default-devices"));
+//app.use('/examples', express.static(__dirname + '/examples'));
+app.use("/", express.static(__dirname + "/"));
 
 app.use(bodyParser.json());
 app.use(function (req, res, next) {
@@ -36,7 +38,6 @@ app.use(function (req, res, next) {
     res.header('Access-Control-Allow-Headers', 'Content-Type');
     next();
 });
-app.use('/examples', express.static(__dirname + '/examples'));
 
 var server = app
     .listen(

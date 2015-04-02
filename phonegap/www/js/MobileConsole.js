@@ -43,6 +43,12 @@ define(
 
                             this.showPage(this.loginPage);
                         }
+
+                        window.setTimeout(function () {
+                            this.deviceAdvertisementDialog = {
+                                dialog: jQuery("#deviceAdvertisementDialog").popup()
+                            };
+                        }.bind(this), 1000);
                     }.bind(this)).fail(function () {
                     });
             };
@@ -126,6 +132,53 @@ define(
 
                 this.showPage(page);
             };
+
+            /**
+             *
+             */
+            MobileConsole.prototype.openDeviceAdvertisementDialog = function () {
+                jQuery("#deviceAdvertisementDialog").popup("open");
+            };
+
+            /**
+             *
+             */
+            MobileConsole.prototype.closeDeviceAdvertisementDialog = function () {
+                jQuery("#deviceAdvertisementDialog").popup("close");
+            };
+
+            /**
+             *
+             */
+            MobileConsole.prototype.registerDevice = function () {
+                jQuery.mobile.loading("show");
+
+                console.log("Start registration");
+                ConsoleService.instance().registerDevice(this.node, this.deviceAdvertisementDialog.device).done(function (node) {
+                    console.log("Changed Node");
+                    console.log(node);
+
+                    if (ConsoleService.instance().proxyMode == "local") {
+                        this
+                            .pushNodePage(
+                            node);
+                        this.safeApply();
+                        jQuery.mobile
+                            .loading("hide");
+                        this.closeDeviceAdvertisementDialog();
+                    }
+                    else {
+                        // TODO
+                        jQuery.mobile
+                            .loading("hide");
+                        this.closeDeviceAdvertisementDialog();
+                    }
+
+                }.bind(this)).fail(function () {
+                    jQuery.mobile.loading("hide");
+                });
+            };
+
 
             /**
              *
@@ -258,6 +311,11 @@ define(
                     self.onActorStateChanged(actorStateChange);
                     self.safeApply();
                 });
+                this.namespace.on("deviceAdvertisement", function (device) {
+                    console.log("Device advertisement ");
+                    console.log(device);
+                    this.onDeviceAdvertisement(device);
+                }.bind(this));
             };
 
             /**
@@ -397,12 +455,19 @@ define(
              *
              */
             MobileConsole.prototype.onDeviceStateChanged = function (stateChange) {
-                var device = this.node.getDevice(stateChange.device);
+                try {
+                    var device = this.node.getDevice(stateChange.device);
 
-                console.log(stateChange);
+                    console.log(stateChange);
 
-                device._state = stateChange.state;
-                device.lastStateChangeTimestamp = new Date().getTime();
+                    device._state = stateChange.state;
+                    device.lastStateChangeTimestamp = new Date().getTime();
+                }
+                catch (error) {
+                    console.log(error);
+
+                    // Device may not be registered yet and is already firing updates
+                }
             };
 
             /**
@@ -431,6 +496,17 @@ define(
                     }).fail(function () {
                         jQuery.mobile.loading("hide");
                     });
+            };
+
+            /**
+             *
+             */
+            MobileConsole.prototype.onDeviceAdvertisement = function (device) {
+                this.deviceAdvertisementDialog.device = device;
+
+                this.safeApply();
+
+                this.openDeviceAdvertisementDialog();
             };
 
             /**

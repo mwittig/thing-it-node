@@ -11,8 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
-    <link rel="stylesheet" type="text/css" href="css/index.css"/>
-    <title>Hello World</title>
+    <title>[thing-it] Mobile Client</title>
     <link href='http://fonts.googleapis.com/css?family=Titillium+Web'
           rel='stylesheet' type='text/css'>
     <link rel="stylesheet"
@@ -23,7 +22,7 @@
     <link rel="stylesheet" href="./css/ion.rangeslider.css">
     <link href="./css/thing-it-mobile.less" rel="stylesheet/less" type="text/css">
     <link href="./css/thing-it-plugins.less" rel="stylesheet/less" type="text/css">
-    <link rel="stylesheet" href="./css/thirdparty/jquery.jqplot.css"/>
+    <link rel="stylesheet" href="./css/thirdparty/jqplot/jquery.jqplot.css"/>
     <link rel="shortcut icon" sizes="196x196"
           href="./css/images/thing-it-home-screen.png">
     <link rel="apple-touch-icon" sizes="196x196"
@@ -174,7 +173,7 @@
     <div id="nodePage" data-role="page">
         <div data-role="header" data-position="fixed">
             <h1>
-                <i class="titleIcon fa fa-calculator"></i>{{topPage().node.label}}
+                <i class="titleIcon fa fa-calculator"></i>{{topPage().node.label}} {{deviceAdvertisementDialog.nase}}
             </h1>
             <a class="toolbarButton" ng-click="logout()"><i
                     class="fa fa-power-off"></i></a>
@@ -452,6 +451,27 @@
         </div>
         <div data-role="footer" data-position="fixed">
             <h4>Copyright &copy; 2015 thing-it</h4>
+        </div>
+    </div>
+    <div id="deviceAdvertisementDialog" data-role="popup">    
+        <div data-role="header" data-theme="a">
+                <h1>Device Advertisement {{topPage().id}} {{deviceAdvertisementDialog.nase}}</h1>    
+        </div>
+        <div role="main" class="ui-content" style="text-align: center">
+                    <h3 class="ui-title">New Device [{{deviceAdvertisementDialog.device.label}}] available.</h3>
+               
+            <table>
+                <tr>
+                    <td>
+                                <a class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back"
+                                   data-transition="flow" ng-click="registerDevice()">Register</a>
+                    <td>
+                                <a class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b"
+                                   data-rel="back" ng-click="closeDeviceAdvertisementDialog()">Reject</a></td>
+                    </td>
+                </tr>
+            </table>
+                
         </div>
     </div>
 </div>
