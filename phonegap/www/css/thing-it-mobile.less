@@ -1,5 +1,4 @@
 /* Style Configuration */
-
 @import "./thing-it-settings";
 
 html {
@@ -494,6 +493,10 @@ button[disabled],
   background-color: @primaryColor !important;
   color: #FFFFFF !important;
   border: none !important;
+  border-radius: 3px;
+  -webkit-box-shadow: 2px 2px 2px 0px @borderColor !important;
+  -moz-box-shadow: 2px 2px 2px 0px @borderColor !important;
+  box-shadow: 2px 2px 2px 0px @borderColor !important;
 }
 
 .ui-btn:ACTIVE {
@@ -508,6 +511,19 @@ button[disabled],
 .ui-collapsible-heading > .ui-btn {
   border-radius: none !important;
   background-color: lightest(@secondaryColor, @lightestPercentage) !important;
+}
+
+/* Popup */
+
+ui-popup-container {
+  background-color: #FFFFFF !important;
+  display: table-cell !important;
+  text-align: center !important;
+  padding: 10px !important;
+  -webkit-box-shadow: 2px 2px 2px 0px @borderColor !important;
+  -moz-box-shadow: 2px 2px 2px 0px @borderColor !important;
+  box-shadow: 2px 2px 2px 0px @borderColor !important;
+  border-radius: 3px !important;
 }
 
 .toolbarButton {
@@ -531,6 +547,12 @@ button[disabled],
 .iconLink {
   width: 100%;
   height: 30px;
+}
+
+/* General */
+
+label {
+  color: lighten(@textColor, @lightPercentage);
 }
 
 /* jqPlot Overwrites*/

@@ -1,318 +1,338 @@
-define([], function() {
-	return {
-		inherit : inherit,
-		inheritMethods : inheritMethods,
-		formatDateTime : formatDateTime,
-		getTimeDifferenceInMinutes : getTimeDifferenceInMinutes,
-		removeItemFromArray : function(array, item) {
-			removeItemFromArray(array, item);
-		},
-		formatMoneyAmount : formatMoneyAmount,
-		getHash : getHash,
-		getQueryParameters : getQueryParameters,
-		installPostMessageListener : installPostMessageListener,
-		updatePageURL : updatePageURL,
-		composeUrl : composeUrl,
-		cloneFiltered : cloneFiltered,
-		ajax : ajax,
-	};
+define([], function () {
+    return {
+        inherit: inherit,
+        inheritMethods: inheritMethods,
+        formatDateTime: formatDateTime,
+        getTimeDifferenceInMinutes: getTimeDifferenceInMinutes,
+        removeItemFromArray: function (array, item) {
+            removeItemFromArray(array, item);
+        },
+        formatMoneyAmount: formatMoneyAmount,
+        formatDecimal: formatDecimal,
+        getHash: getHash,
+        getQueryParameters: getQueryParameters,
+        installPostMessageListener: installPostMessageListener,
+        updatePageURL: updatePageURL,
+        composeUrl: composeUrl,
+        cloneFiltered: cloneFiltered,
+        ajax: ajax,
+    };
 
-	/**
-	 * 
-	 */
-	function inherit(target, source) {
-		jQuery.extend(target, source);
-		inheritMethods(target, source);
+    /**
+     *
+     */
+    function inherit(target, source) {
+        jQuery.extend(target, source);
+        inheritMethods(target, source);
 
-		return target;
-	}
+        return target;
+    }
 
-	/**
-	 * Auxiliary method to copy all methods from the parentObject to the
-	 * childObject.
-	 */
-	function inheritMethods(target, source) {
-		for ( var member in source) {
-			if (source[member] instanceof Function) {
-				target[member] = source[member];
-			}
-		}
-	}
+    /**
+     * Auxiliary method to copy all methods from the parentObject to the
+     * childObject.
+     */
+    function inheritMethods(target, source) {
+        for (var member in source) {
+            if (source[member] instanceof Function) {
+                target[member] = source[member];
+            }
+        }
+    }
 
-	/**
-	 * 
-	 */
-	function formatDateTime(dateTime) {
-		if (!dateTime) {
-			return "-";
-		}
+    /**
+     *
+     */
+    function formatDateTime(dateTime) {
+        if (!dateTime) {
+            return "-";
+        }
 
-		dateTime = new Date(dateTime);
+        dateTime = new Date(dateTime);
 
-		return pad(dateTime.getUTCDate(), 2) + "."
-				+ pad(dateTime.getUTCMonth() + 1, 2) + "."
-				+ dateTime.getUTCFullYear() + " "
-				+ pad(dateTime.getUTCHours(), 2) + ":"
-				+ pad(dateTime.getUTCMinutes(), 2);
-	}
+        return pad(dateTime.getUTCDate(), 2) + "."
+            + pad(dateTime.getUTCMonth() + 1, 2) + "."
+            + dateTime.getUTCFullYear() + " "
+            + pad(dateTime.getUTCHours(), 2) + ":"
+            + pad(dateTime.getUTCMinutes(), 2);
+    }
 
-	/**
-	 * 
-	 */
-	function pad(number, characters) {
-		return (1e15 + number + // combine with large number
-		"" // convert to string
-		).slice(-characters); // cut leading "1"
-	}
+    /**
+     *
+     */
+    function pad(number, characters) {
+        return (1e15 + number + // combine with large number
+        "" // convert to string
+        ).slice(-characters); // cut leading "1"
+    }
 
-	/**
-	 * 
-	 * @param startTime
-	 * @param endTime
-	 * @returns
-	 */
-	function getTimeDifferenceInMinutes(startTime, endTime) {
-		var remainingTime = endTime - startTime;
+    /**
+     *
+     * @param startTime
+     * @param endTime
+     * @returns
+     */
+    function getTimeDifferenceInMinutes(startTime, endTime) {
+        var remainingTime = endTime - startTime;
 
-		var minutes = remainingTime / 1000 / 60;
-		var fraction = minutes % 1;
+        var minutes = remainingTime / 1000 / 60;
+        var fraction = minutes % 1;
 
-		return Math.round(minutes - fraction);
-	}
+        return Math.round(minutes - fraction);
+    }
 
-	/**
-	 * 
-	 * @param item
-	 */
-	function removeItemFromArray(array, item) {
-		var n = 0;
-		while (n < array.length) {
-			if (array[n] == item) {
-				removeFromArray(array, n, n);
-				// incase duplicates are present array size decreases,
-				// so again checking with same index position
-				continue;
-			}
-			++n;
-		}
-	}
+    /**
+     *
+     * @param item
+     */
+    function removeItemFromArray(array, item) {
+        var n = 0;
+        while (n < array.length) {
+            if (array[n] == item) {
+                removeFromArray(array, n, n);
+                // incase duplicates are present array size decreases,
+                // so again checking with same index position
+                continue;
+            }
+            ++n;
+        }
+    }
 
-	function removeFromArray(array, from, to) {
-		var rest = array.slice((to || from) + 1 || array.length);
-		array.length = from < 0 ? array.length + from : from;
-		return array.push.apply(array, rest);
-	}
+    function removeFromArray(array, from, to) {
+        var rest = array.slice((to || from) + 1 || array.length);
+        array.length = from < 0 ? array.length + from : from;
+        return array.push.apply(array, rest);
+    }
 
-	/**
-	 * TODO Consider using existing library (e.g. google).
-	 */
-	function formatMoneyAmount(amount, currency) {
-		if (!amount) {
-			amount = 0.0;
-		}
+    /**
+     * TODO Consider using existing library (e.g. google).
+     */
+    function formatMoneyAmount(amount, currency) {
+        if (!amount) {
+            amount = 0.0;
+        }
 
-		var decimalSeparator = new Number("1.2").toLocaleString().substr(1, 1);
+        var decimalSeparator = new Number("1.2").toLocaleString().substr(1, 1);
 
-		var amountWithCommas = amount.toLocaleString();
-		var arParts = String(amountWithCommas).split(decimalSeparator);
-		var intPart = arParts[0];
-		var decPart = (arParts.length > 1 ? arParts[1] : '');
-		decPart = (decPart + '00').substr(0, 2);
+        var amountWithCommas = amount.toLocaleString();
+        var arParts = String(amountWithCommas).split(decimalSeparator);
+        var intPart = arParts[0];
+        var decPart = (arParts.length > 1 ? arParts[1] : '');
+        decPart = (decPart + '00').substr(0, 2);
 
-		return currency + " " + intPart + decimalSeparator + decPart;
-	}
+        return currency + " " + intPart + decimalSeparator + decPart;
+    }
 
-	/**
-	 * 
-	 */
-	function getHash() {
-		var hash = window.location.hash;
+    /**
+     * TODO Consider using existing library (e.g. google).
+     */
+    function formatDecimal(amount) {
+        if (!amount) {
+            return "-";
+        }
 
-		if (hash.indexOf("#/") == 0) {
-			hash = hash.substring(2);
-		} else if (hash.indexOf("#") == 0) {
-			hash = hash.substring(1);
-		}
+        var decimalSeparator = new Number("1.2").toLocaleString().substr(1, 1);
 
-		if (hash.indexOf("?") > 0) {
-			hash = hash.substring(0, hash.indexOf("?"));
-		}
+        var amountWithCommas = amount.toLocaleString();
+        var arParts = String(amountWithCommas).split(decimalSeparator);
+        var intPart = arParts[0];
+        var decPart = (arParts.length > 1 ? arParts[1] : '');
+        decPart = (decPart + '00').substr(0, 2);
 
-		return hash;
-	}
+        return intPart + decimalSeparator + decPart;
+    }
 
-	/**
-	 * 
-	 */
-	function getQueryParameters() {
-		var parameters = [];
+    /**
+     *
+     */
+    function getHash() {
+        var hash = window.location.hash;
 
-		if (window.location.hash != null) {
-			console.log(window.location.hash);
+        if (hash.indexOf("#/") == 0) {
+            hash = hash.substring(2);
+        } else if (hash.indexOf("#") == 0) {
+            hash = hash.substring(1);
+        }
 
-			var keyValues = window.location.hash.slice(
-					window.location.hash.indexOf('?') + 1).split('&');
+        if (hash.indexOf("?") > 0) {
+            hash = hash.substring(0, hash.indexOf("?"));
+        }
 
-			console.log(keyValues);
+        return hash;
+    }
 
-			for (var i = 0; i < keyValues.length; i++) {
-				var keyValue = keyValues[i].split('=');
+    /**
+     *
+     */
+    function getQueryParameters() {
+        var parameters = [];
 
-				parameters[keyValue[0]] = keyValue[1];
-			}
-		}
+        if (window.location.hash != null) {
+            console.log(window.location.hash);
 
-		return parameters;
-	}
+            var keyValues = window.location.hash.slice(
+                window.location.hash.indexOf('?') + 1).split('&');
 
-	function updatePageURL() {
-		if (window.location.search.indexOf('?') > -1) {
-			var currentUrl = window.location.href;
-			var baseUrl = currentUrl.substring(0, currentUrl.indexOf('?'));
-			var viewId = currentUrl.substring(currentUrl.indexOf("#"),
-					currentUrl.length);
-			var newUrl = baseUrl + viewId;
-			// update the url without reloading page
-			if (window.history.pushState) {
-				window.history.pushState({}, window.document.title, newUrl);
-			}
-		}
-	}
+            console.log(keyValues);
 
-	/**
-	 * 
-	 */
-	function installPostMessageListener(win, handler) {
-		var ret = {};
-		try {
-			if (win.postMessage) {
-				if (win.addEventListener) {
-					win.addEventListener("message", handler, true);
-				} else if (win.attachEvent) {
-					win.attachEvent("onmessage", handler);
-				} else {
-					ret.errorCode = "NOT_SUPPORTED";
-				}
-			} else {
-				ret.errorCode = "NOT_SUPPORTED";
-			}
-		} catch (e) {
-			ret.errorCode = "FAILED";
-			ret.errorMsg = e.message;
-		}
+            for (var i = 0; i < keyValues.length; i++) {
+                var keyValue = keyValues[i].split('=');
 
-		return ret;
-	}
+                parameters[keyValue[0]] = keyValue[1];
+            }
+        }
 
-	/**
-	 * 
-	 * @param hash
-	 * @param parameters
-	 * @returns
-	 */
-	function composeUrl(path, parameters, hash) {
-		var url = path;
-		var first = true;
+        return parameters;
+    }
 
-		for ( var key in parameters) {
-			if (first) {
-				first = false;
+    function updatePageURL() {
+        if (window.location.search.indexOf('?') > -1) {
+            var currentUrl = window.location.href;
+            var baseUrl = currentUrl.substring(0, currentUrl.indexOf('?'));
+            var viewId = currentUrl.substring(currentUrl.indexOf("#"),
+                currentUrl.length);
+            var newUrl = baseUrl + viewId;
+            // update the url without reloading page
+            if (window.history.pushState) {
+                window.history.pushState({}, window.document.title, newUrl);
+            }
+        }
+    }
 
-				url += "?";
-			} else {
-				url += "&";
-			}
+    /**
+     *
+     */
+    function installPostMessageListener(win, handler) {
+        var ret = {};
+        try {
+            if (win.postMessage) {
+                if (win.addEventListener) {
+                    win.addEventListener("message", handler, true);
+                } else if (win.attachEvent) {
+                    win.attachEvent("onmessage", handler);
+                } else {
+                    ret.errorCode = "NOT_SUPPORTED";
+                }
+            } else {
+                ret.errorCode = "NOT_SUPPORTED";
+            }
+        } catch (e) {
+            ret.errorCode = "FAILED";
+            ret.errorMsg = e.message;
+        }
 
-			url += key;
-			url += "=";
-			url += parameters[key];
-		}
+        return ret;
+    }
 
-		if (hash != null) {
-			url += "#";
-			url += hash;
-		}
+    /**
+     *
+     * @param hash
+     * @param parameters
+     * @returns
+     */
+    function composeUrl(path, parameters, hash) {
+        var url = path;
+        var first = true;
 
-		return url;
-	}
+        for (var key in parameters) {
+            if (first) {
+                first = false;
 
-	/**
-	 * 
-	 */
-	function cloneFiltered(object, filter) {
-		var clone = _.cloneDeep(object);
+                url += "?";
+            } else {
+                url += "&";
+            }
 
-		// Traverse and delete all filtered
-		// Check whether strip can be done in lodash callback
+            url += key;
+            url += "=";
+            url += parameters[key];
+        }
 
-		stripFields(clone, filter);
+        if (hash != null) {
+            url += "#";
+            url += hash;
+        }
 
-		return clone;
-	}
+        return url;
+    }
 
-	function stripFields(object, filter) {
-		if (typeof (object) !== "object") {
-			return;
-		}
+    /**
+     *
+     */
+    function cloneFiltered(object, filter) {
+        var clone = _.cloneDeep(object);
 
-		for ( var key in object) {
-			if (!object.hasOwnProperty(key)) {
-				continue;
-			}
+        // Traverse and delete all filtered
+        // Check whether strip can be done in lodash callback
 
-			if (key.search(filter) == 0) {
-				delete object[key];
+        stripFields(clone, filter);
 
-				continue;
-			}
+        return clone;
+    }
 
-			stripFields(object[key], filter);
-		}
-	}
+    function stripFields(object, filter) {
+        if (typeof (object) !== "object") {
+            return;
+        }
 
-	/**
-	 * 
-	 */
-	function ajax(url, method, contentType, data, headers) {
-		var deferred = jQuery.Deferred();
+        for (var key in object) {
+            if (!object.hasOwnProperty(key)) {
+                continue;
+            }
 
-		jQuery.ajax({
-			url : url,
-			type : method,
-			contentType : contentType,
-			data : data,
-			beforeSend : function(request) {
-				for ( var key in headers) {
-					request.setRequestHeader(key, value);
-				}
-			},
-		}).done(function(data, status, xhr) {
-			console.log(method + ":" + url);
-			console.log("SUCCESS:");
-			console.log(data);
+            if (key.search(filter) == 0) {
+                delete object[key];
 
-			deferred.resolve(data);
-		}).fail(function(data) {
-			console.log(method + ":" + url);
-			console.log("FAILED:");
-			console.log(data);
+                continue;
+            }
 
-			deferred.reject(data.responseText);
-		});
+            stripFields(object[key], filter);
+        }
+    }
 
-		return deferred.promise();
-	}
+    /**
+     *
+     */
+    function ajax(url, method, contentType, data, headers) {
+        var deferred = jQuery.Deferred();
 
-	/**
-	 * 
-	 */
-	function getNextIdIndex(list, baseId, index) {
-		for (var n = 0; n < list.length; ++n) {
-			if (list[n].id == baseId + index) {
-				return getNextIdIndex(list, baseId, ++index);
-			}
-		}
+        jQuery.ajax({
+            url: url,
+            type: method,
+            contentType: contentType,
+            data: data,
+            beforeSend: function (request) {
+                for (var key in headers) {
+                    request.setRequestHeader(key, value);
+                }
+            },
+        }).done(function (data, status, xhr) {
+            console.log(method + ":" + url);
+            console.log("SUCCESS:");
+            console.log(data);
 
-		return index;
-	}
+            deferred.resolve(data);
+        }).fail(function (data) {
+            console.log(method + ":" + url);
+            console.log("FAILED:");
+            console.log(data);
+
+            deferred.reject(data.responseText);
+        });
+
+        return deferred.promise();
+    }
+
+    /**
+     *
+     */
+    function getNextIdIndex(list, baseId, index) {
+        for (var n = 0; n < list.length; ++n) {
+            if (list[n].id == baseId + index) {
+                return getNextIdIndex(list, baseId, ++index);
+            }
+        }
+
+        return index;
+    }
 });

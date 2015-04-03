@@ -270,34 +270,51 @@ define(
                     function (event) {
                         console.log("Receiving event");
                         console.log(event);
-                        console.log(self.node.getDevice(
-                            event.device).getSensor(
-                            event.sensor).device);
 
-                        self.node.getDevice(event.device)
-                            .getSensor(event.sensor).value = event.value;
-                        self.node.getDevice(event.device)
-                            .getSensor(event.sensor).lastEventTimestamp = new Date()
-                            .getTime();
+                        if (event.sensor) {
+                            console.log(self.node.getDevice(
+                                event.device).getSensor(
+                                event.sensor).device);
 
-                        if (event.type == "valueChange") {
-                            console.log(event);
                             self.node.getDevice(event.device)
-                                .getSensor(event.sensor).lastValueChangeTimestamp = new Date()
+                                .getSensor(event.sensor).value = event.value;
+                            self.node.getDevice(event.device)
+                                .getSensor(event.sensor).lastEventTimestamp = new Date()
                                 .getTime();
 
-                            if (event.sensor) {
-                                self.addValue(event.device,
-                                    event.sensor, event.value);
-                            } else {
-                                self.writeToDeviceStream(event.device,
-                                    event.value);
-                            }
+                            if (event.type == "valueChange") {
+                                console.log(event);
+                                self.node.getDevice(event.device)
+                                    .getSensor(event.sensor).lastValueChangeTimestamp = new Date()
+                                    .getTime();
 
-                            if (self.topPage().id == "sensorMonitoringPage"
-                                && self.topPage().sensor.device.id == event.device
-                                && self.topPage().sensor.id == event.sensor) {
-                                self.topPage().updatePlot();
+                                if (event.sensor) {
+                                    self.addValue(event.device,
+                                        event.sensor, event.value);
+                                } else {
+                                    self.writeToDeviceStream(event.device,
+                                        event.value);
+                                }
+
+                                if (self.topPage().id == "sensorMonitoringPage"
+                                    && self.topPage().sensor.device.id == event.device
+                                    && self.topPage().sensor.id == event.sensor) {
+                                    self.topPage().updatePlot();
+                                }
+                            }
+                        }
+                        else {
+                            var device = self.node.getDevice(event.device);
+
+                            console.log("Trigger event " + event.type + " on device ");
+                            console.log(device);
+
+                            if (event.type == "left") {
+                                jQuery("#left").trigger("left");
+                            }
+                            else if (event.type == "right") {
+                                jQuery("#right").trigger("right");
+
                             }
                         }
 
@@ -458,8 +475,6 @@ define(
                 try {
                     var device = this.node.getDevice(stateChange.device);
 
-                    console.log(stateChange);
-
                     device._state = stateChange.state;
                     device.lastStateChangeTimestamp = new Date().getTime();
                 }
@@ -578,6 +593,13 @@ define(
              */
             MobileConsole.prototype.formatDateTime = function (time) {
                 return Utils.formatDateTime(time);
+            };
+
+            /**
+             *
+             */
+            MobileConsole.prototype.formatDecimal = function (decimal) {
+                return Utils.formatDecimal(decimal);
             };
 
             /*

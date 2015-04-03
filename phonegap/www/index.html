@@ -453,25 +453,20 @@
             <h4>Copyright &copy; 2015 thing-it</h4>
         </div>
     </div>
-    <div id="deviceAdvertisementDialog" data-role="popup">    
-        <div data-role="header" data-theme="a">
-                <h1>Device Advertisement {{topPage().id}} {{deviceAdvertisementDialog.nase}}</h1>    
-        </div>
-        <div role="main" class="ui-content" style="text-align: center">
-                    <h3 class="ui-title">New Device [{{deviceAdvertisementDialog.device.label}}] available.</h3>
-               
+    <div id="deviceAdvertisementDialog" data-role="popup">
+        <div data-role="header"><h1>Device Advertisement {{topPage().id}}</h1></div>
+        <div role="main" class="ui-content" style="display: table-cell; text-align: center"><p>New
+            Device
+            [{{deviceAdvertisementDialog.device.label}}] available.</p>
             <table>
                 <tr>
-                    <td>
-                                <a class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back"
-                                   data-transition="flow" ng-click="registerDevice()">Register</a>
-                    <td>
-                                <a class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b"
-                                   data-rel="back" ng-click="closeDeviceAdvertisementDialog()">Reject</a></td>
+                    <td><a class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back"
+                           data-transition="flow" ng-click="registerDevice()">Register</a>
+                    <td><a class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b"
+                           data-rel="back" ng-click="closeDeviceAdvertisementDialog()">Reject</a></td>
                     </td>
                 </tr>
             </table>
-                
         </div>
     </div>
 </div>
