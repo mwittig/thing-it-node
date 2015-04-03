@@ -3,14 +3,24 @@ module.exports = {
     id: "home",
     autoDiscoveryDeviceTypes: [{
         plugin: "ar-drone/ardroneBluetoothLE",
-        confirmRegistration: false,
+        confirmRegistration: true,
         persistRegistration: false,
+        defaultConfiguration: {},
         options: {}
     },
         {
             plugin: "ti-sensor-tag/tiSensorTag",
             confirmRegistration: true,
             persistRegistration: false,
+            defaultConfiguration: {
+                barometricPressureEnabled: false,
+                irTemperatureEnabled: false,
+                ambientTemperatureEnabled: false,
+                accelerometerEnabled: true,
+                gyroscopeEnabled: false,
+                magnetometerEnabled: false,
+                humidityEnabled: false
+            },
             options: {}
         }
     ],
@@ -19,10 +29,19 @@ module.exports = {
         id: "sensorTagLounge",
         label: "Sensor Tag Lounge",
         plugin: "ti-sensor-tag/tiSensorTag",
-        configuration: [],
+        configuration: {
+            barometricPressureEnabled: true,
+            irTemperatureEnabled: false,
+            ambientTemperatureEnabled: true,
+            accelerometerEnabled: false,
+            gyroscopeEnabled: false,
+            magnetometerEnabled: false,
+            humidityEnabled: true
+        },
         actors: [],
         sensors: []
-    }],
+    }//, drone 7e7c3915d2704444bef61e0cc81a4225
+    ],
     services: [],
     eventProcessors: [{
         id: "eventProcessor1",
