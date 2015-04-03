@@ -306,16 +306,10 @@ define(
                         else {
                             var device = self.node.getDevice(event.device);
 
-                            console.log("Trigger event " + event.type + " on device ");
-                            console.log(device);
+                            console.log("Trigger event:");
+                            console.log(JSON.stringify(event));
 
-                            if (event.type == "left") {
-                                jQuery("#left").trigger("left");
-                            }
-                            else if (event.type == "right") {
-                                jQuery("#right").trigger("right");
-
-                            }
+                            window.postMessage(JSON.stringify(event), window.location.href);
                         }
 
                         self.safeApply();
