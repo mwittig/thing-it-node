@@ -228,7 +228,7 @@ define(["js/Utils"], function (Utils) {
          *
          */
         ConsoleService.prototype.registerDevice = function (node, device) {
-            return Utils.ajax(this.getNodeRootUrl(node) + "/devices/" + device.id + "/register", "POST",
+            return Utils.ajax(this.getNodeRootUrl(node) + "/devices/" + device.uuid + "/register", "POST",
                 "application/json");
         };
 

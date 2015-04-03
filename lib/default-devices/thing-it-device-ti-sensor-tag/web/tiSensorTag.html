@@ -1,88 +1,135 @@
+<script>
+    jQuery(document).ready(function () {
+        jQuery("#left").on("left", function () {
+            jQuery(this).addClass("click");
+
+            window.setTimeout(function () {
+                jQuery(this).removeClass("click");
+            }.bind(this), 1000);
+        });
+
+        jQuery("#right").on("right", function () {
+            jQuery(this).addClass("click");
+
+            window.setTimeout(function () {
+                jQuery(this).removeClass("click");
+            }.bind(this), 1000);
+        });
+    });
+</script>
+<style>
+    .circleButton {
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        padding: 12px;
+        background-color: #5E829A;
+        border: none;
+        color: #FFFFFF;
+        text-align: center;
+        vertical-align: middle;
+        font-size: 24px;
+    }
+
+    .click {
+        background-color: #BFAE99;
+    }
+</style>
 <table>
+    <thead>
+    <tr>
+        <th></th>
+        <th></th>
+        <th style="width: 80px;"></th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>
+            <table>
+                <tr>
+                    <td>
+                        <div id="left" class="circleButton">L</div>
+                    </td>
+                    <td>
+                        <div id="right" class="circleButton" style="margin-left: 10px;">R</div>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
     <tr>
         <td><label>Ambient Temperature</label></td>
-        <td>{{device._state.ambientTemperature}}</td>
+        <td></td>
+        <td style="text-align: right;">{{formatDecimal(device._state.ambientTemperature)}}</td>
         <td><label>&#8451;</label></td>
     </tr>
     <tr>
         <td><label>IR Temperature</label></td>
-        <td>{{device._state.ambientTemperature}}</td>
+        <td></td>
+        <td style="text-align: right;">{{formatDecimal(device._state.ambientTemperature)}}</td>
         <td><label>&#8451;</label></td>
     </tr>
-    <tr style="vertical-align: top">
-        <td><label>Acceleratometer</label></td>
-        <td>
-            <table>
-                <tr>
-                    <td><label>X</label></td>
-                    <td>{{device._state.accelerometer.x}}</td>
-                    <td><label>G</label></td>
-                </tr>
-                <tr>
-                    <td><label>Y</label></td>
-                    <td>{{device._state.accelerometer.y}}</td>
-                    <td><label>G</label></td>
-                </tr>
-                <tr>
-                    <td><label>Z</label></td>
-                    <td>{{device._state.accelerometer.z}}</td>
-                    <td><label>G</label></td>
-                </tr>
-            </table>
-        </td>
+    <tr>
+        <td rowspan="3"><label>Acceleration</label></td>
+        <td><label>X</label></td>
+        <td style="text-align: right;">{{formatDecimal(device._state.acceleration.x)}}</td>
+        <td><label>G</label></td>
     </tr>
-    <tr style="vertical-align: top">
-        <td><label>Magnetometer</label></td>
-        <td>
-            <table>
-                <tr>
-                    <td><label>X</label></td>
-                    <td>{{device._state.magnetometer.x}}</td>
-                    <td><label>&mu;T</label></td>
-                </tr>
-                <tr>
-                    <td><label>Y</label></td>
-                    <td>{{device._state.magnetometer.y}}</td>
-                    <td><label>&mu;T</label></td>
-                </tr>
-                <tr>
-                    <td><label>Z</label></td>
-                    <td>{{device._state.magnetometer.z}}</td>
-                    <td><label>&mu;T</label></td>
-                </tr>
-            </table>
-        </td>
+    <tr style="vertical-align: center !important;">
+        <td><label>Y</label></td>
+        <td style="text-align: right;">{{formatDecimal(device._state.acceleration.y)}}</td>
+        <td><label>G</label></td>
+    </tr>
+    <tr style="vertical-align: center !important;">
+        <td><label>Z</label></td>
+        <td style="text-align: right;">{{formatDecimal(device._state.acceleration.z)}}</td>
+        <td><label>G</label></td>
+    </tr>
+    <tr>
+        <td rowspan="3"><label>Magnetic Field Strength</label></td>
+        <td><label>X</label></td>
+        <td style="text-align: right;">{{formatDecimal(device._state.magneticFieldStrength.x)}}</td>
+        <td><label>&mu;T</label></td>
+    </tr>
+    <tr>
+        <td><label>Y</label></td>
+        <td style="text-align: right;">{{formatDecimal(device._state.magneticFieldStrength.y)}}</td>
+        <td><label>&mu;T</label></td>
+    </tr>
+    <tr>
+        <td><label>Z</label></td>
+        <td style="text-align: right;">{{formatDecimal(device._state.magneticFieldStrength.z)}}</td>
+        <td><label>&mu;T</label></td>
     </tr>
     <tr>
         <td><label>Humidity</label></td>
-        <td>{{device._state.ambientTemperature}}</td>
+        <td></td>
+        <td style="text-align: right;">{{formatDecimal(device._state.humidity)}}</td>
         <td><label>%rH</label></td>
     </tr>
     <tr>
-        <td><label>Barometer</label></td>
-        <td>{{device._state.barometer}}</td>
+        <td><label>Barometric Pressure</label></td>
+        <td></td>
+        <td style="text-align: right;">{{formatDecimal(device._state.barometricPressure)}}</td>
         <td><label>mbar</label></td>
     </tr>
-    <tr style="vertical-align: top">
-        <td><label>Gyroscope</label></td>
-        <td>
-            <table>
-                <tr>
-                    <td><label>X</label></td>
-                    <td>{{device._state.gyroscope.x}}</td>
-                    <td><label>/s</label></td>
-                </tr>
-                <tr>
-                    <td><label>Y</label></td>
-                    <td>{{device._state.gyroscope.y}}</td>
-                    <td><label>/s</label></td>
-                </tr>
-                <tr>
-                    <td><label>Z</label></td>
-                    <td>{{device._state.gyroscope.z}}</td>
-                    <td><label>/s</label></td>
-                </tr>
-            </table>
-        </td>
+    <tr>
+        <td rowspan="3"><label>Gyroscopic Propulsion</label></td>
+        <td><label>X</label></td>
+        <td style="text-align: right;">{{formatDecimal(device._state.gyroscopicPropulsion.x)}}</td>
+        <td><label>&deg;/s</label></td>
     </tr>
+    <tr>
+        <td><label>Y</label></td>
+        <td style="text-align: right;">{{formatDecimal(device._state.gyroscopicPropulsion.y)}}</td>
+        <td><label>&deg;/s</label></td>
+    </tr>
+    <tr>
+        <td><label>Z</label></td>
+        <td style="text-align: right;">{{device._state.gyroscopicPropulsion.z}}</td>
+        <td><label>&deg;/s</label></td>
+    </tr>
+    </tbody>
 </table>
