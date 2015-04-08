@@ -226,9 +226,7 @@ Connect your browser to
 
 `http://localhost:3001/mobile/console.html`
 
-You will see a Login Screen. _You can leave *Account* and *Password* empty for now. We will be adding security measures later._
-
-Click Login. The browser content should look like
+The browser content should look like
 
 <p align="center"><a href="./documentation/images/mobile-client.png"><img src="./documentation/images/mobile-client.png" width="40%" height="40%"></a></p>
 
