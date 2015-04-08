@@ -1,16 +1,18 @@
 **[thing-it-node]** allows you to 
 
-* connect multiple devices like an Arduino Uno with Actors and Sensors or a Bluetooth-enabled Wristband to your node computer (e.g. a regular server, a Raspberry Pi or a BeagleBone Black) to centralize **Internet access** to a **distributed, scalable set of Sensors and Actors**, 
-* invoke **REST Services** on all Actors, 
-* receive **WebSocket Notifications** on all Sensor data changes and events,
+* connect multiple Devices (e.g. Heart Rate Monitors, Sensor Tags, Drones) as well as low-level Actors and Sensors managed via Microcontrollers like an Arduino
+  to your node computer (e.g. a regular server, a Raspberry Pi or a BeagleBone Black)
+* invoke **REST Services** on all Devices and Actors,
+* receive **WebSocket Notifications** on all Device and Sensor state changes and events,
 * define **Higher-level REST Services** to control multiple Actors,
-* define **Complex Event Processing** to react on Sensor events and data changes,
-* define **Storyboards** for the timeline-based, animation of Actor State Changes (e.g. for robotics),
-* define **Jobs** for calendar-based, recurring execution of Services or Storyboards,
-* define **Complex Data Variables** to persistently store Event Data for later evaluation and
-* use a **Mobile Client** to control your devices.
+* define **Complex Event Processing** to react to Sensor events and state changes,
+* define **Storyboards** for the timeline-based invocation of Node, Device and Actor Services (e.g. for robotics),
+* define **Job Schedules** for a calendar-based, recurring execution of Services including start of Storyboards,
+* define **Complex Data Variables** to persistently store Event Data for later evaluation or for configurations and
+* use a **Mobile Client** to monitor and control your Devices.
 
-All of the above is controlled by a [nodejs](http://nodejs.org/) server which is bootstrapped from a **simple JSON configuration**, which allows you to configure a **home automation system in minutes**.
+All of the above is controlled by a [nodejs](http://nodejs.org/) server which is bootstrapped from a **simple JSON configuration**, which allows you to
+configure a **home automation system in minutes**.
 
 <p align="center"><a href="./documentation/images/architecture.png"><img src="./documentation/images/architecture.png" width="80%" height="80%"></a></p>
 
@@ -18,19 +20,12 @@ More details can be found on the [thing-it-node Wiki](https://github.com/marcgil
 
 # thing-it.com
 
-You can use [www.thing-it.com](http://www.thing-it.com) to create and simulate your setup for **[thing-it-node]** and then just download the configuration file.
+You can use [www.thing-it.com](http://www.thing-it.com) to create and simulate your setup for **[thing-it-node]** and then just download the configuration file or
+connect your Nodes permanently.
 
 # Dual License
 
 **[thing-it-node]** is available under the [MIT License](./thing-it-node/license.mit) and the [Eclipse Public License](https://eclipse.org/org/documents/epl-v10.html).
-
-# Philosophy
-
-**[thing-it-node]** is created because we felt the need for a scalable management entity which bridges Internet services and multiple, possibly heterogenous devices. It is not intended to compete with, but rather complement and use great libraries and frameworks like
-
-* [Fritzing](http://fritzing.org/) by FH Potsdam,
-* [Johnny Five](https://github.com/rwaldron/johnny-five/wiki/Board) by Rick Waldron or
-* [aREST](https://github.com/marcoschwartz/aREST) by Marco Schwarz.
 
 # Getting Started
 
@@ -42,6 +37,9 @@ Let's set up a simple - but not too simple - home automation scenario:
 1. A Photocell to detect the ambient light in a room and event processing to switch both LEDs on if the light goes below some threshold for a while (to distinguish sunset from the Photocell being temporarily covered by your curious cat).
 1. Two buttons to toggle the state of each lamp.
 1. A simple (mobile capable) web application to toggle the state of both lamps individually and together - alternatively to using the buttons - and to display the event under 2.
+
+If you are not so interested in tinkering with Microcontrollers and e.g. just intend to connect some Bluetooth LE Devices have a look at other Node Configurations
+on the [thing-it.com Mesh Market](http://www.thing-it.com/thing-it/index.html#/marketPanel).
 
 ## Installing, Configuring and Running [thing-it-node]
 

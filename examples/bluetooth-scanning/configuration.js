@@ -2,7 +2,7 @@ module.exports = {
 	label : "Home",
 	id : "home",
 	devices : [ {
-		label : "TISensorTag",
+		label : "HeartRateMonitor",
 		id : "bluetooth",
 		plugin : "bluetooth/bluetooth",
 		actors : [],
