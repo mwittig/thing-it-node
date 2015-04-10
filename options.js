@@ -2,7 +2,7 @@ module.exports = {
     logLevel: "debug",
     port: 3001,
     protocol: "http",
-    nodeConfigurationFile: "../examples/simple-lighting/configuration.js",
+    nodeConfigurationFile: "../examples/heart-rate-monitor/configuration.js",
     dataDirectory: "../thing-it-data",
     simulated: true,
     hotDeployment: false,
