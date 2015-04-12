@@ -4,6 +4,14 @@
     .heartRateValue {
         font-size: 80px;
     }
+
+    .heartRateWarning {
+        color: #FFFF00;
+    }
+
+    .heartRateCritical {
+        color: #FF0000;
+    }
 </style>
 <table>
     <tr style="vertical-align: middle">
@@ -21,34 +29,7 @@
             </table>
         </td>
         <td style="padding-left: 40px;">
-            <!-- Make Angular Directive -->
-            <div class="battery"
-                 ng-show="device._state.batteryLevel > 75 && device._state.batteryLevel <= 100">
-                <div class="battery-level" style="height:100%;"></div>
-            </div>
-
-            <div class="battery"
-                 ng-show="device._state.batteryLevel > 50 && device._state.batteryLevel <= 75">
-                <div class="battery-level" style="height:75%;"></div>
-            </div>
-
-            <div class="battery"
-                 ng-show="device._state.batteryLevel > 25 && device._state.batteryLevel <= 50">
-                <div class="battery-level" style="height:50%;"></div>
-            </div>
-
-            <div class="battery"
-                 ng-show="device._state.batteryLevel > 18 && device._state.batteryLevel <= 25">
-                <div class="battery-level" style="height:25%;"></div>
-            </div>
-
-            <div class="battery"
-                 ng-show="device._state.batteryLevel > 10 && device._state.batteryLevel <= 18">
-                <div class="battery-level warn" style="height:18%;"></div>
-            </div>
-            <div class="battery" ng-show="device._state.batteryLevel <= 10">
-                <div class="battery-level alert" style="height:10%;"></div>
-            </div>
+            <ti-battery ti-model="device._state.batteryLevel"></ti-battery>
         </td>
     </tr>
 </table>

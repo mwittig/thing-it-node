@@ -1,63 +1,29 @@
 <style>
-    .buttonIcon {
-        font-size: 40px;
+    .emergencyButton {
+        color: #FF0000;
     }
 </style>
 <table>
-    <tr>
+    <tr style="vertical-align: top;">
         <td>
+            <ti-drone ti-height="device._state.height" ti-device="device"></ti-drone>
+        </td>
+        <td style="padding-left: 20px;">
             <table>
                 <tr>
-                    <td></td>
-                    <td align="center"><a ng-click="callDeviceService(device, 'forward')"><i
+                    <td align="center"><a ng-click="callDeviceService(device, 'takeOff')"><i
                             class="fa fa-chevron-circle-up buttonIcon"></i></i></a>
                     </td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td align="center"><a ng-click="callDeviceService(device, 'right')"><i
-                            class="fa fa-chevron-circle-left buttonIcon"></i></i></a>
-                    <td align="center">Move</td>
-                    <td align="center"><a ng-click="callDeviceService(device, 'left')"><i
-                            class="fa fa-chevron-circle-right buttonIcon"></i></i></a>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td align="center"><a ng-click="callDeviceService(device, 'backward')"><i
+                    <td align="center" style="padding-left: 20px;"><a ng-click="callDeviceService(device, 'land')"><i
                             class="fa fa-chevron-circle-down buttonIcon"></i></i>
                     </a></td>
-                    <td></td>
-                </tr>
-            </table>
-        </td>
-        <td>
-            <table style="margin-left: 20px;">
-                <tr>
-                    <td align="center"><a ng-click="callDeviceService(device, 'up')"><i
-                            class="fa fa-chevron-circle-up buttonIcon"></i></i></a>
-                    </td>
-                </tr>
-                <tr>
-                    <td align="center">Height</td>
-                </tr>
-                <tr>
-                    <td align="center"><a ng-click="callDeviceService(device, 'down')"><i
-                            class="fa fa-chevron-circle-down buttonIcon"></i></i>
+                    <td align="center" style="padding-left: 20px;"><a
+                            ng-click="callDeviceService(device, 'emergencyStop')"><i
+                            class="fa fa-times-circle-o buttonIcon emergencyButton"></i></i>
                     </a></td>
                 </tr>
             </table>
-        </td>
-        <td>
-            <video controls>
-                <source src="movie.mp4" type="video/mp4"/>
-                <source src="movie.webm" type="video/webm"/>
-                <source src="movie.ogg" type="video/ogg"/>
-                <!-- fallback -->
-                Your browser does not support the <code>video</code> element.
-            </video>
-        </td>
-        <td>
-            <table style="margin-left: 20px;">
+            <table>
                 <tr>
                     <td><label>Longitude</label></td>
                     <td>{{device._state.longitude}}</td>
@@ -71,6 +37,7 @@
                     <td>{{device._state.height}}</td>
                 </tr>
             </table>
+            <ti-battery ti-model="device._state.batteryLevel"></ti-battery>
         </td>
     </tr>
 </table>
