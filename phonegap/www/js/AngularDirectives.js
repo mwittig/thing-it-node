@@ -229,6 +229,98 @@ define(
                     }
                 };
             });
+
+            module.directive('tiBattery', function ($timeout, $parse) {
+                return {
+                    restrict: "E",
+                    link: function (scope, element, attrs) {
+                        var batteryLevel = jQuery("<div class='battery-level' style='height:100%;'>");
+                        var battery = jQuery("<div class='battery'></div>");
+
+                        battery.append(batteryLevel);
+                        jQuery(element).append(battery);
+
+                        scope.$watch(attrs.tiModel, function (value) {
+                            if (value <= 10) {
+                                batteryLevel.css({height: "10%"});
+                                batteryLevel.removeClass("warn");
+                                batteryLevel.addClass("alert");
+                            } else if (value > 10 && value <= 18) {
+                                batteryLevel.css({height: "18%"});
+                                batteryLevel.removeClass("alert");
+                                batteryLevel.addClass("warn");
+                            } else if (value > 18 && value <= 25) {
+                                batteryLevel.css({height: "25%"});
+                                batteryLevel.removeClass("alert");
+                                batteryLevel.removeClass("warn");
+                            } else if (value > 25 && value <= 50) {
+                                batteryLevel.css({height: "50%"});
+                                batteryLevel.removeClass("alert");
+                                batteryLevel.removeClass("warn");
+                            } else if (value > 50 && value <= 75) {
+                                batteryLevel.css({height: "75%"});
+                                batteryLevel.removeClass("alert");
+                                batteryLevel.removeClass("warn");
+                            } else {
+                                batteryLevel.css({height: "100%"});
+                                batteryLevel.removeClass("alert");
+                                batteryLevel.removeClass("warn");
+                            }
+                        });
+                    }
+                };
+            });
+
+            module.directive('tiDrone', function ($timeout, $parse) {
+                return {
+                    restrict: "E",
+                    link: function (scope, element, attrs) {
+                        var controlStick = jQuery("<span class='droneControlStick'><i class='fa fa-dot-circle-o'></i></span>");
+                        var controlPanel = jQuery("<div class='droneControlPanel'></div>");
+
+                        controlStick.draggable({
+                            containment: "parent",
+                            start: function (event) {
+                                //jQuery(element).data();
+                            }, stop: function (event) {
+                                console.log("Last top: " + jQuery(controlStick).data("lastTop"));
+                                console.log("New top : " + jQuery(controlStick).position().top);
+
+                                var delta = -Math.round((((jQuery(controlStick).position().top - jQuery(controlStick).data("lastTop")) * 400 /* Replace with config for maxHeight*/ / controlPanel.height())) / 50);
+
+                                jQuery(controlStick).data("lastTop", controlStick.position().top);
+
+                                if (delta > 0) {
+                                    console.log("Steps up: " + delta);
+                                    scope.callDeviceService(scope.$eval(attrs.tiDevice), "up");
+                                }
+                                else {
+                                    console.log("Steps down: " + (-delta));
+                                    scope.callDeviceService(scope.$eval(attrs.tiDevice), "down");
+                                }
+                            }
+                        });
+                        controlPanel.append(controlStick);
+                        jQuery(element).append(controlPanel);
+
+                        controlStick.css({
+                            left: 0.5 * controlPanel.width(),
+                            top: controlPanel.height() - 40
+                        });
+
+                        jQuery(controlStick).data("lastTop", controlStick.position().top);
+
+                        scope.$watch(attrs.tiHeight, function (value) {
+                            console.log("height changed to " + value);
+
+                            controlStick.css({
+                                top: controlPanel.height() - 40 - controlPanel.height() * value / 400
+                            });
+                            jQuery(controlStick).data("lastTop", controlStick.position().top);
+                        });
+                    }
+                };
+            });
         }
 
         /**

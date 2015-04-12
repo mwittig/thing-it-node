@@ -17,6 +17,16 @@ module.exports = {
         actors: [],
         sensors: []
     }],
+    groups: [{
+        id: "familyHealth",
+        label: "Family Health",
+        icon: "home",
+        subGroups: [],
+        devices: ["heartRateJenn", "heartRateFrank"],
+        actors: [],
+        sensors: [],
+        services: []
+    }],
     services: [],
     eventProcessors: []
 };

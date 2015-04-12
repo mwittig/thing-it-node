@@ -3,141 +3,154 @@
  ******************************************************************************/
 
 define(
-		[ "js/Utils", "js/Node" ],
-		function(Utils, Node) {
-			return {
-				bind : function(node, group, superGroup) {
-					Utils.inheritMethods(group, new Group());
+    ["js/Utils", "js/Node"],
+    function (Utils, Node) {
+        return {
+            bind: function (node, group, superGroup) {
+                Utils.inheritMethods(group, new Group());
 
-					group.bind(node, superGroup);
+                group.bind(node, superGroup);
 
-					return group;
-				}
-			};
+                return group;
+            }
+        };
 
-			function Group() {
-				/**
-				 * 
-				 */
-				Group.prototype.bind = function(node, superGroup) {
-					this.__node = node;
-					this.__superGroup = superGroup;
+        function Group() {
+            /**
+             *
+             */
+            Group.prototype.bind = function (node, superGroup) {
+                this.__node = node;
+                this.__superGroup = superGroup;
 
-					for (n in this.subGroups) {
-						Utils.inheritMethods(this.subGroups[n], new Group());
+                for (n in this.subGroups) {
+                    Utils.inheritMethods(this.subGroups[n], new Group());
 
-						this.subGroups[n].__superGroup = this;
+                    this.subGroups[n].__superGroup = this;
 
-						this.subGroups[n].bind(node);
-					}
+                    this.subGroups[n].bind(node);
+                }
 
-					this.__actors = [];
+                this.__devices = [];
 
-					for (n in this.actors) {
-						var path = this.actors[n].split(".");
+                for (var n in this.devices) {
+                    this.__devices.push(node.getDevice(this.devices[n]));
+                }
 
-						this.__actors.push(node.getDevice(path[0]).getActor(
-								path[1]));
-					}
+                this.__actors = [];
 
-					this.__sensors = [];
+                for (var n in this.actors) {
+                    var path = this.actors[n].split(".");
 
-					for (n in this.sensors) {
-						var path = this.sensors[n].split(".");
+                    this.__actors.push(node.getDevice(path[0]).getActor(
+                        path[1]));
+                }
 
-						this.__sensors.push(node.getDevice(path[0]).getSensor(
-								path[1]));
-					}
+                this.__sensors = [];
 
-					if (!this.services) {
-						this.services = [];
-					}
+                for (var n in this.sensors) {
+                    var path = this.sensors[n].split(".");
 
-					this.__services = [];
+                    this.__sensors.push(node.getDevice(path[0]).getSensor(
+                        path[1]));
+                }
 
-					for (n in this.services) {
-						this.__services.push(node.getService(this.services[n]));
-					}
-				};
+                if (!this.services) {
+                    this.services = [];
+                }
 
-				/**
-				 * 
-				 */
-				Group.prototype.getAllGroups = function() {
-					var groups = [];
+                this.__services = [];
 
-					for ( var n in this.subGroups) {
-						groups.push.apply(groups, this.subGroups[n]
-								.getAllGroups());
-						groups.push(this.subGroups[n]);
-					}
+                for (n in this.services) {
+                    this.__services.push(node.getService(this.services[n]));
+                }
+            };
 
-					return groups;
-				};
+            /**
+             *
+             */
+            Group.prototype.getAllGroups = function () {
+                var groups = [];
 
-				/**
-				 * 
-				 */
-				Group.prototype.containsSensor = function(sensor) {
-					for ( var n in this.__sensors) {
-						if (this.__sensors[n] == sensor) {
-							return true;
-						}
-					}
+                for (var n in this.subGroups) {
+                    groups.push.apply(groups, this.subGroups[n]
+                        .getAllGroups());
+                    groups.push(this.subGroups[n]);
+                }
 
-					for (var n = 0; n < this.subGroups.length; ++n) {
-						if (this.subGroups[n].containsSensor(sensor)) {
-							return true;
-						}
-					}
+                return groups;
+            };
 
-					return false;
-				};
+            /**
+             *
+             */
+            Group.prototype.containsSensor = function (sensor) {
+                for (var n in this.__sensors) {
+                    if (this.__sensors[n] == sensor) {
+                        return true;
+                    }
+                }
 
-				/**
-				 * 
-				 */
-				Group.prototype.getSensors = function() {
-					return this.__sensors;
-				};
+                for (var n = 0; n < this.subGroups.length; ++n) {
+                    if (this.subGroups[n].containsSensor(sensor)) {
+                        return true;
+                    }
+                }
 
-				/**
-				 * 
-				 */
-				Group.prototype.containsActor = function(actor) {
-					for ( var n in this.__actors) {
-						if (this.__actors[n] == actor) {
-							return true;
-						}
-					}
+                return false;
+            };
 
-					for (var n = 0; n < this.subGroups.length; ++n) {
-						if (this.subGroups[n].containsActor(actor)) {
-							return true;
-						}
-					}
+            /**
+             *
+             */
+            Group.prototype.getDevices = function () {
+                return this.__devices;
+            };
 
-					return false;
-				};
+            /**
+             *
+             */
+            Group.prototype.getSensors = function () {
+                return this.__sensors;
+            };
 
-				/**
-				 * 
-				 */
-				Group.prototype.getActors = function() {
-					return this.__actors;
-				};
+            /**
+             *
+             */
+            Group.prototype.containsActor = function (actor) {
+                for (var n in this.__actors) {
+                    if (this.__actors[n] == actor) {
+                        return true;
+                    }
+                }
 
-				/**
-				 * 
-				 */
-				Group.prototype.getServices = function() {
-					var services = [];
+                for (var n = 0; n < this.subGroups.length; ++n) {
+                    if (this.subGroups[n].containsActor(actor)) {
+                        return true;
+                    }
+                }
 
-					for ( var id in this.services) {
-						services.push(this.services[id].__service);
-					}
+                return false;
+            };
 
-					return services;
-				};
-			}
-		});
+            /**
+             *
+             */
+            Group.prototype.getActors = function () {
+                return this.__actors;
+            };
+
+            /**
+             *
+             */
+            Group.prototype.getServices = function () {
+                var services = [];
+
+                for (var id in this.services) {
+                    services.push(this.services[id].__service);
+                }
+
+                return services;
+            };
+        }
+    });

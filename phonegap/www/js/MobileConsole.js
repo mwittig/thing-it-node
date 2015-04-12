@@ -7,9 +7,10 @@ define(
         "js/LoginPage", "js/MeshesPage", "js/MeshPage", "js/NodePage",
         "js/GroupPage", "js/DevicePage", "js/ActorPage",
         "js/SensorPage", "js/DataPage",
+        "js/DeviceMonitoringPage",
         "js/SensorMonitoringPage"],
     function (Utils, Node, ConsoleService, LoginPage, MeshesPage, MeshPage, NodePage, GroupPage, DevicePage,
-              ActorPage, SensorPage, DataPage, SensorMonitoringPage) {
+              ActorPage, SensorPage, DataPage, DeviceMonitoringPage, SensorMonitoringPage) {
         return {
             create: function () {
                 return new MobileConsole();
@@ -414,6 +415,13 @@ define(
              */
             MobileConsole.prototype.pushSensorPage = function (sensor) {
                 this.pushPage(SensorPage.create(this, sensor));
+            };
+
+            /**
+             *
+             */
+            MobileConsole.prototype.pushDeviceMonitoringPage = function (device) {
+                this.pushPage(DeviceMonitoringPage.create(this, device));
             };
 
             /**
