@@ -21,6 +21,9 @@ define(
                 this.id = "deviceMonitoringPage";
                 this.console = console;
                 this.device = device;
+                this.plots = {};
+                this.options = {};
+                this.timers = {};
 
                 return this;
             };
@@ -31,7 +34,7 @@ define(
             DeviceMonitoringPage.prototype.show = function () {
                 var deferred = jQuery.Deferred();
 
-                // this.initializeMonitoring()
+                this.initializeMonitoring()
 
                 deferred.resolve();
 
@@ -49,114 +52,141 @@ define(
              *
              */
             DeviceMonitoringPage.prototype.initializeMonitoring = function () {
-                this.metric = {};
-
-                if (!this.console.sensorPlotData[this.sensor.device.id]) {
-                    this.console.sensorPlotData[this.sensor.device.id] = {};
+                if (!this.console.plotData[this.device.id]) {
+                    this.console.plotData[this.device.id] = {};
                 }
 
-                var plotData = this.console.sensorPlotData[this.sensor.device.id][this.sensor.id];
-                var rate = this.sensor.configuration.rate;
-                var now = new Date().getTime();
+                for (var n in this.device.__type.state) {
+                    var value = this.device.__type.state[n];
 
-                if (!plotData) {
-                    plotData = {
-                        interval: 60 * 1000,
-                        series: []
-                    };
-
-                    this.console.sensorPlotData[this.sensor.device.id][this.sensor.id] = plotData;
-
-                    // Populate plot data
-
-                    for (var i = 0; i < (plotData.interval / rate); i++) {
-                        plotData.series.push([
-                            now - plotData.interval + (i * rate), 0]);
+                    if (value.type.id != "number") {
+                        continue;
                     }
-                }
 
-                console.log("Sensor Plot Data");
-                console.log(this.console.sensorPlotData);
+                    var plotData = this.console.plotData[this.device.id][value.id];
+                    var rate = 5000; //this.device.configuration.rate;
+                    var now = new Date().getTime();
 
-                this.options = {
-                    seriesColors: ["#57458A"],
-                    series: [{
-                        showMarker: false,
-                        lineWidth: 1.0
-                    }],
-                    axes: {
-                        xaxis: {
-                            numberTicks: 4,
-                            renderer: jQuery.jqplot.DateAxisRenderer,
-                            tickOptions: {
-                                formatString: '%H:%M:%S'
+                    if (!plotData) {
+                        plotData = {
+                            interval: 60 * 1000,
+                            series: []
+                        };
+
+                        this.console.plotData[this.device.id][value.id] = plotData;
+
+                        // Populate plot data
+
+                        for (var i = 0; i < (plotData.interval / rate); i++) {
+                            plotData.series.push([
+                                now - plotData.interval + (i * rate), 0]);
+                        }
+                    }
+
+                    this.options[value.id] = {
+                        seriesColors: ["#88B5B8"],
+                        series: [{
+                            showMarker: false,
+                            lineWidth: 1.0
+                        }],
+                        axes: {
+                            xaxis: {
+                                numberTicks: 4,
+                                renderer: jQuery.jqplot.DateAxisRenderer,
+                                tickOptions: {
+                                    formatString: '%H:%M:%S'
+                                },
+                                min: now - plotData.interval,
+                                max: now
                             },
-                            min: now - plotData.interval,
-                            max: now
+                            yaxis: {
+                                numberTicks: 6,
+                                tickOptions: {
+                                    formatString: '%.1f'
+                                },
+                                min: value.min,
+                                max: value.max
+                            }
                         },
-                        yaxis: {
-                            numberTicks: 6,
-                            tickOptions: {
-                                formatString: '%.1f'
-                            },
-                            min: this.sensor.configuration.min,
-                            max: this.sensor.configuration.max,
+                        seriesDefaults: {
+                            rendererOptions: {
+                                smooth: true
+                            }
+                        },
+                        grid: {
+                            background: '#FFFFFF',
+                            gridLineColor: '#DDDDDD',
+                            borderColor: '#DDDDDD'
                         }
-                    },
-                    seriesDefaults: {
-                        rendererOptions: {
-                            smooth: true
-                        }
-                    },
-                    grid: {
-                        background: '#FFFFFF',
-                        gridLineColor: '#DDDDDD',
-                        borderColor: '#DDDDDD'
-                    }
-                };
+                    };
+                }
 
-                var self = this;
+                console.log("Plot Data");
+                console.log(this.console.plotData);
 
                 window
                     .setTimeout(
                     function () {
-                        self.plot = jQuery.jqplot("plot",
-                            [plotData.series],
-                            self.options);
-                        self.timer = window
-                            .setInterval(
-                            function () {
-                                self.console
-                                    .addValue(
-                                    self.sensor.device.id,
-                                    self.sensor.id,
-                                    plotData.series[plotData.series.length - 1][1]);
-                                self.updatePlot();
-                            }, rate);
-                    }, 500);
+                        for (var n in this.device.__type.state) {
+                            var value = this.device.__type.state[n];
+
+                            if (value.type.id != "number") {
+                                continue;
+                            }
+
+                            this.plots[value.id] = jQuery.jqplot(value.id + "-Plot",
+                                [this.console.plotData[this.device.id][value.id].series],
+                                this.options[value.id]);
+
+                            var self = this;
+
+                            //this.timers[value.id] = window
+                            //    .setInterval(
+                            //    function () {
+                            //        self.console
+                            //            .addValue(
+                            //            self.device.id,
+                            //            this.id,
+                            //            self.console.plotData[self.device.id][this.id].series[self.console.plotData[self.device.id][this.id].series.length - 1][1]);
+                            //        self.updatePlot(this.id);
+                            //    }.bind(value), rate);
+                        }
+                    }.bind(this), 1000);
             };
 
             /**
              *
              */
             DeviceMonitoringPage.prototype.uninitializeMonitoring = function () {
-                window.clearInterval(this.timer);
+                for (var n in this.device.__type.state) {
+                    var value = this.device.__type.state[n];
+
+                    window.clearInterval(this.timers[value.id]);
+                }
             };
 
             /**
              *
              */
-            DeviceMonitoringPage.prototype.updatePlot = function () {
-                var plotData = this.console.sensorPlotData[this.sensor.device.id][this.sensor.id];
-                var now = new Date().getTime();
+            DeviceMonitoringPage.prototype.updatePlots = function () {
+                for (var n in this.device.__type.state) {
+                    var value = this.device.__type.state[n];
 
-                this.options.axes.xaxis.min = now - plotData.interval;
-                this.options.axes.xaxis.max = now;
+                    if (value.type.id != "number") {
+                        continue;
+                    }
 
-                this.plot.destroy();
+                    var plotData = this.console.plotData[this.device.id][value.id];
+                    var now = new Date().getTime();
 
-                this.plot = jQuery.jqplot("plot", [plotData.series],
-                    this.options);
+                    this.options[value.id].axes.xaxis.min = now - plotData.interval;
+                    this.options[value.id].axes.xaxis.max = now;
+
+                    this.plots[value.id].destroy();
+
+                    this.plots[value.id] = jQuery.jqplot(value.id + "-Plot", [plotData.series],
+                        this.options[value.id]);
+                }
             };
         }
     });

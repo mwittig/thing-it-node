@@ -3,15 +3,15 @@ module.exports = {
     id: "home",
     autoDiscoveryDeviceTypes: [],
     devices: [{
-        id: "heartRateJenn",
-        label: "Heart Rate Jenn",
+        id: "heartMonitorJenn",
+        label: "Heart Monitor Jenn",
         plugin: "heart-rate-monitor/heartRateMonitor",
         configuration: {},
         actors: [],
         sensors: []
     }, {
-        id: "heartRateFrank",
-        label: "Heart Rate Frank",
+        id: "heartMonitorFrank",
+        label: "Heart Monitor Frank",
         plugin: "heart-rate-monitor/heartRateMonitor",
         configuration: {},
         actors: [],
@@ -22,7 +22,7 @@ module.exports = {
         label: "Family Health",
         icon: "home",
         subGroups: [],
-        devices: ["heartRateJenn", "heartRateFrank"],
+        devices: ["heartMonitorJenn", "heartMonitorFrank"],
         actors: [],
         sensors: [],
         services: []
