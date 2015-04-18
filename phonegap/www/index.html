@@ -391,7 +391,7 @@
                         </tr>
                     </table>
                 </li>
-                <li class="ui-field-contain"><label for="lastStateChange">Last
+                <li class="ui-field-contain"><label>Last
                     State Change</label>{{formatDateTime(topPage().actor.lastStateChangeTimestamp)}}
                 </li>
                 <li ng-repeat="service in topPage().actor.__type.services" jqm-li><a
@@ -460,7 +460,8 @@
         <div role="main" class="ui-content">
             <form>
                 <ul data-role="listview">
-                    <li ng-repeat="value in topPage().device.__type.state" ng-show="value.type.id == 'number'">
+                    <li id="{{value.id}}" ng-repeat="value in topPage().device.__type.state"
+                        ng-show="value.type.id == 'number'">
                         <table style="padding: 5px; width: 100%;">
                             <tr valign="top">
                                 <td align="left">
@@ -470,10 +471,15 @@
                                     <div class="value">{{topPage().device._state[value.id]}}</div>
                                 <td>
                             </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <div id="{{value.id}}-Plot" style="width: 100%; height: 200px;"></div>
+                                </td>
+                            </tr>
                         </table>
-                        <div id="plot" style="width: 100%; height: 100%;"></div>
                     </li>
                 </ul>
+            </form>
         </div>
         <div data-role="footer" data-position="fixed">
             <h4>Copyright &copy; 2015 thing-it</h4>

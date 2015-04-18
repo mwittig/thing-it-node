@@ -28,6 +28,7 @@ define(
                 this.io = io;
                 this.pageStack = [];
                 this.sensorPlotData = {};
+                this.plotData = {};
 
                 ConsoleService
                     .instance()
@@ -67,7 +68,6 @@ define(
                 }
 
                 jQuery(document).on('pagebeforeshow', function () {
-                    console.log("pagebeforeshow");
                     // self.safeApply();
                 });
 
@@ -77,7 +77,6 @@ define(
                     self.safeApply();
 
                     window.setTimeout(function () {
-                        console.log("changepage");
                         jQuery.mobile.changePage("#" + page.id);
                     }, 500);
                 }).fail(function (error) {
@@ -479,6 +478,14 @@ define(
 
                     device._state = stateChange.state;
                     device.lastStateChangeTimestamp = new Date().getTime();
+
+                    this.addDeviceState(device, stateChange.state);
+
+                    if (this.topPage().id == "deviceMonitoringPage"
+                        && this.topPage().device == device) {
+                        this.topPage().updatePlots();
+                    }
+
                 }
                 catch (error) {
                     console.log(error);
@@ -561,6 +568,33 @@ define(
             MobileConsole.prototype.getComponentPluginPath = function (component) {
                 return ConsoleService.instance().getComponentPluginPath(
                     component);
+            };
+
+            /**
+             *
+             */
+            MobileConsole.prototype.addDeviceState = function (device,
+                                                               state) {
+                if (!this.plotData[device.id]) {
+                    return;
+                }
+
+                for (var n in device.__type.state) {
+                    var field = device.__type.state[n];
+
+                    if (field.type.id != "number") {
+                        continue;
+                    }
+
+                    var plotData = this.plotData[device.id][field.id];
+                    var now = new Date().getTime()
+
+                    while (plotData.series[0][0] < now - plotData.interval) {
+                        plotData.series.shift();
+                    }
+
+                    plotData.series.push([now, state[field.id]]);
+                }
             };
 
             /**
