@@ -84,6 +84,25 @@ define(
             /**
              *
              */
+            Group.prototype.containsDevice = function (device) {
+                for (var n in this.__devices) {
+                    if (this.__devices[n] == device) {
+                        return true;
+                    }
+                }
+
+                for (var n = 0; n < this.subGroups.length; ++n) {
+                    if (this.subGroups[n].containsDevice(device)) {
+                        return true;
+                    }
+                }
+
+                return false;
+            };
+
+            /**
+             *
+             */
             Group.prototype.containsSensor = function (sensor) {
                 for (var n in this.__sensors) {
                     if (this.__sensors[n] == sensor) {

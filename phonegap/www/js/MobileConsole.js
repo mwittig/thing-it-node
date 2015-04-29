@@ -440,6 +440,51 @@ define(
             /**
              *
              */
+            MobileConsole.prototype.isDeviceInGroups = function (device) {
+                for (var n in this.node.groups)
+                {
+                    if (this.node.groups[n].containsDevice(device))
+                    {
+                        return true;
+                    }
+                }
+
+                return false;
+            };
+
+            /**
+             *
+             */
+            MobileConsole.prototype.isActorInGroups = function (actor) {
+                for (var n in this.node.groups)
+                {
+                    if (this.node.groups[n].containsActor(actor))
+                    {
+                        return true;
+                    }
+                }
+
+                return false;
+            };
+
+            /**
+             *
+             */
+            MobileConsole.prototype.isSensorInGroups = function (sensor) {
+                for (var n in this.node.groups)
+                {
+                    if (this.node.groups[n].containsSensor(sensor))
+                    {
+                        return true;
+                    }
+                }
+
+                return false;
+            };
+
+            /**
+             *
+             */
             MobileConsole.prototype.pushSensorValue = function (sensor) {
                 ConsoleService.instance().pushSensorValue(this.node, sensor).done(
                     function () {
