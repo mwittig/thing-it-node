@@ -1,4 +1,4 @@
-**[thing-it-node]** allows you to 
+**[thing-it-node]** is **an Operating System for Things** and allows you to
 
 * connect multiple Devices (e.g. Heart Rate Monitors, Sensor Tags, Drones) as well as low-level Actors and Sensors managed via Microcontrollers like an Arduino
   to your node computer (e.g. a regular server, a Raspberry Pi or a BeagleBone Black)
