@@ -182,7 +182,7 @@
                         ng-hide="group.icon"><i class="titleIcon fa fa-home"></i></span>{{group.label}}</a></li>
                 <li ng-repeat="service in topPage().node.services" jqm-li><a
                         ng-click="$parent.callNodeService(service)"><i class="fa fa-gear"></i>{{service.label}}</a></li>
-                <li ng-repeat="device in topPage().node.devices" ng-show="device.__type.tangible" jqm-li>
+                <li ng-repeat="device in topPage().node.devices" ng-show="device.__type.tangible && !isDeviceInGroups(device)" jqm-li>
                     <table
                             width="100%">
                         <tr valign="center">
@@ -201,7 +201,7 @@
                         </tr>
                     </table>
                 </li>
-                <li ng-repeat="actor in topPage().actors" jqm-li>
+                <li ng-repeat="actor in topPage().actors" ng-show="!isActorInGroups(actor)" jqm-li>
                     <table
                             width="100%">
                         <tr valign="center">
@@ -220,7 +220,7 @@
                         </tr>
                     </table>
                 </li>
-                <li ng-repeat="sensor in topPage().sensors">
+                <li ng-repeat="sensor in topPage().sensors" ng-show="!isSensorInGroups(sensor)">
                     <table width="100%">
                         <tr valign="center">
                             <td width="45%" align="left"><h3>{{sensor.label}}</h3></td>
