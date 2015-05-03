@@ -171,7 +171,7 @@
             </h1>
             <a class="toolbarButton" ng-click="logout()"><i
                     class="fa fa-power-off"></i></a>
-            <a class="toolbarButton" ng-click="pushSettingsPage()"><i
+            <a class="toolbarButton" ng-click="pushAdministrationPage()"><i
                     class="fa fa-wrench"></i></a>
         </div>
         <div role="main" class="ui-content">
@@ -182,7 +182,8 @@
                         ng-hide="group.icon"><i class="titleIcon fa fa-home"></i></span>{{group.label}}</a></li>
                 <li ng-repeat="service in topPage().node.services" jqm-li><a
                         ng-click="$parent.callNodeService(service)"><i class="fa fa-gear"></i>{{service.label}}</a></li>
-                <li ng-repeat="device in topPage().node.devices" ng-show="device.__type.tangible && !isDeviceInGroups(device)" jqm-li>
+                <li ng-repeat="device in topPage().node.devices"
+                    ng-show="device.__type.tangible && !isDeviceInGroups(device)" jqm-li>
                     <table
                             width="100%">
                         <tr valign="center">
@@ -508,6 +509,73 @@
             <h4>Copyright &copy; 2015 thing-it</h4>
         </div>
     </div>
+    <div id="administrationPage" data-role="page">
+        <div data-role="header" data-position="fixed">
+            <h1>Administration</h1>
+            <a class="toolbarButton" ng-click="popPage()"><i
+                    class="fa fa-chevron-circle-left"></i></a>
+        </div>
+        <div role="main" class="ui-content">
+            <form>
+                <ul data-role="listview">
+                    <li><a
+                            ng-click="pushUserManagementPage()"><i class="titleIcon fa fa-users"></i>User Management</a>
+                    </li>
+                </ul>
+            </form>
+        </div>
+        <div data-role="footer" data-position="fixed">
+            <h4>Copyright &copy; 2015 thing-it</h4>
+        </div>
+    </div>
+    <div id="userManagementPage" data-role="page">
+        <div data-role="header" data-position="fixed">
+            <h1><i class="titleIcon fa fa-users"></i>User Management</h1>
+            <a class="toolbarButton" ng-click="popPage()"><i
+                    class="fa fa-chevron-circle-left"></i></a>
+        </div>
+        <div role="main" class="ui-content">
+            <form>
+                <ul data-role="listview">
+                    <li ng-repeat="user in topPage().users" jqm-li><a
+                            ng-click="$parent.pushUserPage(user)"><i class="titleIcon fa fa-user"></i>{{user.account}}
+                        ({{user.firstName}}
+                        {{user.lastName}})</a></li>
+                    <li data-icon="plus" jqm-li><a
+                            ng-click="openUserCreationDialog()">&nbsp;</a></li>
+                </ul>
+            </form>
+        </div>
+        <div data-role="footer" data-position="fixed">
+            <h4>Copyright &copy; 2015 thing-it</h4>
+        </div>
+    </div>
+    <div id="userPage" data-role="page">
+        <div data-role="header" data-position="fixed">
+            <h1><i class="titleIcon fa fa-user"></i>{{topPage().user.firstName}} {{topPage().user.lastName}}</h1>
+            <a class="toolbarButton" ng-click="popPage()"><i
+                    class="fa fa-chevron-circle-left"></i></a>
+        </div>
+        <div role="main" class="ui-content">
+            <table class="tree">
+                <tr style="vertical-align: middle" ng-repeat="treeNode in topPage().treeNodes"
+                    ng-show="!treeNode.parent || treeNode.parent.expanded">
+                    <td style="width: 70%; padding-left: {{10 * treeNode.level}}px;"><a style="margin-right: 5px;" ng-click="treeNode.expanded = true"
+                                               ng-show="treeNode.hasChildren && !treeNode.expanded"><i class="treeHandle fa fa-plus-circle"></i></a><a
+                            style="margin-right: 5px;" ng-click="treeNode.expanded = false"
+                            ng-show="treeNode.hasChildren && treeNode.expanded"><i class="treeHandle fa fa-minus-circle"></i></a>{{treeNode.entitlement.label}}
+                    </td>
+                    <td style="width: 5%;"><input type="checkbox" ng-model="treeNode.entitlement.view"></td>
+                    <td style="width: 10px;">View</td>
+                    <td style="width: 5%;"><input type="checkbox" ng-model="treeNode.entitlement.execute"></td>
+                    <td style="width: 10%;">Execute</td>
+                </tr>
+            </table>
+        </div>
+        <div data-role="footer" data-position="fixed">
+            <h4>Copyright &copy; 2015 thing-it</h4>
+        </div>
+    </div>
     <div id="deviceAdvertisementDialog" data-role="popup">
         <div data-role="header"><h1>Device Advertisement</h1></div>
         <div role="main" class="ui-content" style="display: table-cell !important; text-align: center !important;"><p>
@@ -518,6 +586,38 @@
                            data-transition="flow" ng-click="registerDevice()">Register</a>
                     <td><a class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b"
                            data-rel="back" ng-click="closeDeviceAdvertisementDialog()">Reject</a></td>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id="userCreationDialog" data-role="popup">
+        <div data-role="header"><h1>Add User</h1></div>
+        <div role="main" class="ui-content" style="display: table-cell !important; text-align: center !important;"><p>
+            <table>
+                <tr>
+                    <td><label>Account</label></td>
+                    <td><input ng-model="userCreationDialog.user.account"></td>
+                </tr>
+                <tr>
+                    <td><label>Password</label></td>
+                    <td><input ng-model="userCreationDialog.user.password"></td>
+                </tr>
+                <tr>
+                    <td><label>First Name</label></td>
+                    <td><input ng-model="userCreationDialog.user.firstName"></td>
+                </tr>
+                <tr>
+                    <td><label>Last Name</label></td>
+                    <td><input ng-model="userCreationDialog.user.lastName"></td>
+                </tr>
+            </table>
+            <table>
+                <tr>
+                    <td><a class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back"
+                           data-transition="flow" ng-click="addUser()">Add</a>
+                    <td><a class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b"
+                           data-rel="back" ng-click="closeUserCreationDialog()">Cancel</a></td>
                     </td>
                 </tr>
             </table>
