@@ -8,9 +8,12 @@ define(
         "js/GroupPage", "js/DevicePage", "js/ActorPage",
         "js/SensorPage", "js/DataPage",
         "js/DeviceMonitoringPage",
-        "js/SensorMonitoringPage"],
+        "js/SensorMonitoringPage",
+        "js/AdministrationPage",
+        "js/UserManagementPage",
+        "js/UserPage"],
     function (Utils, Node, ConsoleService, LoginPage, MeshesPage, MeshPage, NodePage, GroupPage, DevicePage,
-              ActorPage, SensorPage, DataPage, DeviceMonitoringPage, SensorMonitoringPage) {
+              ActorPage, SensorPage, DataPage, DeviceMonitoringPage, SensorMonitoringPage, AdministrationPage, UserManagementPage, UserPage) {
         return {
             create: function () {
                 return new MobileConsole();
@@ -49,6 +52,9 @@ define(
                         window.setTimeout(function () {
                             this.deviceAdvertisementDialog = {
                                 dialog: jQuery("#deviceAdvertisementDialog").popup()
+                            };
+                            this.userCreationDialog = {
+                                dialog: jQuery("#userCreationDialog").popup()
                             };
                         }.bind(this), 1000);
                     }.bind(this)).fail(function () {
@@ -178,7 +184,6 @@ define(
                     jQuery.mobile.loading("hide");
                 });
             };
-
 
             /**
              *
@@ -435,6 +440,45 @@ define(
              */
             MobileConsole.prototype.pushDataPage = function (data) {
                 this.pushPage(DataPage.create(this, data));
+            };
+
+            /**
+             *
+             */
+            MobileConsole.prototype.pushAdministrationPage = function () {
+                console.log("Push Admin Page");
+
+                this.pushPage(AdministrationPage.create(this));
+            };
+
+            /**
+             *
+             */
+            MobileConsole.prototype.pushUserManagementPage = function () {
+                this.pushPage(UserManagementPage.create(this));
+            };
+
+            /**
+             *
+             */
+            MobileConsole.prototype.pushUserPage = function (user) {
+                this.pushPage(UserPage.create(this, user));
+            };
+
+            /**
+             *
+             */
+            MobileConsole.prototype.openUserCreationDialog = function () {
+                this.userCreationDialog.user = {};
+
+                jQuery("#userCreationDialog").popup("open");
+            };
+
+            /**
+             *
+             */
+            MobileConsole.prototype.closeUserCreationDialog = function () {
+                jQuery("#userCreationDialog").popup("close");
             };
 
             /**
