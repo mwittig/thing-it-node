@@ -24,6 +24,66 @@ define(
                 }
             });
 
+            module.directive('tiTriState', function ($timeout, $parse) {
+                return {
+                    restrict: "E",
+                    template: "<div class='triState'><input type='checkbox'/></div>",
+                    link: function (scope, element, attrs) {
+                        jQuery(element).find("input").click(function () {
+                            var value = scope.$eval(attrs.tiModel);
+                            var allowsIndeterminate = scope.$eval(attrs.tiAllowsIndeterminate);
+
+                            if (value == null) {
+                                jQuery(element).find("input").prop("checked", true);
+                                jQuery(element).find("input").prop("indeterminate", false);
+
+                                scope.$eval(attrs.tiModel + " = true");
+                                scope.$eval(attrs.tiChange);
+                            }
+                            else if (value == true) {
+                                jQuery(element).find("input").prop("checked", false);
+                                jQuery(element).find("input").prop("indeterminate", false);
+
+                                scope.$eval(attrs.tiModel + " = false");
+                                scope.$eval(attrs.tiChange);
+                            }
+                            else if (value == false) {
+                                if (allowsIndeterminate) {
+                                    jQuery(element).find("input").prop("checked", true);
+                                    jQuery(element).find("input").prop("indeterminate", true);
+
+                                    scope.$eval(attrs.tiModel + " = null");
+                                    scope.$eval(attrs.tiChange);
+                                }
+                                else
+                                {
+                                    jQuery(element).find("input").prop("checked", true);
+                                    jQuery(element).find("input").prop("indeterminate", false);
+
+                                    scope.$eval(attrs.tiModel + " = true");
+                                    scope.$eval(attrs.tiChange);
+                                }
+                            }
+                        });
+
+                        scope.$watch(attrs.tiModel, function (value) {
+                            if (value == null) {
+                                jQuery(element).find("input").prop("checked", false);
+                                jQuery(element).find("input").prop("indeterminate", true);
+                            }
+                            else if (value == true) {
+                                jQuery(element).find("input").prop("checked", true);
+                                jQuery(element).find("input").prop("indeterminate", false);
+                            }
+                            else if (value == false) {
+                                jQuery(element).find("input").prop("checked", false);
+                                jQuery(element).find("input").prop("indeterminate", false);
+                            }
+                        });
+                    }
+                };
+            });
+
             module.directive('tiAudio', function ($timeout, $parse) {
                 return {
                     restrict: "E",

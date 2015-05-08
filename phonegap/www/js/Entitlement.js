@@ -5,40 +5,79 @@
 define(["js/Utils"],
     function (Utils) {
         return {
-            create: function (node) {
-                var entitlements = [];
+            bind : function(entitlement) {
+                Utils.inheritMethods(entitlement, new Entitlement());
 
-                for (var n in node.groups) {
-                    entitlements.push(createEntitlementForGroup(node.groups[n]));
-                }
+                entitlement.bind();
 
-                return entitlements;
+                return entitlement;
             }
+
         };
 
         /**
          *
+         * @constructor
          */
-        function Entitlements() {
-
+        function Entitlement()
+        {
             /**
              *
              */
-            Entitlements.prototype.bla = function () {
+            Entitlement.prototype.bind = function () {
+                for (var n in this.subGroups)
+                {
+                    Utils.inheritMethods(this.subGroups[n], new Entitlement());
+
+                    this.subGroups[n].__superGroup = this;
+
+                    this.subGroups[n].bind();
+                }
             };
-        }
 
-        function createEntitlementForGroup(group) {
-            var entitlement = {
-                type: "group",
-                label: group.label,
-                subGroups: []
+            /**
+             *
+             * @returns {*}
+             */
+            Entitlement.prototype.allowedViewInherited = function () {
+                if (this.__superGroup)
+                {
+                    return this.__superGroup.topGroup().view;
+                }
+                else
+                {
+                    return null;
+                }
             };
 
-            for (var n in group.subGroups[n]) {
-                entitlement.subGroups.push(createEntitlementForGroup(group.subGroups[n]));
-            }
+            /**
+             *
+             * @returns {*}
+             */
+            Entitlement.prototype.allowedExecuteInherited = function () {
+                if (this.__superGroup)
+                {
+                    return this.__superGroup.topGroup().execute;
+                }
+                else
+                {
+                    return null;
+                }
+            };
 
-            return entitlement;
+            /**
+             *
+             * @returns {*}
+             */
+            Entitlement.prototype.topGroup = function () {
+                if (this.__superGroup)
+                {
+                    return this.__superGroup.topGroup();
+                }
+                else
+                {
+                    return this;
+                }
+            };
         }
     });

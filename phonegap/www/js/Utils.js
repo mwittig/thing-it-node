@@ -15,7 +15,7 @@ define([], function () {
         updatePageURL: updatePageURL,
         composeUrl: composeUrl,
         cloneFiltered: cloneFiltered,
-        ajax: ajax,
+        ajax: ajax
     };
 
     /**
@@ -305,7 +305,7 @@ define([], function () {
                 for (var key in headers) {
                     request.setRequestHeader(key, value);
                 }
-            },
+            }
         }).done(function (data, status, xhr) {
             console.log(method + ":" + url);
             console.log("SUCCESS:");

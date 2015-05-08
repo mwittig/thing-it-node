@@ -2,8 +2,8 @@
  * Copyright (c) 2014-2015 Marc Gille. All rights reserved.
  ******************************************************************************/
 
-define(["js/Utils", "js/ConsoleService"], function (Utils,
-                                                    ConsoleService) {
+define(["js/Utils", "js/ConsoleService", "js/User"], function (Utils,
+                                                    ConsoleService, User) {
     return {
         create: function (console, user) {
             return new UserPage().initialize(console, user);
@@ -30,24 +30,11 @@ define(["js/Utils", "js/ConsoleService"], function (Utils,
 
             //jQuery.mobile.loading("show");
 
-            this.topGroups = [{
-                label: "Our Home",
-                type: "group",
-                view: true,
-                execute: true,
-                subgroups: [{label: "Dining Room", type: "group", view: true, execute: true}, {
-                    label: "Master Bedroom",
-                    type: "group",
-                    view: true,
-                    execute: true
-                }]
-            },
-                {label: "Our Health", type: "group", view: true, execute: true},
-                {label: "Our Security", type: "group", view: true, execute: true}];
-
             this.treeNodes = [];
 
-            this.createTreeNodes(null, this.topGroups, 0);
+            User.bind(this.user);
+
+            this.createTreeNodes(null, this.user.entitlements, 0);
 
             deferred.resolve();
 
@@ -57,20 +44,25 @@ define(["js/Utils", "js/ConsoleService"], function (Utils,
         /**
          *
          */
-        UserPage.prototype.createTreeNodes = function (parent, groups, level) {
-            for (var n in groups) {
+        UserPage.prototype.createTreeNodes = function (parent, entitlements, level) {
+            for (var n in entitlements) {
+                if (entitlements[n].type == "role")
+                {
+                    continue;
+                }
+
                 var node = {
                     parent: parent,
                     level: level,
-                    entitlement: groups[n],
-                    hasChildren: groups[n].subgroups && groups[n].subgroups.length,
+                    entitlement: entitlements[n],
+                    hasChildren: entitlements[n].subGroups && entitlements[n].subGroups.length,
                     expanded: false
                 };
 
                 this.treeNodes.push(node);
 
-                if (groups[n].subgroups) {
-                    this.createTreeNodes(node, groups[n].subgroups, level + 1);
+                if (entitlements[n].subGroups) {
+                    this.createTreeNodes(node, entitlements[n].subGroups, level + 1);
                 }
             }
         };
@@ -79,6 +71,17 @@ define(["js/Utils", "js/ConsoleService"], function (Utils,
          *
          */
         UserPage.prototype.leave = function () {
+        };
+
+        /**
+         *
+         */
+        UserPage.prototype.saveUser = function () {
+            ConsoleService.instance().updateUser(this.console.node, this.user).then(function (user) {
+                jQuery.mobile.loading("hide");
+            }.bind(this)).fail(function (error) {
+                jQuery.mobile.loading("hide");
+            }.bind(this));
         };
     }
 });

@@ -83,8 +83,6 @@ define(["js/Utils"], function (Utils) {
                         this.proxyMode = authenticationMode.proxyMode;
                     }
 
-                    console.debug("Proxy Mode: " + this.proxyMode);
-
                     deferred.resolve(authenticationMode);
                 }.bind(this)).fail(function () {
                     deferred.reject();
@@ -251,6 +249,40 @@ define(["js/Utils"], function (Utils) {
                 return this.getComponentRootUrl() + component.__type.pluginDirectory + "/web/"
                     + component.__type.family + ".html";
             }
+        };
+
+        /**
+         *
+         */
+        ConsoleService.prototype.getUsers = function (node) {
+            return Utils.ajax(this.getNodeRootUrl(node) + "/users", "GET",
+                "application/json");
+        };
+
+        /**
+         *
+         */
+        ConsoleService.prototype.getUser = function (id) {
+            return Utils.ajax(this.getNodeRootUrl(node) + "/users/" + id, "GET",
+                "application/json");
+        };
+
+        /**
+         *
+         */
+        ConsoleService.prototype.createUser = function (node, user) {
+            return Utils.ajax(this.getNodeRootUrl(node) + "/users", "POST",
+                "application/json", JSON.stringify(Utils
+                    .cloneFiltered(user, /\_\_|\$\$/)));
+        };
+
+        /**
+         *
+         */
+        ConsoleService.prototype.updateUser = function (node, user) {
+            return Utils.ajax(this.getNodeRootUrl(node) + "/users", "PUT",
+                "application/json", JSON.stringify(Utils
+                    .cloneFiltered(user, /\_\_|\$\$/)));
         };
     }
 });
