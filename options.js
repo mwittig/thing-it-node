@@ -4,6 +4,7 @@ module.exports = {
     protocol: "http",
     nodeConfigurationFile: "../examples/our-things/configuration.js",
     dataDirectory: "../thing-it-data",
+    usersDirectory: "../thing-it-users",
     simulated: true,
     hotDeployment: false,
     //reverseProxy: "http://www.thing-it.com",

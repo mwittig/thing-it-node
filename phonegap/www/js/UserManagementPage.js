@@ -27,11 +27,17 @@ define(["js/Utils", "js/ConsoleService"], function (Utils,
         UserManagementPage.prototype.show = function () {
             var deferred = jQuery.Deferred();
 
-            //jQuery.mobile.loading("show");
+            jQuery.mobile.loading("show");
 
-            this.users = [{account: "fred", firstName: "Fred", lastName: "Corleone"}, {account: "jenn", firstName: "Jenn", lastName: "Corleone"}];
+            ConsoleService.instance().getUsers().then(function (result) {
+                this.users = result.users;
 
-            deferred.resolve();
+                jQuery.mobile.loading("hide");
+                deferred.resolve();
+            }.bind(this)).fail(function (error) {
+                jQuery.mobile.loading("hide");
+                deferred.reject(error);
+            }.bind(this));
 
             return deferred.promise();
         };

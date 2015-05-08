@@ -42,7 +42,6 @@ define(["js/Utils", "js/ConsoleService"], function (Utils,
          *
          */
         LoginPage.prototype.login = function () {
-            console.log(this.console);
             this.console.login({account: this.account, password: this.password});
         };
     }

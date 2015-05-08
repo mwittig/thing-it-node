@@ -3,7 +3,7 @@
  ******************************************************************************/
 
 define(
-    ["js/Utils", "js/Node", "js/ConsoleService",
+    ["js/Utils", "js/Node", "js/User", "js/ConsoleService",
         "js/LoginPage", "js/MeshesPage", "js/MeshPage", "js/NodePage",
         "js/GroupPage", "js/DevicePage", "js/ActorPage",
         "js/SensorPage", "js/DataPage",
@@ -12,7 +12,7 @@ define(
         "js/AdministrationPage",
         "js/UserManagementPage",
         "js/UserPage"],
-    function (Utils, Node, ConsoleService, LoginPage, MeshesPage, MeshPage, NodePage, GroupPage, DevicePage,
+    function (Utils, Node, User, ConsoleService, LoginPage, MeshesPage, MeshPage, NodePage, GroupPage, DevicePage,
               ActorPage, SensorPage, DataPage, DeviceMonitoringPage, SensorMonitoringPage, AdministrationPage, UserManagementPage, UserPage) {
         return {
             create: function () {
@@ -198,7 +198,7 @@ define(
                     .login(credentials)
                     .done(
                     function (loggedInUser) {
-                        self.loggedInUser = loggedInUser;
+                        self.loggedInUser = User.bind(loggedInUser);
 
                         ConsoleService
                             .instance()
@@ -472,6 +472,17 @@ define(
                 this.userCreationDialog.user = {};
 
                 jQuery("#userCreationDialog").popup("open");
+            };
+
+            /**
+             *
+             */
+            MobileConsole.prototype.createUser = function () {
+                ConsoleService.instance().createUser(this.node, this.userCreationDialog.user).done(function () {
+                    this.closeUserCreationDialog();
+                }.bind(this)).fail(function () {
+                    this.closeUserCreationDialog();
+                }.bind(this));
             };
 
             /**

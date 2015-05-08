@@ -69,11 +69,11 @@
                         "jquery.jqplot.dateAxisRenderer": ["jquery.jqplot"]
                     }
                 });
-        require(["require", "jquery", "jquery-ui", "jquery.ui.touch-punch", "jquery.knob", "jquery-mobile",
+        require(["require", "lodash", "jquery", "jquery-ui", "jquery.ui.touch-punch", "jquery.knob", "jquery-mobile",
             "jquery.jqplot", "jquery.jqplot.dateAxisRenderer",
             "jquery.rangeslider", "json", "angularjs", "socketio", "moment", "less",
             "js/Utils", "js/AngularDirectives",
-            "js/MobileConsole"], function (require, jquery, jqueryUi, jqueryUiTouchPunch, jqueryKnob,
+            "js/MobileConsole"], function (require, lodash, jquery, jqueryUi, jqueryUiTouchPunch, jqueryKnob,
                                            jqueryMobile, jqueryJqPlot, jqplotDateAxisRenderer,
                                            jqueryRangeslider, json, angularjs, socketio, moment, less, Utils,
                                            AngularDirectives, MobileConsole) {
@@ -114,9 +114,9 @@
                 </tr>
             </table>
             <label for="loginPage-account" class="ui-hidden-accessible"
-                   ng-show="authenticationMode.type == 'userCredentials'">Account</label>
-            <input type="text" id="loginPage-account" placeholder="Account"
-                   ng-model="loginPage.account" ng-show="authenticationMode.type == 'userCredentials'"> <label
+                   ng-show="authenticationMode.type == 'local' || authenticationMode.type == 'userCredentials'">Account</label>
+            <input type="text" id="loginPage-account" placeholder="Account" ng-model="loginPage.account"
+                   ng-model="loginPage.account" ng-show="authenticationMode.type == 'local' || authenticationMode.type == 'userCredentials'"> <label
                 for="loginPage-password" class="ui-hidden-accessible">Password</label>
             <input type="password" id="loginPage-password"
                    placeholder="Password" ng-model="loginPage.password">
@@ -518,11 +518,12 @@
         <div role="main" class="ui-content">
             <form>
                 <ul data-role="listview">
-                    <li><a
+                    <li ng-show="authenticationMode.type == 'local'"><a
                             ng-click="pushUserManagementPage()"><i class="titleIcon fa fa-users"></i>User Management</a>
                     </li>
                 </ul>
             </form>
+            {{node.options.authentication}}
         </div>
         <div data-role="footer" data-position="fixed">
             <h4>Copyright &copy; 2015 thing-it</h4>
@@ -557,6 +558,17 @@
                     class="fa fa-chevron-circle-left"></i></a>
         </div>
         <div role="main" class="ui-content">
+            <table style="width: 100%;">
+                <tr style="vertical-align: middle" ng-repeat="entitlement in topPage().user.entitlements"
+                    ng-show="entitlement.type == 'role'">
+                    <td style="width: 70%;">{{entitlement.label}}
+                    </td>
+                    <td style="width: 5%;"><input type="checkbox" ng-model="entitlement.granted" ng-change="topPage().saveUser()"></td>
+                    <td style="width: 10px;">Granted</td>
+                    <td style="width: 5%;"></td>
+                    <td style="width: 10%;"></td>
+                </tr>
+            </table>
             <table class="tree">
                 <tr style="vertical-align: middle" ng-repeat="treeNode in topPage().treeNodes"
                     ng-show="!treeNode.parent || treeNode.parent.expanded">
@@ -565,9 +577,9 @@
                             style="margin-right: 5px;" ng-click="treeNode.expanded = false"
                             ng-show="treeNode.hasChildren && treeNode.expanded"><i class="treeHandle fa fa-minus-circle"></i></a>{{treeNode.entitlement.label}}
                     </td>
-                    <td style="width: 5%;"><input type="checkbox" ng-model="treeNode.entitlement.view"></td>
+                    <td style="width: 5%;"><ti-tri-state ti-model="treeNode.entitlement.view" ti-change="topPage().saveUser()" ti-allows-indeterminate="treeNode.entitlement.__superGroup"></ti-tri-state></td>
                     <td style="width: 10px;">View</td>
-                    <td style="width: 5%;"><input type="checkbox" ng-model="treeNode.entitlement.execute"></td>
+                    <td style="width: 5%;"><ti-tri-state ti-model="treeNode.entitlement.execute" ti-change="topPage().saveUser()" ti-allows-indeterminate="treeNode.entitlement.__superGroup"></ti-tri-state></td>
                     <td style="width: 10%;">Execute</td>
                 </tr>
             </table>
@@ -615,7 +627,7 @@
             <table>
                 <tr>
                     <td><a class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back"
-                           data-transition="flow" ng-click="addUser()">Add</a>
+                           data-transition="flow" ng-click="createUser()">Add</a>
                     <td><a class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b"
                            data-rel="back" ng-click="closeUserCreationDialog()">Cancel</a></td>
                     </td>
