@@ -280,7 +280,7 @@ define(["js/Utils"], function (Utils) {
          *
          */
         ConsoleService.prototype.updateUser = function (node, user) {
-            return Utils.ajax(this.getNodeRootUrl(node) + "/users", "PUT",
+            return Utils.ajax(this.getNodeRootUrl(node) + "/users/" + user.account, "PUT",
                 "application/json", JSON.stringify(Utils
                     .cloneFiltered(user, /\_\_|\$\$/)));
         };

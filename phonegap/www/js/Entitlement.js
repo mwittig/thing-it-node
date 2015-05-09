@@ -5,10 +5,10 @@
 define(["js/Utils"],
     function (Utils) {
         return {
-            bind : function(entitlement) {
+            bindGroupEntitlement : function(group, entitlement) {
                 Utils.inheritMethods(entitlement, new Entitlement());
 
-                entitlement.bind();
+                entitlement.bindGroupEntitlement(group);
 
                 return entitlement;
             }
@@ -16,6 +16,8 @@ define(["js/Utils"],
         };
 
         /**
+         * The Entitlement class allows to display and modify Entitlements as well as evaluate them against
+         * Groups, Devices, Actors and Sensors.
          *
          * @constructor
          */
@@ -24,15 +26,53 @@ define(["js/Utils"],
             /**
              *
              */
-            Entitlement.prototype.bind = function () {
-                for (var n in this.subGroups)
+            Entitlement.prototype.bindGroupEntitlement = function (group) {
+                for (var n in this.groupEntitlements)
                 {
-                    Utils.inheritMethods(this.subGroups[n], new Entitlement());
+                    Utils.inheritMethods(this.groupEntitlements[n], new Entitlement());
 
-                    this.subGroups[n].__superGroup = this;
+                    var subGroup = group.getSubGroup(this.groupEntitlements[n].id);
 
-                    this.subGroups[n].bind();
+                    this.groupEntitlements[n].__superGroupEntitlement = this;
+                    this.groupEntitlements[n].__group = subGroup;
+                    subGroup.__entitlement = this.groupEntitlements[n];
+
+                    this.groupEntitlements[n].bindGroupEntitlement(subGroup);
                 }
+            };
+
+            /**
+             *
+             * @returns {*}
+             */
+            Entitlement.prototype.viewGranted = function () {
+                if (this.view != null)
+                {
+                    return this.view;
+                }
+                else if (this.__superGroupEntitlement)
+                {
+                    return this.__superGroupEntitlement.viewGranted();
+                }
+
+                return false;
+            };
+
+            /**
+             *
+             * @returns {*}
+             */
+            Entitlement.prototype.executeGranted = function () {
+                if (this.view != null)
+                {
+                    return this.execute;
+                }
+                else if (this.__superGroupEntitlement)
+                {
+                    return this.__superGroupEntitlement.executeGranted();
+                }
+
+                return false;
             };
 
             /**

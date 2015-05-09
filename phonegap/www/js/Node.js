@@ -50,6 +50,19 @@ define([ "js/Utils", "js/Device", "js/Group" ], function(
 			throw "Cannot find Device [" + id + "].";
 		};
 
+        /**
+         *
+         */
+        Node.prototype.getGroup = function(id) {
+            for ( var n in this.groups) {
+                if (this.groups[n].id === id) {
+                    return this.groups[n];
+                }
+            }
+
+            throw "Cannot find Group [" + id + "].";
+        };
+
 		/**
 		 * 
 		 */

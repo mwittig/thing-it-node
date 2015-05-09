@@ -69,6 +69,22 @@ define(
             /**
              *
              */
+            Group.prototype.getSubGroup = function (id) {
+                var groups = [];
+
+                for (var n in this.subGroups) {
+                    if (this.subGroups[n].id == id)
+                    {
+                        return this.subGroups[n];
+                    }
+                }
+
+                throw "No Subgroup with id [" + id + "]";
+            };
+
+            /**
+             *
+             */
             Group.prototype.getAllGroups = function () {
                 var groups = [];
 

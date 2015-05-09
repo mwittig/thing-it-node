@@ -3,7 +3,7 @@
  ******************************************************************************/
 
 define(["js/Utils", "js/ConsoleService", "js/User"], function (Utils,
-                                                    ConsoleService, User) {
+                                                               ConsoleService, User) {
     return {
         create: function (console, user) {
             return new UserPage().initialize(console, user);
@@ -32,9 +32,11 @@ define(["js/Utils", "js/ConsoleService", "js/User"], function (Utils,
 
             this.treeNodes = [];
 
-            User.bind(this.user);
+            User.bind(this.console.node, this.user);
 
-            this.createTreeNodes(null, this.user.entitlements, 0);
+            this.createTreeNodes(null, this.user.groupEntitlements, 0);
+
+            console.log(this.treeNodes);
 
             deferred.resolve();
 
@@ -46,8 +48,7 @@ define(["js/Utils", "js/ConsoleService", "js/User"], function (Utils,
          */
         UserPage.prototype.createTreeNodes = function (parent, entitlements, level) {
             for (var n in entitlements) {
-                if (entitlements[n].type == "role")
-                {
+                if (entitlements[n].type == "role") {
                     continue;
                 }
 
@@ -55,14 +56,19 @@ define(["js/Utils", "js/ConsoleService", "js/User"], function (Utils,
                     parent: parent,
                     level: level,
                     entitlement: entitlements[n],
-                    hasChildren: entitlements[n].subGroups && entitlements[n].subGroups.length,
+                    hasChildren: entitlements[n].groupEntitlements && entitlements[n].groupEntitlements.length ||
+                    entitlements[n].deviceEntitlements && entitlements[n].deviceEntitlements.length,
                     expanded: false
                 };
 
                 this.treeNodes.push(node);
 
-                if (entitlements[n].subGroups) {
-                    this.createTreeNodes(node, entitlements[n].subGroups, level + 1);
+                if (entitlements[n].deviceEntitlements) {
+                    this.createTreeNodes(node, entitlements[n].deviceEntitlements, level + 1);
+                }
+
+                if (entitlements[n].groupEntitlements) {
+                    this.createTreeNodes(node, entitlements[n].groupEntitlements, level + 1);
                 }
             }
         };

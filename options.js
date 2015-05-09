@@ -11,5 +11,5 @@ module.exports = {
     verifyCallSignature: false,
     publicKeyFile: "",
     signingAlgorithm: "RSA-SHA256",
-    authentication: {type: "none"}
+    authentication: {type: "local"}
 };
