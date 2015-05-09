@@ -176,7 +176,7 @@
         </div>
         <div role="main" class="ui-content">
             <ul data-role="listview">
-                <li ng-repeat="group in topPage().node.groups" jqm-list-item><a
+                <li ng-repeat="group in topPage().node.groups" ng-show="group.__entitlement.viewGranted()" jqm-list-item><a
                         ng-click="pushGroupPage(group)"><span ng-show="group.icon"><i
                         class="titleIcon fa fa-{{group.icon}}"></i></span><span
                         ng-hide="group.icon"><i class="titleIcon fa fa-home"></i></span>{{group.label}}</a></li>
@@ -276,7 +276,7 @@
         <div role="main" class="ui-content">
             <form>
                 <ul data-role="listview">
-                    <li ng-repeat="group in topPage().group.subGroups" jqm-li><a
+                    <li ng-repeat="group in topPage().group.subGroups" ng-show="group.__entitlement.viewGranted()" jqm-li><a
                             ng-click="pushGroupPage(group)"><span ng-show="group.icon"><i
                             class="titleIcon fa fa-{{group.icon}}"></i></span><span
                             ng-hide="group.icon"><i class="titleIcon fa fa-home"></i></span>{{group.label}}</a></li>
@@ -558,8 +558,9 @@
                     class="fa fa-chevron-circle-left"></i></a>
         </div>
         <div role="main" class="ui-content">
+            <h1>Roles</h1>
             <table style="width: 100%;">
-                <tr style="vertical-align: middle" ng-repeat="entitlement in topPage().user.entitlements"
+                <tr style="vertical-align: middle" ng-repeat="entitlement in topPage().user.roleEntitlements"
                     ng-show="entitlement.type == 'role'">
                     <td style="width: 70%;">{{entitlement.label}}
                     </td>
@@ -569,6 +570,18 @@
                     <td style="width: 10%;"></td>
                 </tr>
             </table>
+            <h1>Devices</h1>
+            <table style="width: 100%;">
+                <tr style="vertical-align: middle" ng-repeat="entitlement in topPage().user.deviceEntitlements">
+                    <td style="width: 70%;">{{entitlement.label}}
+                    </td>
+                    <td style="width: 5%;"><ti-tri-state ti-model="treeNode.entitlement.view" ti-change="topPage().saveUser()" ti-allows-indeterminate="treeNode.entitlement.__superGroup"></ti-tri-state></td>
+                    <td style="width: 10px;">View</td>
+                    <td style="width: 5%;"><ti-tri-state ti-model="treeNode.entitlement.execute" ti-change="topPage().saveUser()" ti-allows-indeterminate="treeNode.entitlement.__superGroup"></ti-tri-state></td>
+                    <td style="width: 10%;">Execute</td>
+                </tr>
+            </table>
+            <h1>Groups</h1>
             <table class="tree">
                 <tr style="vertical-align: middle" ng-repeat="treeNode in topPage().treeNodes"
                     ng-show="!treeNode.parent || treeNode.parent.expanded">

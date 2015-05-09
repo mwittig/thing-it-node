@@ -5,10 +5,10 @@
 define(["js/Utils", "js/Entitlement"],
     function (Utils, Entitlement) {
         return {
-            bind : function(user) {
+            bind : function(node, user) {
                 Utils.inheritMethods(user, new User());
 
-                user.bind();
+                user.bind(node);
 
                 return user;
             }
@@ -21,10 +21,15 @@ define(["js/Utils", "js/Entitlement"],
          */
         function User()
         {
-            User.prototype.bind = function () {
-                for (var n in this.entitlements)
+            User.prototype.bind = function (node) {
+                for (var n in this.groupEntitlements)
                 {
-                    Entitlement.bind(this.entitlements[n]);
+                    var group = node.getGroup(this.groupEntitlements[n].id);
+
+                    this.groupEntitlements[n].__group = group;
+                    group.__entitlement = this.groupEntitlements[n];
+
+                    Entitlement.bindGroupEntitlement(group, this.groupEntitlements[n]);
                 }
             };
         }

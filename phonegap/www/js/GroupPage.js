@@ -30,6 +30,8 @@ define([ "js/Utils", "js/ConsoleService" ], function(Utils,
 
 			this.services = this.group.getServices();
 
+            console.log("Group ", this.group);
+
 			deferred.resolve();
 
 			return deferred.promise();

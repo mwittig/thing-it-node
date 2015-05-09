@@ -198,17 +198,12 @@ define(
                     .login(credentials)
                     .done(
                     function (loggedInUser) {
-                        self.loggedInUser = User.bind(loggedInUser);
-
                         ConsoleService
                             .instance()
                             .getDeviceTypes()
                             .done(
                             function (deviceTypes) {
                                 self.deviceTypes = deviceTypes;
-
-                                console
-                                    .log(self.deviceTypes);
 
                                 if (ConsoleService.instance().proxyMode == "local") {
                                     ConsoleService
@@ -219,6 +214,8 @@ define(
                                             self
                                                 .pushNodePage(
                                                 node);
+                                            self.loggedInUser = User.bind(node, loggedInUser);
+
                                             jQuery.mobile
                                                 .loading("hide");
                                         })
