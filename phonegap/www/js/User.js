@@ -5,7 +5,7 @@
 define(["js/Utils", "js/Entitlement"],
     function (Utils, Entitlement) {
         return {
-            bind : function(node, user) {
+            bind: function (node, user) {
                 Utils.inheritMethods(user, new User());
 
                 user.bind(node);
@@ -19,11 +19,9 @@ define(["js/Utils", "js/Entitlement"],
          *
          * @constructor
          */
-        function User()
-        {
+        function User() {
             User.prototype.bind = function (node) {
-                for (var n in this.groupEntitlements)
-                {
+                for (var n in this.groupEntitlements) {
                     var group = node.getGroup(this.groupEntitlements[n].id);
 
                     this.groupEntitlements[n].__group = group;
@@ -31,6 +29,16 @@ define(["js/Utils", "js/Entitlement"],
 
                     Entitlement.bindGroupEntitlement(group, this.groupEntitlements[n]);
                 }
+            };
+
+            User.prototype.hasRole = function (role) {
+                for (var n in this.roleEntitlements) {
+                    if (this.roleEntitlements[n].id == role && this.roleEntitlements[n].granted == "true") {
+                        return true;
+                    }
+                }
+
+                return false;
             };
         }
     });

@@ -124,9 +124,6 @@
                     ng-click="loginPage.login()">Login
             </button>
         </div>
-        <div data-role="footer" data-position="fixed">
-            <h4>Copyright &copy; 2015 thing-it</h4>
-        </div>
     </div>
     <div id="meshesPage" data-role="page">
         <div data-role="header" data-position="fixed">
@@ -141,9 +138,6 @@
                             ng-click="pushMeshPage(mesh)"></span>{{mesh.label}}</a></li>
                 </ul>
             </form>
-        </div>
-        <div data-role="footer" data-position="fixed">
-            <h4>Copyright &copy; 2015 thing-it</h4>
         </div>
     </div>
     <div id="meshPage" data-role="page">
@@ -160,19 +154,16 @@
                 </ul>
             </form>
         </div>
-        <div data-role="footer" data-position="fixed">
-            <h4>Copyright &copy; 2015 thing-it</h4>
-        </div>
     </div>
-    <div id="nodePage" data-role="page">
+    <div id="nodePage" data-role="page" class="ui-responsive-panel">
         <div data-role="header" data-position="fixed">
             <h1>
                 <i class="titleIcon fa fa-calculator"></i>{{topPage().node.label}} {{deviceAdvertisementDialog.nase}}
             </h1>
             <a class="toolbarButton" ng-click="logout()"><i
                     class="fa fa-power-off"></i></a>
-            <a class="toolbarButton" ng-click="pushAdministrationPage()"><i
-                    class="fa fa-wrench"></i></a>
+            <a class="toolbarButton" href="#menu"><i
+                    class="fa fa-bars"></i></a>
         </div>
         <div role="main" class="ui-content">
             <ul data-role="listview">
@@ -258,9 +249,8 @@
                 </li>
             </ul>
         </div>
-        <div data-role="footer" data-position="fixed">
-            <h4>Copyright &copy; 2015 thing-it</h4>
-        </div>
+        <div ng-include="'./menu.html'">
+            </div>
     </div>
     <div id="groupPage" data-role="page">
         <div data-role="header" data-position="fixed">
@@ -337,9 +327,6 @@
                 </ul>
             </form>
         </div>
-        <div data-role="footer" data-position="fixed">
-            <h4>Copyright &copy; 2015 thing-it</h4>
-        </div>
     </div>
     <div id="devicePage" data-role="page">
         <div data-role="header" data-position="fixed">
@@ -370,9 +357,6 @@
                         class="titleIcon fa fa-gear"></i>{{service.label}}</a></li>
             </ul>
         </div>
-        <div data-role="footer" data-position="fixed">
-            <h4>Copyright &copy; 2015 thing-it</h4>
-        </div>
     </div>
     <div id="actorPage" data-role="page">
         <div data-role="header" data-position="fixed">
@@ -399,9 +383,6 @@
                         ng-click="callActorService(topPage().actor, service.id)"><i
                         class="titleIcon fa fa-gear"></i>{{service.label}}</a></li>
             </ul>
-        </div>
-        <div data-role="footer" data-position="fixed">
-            <h4>Copyright &copy; 2015 thing-it</h4>
         </div>
     </div>
     <div id="sensorPage" data-role="page">
@@ -434,9 +415,6 @@
                         class="titleIcon fa fa-chart"></i>Monitoring</a></li>
             </ul>
         </form>
-        <div data-role="footer" data-position="fixed">
-            <h4>Copyright &copy; 2015 thing-it</h4>
-        </div>
     </div>
     <div id="dataPage" data-role="page">
         <div data-role="header" data-position="fixed">
@@ -447,9 +425,6 @@
         <div role="main" class="ui-content">
             <div ng-repeat="object in [topPage().dataValue]"
                  ng-include="'./anyPanel.html'"></div>
-        </div>
-        <div data-role="footer" data-position="fixed">
-            <h4>Copyright &copy; 2015 thing-it</h4>
         </div>
     </div>
     <div id="deviceMonitoringPage" class="monitoringPage" data-role="page">
@@ -482,9 +457,6 @@
                 </ul>
             </form>
         </div>
-        <div data-role="footer" data-position="fixed">
-            <h4>Copyright &copy; 2015 thing-it</h4>
-        </div>
     </div>
     <div id="sensorMonitoringPage" class="monitoringPage" data-role="page">
         <div data-role="header" data-position="fixed">
@@ -505,35 +477,14 @@
             </table>
             <div id="plot" style="width: 100%; height: 100%;"></div>
         </div>
-        <div data-role="footer" data-position="fixed">
-            <h4>Copyright &copy; 2015 thing-it</h4>
-        </div>
-    </div>
-    <div id="administrationPage" data-role="page">
-        <div data-role="header" data-position="fixed">
-            <h1>Administration</h1>
-            <a class="toolbarButton" ng-click="popPage()"><i
-                    class="fa fa-chevron-circle-left"></i></a>
-        </div>
-        <div role="main" class="ui-content">
-            <form>
-                <ul data-role="listview">
-                    <li ng-show="authenticationMode.type == 'local'"><a
-                            ng-click="pushUserManagementPage()"><i class="titleIcon fa fa-users"></i>User Management</a>
-                    </li>
-                </ul>
-            </form>
-            {{node.options.authentication}}
-        </div>
-        <div data-role="footer" data-position="fixed">
-            <h4>Copyright &copy; 2015 thing-it</h4>
-        </div>
     </div>
     <div id="userManagementPage" data-role="page">
         <div data-role="header" data-position="fixed">
             <h1><i class="titleIcon fa fa-users"></i>User Management</h1>
             <a class="toolbarButton" ng-click="popPage()"><i
                     class="fa fa-chevron-circle-left"></i></a>
+            <a class="toolbarButton" href="#menu"><i
+                    class="fa fa-bars"></i></a>
         </div>
         <div role="main" class="ui-content">
             <form>
@@ -547,8 +498,7 @@
                 </ul>
             </form>
         </div>
-        <div data-role="footer" data-position="fixed">
-            <h4>Copyright &copy; 2015 thing-it</h4>
+        <div ng-include="'./menu.html'">
         </div>
     </div>
     <div id="userPage" data-role="page">
@@ -596,9 +546,6 @@
                     <td style="width: 10%;">Execute</td>
                 </tr>
             </table>
-        </div>
-        <div data-role="footer" data-position="fixed">
-            <h4>Copyright &copy; 2015 thing-it</h4>
         </div>
     </div>
     <div id="deviceAdvertisementDialog" data-role="popup">
