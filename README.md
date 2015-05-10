@@ -1,4 +1,4 @@
-**[thing-it-node]** is **an Operating System for Things** and allows you to
+**[thing-it-node]** is **a scalable Operating System for Things** and allows you to
 
 * connect multiple Devices (e.g. Heart Rate Monitors, Sensor Tags, Drones) as well as low-level Actors and Sensors managed via Microcontrollers like an Arduino
   to your node computer (e.g. a regular server, a Raspberry Pi or a BeagleBone Black)
@@ -8,7 +8,8 @@
 * define **Complex Event Processing** to react to Sensor events and state changes,
 * define **Storyboards** for the timeline-based invocation of Node, Device and Actor Services (e.g. for robotics),
 * define **Job Schedules** for a calendar-based, recurring execution of Services including start of Storyboards,
-* define **Complex Data Variables** to persistently store Event Data for later evaluation or for configurations and
+* define **Complex Data Variables** to persistently store Event Data for later evaluation or for configurations
+* manage Users an their Entitlements to acess the abobe elements and
 * use a **Mobile Client** to monitor and control your Devices.
 
 All of the above is controlled by a [nodejs](http://nodejs.org/) server which is bootstrapped from a **simple JSON configuration**, which allows you to
