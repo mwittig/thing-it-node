@@ -9,11 +9,10 @@ define(
         "js/SensorPage", "js/DataPage",
         "js/DeviceMonitoringPage",
         "js/SensorMonitoringPage",
-        "js/AdministrationPage",
         "js/UserManagementPage",
         "js/UserPage"],
     function (Utils, Node, User, ConsoleService, LoginPage, MeshesPage, MeshPage, NodePage, GroupPage, DevicePage,
-              ActorPage, SensorPage, DataPage, DeviceMonitoringPage, SensorMonitoringPage, AdministrationPage, UserManagementPage, UserPage) {
+              ActorPage, SensorPage, DataPage, DeviceMonitoringPage, SensorMonitoringPage, UserManagementPage, UserPage) {
         return {
             create: function () {
                 return new MobileConsole();
@@ -216,6 +215,8 @@ define(
                                                 node);
                                             self.loggedInUser = User.bind(node, loggedInUser);
 
+                                            console.log("Logged-In User ===>", this.loggedInUser);
+
                                             jQuery.mobile
                                                 .loading("hide");
                                         })
@@ -376,6 +377,7 @@ define(
                         this.pushNodePage(node);
                     }.bind(this));
             };
+
             /**
              *
              */
@@ -388,6 +390,13 @@ define(
                 this
                     .connectNode(this.node);
                 this.pushPage(NodePage.create(this, node));
+            };
+
+            /**
+             *
+             */
+            MobileConsole.prototype.pushHomePage = function () {
+                this.rootPage(NodePage.create(this, this.node));
             };
 
             /**
@@ -437,15 +446,6 @@ define(
              */
             MobileConsole.prototype.pushDataPage = function (data) {
                 this.pushPage(DataPage.create(this, data));
-            };
-
-            /**
-             *
-             */
-            MobileConsole.prototype.pushAdministrationPage = function () {
-                console.log("Push Admin Page");
-
-                this.pushPage(AdministrationPage.create(this));
             };
 
             /**
@@ -719,6 +719,13 @@ define(
              */
             MobileConsole.prototype.writeToDeviceStream = function (device,
                                                                     value) {
+            };
+
+            /**
+             *
+             */
+            MobileConsole.prototype.loggedInUserIsAdministrator = function (time) {
+                return this.loggedInUser.hasRole("administrator");
             };
 
             /**
