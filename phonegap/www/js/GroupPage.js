@@ -15,7 +15,7 @@ define([ "js/Utils", "js/ConsoleService" ], function(Utils,
 		 * 
 		 */
 		GroupPage.prototype.initialize = function(console, group) {
-			this.id = "groupPage";
+			this.id = "group";
 			this.console = console;
 			this.group = group;
 
@@ -52,12 +52,19 @@ define([ "js/Utils", "js/ConsoleService" ], function(Utils,
 			this.console.showPage(this.console.actorPage);
 		};
 
-		/**
-		 * 
-		 */
-		GroupPage.prototype.back = function() {
-			this.console.showPage(this.console.nodePage);
-		};
+        /**
+         *
+         */
+        GroupPage.prototype.title = function() {
+            return this.group.label;
+        };
+
+        /**
+         *
+         */
+        GroupPage.prototype.icon = function() {
+            return "fa-" + this.group.icon;
+        };
 
 		/**
 		 * 

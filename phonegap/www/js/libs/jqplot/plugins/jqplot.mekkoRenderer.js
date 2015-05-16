@@ -45,7 +45,7 @@
      * > bar3 = [['grumpy',4],['sneezy',2],['happy',7],['sleepy',9],['doc',7]];
      * 
      * If you want to place labels for each bar under the axis, you use the barLabels option on 
-     * the axes.  The bar labels can be styled with the ".jqplot-mekko-barLabel" css class.
+     * the axes.  The bar labels can be styled with the ".jqplot-mekko-barLabel" mobile-angular-ui-ui class.
      * 
      * > barLabels = ['Mickey Mouse', 'Donald Duck', 'Goofy'];
      * > axes:{xaxis:{barLabels:barLabels}}

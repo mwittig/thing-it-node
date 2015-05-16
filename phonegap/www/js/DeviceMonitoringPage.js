@@ -18,7 +18,7 @@ define(
              */
             DeviceMonitoringPage.prototype.initialize = function (console,
                                                                   device) {
-                this.id = "deviceMonitoringPage";
+                this.id = "deviceMonitoring";
                 this.console = console;
                 this.device = device;
                 this.plots = {};

@@ -34,17 +34,17 @@
      * Plugin renderer to draw a x-y block chart.  A Block chart has data points displayed as
      * colored squares with a text label inside.  Data must be supplied in the form:
      * 
-     * > [[x1, y1, "label 1", {css}], [x2, y2, "label 2", {css}], ...]
+     * > [[x1, y1, "label 1", {mobile-angular-ui-ui}], [x2, y2, "label 2", {mobile-angular-ui-ui}], ...]
      * 
-     * The label and css object are optional.  If the label is ommitted, the
-     * box will collapse unless a css height and/or width is specified.
+     * The label and mobile-angular-ui-ui object are optional.  If the label is ommitted, the
+     * box will collapse unless a mobile-angular-ui-ui height and/or width is specified.
      * 
-     * The css object is an object specifying css properties 
+     * The mobile-angular-ui-ui object is an object specifying mobile-angular-ui-ui properties
      * such as:
      * 
      * > {background:'#4f98a5', border:'3px solid gray', padding:'1px'}
      * 
-     * Note that css properties specified with the data point override defaults
+     * Note that mobile-angular-ui-ui properties specified with the data point override defaults
      * specified with the series.
      * 
      */
@@ -59,9 +59,9 @@
     $.jqplot.BlockRenderer.prototype.init = function(options) {
         // Group: Properties
         //
-        // prop: css
-        // default css styles that will be applied to all data blocks.
-        // these values will be overridden by css styles supplied with the
+        // prop: mobile-angular-ui-ui
+        // default mobile-angular-ui-ui styles that will be applied to all data blocks.
+        // these values will be overridden by mobile-angular-ui-ui styles supplied with the
         // individulal data points.
         this.css = {padding:'2px', border:'1px solid #999', textAlign:'center'};
         // prop: escapeHtml
@@ -73,8 +73,8 @@
         // prop: varyBlockColors
         // true to vary the color of each block in this series according to
         // the seriesColors array.  False to set each block to the color
-        // specified on this series.  This has no effect if a css background color
-        // option is specified in the renderer css options.
+        // specified on this series.  This has no effect if a mobile-angular-ui-ui background color
+        // option is specified in the renderer mobile-angular-ui-ui options.
         this.varyBlockColors = false;
         $.extend(true, this, options);
         if (this.css.backgroundColor) {

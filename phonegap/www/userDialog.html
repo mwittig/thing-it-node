@@ -1,0 +1,52 @@
+<div class="modal" ui-if='userDialog' ui-state='userDialog'>
+    <div class="modal-backdrop in"></div>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close"
+                        ui-turn-off="modal1">&times;</button>
+                <h4 class="modal-title">Add User</h4>
+            </div>
+            <div class="modal-body">
+                <form role="form" ng-submit='createUser()'>
+                    <fieldset>
+                        <div class="form-group">
+                            <label>Account</label>
+                            <input
+                                    ng-model="userCreationDialog.user.account"
+                                    class="form-control"
+                                    placeholder="Enter Account">
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input type="password"
+                                   ng-model="userCreationDialog.user.password"
+                                   class="form-control"
+                                   placeholder="Enter Password">
+                        </div>
+                        <div class="form-group">
+                            <label>First Name</label>
+                            <input
+                                   ng-model="userCreationDialog.user.firstName"
+                                   class="form-control"
+                                   placeholder="Enter First Name">
+                        </div>
+                        <div class="form-group">
+                            <label>Last Name</label>
+                            <input
+                                    ng-model="userCreationDialog.user.lastName"
+                                    class="form-control"
+                                    placeholder="Enter Last Name">
+                        </div>
+                    </fieldset>
+                    </form>
+            </div>
+            <div class="modal-footer">
+                <button ui-turn-off="userDialog" class="btn btn-default">Close</button>
+                <button ui-turn-off="userDialog" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+

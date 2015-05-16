@@ -1,14 +1,10 @@
-<div data-role="panel" data-position="right" data-position-fixed="false" data-display="reveal" id="menu" data-theme="a">
-    <ul data-role="listview" data-theme="a" data-divider-theme="a" style="margin-top:-16px;" class="nav-search">
-        <li>
-            <a ng-click="logout()"><i class="fa fa-power-off"></i> Logout</a>
-        </li>
-        <li>
-            <a ng-click="topPage().console.pushHomePage()"><i class="fa fa-home"></i> Home</a>
-        </li>
-        <li ng-show="loggedInUserIsAdministrator" data-role="list-divider"><h3>Administration</h3></li>
-        <li ng-show="loggedInUserIsAdministrator">
-            <a ng-click="pushUserManagementPage()"><i class="fa fa-users"></i> User Management</a>
-        </li>
-    </ul>
+<div class="scrollable">
+    <div class="scrollable-content">
+        <div class="list-group" ui-turn-off='uiSidebarLeft'>
+            <a class="list-group-item" ng-click="logout()"><i class="fa fa-power-off"></i> Logout</a>
+            <a class="list-group-item" ng-click="topPage().console.pushHomePage()"><i class="fa fa-home"></i> Home</a>
+            <a class="list-group-item" ng-click="pushUserManagementPage()"><i class="fa fa-users"></i> User
+                Management</a>
+        </div>
+    </div>
 </div>

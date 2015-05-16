@@ -15,7 +15,7 @@ define([ "js/Utils", "js/ConsoleService" ], function(Utils,
 		 * 
 		 */
 		DevicePage.prototype.initialize = function(console, device) {
-			this.id = "devicePage";
+			this.id = "device";
 			this.console = console;
 			this.device = device;
 
@@ -28,6 +28,8 @@ define([ "js/Utils", "js/ConsoleService" ], function(Utils,
 		DevicePage.prototype.show = function() {
 			var deferred = jQuery.Deferred();
 
+            console.log("Device", this.device);
+
 			deferred.resolve();
 
 			return deferred.promise();
@@ -38,5 +40,19 @@ define([ "js/Utils", "js/ConsoleService" ], function(Utils,
 		 */
 		DevicePage.prototype.leave = function() {
 		};
+
+        /**
+         *
+         */
+        DevicePage.prototype.title = function() {
+            return this.device.label;
+        };
+
+        /**
+         *
+         */
+        DevicePage.prototype.icon = function() {
+            return "fa-calculator";
+        };
 	}
 });

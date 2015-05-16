@@ -15,7 +15,7 @@ define([ "js/Utils", "js/ConsoleService" ], function(Utils,
 		 * 
 		 */
 		NodePage.prototype.initialize = function(console, node) {
-			this.id = "nodePage";
+			this.id = "node";
 			this.console = console;
 			this.node = node;
 
@@ -47,6 +47,20 @@ define([ "js/Utils", "js/ConsoleService" ], function(Utils,
 
 			return deferred.promise();
 		};
+
+        /**
+         *
+         */
+        NodePage.prototype.title = function() {
+            return this.node.label;
+        };
+
+        /**
+         *
+         */
+        NodePage.prototype.icon = function() {
+            return "fa-home";
+        };
 
 		/**
 		 * 

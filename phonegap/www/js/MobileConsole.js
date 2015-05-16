@@ -26,7 +26,8 @@ define(
             /**
              *
              */
-            MobileConsole.prototype.initialize = function (io) {
+            MobileConsole.prototype.initialize = function (io, location) {
+                this.location = location;
                 this.io = io;
                 this.pageStack = [];
                 this.sensorPlotData = {};
@@ -81,9 +82,13 @@ define(
                 promise.done(function () {
                     self.safeApply();
 
-                    window.setTimeout(function () {
-                        jQuery.mobile.changePage("#" + page.id);
-                    }, 500);
+                    console.log("Set page to " + page.id);
+                    self.location.path('/' + page.id);
+                    //
+                    //window.setTimeout(function () {
+                    //    $location.
+                    //    // jQuery.mobile.changePage("#" + page.id);
+                    //}, 500);
                 }).fail(function (error) {
                     console.error(error);
                 });
@@ -156,7 +161,7 @@ define(
              *
              */
             MobileConsole.prototype.registerDevice = function () {
-                jQuery.mobile.loading("show");
+                // jQuery.mobile.loading("show");
 
                 console.log("Start registration");
                 ConsoleService.instance().registerDevice(this.node, this.deviceAdvertisementDialog.device).done(function (node) {
@@ -168,19 +173,17 @@ define(
                             .pushNodePage(
                             node);
                         this.safeApply();
-                        jQuery.mobile
-                            .loading("hide");
+                        // jQuery.mobile.loading("hide");
                         this.closeDeviceAdvertisementDialog();
                     }
                     else {
                         // TODO
-                        jQuery.mobile
-                            .loading("hide");
+                        // jQuery.mobile.loading("hide");
                         this.closeDeviceAdvertisementDialog();
                     }
 
                 }.bind(this)).fail(function () {
-                    jQuery.mobile.loading("hide");
+                    // jQuery.mobile.loading("hide");
                 });
             };
 
@@ -190,7 +193,7 @@ define(
             MobileConsole.prototype.login = function (credentials) {
                 var self = this;
 
-                jQuery.mobile.loading("show");
+                // jQuery.mobile.loading("show");
 
                 ConsoleService
                     .instance()
@@ -217,13 +220,11 @@ define(
 
                                             console.log("Logged-In User ===>", this.loggedInUser);
 
-                                            jQuery.mobile
-                                                .loading("hide");
+                                            // jQuery.mobile.loading("hide");
                                         })
                                         .fail(
                                         function () {
-                                            jQuery.mobile
-                                                .loading("hide");
+                                            // jQuery.mobile.loading("hide");
                                         });
                                 }
                                 else {
@@ -233,11 +234,10 @@ define(
                             })
                             .fail(
                             function () {
-                                jQuery.mobile
-                                    .loading("hide");
+                                // jQuery.mobile.loading("hide");
                             });
                     }).fail(function () {
-                        jQuery.mobile.loading("hide");
+                        // jQuery.mobile.loading("hide");
                     });
             };
 
@@ -338,16 +338,16 @@ define(
             MobileConsole.prototype.logout = function () {
                 var self = this;
 
-                jQuery.mobile.loading("show");
+                // jQuery.mobile.loading("show");
 
                 ConsoleService.instance().logout().done(function () {
                     self.loggedInUser = null;
 
                     self.safeApply();
                     self.rootPage(self.loginPage);
-                    jQuery.mobile.loading("hide");
+                    // jQuery.mobile.loading("hide");
                 }).fail(function () {
-                    jQuery.mobile.loading("hide");
+                    // jQuery.mobile.loading("hide");
                 });
             };
 
@@ -606,16 +606,16 @@ define(
              *
              */
             MobileConsole.prototype.callNodeService = function (service) {
-                jQuery.mobile.loading("show");
+                // jQuery.mobile.loading("show");
 
                 console.log("Call Node Service");
                 console.log(this.node);
 
                 ConsoleService.instance().callNodeService(this.node, service, {})
                     .done(function () {
-                        jQuery.mobile.loading("hide");
+                        // jQuery.mobile.loading("hide");
                     }).fail(function () {
-                        jQuery.mobile.loading("hide");
+                        // jQuery.mobile.loading("hide");
                     });
             };
 
@@ -634,13 +634,13 @@ define(
              *
              */
             MobileConsole.prototype.callDeviceService = function (device, service) {
-                jQuery.mobile.loading("show");
+                // jQuery.mobile.loading("show");
 
                 ConsoleService.instance().callDeviceService(this.node, device, service, {})
                     .done(function () {
-                        jQuery.mobile.loading("hide");
+                        // jQuery.mobile.loading("hide");
                     }).fail(function () {
-                        jQuery.mobile.loading("hide");
+                        // jQuery.mobile.loading("hide");
                     });
             };
 
@@ -649,13 +649,13 @@ define(
              */
             MobileConsole.prototype.callActorService = function (actor,
                                                                  service, parameters) {
-                jQuery.mobile.loading("show");
+                // jQuery.mobile.loading("show");
 
                 ConsoleService.instance().callActorService(this.node, actor, service,
                     parameters).done(function () {
-                        jQuery.mobile.loading("hide");
+                        // jQuery.mobile.loading("hide");
                     }).fail(function () {
-                        jQuery.mobile.loading("hide");
+                        // jQuery.mobile.loading("hide");
                     });
             };
 
@@ -725,6 +725,11 @@ define(
              *
              */
             MobileConsole.prototype.loggedInUserIsAdministrator = function (time) {
+                if (!this.loggedInUser)
+                {
+                    return false;
+                }
+
                 return this.loggedInUser.hasRole("administrator");
             };
 

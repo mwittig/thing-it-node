@@ -1,0 +1,17 @@
+<div class="scrollable" ui-state="searchBar">
+    <div class="scrollable-content" ui-scroll-bottom='bottomReached()'>
+        <div class="list-group">
+            <a ng-repeat="group in topPage().group.subGroups" ng-click="pushGroupPage(group)" class="list-group-item">
+                <span ng-show="group.icon"><i
+                        class="titleIcon fa fa-{{group.icon}}"></i></span><span
+                    ng-hide="group.icon"><i class="titleIcon fa fa-home"></i></span>{{group.label}} <i class="fa fa-chevron-right pull-right"></i>
+            </a>
+            <a ng-repeat="service in topPage().group.getServices()" class="list-group-item">
+                <i class="fa fa-gear"></i>{{service.label}} <i class="fa fa-chevron-right pull-right"></i>
+            </a>
+            <a ng-repeat="device in topPage().group.getDevices()" ng-click="$parent.pushDevicePage(device)"  class="list-group-item">
+                <i class="fa fa-gear"></i> {{device.label}} <i class="fa fa-chevron-right pull-right"></i>
+            </a>
+        </div>
+    </div>
+</div>
