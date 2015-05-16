@@ -88,8 +88,8 @@
         // prop: varyBubbleColors
         // True to vary the color of each bubble in this series according to
         // the seriesColors array.  False to set each bubble to the color
-        // specified on this series.  This has no effect if a css background color
-        // option is specified in the renderer css options.
+        // specified on this series.  This has no effect if a mobile-angular-ui-ui background color
+        // option is specified in the renderer mobile-angular-ui-ui options.
         this.varyBubbleColors = true;
         // prop: autoscaleBubbles
         // True to scale the bubble radius based on plot size.

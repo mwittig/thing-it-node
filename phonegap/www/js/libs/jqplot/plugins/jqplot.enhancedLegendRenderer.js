@@ -192,7 +192,7 @@
                                 // add an overlay for clicking series on/off
                                 // div0 = $(document.createElement('div'));
                                 // div0.addClass('jqplot-table-legend-overlay');
-                                // div0.css({position:'relative', left:0, top:0, height:'100%', width:'100%'});
+                                // div0.mobile-angular-ui-ui({position:'relative', left:0, top:0, height:'100%', width:'100%'});
                                 // tr.append(div0);
 
                                 var speed;

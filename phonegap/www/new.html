@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <!--<meta name="format-detection" content="telephone=no"/>-->
+    <!--<meta name="msapplication-tap-highlight" content="no"/>-->
+    <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+    <!--<meta name="viewport"-->
+    <!--content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi"/>-->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <title>[thing-it] Mobile Client</title>
+    <link rel="shortcut icon" sizes="196x196"
+          href="./css/images/thing-it-home-screen.png">
+    <link rel="apple-touch-icon" sizes="196x196"
+          href="./css/images/thing-it-home-screen.png">
+    <link rel="apple-touch-icon-precomposed" sizes="196x196"
+          href="./css/images/thing-it-home-screen.png">
+    <link rel="apple-touch-startup-image"
+          href="./css/images/thing-it-splash.png">
+    <link href="./css/fonts/titillium-web.css"
+          rel="stylesheet" type="text/css">
+    <link href="./css/fonts/oswald.css" rel="stylesheet" type="text/css">
+    <link href="./css/font-awesome/css/font-awesome.min.css"
+          rel="stylesheet">
+    <link rel="stylesheet" href="./css/mobile-angular-ui/mobile-angular-ui-base.min.css" />
+    <link rel="stylesheet" href="./css/jquery.mobile.icons.min.css"/>
+    <link rel="stylesheet" href="./css/ion.rangeslider.css">
+    <link rel="stylesheet" href="./css/thing-it-mobile.css" type="text/css" type="text/css">
+    <link rel="stylesheet" href="./css/thing-it-plugins.css" type="text/css" type="text/css">
+    <link rel="stylesheet" href="./css/thirdparty/jqplot/jquery.jqplot.css"/>
+    <script src="js/libs/angular/angular-1.2.26.js"></script>
+    <script src="js/libs/angular/angular-route-1.2.26.js"></script>
+    <script src="js/libs/mobile-angular-ui/mobile-angular-ui.min.js"></script>
+    <script src="./js/libs/require/2.0.5/require-min.js"></script>
+    <script type="text/javascript">
+        require
+                .config({
+                    baseUrl: "./",
+                    paths: {
+                        'lodash': ['js/libs/lodash/lodash.min'],
+                        'jquery': ['js/libs/jquery/jquery-1.11.0.min'],
+                        'jquery-ui': ['js/libs/jquery/plugins/jquery-ui-1.10.2.custom.min'],
+                        "jquery.ui.touch-punch": ["js/libs/jquery/plugins/jquery.ui.touch-punch.min"],
+                        "jquery.knob": ['js/libs/jquery/plugins/jquery.knob.min'],
+                        "jquery.rangeslider": ['js/libs/jquery/plugins/ion.rangeslider.min'],
+                        'json': ['js/libs/json/json2'],
+                        "socketio": [window.location.protocol + "//"
+                        + window.location.hostname + ":"
+                        + window.location.port + "/socket.io/socket.io"],
+                        'jquery.jqplot': ['js/libs/jqplot/jquery.jqplot.min'],
+                        'jquery.jqplot.dateAxisRenderer': ['js/libs/jqplot/plugins/jqplot.dateAxisRenderer.min'],
+                        'moment': ['js/libs/moment/moment-2.8.4.min']
+                    },
+                    shim: {
+                        "jquery-ui": ['jquery'],
+                        "jquery.ui.touch-punch": ["jquery"],
+                        "jquery.knob": ["jquery"],
+                        "jquery.rangeslider": ["jquery"],
+                        "angularjs": {
+                            require: "jquery",
+                            exports: "angular"
+                        },
+                        "jquery.jqplot": ["jquery"],
+                        "jquery.jqplot.dateAxisRenderer": ["jquery.jqplot"]
+                    }
+                });
+
+        var module = angular.module("mobileConsoleApplication", ["ngRoute",
+            "mobile-angular-ui"]);
+
+        module.config(function($routeProvider) {
+            $routeProvider.when('/login',              {templateUrl: 'loginPage.html', reloadOnSearch: false});
+            $routeProvider.when('/node',              {templateUrl: 'nodePage.html', reloadOnSearch: false});
+            $routeProvider.when('/group',        {templateUrl: 'groupPage.html', reloadOnSearch: false});
+            $routeProvider.when('/device',        {templateUrl: 'devicePage.html', reloadOnSearch: false});
+            $routeProvider.when('/deviceMonitoring',        {templateUrl: 'deviceMonitoringPage.html', reloadOnSearch: false});
+            $routeProvider.when('/userManagement',        {templateUrl: 'userManagementPage.html', reloadOnSearch: false});
+            $routeProvider.when('/user',        {templateUrl: 'userPage.html', reloadOnSearch: false});
+        });
+
+        module.controller('mobileConsole', function ($scope, $location) {
+            require(["require", "lodash", "jquery", "jquery-ui", "jquery.ui.touch-punch", "jquery.knob",
+                "jquery.jqplot", "jquery.jqplot.dateAxisRenderer",
+                "jquery.rangeslider", "json",  "socketio", "moment",
+                "js/Utils", "js/AngularDirectives",
+                "js/MobileConsole"], function (require, lodash, jquery, jqueryUi, jqueryUiTouchPunch, jqueryKnob,
+                                               jqueryJqPlot, jqplotDateAxisRenderer,
+                                               jqueryRangeslider, json, socketio, moment, Utils,
+                                               AngularDirectives, MobileConsole) {
+                Utils.inheritMethods($scope, MobileConsole.create());
+
+                $scope.initialize(socketio, $location);
+
+                AngularDirectives.initialize(module);
+            });
+        });
+
+   </script>
+</head>
+<body ng-app="mobileConsoleApplication" ng-controller="mobileConsole">
+<div ng-include="'menu.html'"
+     ui-track-as-search-param='true'
+     class="sidebar sidebar-right"></div>
+<div class="app">
+    <div class="navbar navbar-app navbar-absolute-top">
+        <div class="navbar-brand navbar-brand-center" ui-yield-to="title">
+            <i class="fa {{topPage().icon()}}"></i> {{topPage().title()}}
+        </div>
+        <div class="btn-group pull-left">
+            <div class="btn">
+                <a ng-click="popPage()"><i class="fa fa-arrow-left"></i></a>
+                </div>
+        </div>
+        <div class="btn-group pull-right" ui-yield-to="navbarAction">
+            <div ui-toggle="uiSidebarRight" class="btn">
+                <i class="fa fa-bars"></i>
+            </div>
+        </div>
+    </div>
+
+    <div class="app-body" ng-class="{loading: loading}">
+        <div ng-show="loading" class="app-content-loading">
+            <i class="fa fa-spinner fa-spin loading-spinner"></i>
+        </div>
+        <div class="app-content">
+            <ng-view></ng-view>
+        </div>
+    </div>
+</div>
+
+<div ui-yield-to="modals"></div>
+
+</body></html>

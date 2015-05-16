@@ -1,0 +1,26 @@
+<div class="scrollable" ui-state="searchBar">
+    <div class="scrollable-content" ui-scroll-bottom='bottomReached()'>
+        <form>
+            <div class="list-group">
+                <div id="{{value.id}}" ng-repeat="value in topPage().device.__type.state"
+                     ng-show="value.type.id == 'number'">
+                    <table style="padding: 5px; width: 100%; margin: 10px;">
+                        <tr valign="top">
+                            <td align="left">
+                                <h3>{{value.label}}</h3>
+                            </td>
+                            <td style="text-align: right;">
+                                <div class="value">{{topPage().device._state[value.id]}}</div>
+                            <td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <div id="{{value.id}}-Plot" style="width: 100%; height: 200px;"></div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

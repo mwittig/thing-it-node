@@ -1,0 +1,25 @@
+<div class="scrollable" ui-state="searchBar">
+    <div class="scrollable-content" ui-scroll-bottom='bottomReached()'>
+        <div class="deviceUi">
+            <table width="100%">
+                <tr valign="center">
+                    <td align="center">
+                        <div ng-include="getComponentPluginPath(device)"
+                             ng-repeat="device in [topPage().device]"></div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="list-group">
+            <a class="list-group-item"><label>Last
+                State Change</label>{{formatDateTime(topPage().device.lastStateChangeTimestamp)}}
+            </a>
+            <a ng-click="pushDeviceMonitoringPage(topPage().device)" class="list-group-item"><i
+                    class="titleIcon fa fa-line-chart"></i>Monitoring</a>
+            <a ng-repeat="service in topPage().device.__type.services"
+               ng-click="callDeviceService(topPage().device, service.id)" class="list-group-item">
+                <i
+                        class="titleIcon fa fa-gear"></i>{{service.label}}</a></li>
+        </div>
+    </div>
+</div>

@@ -510,8 +510,7 @@ button[disabled],
 
 /* Slide-in Menu */
 
-.ui-panel-position-right.ui-panel-open, .ui-panel-position-right.ui-panel-display-reveal
-{
+.ui-panel-position-right.ui-panel-open, .ui-panel-position-right.ui-panel-display-reveal {
   border: none !important;
   border-left: 1px solid @primaryColor !important;
 }
@@ -555,8 +554,13 @@ button[disabled],
 
 /* General */
 
+a {
+  color: @primaryColor;
+}
+
 label {
-  color: lighten(@textColor, @lightPercentage);
+  color: lighten(@textColor, @lightestPercentage);
+  font-weight: normal;
 }
 
 h1 {
@@ -612,8 +616,7 @@ table.tree tr {
   height: 35px;
 }
 
-i.treeHandle
-{
+i.treeHandle {
   font-size: 25px;
 }
 
@@ -623,3 +626,53 @@ i.treeHandle
   font-size: 60px;
   color: lighten(@primaryColor, @lightPercentage);
 }
+
+/* Mobile Angular UI Overwrites */
+
+.app {
+  background-color: #FFFFFF;
+}
+
+.navbar-app {
+  background-color: @primaryColor;
+  color: #FFFFFF;
+  border-bottom: none;
+}
+
+.navbar-app a {
+  color: #FFFFFF;
+}
+
+.navbar-app .btn {
+  color: #FFFFFF;
+}
+
+.navbar-app .btn:active, .navbar-app .btn:hover {
+  background-color: @primaryColor;
+  color: #FFFFFF;
+}
+
+.btn {
+  background-color: @primaryColor;
+  color: #FFFFFF;
+}
+
+.btn:active, .btn:hover  {i
+  background-color: @primaryColor;
+  color: #FFFFFF;
+}
+
+.deviceUi {
+  margin: 5px;
+}
+
+.panel{
+  border-color: @contrastColor !important;
+}
+
+.panel-heading {
+  background-color: lighten(@contrastColor, @lightPercentage) !important;
+  color: @contrastColor !important;
+  border-bottom: 1px solid @contrastColor !important;
+}
+

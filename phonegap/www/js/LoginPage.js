@@ -16,7 +16,7 @@ define(["js/Utils", "js/ConsoleService"], function (Utils,
          */
         LoginPage.prototype.initialize = function (console) {
             this.console = console;
-            this.id = "loginPage";
+            this.id = "login";
 
             return this;
         };
@@ -36,6 +36,20 @@ define(["js/Utils", "js/ConsoleService"], function (Utils,
          *
          */
         LoginPage.prototype.leave = function () {
+        };
+
+        /**
+         *
+         */
+        LoginPage.prototype.title = function() {
+            return "Login";
+        };
+
+        /**
+         *
+         */
+        LoginPage.prototype.icon = function() {
+            return "";
         };
 
         /**

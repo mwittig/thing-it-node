@@ -15,7 +15,7 @@ define(["js/Utils", "js/ConsoleService"], function (Utils,
          *
          */
         UserManagementPage.prototype.initialize = function (console) {
-            this.id = "userManagementPage";
+            this.id = "userManagement";
             this.console = console;
 
             return this;
@@ -27,15 +27,11 @@ define(["js/Utils", "js/ConsoleService"], function (Utils,
         UserManagementPage.prototype.show = function () {
             var deferred = jQuery.Deferred();
 
-            jQuery.mobile.loading("show");
-
             ConsoleService.instance().getUsers().then(function (result) {
                 this.users = result.users;
 
-                jQuery.mobile.loading("hide");
                 deferred.resolve();
             }.bind(this)).fail(function (error) {
-                jQuery.mobile.loading("hide");
                 deferred.reject(error);
             }.bind(this));
 
@@ -46,6 +42,20 @@ define(["js/Utils", "js/ConsoleService"], function (Utils,
          *
          */
         UserManagementPage.prototype.leave = function () {
+        };
+
+        /**
+         *
+         */
+        UserManagementPage.prototype.title = function() {
+            return "User management";
+        };
+
+        /**
+         *
+         */
+        UserManagementPage.prototype.icon = function() {
+            return "fa-users";
         };
     }
 });

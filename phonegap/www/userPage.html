@@ -1,0 +1,107 @@
+<div class="scrollable" ui-state="searchBar">
+    <div class="scrollable-content" ui-scroll-bottom='bottomReached()'>
+        <div class="section">
+            <div class="panel-group"
+                 ui-state='myAccordion'
+                 ui-default='2'>
+                <div class="panel panel-default" ng-repeat="i in [1,2,3]">
+                    <div class="panel-heading" ui-set="{'myAccordion': i}">
+                        <h4 class="panel-title" ng-show="i == 1">
+                            Roles
+                        </h4>
+                        <h4 class="panel-title" ng-show="i == 2">
+                            Devices
+                        </h4>
+                        <h4 class="panel-title" ng-show="i == 3">
+                            Groups
+                        </h4>
+                    </div>
+                    <!--
+                      use uiScopeContext to use scope vars in ui-if/ui-hide/ui-show/ui-class expression
+                      ie.
+                      <div ui-hide="sharedState1 == myVar1 && sharedState2 == myVar2"
+                        ui-scope-context="myVar1, myVar2"
+                      >
+                      </div>
+
+                      Be aware that scope vars will take precedence over sharedStates so,
+                      in order to avoid name clashes you can use 'as' to refer to scope vars
+                      with a different name in conditions:
+
+                      <div ui-hide="x == myVar1 && y == myVar2"
+                        ui-scope-context="x as myVar1, y as myVar2"
+                      >
+                      </div>
+                    -->
+                    <div ui-if="myAccordion == i" ui-scope-context='i'>
+                        <div class="panel-body" ng-show="i == 1">
+                            <table style="width: 100%;">
+                                <tr style="vertical-align: middle"
+                                    ng-repeat="entitlement in topPage().user.roleEntitlements"
+                                    ng-show="entitlement.type == 'role'">
+                                    <td style="width: 70%;">{{entitlement.label}}
+                                    </td>
+                                    <td style="width: 5%;"><input type="checkbox" ng-model="entitlement.granted"
+                                                                  ng-change="topPage().saveUser()"></td>
+                                    <td style="width: 10px;">Granted</td>
+                                    <td style="width: 5%;"></td>
+                                    <td style="width: 10%;"></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="panel-body" ng-show="i == 2">
+                            <table style="width: 100%;">
+                                <tr style="vertical-align: middle"
+                                    ng-repeat="entitlement in topPage().user.deviceEntitlements">
+                                    <td style="width: 70%;">{{entitlement.label}}
+                                    </td>
+                                    <td style="width: 5%;">
+                                        <ti-tri-state ti-model="treeNode.entitlement.view"
+                                                      ti-change="topPage().saveUser()"
+                                                      ti-allows-indeterminate="treeNode.entitlement.__superGroup"></ti-tri-state>
+                                    </td>
+                                    <td style="width: 10px;">View</td>
+                                    <td style="width: 5%;">
+                                        <ti-tri-state ti-model="treeNode.entitlement.execute"
+                                                      ti-change="topPage().saveUser()"
+                                                      ti-allows-indeterminate="treeNode.entitlement.__superGroup"></ti-tri-state>
+                                    </td>
+                                    <td style="width: 10%;">Execute</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="panel-body" ng-show="i == 3">
+                            <table class="tree">
+                                <tr style="vertical-align: middle" ng-repeat="treeNode in topPage().treeNodes"
+                                    ng-show="!treeNode.parent || treeNode.parent.expanded">
+                                    <td style="width: 70%; padding-left: {{10 * treeNode.level}}px;"><a
+                                            style="margin-right: 5px;"
+                                            ng-click="treeNode.expanded = true"
+                                            ng-show="treeNode.hasChildren && !treeNode.expanded"><i
+                                            class="treeHandle fa fa-plus-circle"></i></a><a
+                                            style="margin-right: 5px;" ng-click="treeNode.expanded = false"
+                                            ng-show="treeNode.hasChildren && treeNode.expanded"><i
+                                            class="treeHandle fa fa-minus-circle"></i></a>{{treeNode.entitlement.label}}
+                                    </td>
+                                    <td style="width: 5%;">
+                                        <ti-tri-state ti-model="treeNode.entitlement.view"
+                                                      ti-change="topPage().saveUser()"
+                                                      ti-allows-indeterminate="treeNode.entitlement.__superGroup"></ti-tri-state>
+                                    </td>
+                                    <td style="width: 10px;">View</td>
+                                    <td style="width: 5%;">
+                                        <ti-tri-state ti-model="treeNode.entitlement.execute"
+                                                      ti-change="topPage().saveUser()"
+                                                      ti-allows-indeterminate="treeNode.entitlement.__superGroup"></ti-tri-state>
+                                    </td>
+                                    <td style="width: 10%;">Execute</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

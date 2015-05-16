@@ -15,7 +15,7 @@ define(["js/Utils", "js/ConsoleService", "js/User"], function (Utils,
          *
          */
         UserPage.prototype.initialize = function (console, user) {
-            this.id = "userPage";
+            this.id = "user";
             this.console = console;
             this.user = user;
 
@@ -77,6 +77,20 @@ define(["js/Utils", "js/ConsoleService", "js/User"], function (Utils,
          *
          */
         UserPage.prototype.leave = function () {
+        };
+
+        /**
+         *
+         */
+        UserPage.prototype.title = function() {
+            return this.user.firstName + " " + this.user.lastName;
+        };
+
+        /**
+         *
+         */
+        UserPage.prototype.icon = function() {
+            return "fa-user";
         };
 
         /**

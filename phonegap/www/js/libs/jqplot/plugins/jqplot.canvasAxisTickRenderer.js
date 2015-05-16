@@ -90,7 +90,7 @@
         // Prefix is prepended to the formatted tick label.
         this.prefix = '';
         // prop: fontFamily
-        // css spec for the font-family css attribute.
+        // mobile-angular-ui-ui spec for the font-family mobile-angular-ui-ui attribute.
         this.fontFamily = '"Trebuchet MS", Arial, Helvetica, sans-serif';
         // prop: fontSize
         // CSS spec for font size.
@@ -103,7 +103,7 @@
         // Applies only to browsers which don't support canvas native font rendering.
         this.fontStretch = 1.0;
         // prop: textColor
-        // css spec for the color attribute.
+        // mobile-angular-ui-ui spec for the color attribute.
         this.textColor = '#666666';
         // prop: enableFontSupport
         // true to turn on native canvas font support in Mozilla 3.5+ and Safari 4+.

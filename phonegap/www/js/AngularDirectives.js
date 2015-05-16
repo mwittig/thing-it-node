@@ -13,14 +13,20 @@ define(
                     });
                 };
             });
+            module.directive("jqmList", function () {
+                return function ($scope, element) {
+                    //$(element).hide();
+                }
+            });
             module.directive("jqmLi", function () {
                 return function ($scope, element) {
-                    $(element).hide();
-                    setTimeout(function () {
-                        $scope.$on('$viewContentLoaded', element.parent()
-                            .listview('refresh'));
-                    }, 500);
-                    $(element).show();
+                    //$scope.$on('$viewContentLoaded', function () {
+                        setTimeout(function () {
+                            $(element).parent()
+                                .listview('refresh');
+                            //$(element).parent().show();
+                        }, 1000);
+                  //  }.bind(this));
                 }
             });
 
@@ -55,8 +61,7 @@ define(
                                     scope.$eval(attrs.tiModel + " = null");
                                     scope.$eval(attrs.tiChange);
                                 }
-                                else
-                                {
+                                else {
                                     jQuery(element).find("input").prop("checked", true);
                                     jQuery(element).find("input").prop("indeterminate", false);
 

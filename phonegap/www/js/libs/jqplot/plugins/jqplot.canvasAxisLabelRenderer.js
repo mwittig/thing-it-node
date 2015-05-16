@@ -61,7 +61,7 @@
         // label for the axis.
         this.label = '';
         // prop: fontFamily
-        // CSS spec for the font-family css attribute.
+        // CSS spec for the font-family mobile-angular-ui-ui attribute.
         // Applies only to browsers supporting native font rendering in the
         // canvas tag.  Currently Mozilla 3.5 and Safari 4.
         this.fontFamily = '"Trebuchet MS", Arial, Helvetica, sans-serif';
@@ -76,7 +76,7 @@
         // Applies only to browsers which don't support canvas native font rendering.
         this.fontStretch = 1.0;
         // prop: textColor
-        // css spec for the color attribute.
+        // mobile-angular-ui-ui spec for the color attribute.
         this.textColor = '#666666';
         // prop: enableFontSupport
         // true to turn on native canvas font support in Mozilla 3.5+ and Safari 4+.

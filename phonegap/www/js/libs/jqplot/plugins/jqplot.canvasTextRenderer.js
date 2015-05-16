@@ -89,7 +89,7 @@
         this.setHeight();
     };
     
-    // convert css spec into point size
+    // convert mobile-angular-ui-ui spec into point size
     // returns float
     $.jqplot.CanvasTextRenderer.prototype.normalizeFontSize = function(sz) {
         sz = String(sz);
