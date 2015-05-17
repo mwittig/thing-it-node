@@ -1,6 +1,22 @@
+<div ui-content-for="topbar">
+    <div class="navbar-brand navbar-brand-center">
+        <i class="fa fa-user"></i> {{topPage().user.account}} ({{topPage().user.firstName}} {{topPage().user.lastName}})
+    </div>
+    <div class="btn-group pull-left" >
+        <div class="btn">
+            <a ng-click="popPage()"><i class="fa fa-arrow-left"></i></a>
+        </div>
+    </div>
+    <div class="btn-group pull-right">
+        <div ui-toggle="uiSidebarRight" class="btn">
+            <i class="fa fa-bars"></i>
+        </div>
+    </div>
+</div>
+
 <div class="scrollable" ui-state="searchBar">
     <div class="scrollable-content" ui-scroll-bottom='bottomReached()'>
-        <div class="section">
+        <div class="section section-break">
             <div class="panel-group"
                  ui-state='myAccordion'
                  ui-default='2'>

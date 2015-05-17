@@ -40,19 +40,5 @@ define([ "js/Utils", "js/ConsoleService" ], function(Utils,
 		 */
 		DevicePage.prototype.leave = function() {
 		};
-
-        /**
-         *
-         */
-        DevicePage.prototype.title = function() {
-            return this.device.label;
-        };
-
-        /**
-         *
-         */
-        DevicePage.prototype.icon = function() {
-            return "fa-calculator";
-        };
 	}
 });

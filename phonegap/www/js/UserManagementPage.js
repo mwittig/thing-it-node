@@ -43,19 +43,5 @@ define(["js/Utils", "js/ConsoleService"], function (Utils,
          */
         UserManagementPage.prototype.leave = function () {
         };
-
-        /**
-         *
-         */
-        UserManagementPage.prototype.title = function() {
-            return "User management";
-        };
-
-        /**
-         *
-         */
-        UserManagementPage.prototype.icon = function() {
-            return "fa-users";
-        };
     }
 });

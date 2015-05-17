@@ -15,7 +15,7 @@ define([ "js/Utils", "js/ConsoleService" ], function(Utils,
 		 * 
 		 */
 		ActorPage.prototype.initialize = function(console, actor) {
-			this.id = "actorPage";
+			this.id = "actor";
 			this.console = console;
 			this.actor = actor;
 

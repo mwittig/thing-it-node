@@ -15,7 +15,7 @@ define([ "js/Utils", "js/ConsoleService" ], function(Utils,
 		 * 
 		 */
 		SensorPage.prototype.initialize = function(console, sensor) {
-			this.id = "sensorPage";
+			this.id = "sensor";
 			this.console = console;
 			this.sensor = sensor;
 

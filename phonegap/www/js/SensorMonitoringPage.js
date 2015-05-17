@@ -18,7 +18,7 @@ define(
 				 */
 				SensorMonitoringPage.prototype.initialize = function(console,
 						sensor) {
-					this.id = "sensorMonitoringPage";
+					this.id = "sensorMonitoring";
 					this.console = console;
 					this.sensor = sensor;
 

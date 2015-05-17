@@ -82,20 +82,6 @@ define(["js/Utils", "js/ConsoleService", "js/User"], function (Utils,
         /**
          *
          */
-        UserPage.prototype.title = function() {
-            return this.user.firstName + " " + this.user.lastName;
-        };
-
-        /**
-         *
-         */
-        UserPage.prototype.icon = function() {
-            return "fa-user";
-        };
-
-        /**
-         *
-         */
         UserPage.prototype.saveUser = function () {
             ConsoleService.instance().updateUser(this.console.node, this.user).then(function (user) {
                 jQuery.mobile.loading("hide");
