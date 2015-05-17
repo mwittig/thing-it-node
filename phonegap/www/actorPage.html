@@ -1,6 +1,6 @@
 <div ui-content-for="topbar">
     <div class="navbar-brand navbar-brand-center">
-        <i class="fa fa-calculator"></i> {{topPage().device.label}}
+        <i class="fa fa-lightbulb-o"></i> {{topPage().actor.label}}
     </div>
     <div class="btn-group pull-left" >
         <div class="btn" >
@@ -21,8 +21,8 @@
                 <table width="100%" style="margin: 10px;">
                     <tr valign="center">
                         <td align="center">
-                            <div ng-include="getComponentPluginPath(device)"
-                                 ng-repeat="device in [topPage().device]"></div>
+                            <div ng-include="getComponentPluginPath(actor)"
+                                 ng-repeat="actor in [topPage().actor]"></div>
                         </td>
                     </tr>
                 </table>
@@ -40,7 +40,7 @@
                         <tr>
                             <td><label>Last
                                 State Change</label></td>
-                            <td>{{formatDateTime(topPage().device.lastStateChangeTimestamp)}}</td>
+                            <td>{{formatDateTime(topPage().actor.lastStateChangeTimestamp)}}</td>
                         </tr>
                     </table>
                 </div>
@@ -49,10 +49,8 @@
         <div class="list-group">
             <a class="list-group-item">
             </a>
-            <a ng-click="pushDeviceMonitoringPage(topPage().device)" class="list-group-item"><i
-                    class="titleIcon fa fa-line-chart"></i> Monitoring</a>
-            <a ng-repeat="service in topPage().device.__type.services"
-               ng-click="callDeviceService(topPage().device, service.id)" class="list-group-item">
+            <a ng-repeat="service in topPage().actor.__type.services"
+               ng-click="callActorService(topPage().actor, service.id)" class="list-group-item">
                 <i
                         class="fa fa-gear"></i> {{service.label}}</a></li>
         </div>

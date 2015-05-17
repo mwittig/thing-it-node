@@ -77,6 +77,8 @@
             $routeProvider.when('/node',              {templateUrl: 'nodePage.html', reloadOnSearch: false});
             $routeProvider.when('/group',        {templateUrl: 'groupPage.html', reloadOnSearch: false});
             $routeProvider.when('/device',        {templateUrl: 'devicePage.html', reloadOnSearch: false});
+            $routeProvider.when('/actor',        {templateUrl: 'actorPage.html', reloadOnSearch: false});
+            $routeProvider.when('/sensor',        {templateUrl: 'sensorPage.html', reloadOnSearch: false});
             $routeProvider.when('/deviceMonitoring',        {templateUrl: 'deviceMonitoringPage.html', reloadOnSearch: false});
             $routeProvider.when('/userManagement',        {templateUrl: 'userManagementPage.html', reloadOnSearch: false});
             $routeProvider.when('/user',        {templateUrl: 'userPage.html', reloadOnSearch: false});
@@ -96,9 +98,10 @@
                 Utils.inheritMethods($scope, MobileConsole.create());
 
                 $scope.initialize(socketio, $location);
+
+                console.log("Shared State", $scope.Ui);
             });
         });
-
    </script>
 </head>
 <body ng-app="mobileConsoleApplication" ng-controller="mobileConsole">
@@ -119,8 +122,6 @@
     </div>
 </div>
 
-<div ui-content-for="modals">
-    <div ng-include="'messageDialog.html'"></div>
-</div>
+<div ui-yield-to="modals"></div>
 
 </body></html>

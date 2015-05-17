@@ -1,6 +1,6 @@
 <div ui-content-for="topbar">
     <div class="navbar-brand navbar-brand-center">
-        [thing-it-node]
+        [thing-it]
     </div>
 </div>
 
@@ -9,7 +9,7 @@
 
         <form role="form" ng-submit='loginPage.login()'>
             <fieldset>
-                <div class="form-group has-success has-feedback">
+                <div class="form-group has-feedback">
                     <label>Account</label>
                     <input
                             ng-model="loginPage.account"
@@ -32,4 +32,9 @@
 
         </form>
     </div>
+</div>
+
+<div ui-content-for="modals">
+    <div ng-include="'messageDialog.html'"></div>
+    <div ng-include="'deviceAdvertisementDialog.html'"></div>
 </div>

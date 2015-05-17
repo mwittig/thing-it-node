@@ -2,13 +2,13 @@
     <div class="navbar-brand navbar-brand-center">
         <i class="fa fa-{{topPage().group.icon}}"></i> {{topPage().group.label}}
     </div>
-    <div class="btn-group pull-left" >
-        <div class="btn" ng-show="topPage().id != 'login'">
+    <div class="btn-group pull-left">
+        <div class="btn">
             <a ng-click="popPage()"><i class="fa fa-arrow-left"></i></a>
         </div>
     </div>
-    <div class="btn-group pull-right" ui-yield-to="navbarAction">
-        <div ui-toggle="uiSidebarRight" class="btn" ng-show="topPage().id != 'login'">
+    <div class="btn-group pull-right">
+        <div ui-toggle="uiSidebarRight" class="btn">
             <i class="fa fa-bars"></i>
         </div>
     </div>
@@ -20,13 +20,57 @@
             <a ng-repeat="group in topPage().group.subGroups" ng-click="pushGroupPage(group)" class="list-group-item">
                 <span ng-show="group.icon"><i
                         class="titleIcon fa fa-{{group.icon}}"></i></span><span
-                    ng-hide="group.icon"><i class="titleIcon fa fa-home"></i></span>{{group.label}} <i class="fa fa-chevron-right pull-right"></i>
+                    ng-hide="group.icon"><i class="titleIcon fa fa-home"></i></span> {{group.label}} <i
+                    class="fa fa-chevron-right pull-right"></i>
             </a>
-            <a ng-repeat="service in topPage().group.getServices()" class="list-group-item">
-                <i class="fa fa-gear"></i>{{service.label}} <i class="fa fa-chevron-right pull-right"></i>
+            <a ng-repeat="service in topPage().group.getServices()" class="list-group-item"
+               ng-click="callNodeService(service)">
+                <i class="fa fa-gear"></i> {{service.label}} <i class="fa fa-chevron-right pull-right"></i>
             </a>
-            <a ng-repeat="device in topPage().group.getDevices()" ng-click="$parent.pushDevicePage(device)"  class="list-group-item">
-                <i class="fa fa-gear"></i> {{device.label}} <i class="fa fa-chevron-right pull-right"></i>
+            <a ng-repeat="device in topPage().group.getDevices()" class="list-group-item">
+                <div class="itemLabel">{{device.label}}</div>
+                <table width="100%">
+                    <tr>
+                        <td width="90%" align="center">
+                            <div ng-include="getComponentPluginPath(device)"
+                                 ng-repeat="device in [device]"></div>
+                        </td>
+                        <td width="10%" align="right"><a
+                                ng-click="pushDevicePage(device)"><i
+                                class="fa fa-chevron-right"></i></a></td>
+                    </tr>
+                </table>
+            </a>
+            <a ng-repeat="actor in topPage().group.getActors()"
+               class="list-group-item">
+                <div class="itemLabel">{{actor.label}}</div>
+                <table
+                        width="100%">
+                    <tr>
+                        <td width="90%" align="center">
+                            <div ng-include="getComponentPluginPath(actor)"
+                                 ng-repeat="actor in [actor]"></div>
+                        </td>
+                        <td width="10%" align="right"><a
+                                ng-click="pushActorPage(actor)"><i
+                                class="fa fa-chevron-right"></i></a></td>
+                    </tr>
+                </table>
+            </a>
+            <a ng-repeat="sensor in topPage().group.getSensors()"
+               class="list-group-item">
+                <div class="itemLabel">{{sensor.label}}</div>
+                <table width="100%">
+                    <tr>
+                        <td width="90%" align="center">
+                            <div ng-include="getComponentPluginPath(sensor)"
+                                 ng-repeat="sensor in [sensor]"></div>
+                        </td>
+                        <td width="10%" align="right"><a
+                                ng-click="pushSensorPage(sensor)"><i
+                                class="fa fa-chevron-right"></i></a></td>
+                    </tr>
+                </table>
             </a>
         </div>
     </div>

@@ -50,8 +50,14 @@ define(
                         }
 
                         this.deviceAdvertisementDialog = {};
+                        this.Ui.initialize(this, "deviceAdvertisementDialog");
                         this.userCreationDialog = {};
-                    }.bind(this)).fail(function () {
+                        this.Ui.initialize(this, "userCreationDialog");
+                        this.messageDialog = {};
+                        this.Ui.initialize(this, "messageDialog");
+                    }.bind(this)).fail(function (error) {
+                        this
+                            .openMessageDialog(error, "error");
                     });
             };
 
@@ -68,11 +74,12 @@ define(
                 }
 
                 promise.done(function () {
-                    console.log("Set page to " + page.id);
                     this.location.path('/' + page.id);
                     this.safeApply();
+                    console.log("Pushed Page: " + page.id);
                 }.bind(this)).fail(function (error) {
-                    console.error(error);
+                    this
+                        .openMessageDialog(error, "error");
                 });
             };
 
@@ -129,54 +136,42 @@ define(
              *
              */
             MobileConsole.prototype.openDeviceAdvertisementDialog = function () {
-                jQuery("#deviceAdvertisementDialog").popup("open");
+                this.Ui.turnOn("deviceAdvertisementDialog");
             };
 
             /**
              *
              */
             MobileConsole.prototype.closeDeviceAdvertisementDialog = function () {
-                jQuery("#deviceAdvertisementDialog").popup("close");
+                this.Ui.turnOff("deviceAdvertisementDialog");
             };
 
             /**
              *
              */
             MobileConsole.prototype.registerDevice = function () {
-                // jQuery.mobile.loading("show");
-
-                console.log("Start registration");
                 ConsoleService.instance().registerDevice(this.node, this.deviceAdvertisementDialog.device).done(function (node) {
-                    console.log("Changed Node");
-                    console.log(node);
-
                     if (ConsoleService.instance().proxyMode == "local") {
                         this
                             .pushNodePage(
                             node);
                         this.safeApply();
-                        // jQuery.mobile.loading("hide");
                         this.closeDeviceAdvertisementDialog();
                     }
                     else {
                         // TODO
-                        // jQuery.mobile.loading("hide");
                         this.closeDeviceAdvertisementDialog();
                     }
-
-                }.bind(this)).fail(function () {
-                    // jQuery.mobile.loading("hide");
-                });
+                }.bind(this)).fail(function (error) {
+                    this
+                        .openMessageDialog(error, "error");
+                }.bind(this));
             };
 
             /**
              *
              */
             MobileConsole.prototype.login = function (credentials) {
-                var self = this;
-
-                // jQuery.mobile.loading("show");
-
                 ConsoleService
                     .instance()
                     .login(credentials)
@@ -187,7 +182,7 @@ define(
                             .getDeviceTypes()
                             .done(
                             function (deviceTypes) {
-                                self.deviceTypes = deviceTypes;
+                                this.deviceTypes = deviceTypes;
 
                                 if (ConsoleService.instance().proxyMode == "local") {
                                     ConsoleService
@@ -195,32 +190,31 @@ define(
                                         .getNode()
                                         .done(
                                         function (node) {
-                                            self
+                                            this
                                                 .pushNodePage(
                                                 node);
-                                            self.loggedInUser = User.bind(node, loggedInUser);
+                                            this.loggedInUser = User.bind(node, loggedInUser);
 
                                             console.log("Logged-In User ===>", this.loggedInUser);
-
-                                            // jQuery.mobile.loading("hide");
-                                        })
-                                        .fail(
-                                        function () {
-                                            // jQuery.mobile.loading("hide");
-                                        });
+                                        }.bind(this))
+                                        .fail(function (error) {
+                                            this
+                                                .openMessageDialog(error, "error");
+                                        }.bind(this));
                                 }
                                 else {
-                                    self
+                                    this
                                         .pushMeshesPage();
                                 }
-                            })
-                            .fail(
-                            function () {
-                                // jQuery.mobile.loading("hide");
-                            });
-                    }).fail(function () {
-                        // jQuery.mobile.loading("hide");
-                    });
+                            }.bind(this))
+                            .fail(function (error) {
+                                this
+                                    .openMessageDialog(error, "error");
+                            }.bind(this));
+                    }.bind(this)).fail(function (error) {
+                        this
+                            .openMessageDialog(error, "error");
+                    }.bind(this));
             };
 
             /**
@@ -318,19 +312,15 @@ define(
              *
              */
             MobileConsole.prototype.logout = function () {
-                var self = this;
-
-                // jQuery.mobile.loading("show");
-
                 ConsoleService.instance().logout().done(function () {
-                    self.loggedInUser = null;
+                    this.loggedInUser = null;
 
-                    self.safeApply();
-                    self.rootPage(self.loginPage);
-                    // jQuery.mobile.loading("hide");
-                }).fail(function () {
-                    // jQuery.mobile.loading("hide");
-                });
+                    this.safeApply();
+                    this.rootPage(this.loginPage);
+                }.bind(this)).fail(function (error) {
+                    this
+                        .openMessageDialog(error, "error");
+                }.bind(this));
             };
 
             /**
@@ -455,21 +445,11 @@ define(
              *
              */
             MobileConsole.prototype.createUser = function () {
-                console.log("Create user");
-
                 ConsoleService.instance().createUser(this.node, this.userCreationDialog.user).done(function () {
-                    console.log("User created");
-//                    this.closeUserCreationDialog();
-                }.bind(this)).fail(function () {
-//                    this.closeUserCreationDialog();
+                    this.openMessageDialog("User created");
+                }.bind(this)).fail(function (error) {
+                    this.openMessageDialog(error);
                 }.bind(this));
-            };
-
-            /**
-             *
-             */
-            MobileConsole.prototype.closeUserCreationDialog = function () {
-                jQuery("#userCreationDialog").popup("close");
             };
 
             /**
@@ -483,6 +463,16 @@ define(
                 }
 
                 return false;
+            };
+
+            /**
+             *
+             */
+            MobileConsole.prototype.openMessageDialog = function (message, type) {
+                this.messageDialog.message = message;
+                this.messageDialog.type = type;
+
+                this.Ui.turnOn("messageDialog");
             };
 
             /**
@@ -518,8 +508,7 @@ define(
                 ConsoleService.instance().pushSensorValue(this.node, sensor).done(
                     function () {
                     }).fail(function (error) {
-                        console.error(error);
-                        // this.openInfoDialog("Cannot push Sensor Event.");
+                        this.openMessageDialog("Cannot push Sensor Event.");
                     });
             };
 
@@ -537,9 +526,8 @@ define(
                     })
                     .fail(
                     function (error) {
-                        console.error(error);
                         this
-                            .openInfoDialog("Cannot push Sensor Event.");
+                            .openMessageDialog(error, "error");
                     });
             };
 
@@ -583,17 +571,12 @@ define(
              *
              */
             MobileConsole.prototype.callNodeService = function (service) {
-                // jQuery.mobile.loading("show");
-
-                console.log("Call Node Service");
-                console.log(this.node);
-
                 ConsoleService.instance().callNodeService(this.node, service, {})
                     .done(function () {
-                        // jQuery.mobile.loading("hide");
-                    }).fail(function () {
-                        // jQuery.mobile.loading("hide");
-                    });
+                    }).fail(function (error) {
+                        this
+                            .openMessageDialog(error, "error");
+                    }.bind(this));
             };
 
             /**
@@ -603,7 +586,6 @@ define(
                 this.deviceAdvertisementDialog.device = device;
 
                 this.safeApply();
-
                 this.openDeviceAdvertisementDialog();
             };
 
@@ -611,14 +593,12 @@ define(
              *
              */
             MobileConsole.prototype.callDeviceService = function (device, service) {
-                // jQuery.mobile.loading("show");
-
                 ConsoleService.instance().callDeviceService(this.node, device, service, {})
                     .done(function () {
-                        // jQuery.mobile.loading("hide");
-                    }).fail(function () {
-                        // jQuery.mobile.loading("hide");
-                    });
+                    }).fail(function (error) {
+                        this
+                            .openMessageDialog(error, "error");
+                    }.bind(this));
             };
 
             /**
@@ -626,14 +606,12 @@ define(
              */
             MobileConsole.prototype.callActorService = function (actor,
                                                                  service, parameters) {
-                // jQuery.mobile.loading("show");
-
                 ConsoleService.instance().callActorService(this.node, actor, service,
                     parameters).done(function () {
-                        // jQuery.mobile.loading("hide");
-                    }).fail(function () {
-                        // jQuery.mobile.loading("hide");
-                    });
+                    }).fail(function (error) {
+                        this
+                            .openMessageDialog(error, "error");
+                    }.bind(this));
             };
 
             /*
