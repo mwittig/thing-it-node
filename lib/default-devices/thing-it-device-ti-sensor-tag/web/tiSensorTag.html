@@ -19,124 +19,103 @@
     };
 </script>
 <style>
-    .circleButton {
-        border-radius: 50%;
-        width: 30px;
-        height: 30px;
-        padding: 12px;
-        background-color: #5E829A;
-        border: none;
-        color: #FFFFFF;
-        text-align: center;
-        vertical-align: middle;
-        font-size: 24px;
-    }
-
     .click {
         background-color: #BFAE99;
     }
 </style>
-<table id="{{device.id}}" style="display: inline-block;">
-    <thead>
-    <tr>
-        <th></th>
-        <th></th>
-        <th style="width: 80px;"></th>
-        <th></th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-        <td colspan="4" style="text-align: center !important;">
-            <table class="formTable" style="margin-bottom: 10px;">
-                <tr valign="center">
-                    <td align="middle">
-                        <div id="left" class="circleButton">L</div>
-                    </td>
-                    <td align="middle">
-                        <div id="right" class="circleButton" style="margin-left: 10px;">R</div>
-                    </td>
-                </tr>
-            </table>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <table class="formTable">
-                <tr ng-show="device.configuration.ambientTemperatureEnabled">
-                    <td><label>Ambient Temperature</label></td>
-                    <td></td>
-                    <td style="text-align: right;">{{formatDecimal(device._state.ambientTemperature)}}</td>
-                    <td>&#8451;</td>
-                </tr>
-                <tr ng-show="device.configuration.irTemperatureEnabled">
-                    <td><label>IR Temperature</label></td>
-                    <td></td>
-                    <td style="text-align: right;">{{formatDecimal(device._state.ambientTemperature)}}</td>
-                    <td>&#8451;</td>
-                </tr>
-                <tr ng-show="device.configuration.accelerometerEnabled">
-                    <td rowspan="3"><label>Acceleration</label></td>
-                    <td><label>X</label></td>
-                    <td style="text-align: right;">{{formatDecimal(device._state.acceleration.x)}}</td>
-                    <td>G</td>
-                </tr>
-                <tr ng-show="device.configuration.accelerometerEnabled" style="vertical-align: center !important;">
-                    <td><label>Y</label></td>
-                    <td style="text-align: right;">{{formatDecimal(device._state.acceleration.y)}}</td>
-                    <td>G</td>
-                </tr>
-                <tr ng-show="device.configuration.accelerometerEnabled" style="vertical-align: center !important;">
-                    <td><label>Z</label></td>
-                    <td style="text-align: right;">{{formatDecimal(device._state.acceleration.z)}}</td>
-                    <td>G</td>
-                </tr>
-                <tr ng-show="device.configuration.magnetometerEnabled">
-                    <td rowspan="3"><label>Magnetic Field Strength</label></td>
-                    <td><label>X</label></td>
-                    <td style="text-align: right;">{{formatDecimal(device._state.magneticFieldStrength.x)}}</td>
-                    <td>&mu;T</td>
-                </tr>
-                <tr ng-show="device.configuration.magnetometerEnabled">
-                    <td><label>Y</label></td>
-                    <td style="text-align: right;">{{formatDecimal(device._state.magneticFieldStrength.y)}}</td>
-                    <td>&mu;T</td>
-                </tr>
-                <tr ng-show="device.configuration.magnetometerEnabled">
-                    <td><label>Z</label></td>
-                    <td style="text-align: right;">{{formatDecimal(device._state.magneticFieldStrength.z)}}</td>
-                    <td>&mu;T</td>
-                </tr>
-                <tr ng-show="device.configuration.humidityEnabled">
-                    <td><label>Humidity</label></td>
-                    <td></td>
-                    <td style="text-align: right;">{{formatDecimal(device._state.humidity)}}</td>
-                    <td>%rH</td>
-                </tr>
-                <tr ng-show="device.configuration.barometricPressureEnabled">
-                    <td><label>Barometric Pressure</label></td>
-                    <td></td>
-                    <td style="text-align: right;">{{formatDecimal(device._state.barometricPressure)}}</td>
-                    <td>mbar</td>
-                </tr>
-                <tr ng-show="device.configuration.gyroscopeEnabled">
-                    <td rowspan="3"><label>Gyroscopic Propulsion</label></td>
-                    <td><label>X</label></td>
-                    <td style="text-align: right;">{{formatDecimal(device._state.gyroscopicPropulsion.x)}}</td>
-                    <td>&deg;/s</td>
-                </tr>
-                <tr ng-show="device.configuration.gyroscopeEnabled">
-                    <td><label>Y</label></td>
-                    <td style="text-align: right;">{{formatDecimal(device._state.gyroscopicPropulsion.y)}}</td>
-                    <td>&deg;/s</td>
-                </tr>
-                <tr ng-show="device.configuration.gyroscopeEnabled">
-                    <td><label>Z</label></td>
-                    <td style="text-align: right;">{{device._state.gyroscopicPropulsion.z}}</td>
-                    <td>&deg;/s</td>
-                </tr>
-            </table>
-        </td>
-    </tr>
-    </tbody>
-</table>
+<div style="width: 100%; display: table;">
+    <div style="display: table-cell; text-align: center;">
+        <table style="width: 100px; display: inline-block; text-align: center;">
+            <tr>
+                <td style="width: 50px; padding-right: 5px;">
+                    <div id="left" class="circleText" style="width: 100%; ">
+                        <div>L</div>
+                    </div>
+                </td>
+                <td style="width: 50px; padding-left: 5px;">
+                    <div id="right" class="circleText" style="width: 100%;">
+                        <div>R</div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<div style="width: 100%; display: table;">
+    <div style="display: table-cell; text-align: center;">
+        <table class="formTable" style="text-align: left; display: inline-block;">
+            <tr ng-show="device.configuration.ambientTemperatureEnabled">
+                <td><label>Ambient Temperature</label></td>
+                <td></td>
+                <td style="text-align: right;">{{formatDecimal(device._state.ambientTemperature)}}</td>
+                <td>&#8451;</td>
+            </tr>
+            <tr ng-show="device.configuration.irTemperatureEnabled">
+                <td><label>IR Temperature</label></td>
+                <td></td>
+                <td style="text-align: right;">{{formatDecimal(device._state.ambientTemperature)}}</td>
+                <td>&#8451;</td>
+            </tr>
+            <tr ng-show="device.configuration.accelerometerEnabled">
+                <td rowspan="3"><label>Acceleration</label></td>
+                <td><label>X</label></td>
+                <td style="text-align: right;">{{formatDecimal(device._state.acceleration.x)}}</td>
+                <td>G</td>
+            </tr>
+            <tr ng-show="device.configuration.accelerometerEnabled" style="vertical-align: center !important;">
+                <td><label>Y</label></td>
+                <td style="text-align: right;">{{formatDecimal(device._state.acceleration.y)}}</td>
+                <td>G</td>
+            </tr>
+            <tr ng-show="device.configuration.accelerometerEnabled" style="vertical-align: center !important;">
+                <td><label>Z</label></td>
+                <td style="text-align: right;">{{formatDecimal(device._state.acceleration.z)}}</td>
+                <td>G</td>
+            </tr>
+            <tr ng-show="device.configuration.magnetometerEnabled">
+                <td rowspan="3"><label>Magnetic Field Strength</label></td>
+                <td><label>X</label></td>
+                <td style="text-align: right;">{{formatDecimal(device._state.magneticFieldStrength.x)}}</td>
+                <td>&mu;T</td>
+            </tr>
+            <tr ng-show="device.configuration.magnetometerEnabled">
+                <td><label>Y</label></td>
+                <td style="text-align: right;">{{formatDecimal(device._state.magneticFieldStrength.y)}}</td>
+                <td>&mu;T</td>
+            </tr>
+            <tr ng-show="device.configuration.magnetometerEnabled">
+                <td><label>Z</label></td>
+                <td style="text-align: right;">{{formatDecimal(device._state.magneticFieldStrength.z)}}</td>
+                <td>&mu;T</td>
+            </tr>
+            <tr ng-show="device.configuration.humidityEnabled">
+                <td><label>Humidity</label></td>
+                <td></td>
+                <td style="text-align: right;">{{formatDecimal(device._state.humidity)}}</td>
+                <td>%rH</td>
+            </tr>
+            <tr ng-show="device.configuration.barometricPressureEnabled">
+                <td><label>Barometric Pressure</label></td>
+                <td></td>
+                <td style="text-align: right;">{{formatDecimal(device._state.barometricPressure)}}</td>
+                <td>mbar</td>
+            </tr>
+            <tr ng-show="device.configuration.gyroscopeEnabled">
+                <td rowspan="3"><label>Gyroscopic Propulsion</label></td>
+                <td><label>X</label></td>
+                <td style="text-align: right;">{{formatDecimal(device._state.gyroscopicPropulsion.x)}}</td>
+                <td>&deg;/s</td>
+            </tr>
+            <tr ng-show="device.configuration.gyroscopeEnabled">
+                <td><label>Y</label></td>
+                <td style="text-align: right;">{{formatDecimal(device._state.gyroscopicPropulsion.y)}}</td>
+                <td>&deg;/s</td>
+            </tr>
+            <tr ng-show="device.configuration.gyroscopeEnabled">
+                <td><label>Z</label></td>
+                <td style="text-align: right;">{{device._state.gyroscopicPropulsion.z}}</td>
+                <td>&deg;/s</td>
+            </tr>
+        </table>
+    </div>
+</div>
