@@ -48,20 +48,6 @@ define([ "js/Utils", "js/ConsoleService" ], function(Utils,
 			return deferred.promise();
 		};
 
-        /**
-         *
-         */
-        NodePage.prototype.title = function() {
-            return this.node.label;
-        };
-
-        /**
-         *
-         */
-        NodePage.prototype.icon = function() {
-            return "fa-home";
-        };
-
 		/**
 		 * 
 		 */

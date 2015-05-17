@@ -49,14 +49,8 @@ define(
                             this.showPage(this.loginPage);
                         }
 
-                        window.setTimeout(function () {
-                            this.deviceAdvertisementDialog = {
-                                dialog: jQuery("#deviceAdvertisementDialog").popup()
-                            };
-                            this.userCreationDialog = {
-                                dialog: jQuery("#userCreationDialog").popup()
-                            };
-                        }.bind(this), 1000);
+                        this.deviceAdvertisementDialog = {};
+                        this.userCreationDialog = {};
                     }.bind(this)).fail(function () {
                     });
             };
@@ -73,23 +67,11 @@ define(
                     promise = page.show();
                 }
 
-                jQuery(document).on('pagebeforeshow', function () {
-                    // self.safeApply();
-                });
-
-                var self = this;
-
                 promise.done(function () {
-                    self.safeApply();
-
                     console.log("Set page to " + page.id);
-                    self.location.path('/' + page.id);
-                    //
-                    //window.setTimeout(function () {
-                    //    $location.
-                    //    // jQuery.mobile.changePage("#" + page.id);
-                    //}, 500);
-                }).fail(function (error) {
+                    this.location.path('/' + page.id);
+                    this.safeApply();
+                }.bind(this)).fail(function (error) {
                     console.error(error);
                 });
             };
@@ -467,18 +449,19 @@ define(
              */
             MobileConsole.prototype.openUserCreationDialog = function () {
                 this.userCreationDialog.user = {};
-
-                jQuery("#userCreationDialog").popup("open");
             };
 
             /**
              *
              */
             MobileConsole.prototype.createUser = function () {
+                console.log("Create user");
+
                 ConsoleService.instance().createUser(this.node, this.userCreationDialog.user).done(function () {
-                    this.closeUserCreationDialog();
+                    console.log("User created");
+//                    this.closeUserCreationDialog();
                 }.bind(this)).fail(function () {
-                    this.closeUserCreationDialog();
+//                    this.closeUserCreationDialog();
                 }.bind(this));
             };
 
@@ -493,10 +476,8 @@ define(
              *
              */
             MobileConsole.prototype.isDeviceInGroups = function (device) {
-                for (var n in this.node.groups)
-                {
-                    if (this.node.groups[n].containsDevice(device))
-                    {
+                for (var n in this.node.groups) {
+                    if (this.node.groups[n].containsDevice(device)) {
                         return true;
                     }
                 }
@@ -508,10 +489,8 @@ define(
              *
              */
             MobileConsole.prototype.isActorInGroups = function (actor) {
-                for (var n in this.node.groups)
-                {
-                    if (this.node.groups[n].containsActor(actor))
-                    {
+                for (var n in this.node.groups) {
+                    if (this.node.groups[n].containsActor(actor)) {
                         return true;
                     }
                 }
@@ -523,10 +502,8 @@ define(
              *
              */
             MobileConsole.prototype.isSensorInGroups = function (sensor) {
-                for (var n in this.node.groups)
-                {
-                    if (this.node.groups[n].containsSensor(sensor))
-                    {
+                for (var n in this.node.groups) {
+                    if (this.node.groups[n].containsSensor(sensor)) {
                         return true;
                     }
                 }
@@ -725,8 +702,7 @@ define(
              *
              */
             MobileConsole.prototype.loggedInUserIsAdministrator = function (time) {
-                if (!this.loggedInUser)
-                {
+                if (!this.loggedInUser) {
                     return false;
                 }
 

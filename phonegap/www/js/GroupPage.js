@@ -52,21 +52,7 @@ define([ "js/Utils", "js/ConsoleService" ], function(Utils,
 			this.console.showPage(this.console.actorPage);
 		};
 
-        /**
-         *
-         */
-        GroupPage.prototype.title = function() {
-            return this.group.label;
-        };
-
-        /**
-         *
-         */
-        GroupPage.prototype.icon = function() {
-            return "fa-" + this.group.icon;
-        };
-
-		/**
+ 		/**
 		 * 
 		 */
 		GroupPage.prototype.callNodeService = function(service) {
