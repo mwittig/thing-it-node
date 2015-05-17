@@ -1,3 +1,19 @@
+<div ui-content-for="topbar">
+    <div class="navbar-brand navbar-brand-center">
+        <i class="fa fa-home"></i> {{topPage().node.label}}
+    </div>
+    <div class="btn-group pull-left" >
+        <div class="btn" ng-show="topPage().id != 'login'">
+            <a ng-click="popPage()"><i class="fa fa-arrow-left"></i></a>
+        </div>
+    </div>
+    <div class="btn-group pull-right" ui-yield-to="navbarAction">
+        <div ui-toggle="uiSidebarRight" class="btn" ng-show="topPage().id != 'login'">
+            <i class="fa fa-bars"></i>
+        </div>
+    </div>
+</div>
+
 <div class="scrollable" ui-state="searchBar">
     <div class="scrollable-content" ui-scroll-bottom='bottomReached()'>
         <div class="list-group">

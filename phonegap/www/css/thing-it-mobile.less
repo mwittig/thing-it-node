@@ -657,22 +657,26 @@ i.treeHandle {
   color: #FFFFFF;
 }
 
-.btn:active, .btn:hover  {i
+.btn:active, .btn:hover {
   background-color: @primaryColor;
   color: #FFFFFF;
 }
 
 .deviceUi {
-  margin: 5px;
+  margin: 10px;
 }
 
-.panel{
+.panel {
   border-color: @contrastColor !important;
+  margin-bottom: 5px !important;
 }
 
 .panel-heading {
   background-color: lighten(@contrastColor, @lightPercentage) !important;
   color: @contrastColor !important;
-  border-bottom: 1px solid @contrastColor !important;
+}
+
+.panel-body {
+  border-top: 1px solid @contrastColor !important;
 }
 

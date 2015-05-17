@@ -41,20 +41,6 @@ define(["js/Utils", "js/ConsoleService"], function (Utils,
         /**
          *
          */
-        LoginPage.prototype.title = function() {
-            return "Login";
-        };
-
-        /**
-         *
-         */
-        LoginPage.prototype.icon = function() {
-            return "";
-        };
-
-        /**
-         *
-         */
         LoginPage.prototype.login = function () {
             this.console.login({account: this.account, password: this.password});
         };
