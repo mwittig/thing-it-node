@@ -53,5 +53,14 @@ define([ "js/Utils", "js/ConsoleService" ], function(Utils,
 		 */
 		NodePage.prototype.leave = function() {
 		};
+
+        /**
+         *
+         */
+        NodePage.prototype.expandComponentUi = function(component) {
+            this.component = component;
+
+            this.console.Ui.turnOn("componentPluginUi")
+        };
 	}
 });

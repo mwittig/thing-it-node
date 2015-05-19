@@ -50,8 +50,14 @@ h4 {
   font-size: @defaultFontSize;
 }
 
+input, input[type=text], input[type=password] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
 button {
-  border-radius: 3px !important;
+  border-radius: @borderRadius !important;
   -webkit-box-shadow: 2px 2px 2px 0px @borderColor !important;
   -moz-box-shadow: 2px 2px 2px 0px @borderColor !important;
   box-shadow: 2px 2px 2px 0px @borderColor !important;
@@ -140,11 +146,20 @@ i.treeHandle {
   background-color: @primaryColor;
   color: #FFFFFF;
   font-size: @defaultFontSize;
+  outline: none !important;
 }
 
-.btn:active, .btn:hover {
-  background-color: @primaryColor;
+.btn:active, .btn:hover, .btn:focus {
+  background-color: @contrastColor;
+  border-color: @contrastColor;
   color: #FFFFFF;
+  -webkit-box-shadow: 0 0 2px lighten(@contrastColor, @lightPercentage) !important;
+  -moz-box-shadow: 0 0 2px lighten(@contrastColor, @lightPercentage) !important;
+  box-shadow: 0 0 2px lighten(@contrastColor, @lightPercentage) !important;
+}
+
+.btn-primary {
+  border-color: @primaryColor;
 }
 
 .list-group-item {
@@ -152,20 +167,30 @@ i.treeHandle {
 }
 
 .itemLabel {
+  font-size: @defaultFontSize - 2;
   position: absolute;
-  width: 20%;
+  width: 30%;
   top: 0;
   left: 0;
-  padding: 3px 5px 3px 5px;
+  padding: 2px 5px 2px 5px;
   background-color: lighten(@contrastColor, @lightPercentage);
-  color: @contrastColor;
+  color: darken(@contrastColor, @darkPercentage);
   text-transform: uppercase;
   border-color: @contrastColor;
   border-bottom-right-radius: 3px;
 }
 
+.componentPlugin {
+  margin-top: 20px;
+}
+
 .form-control {
   font-size: @defaultFontSize;
+  border-radius: @borderRadius;
+  border: 1px solid @borderColor;
+  padding: 5px 12px;
+  line-height: @defaultFontSize + 10;
+  color: @textColor;
 }
 
 .form-control:focus {
@@ -191,10 +216,21 @@ i.treeHandle {
   font-size: @defaultFontSize;
 }
 
+.modal-overlay {
+  background: @backgroundColor;
+}
+
 .section {
   padding-bottom: 5px;
   padding-top: 5px;
 }
+
+.navigationIcon {
+  padding: 5px;
+  color: @primaryColor;
+}
+
+// @TODO only for monitoring page
 
 .value {
   font-size: 40px;
@@ -215,6 +251,9 @@ i.treeHandle {
   -moz-border-radius: 50%;
   -webkit-border-radius: 50%;
   border-radius: 50%;
+  -webkit-box-shadow: 2px 2px 2px 0px @borderColor !important;
+  -moz-box-shadow: 2px 2px 2px 0px @borderColor !important;
+  box-shadow: 2px 2px 2px 0px @borderColor !important;
 }
 
 .circleText div {
@@ -225,5 +264,34 @@ i.treeHandle {
   margin-top: -0.5em;
   text-align: center;
   color: white;
+}
+
+.circleText:hover {
+  &:after {
+    background: @secondaryColor;
+    color: #FFFFFF;
+    cursor: hand;
+  }
+}
+
+.roundButton {
+  display: block;
+  width: 2 * @defaultFontSize;
+  height: 2 * @defaultFontSize;
+  line-height: 2 * @defaultFontSize;
+  border: 2px solid @primaryColor;
+  border-radius: 50%;
+  color: @primaryColor;
+  text-align: center;
+  text-decoration: none;
+  background: lighten(@primaryColor, @lightPercentage);
+  box-shadow: 0 0 3px gray;
+  font-size: @defaultFontSize;
+  font-weight: bold;
+}
+
+.roundButton:hover {
+  background: @secondaryColor;
+  cursor: hand;
 }
 

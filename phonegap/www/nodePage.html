@@ -26,11 +26,25 @@
                 <span ng-show="group.icon"><i
                         class="fa fa-{{group.icon}}"></i></span><span
                     ng-hide="group.icon"><i class="titleIcon fa fa-home"></i></span> {{group.label}} <i
-                    class="fa fa-chevron-right pull-right"></i>
+                    class="fa fa-chevron-right pull-right navigationIcon"></i>
             </a>
             <a ng-repeat="service in topPage().node.services" class="list-group-item"
                ng-click="callNodeService(service)">
-                <i class="fa fa-gear"></i> {{service.label}} <i class="fa fa-chevron-right pull-right"></i>
+                <i class="fa fa-gear"></i> {{service.label}} <i class="fa fa-chevron-right pull-right navigationIcon"></i>
+            </a>
+            <a ng-repeat="device in topPage().node.devices" class="list-group-item">
+                <div class="itemLabel" ng-click="topPage().expandComponentUi(device)">{{device.label}}</div>
+                <table width="100%">
+                    <tr>
+                        <td width="90%" align="center">
+                            <div class="componentPlugin" ng-include="getComponentPluginPath(device)"
+                                 ng-repeat="device in [device]"></div>
+                        </td>
+                        <td width="10%" align="right"><a
+                                ng-click="pushDevicePage(device)"><i
+                                class="fa fa-chevron-right navigationIcon"></i></a></td>
+                    </tr>
+                </table>
             </a>
             <a ng-repeat="actor in topPage().actors"
                class="list-group-item">
@@ -39,12 +53,12 @@
                         width="100%">
                     <tr>
                         <td width="90%" align="center">
-                            <div ng-include="getComponentPluginPath(actor)"
+                            <div class="componentPlugin" ng-include="getComponentPluginPath(actor)"
                                  ng-repeat="actor in [actor]"></div>
                         </td>
                         <td width="10%" align="right"><a
                                 ng-click="pushActorPage(actor)"><i
-                                class="fa fa-chevron-right"></i></a></td>
+                                class="fa fa-chevron-right navigationIcon"></i></a></td>
                     </tr>
                 </table>
             </a>
@@ -54,12 +68,12 @@
                 <table width="100%">
                     <tr>
                         <td width="90%" align="center">
-                            <div ng-include="getComponentPluginPath(sensor)"
+                            <div class="componentPlugin" ng-include="getComponentPluginPath(sensor)"
                                  ng-repeat="sensor in [sensor]"></div>
                         </td>
                         <td width="10%" align="right"><a
                                 ng-click="pushSensorPage(sensor)"><i
-                                class="fa fa-chevron-right"></i></a></td>
+                                class="fa fa-chevron-right navigationIcon"></i></a></td>
                     </tr>
                 </table>
             </a>
@@ -70,5 +84,18 @@
 <div ui-content-for="modals">
     <div ng-include="'messageDialog.html'"></div>
     <div ng-include="'deviceAdvertisementDialog.html'"></div>
+    <div class="modal modal-overlay" ui-if='componentPluginUi' ui-state='componentPluginUi'>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="circleText pull-right" style="width: 20px;" ui-turn-off="componentPluginUi"><div><i class="fa fa-times"></i></div></div>
+                    <h1>{{topPage().component.label}}</h1>
+                </div>
+                <div class="modal-body">
+                    <div ng-include="getComponentPluginPath(topPage().component)" ng-repeat="device in [topPage().component]"></div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 

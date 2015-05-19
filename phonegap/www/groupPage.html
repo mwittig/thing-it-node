@@ -32,12 +32,12 @@
                 <table width="100%">
                     <tr>
                         <td width="90%" align="center">
-                            <div ng-include="getComponentPluginPath(device)"
+                            <div class="componentPlugin" ng-include="getComponentPluginPath(device)"
                                  ng-repeat="device in [device]"></div>
                         </td>
                         <td width="10%" align="right"><a
                                 ng-click="pushDevicePage(device)"><i
-                                class="fa fa-chevron-right"></i></a></td>
+                                class="fa fa-chevron-right navigationIcon"></i></a></td>
                     </tr>
                 </table>
             </a>
@@ -48,12 +48,12 @@
                         width="100%">
                     <tr>
                         <td width="90%" align="center">
-                            <div ng-include="getComponentPluginPath(actor)"
+                            <div class="componentPlugin" ng-include="getComponentPluginPath(actor)"
                                  ng-repeat="actor in [actor]"></div>
                         </td>
                         <td width="10%" align="right"><a
                                 ng-click="pushActorPage(actor)"><i
-                                class="fa fa-chevron-right"></i></a></td>
+                                class="fa fa-chevron-right navigationIcon"></i></a></td>
                     </tr>
                 </table>
             </a>
@@ -63,12 +63,12 @@
                 <table width="100%">
                     <tr>
                         <td width="90%" align="center">
-                            <div ng-include="getComponentPluginPath(sensor)"
+                            <div class="componentPlugin" ng-include="getComponentPluginPath(sensor)"
                                  ng-repeat="sensor in [sensor]"></div>
                         </td>
                         <td width="10%" align="right"><a
                                 ng-click="pushSensorPage(sensor)"><i
-                                class="fa fa-chevron-right"></i></a></td>
+                                class="fa fa-chevron-right navigationIcon"></i></a></td>
                     </tr>
                 </table>
             </a>
