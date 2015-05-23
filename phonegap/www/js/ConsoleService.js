@@ -21,13 +21,12 @@ define(["js/Utils"], function (Utils) {
         //this.rootUrl = "";
         this.rootUrl = window.location.protocol + "//"
         + window.location.hostname + ":" + window.location.port;
-        this.proxyMode = "local";
 
         /**
          * TODO May homogenize local URL to contain UUID as well.
          */
         ConsoleService.prototype.getNodeRootUrl = function (node) {
-            if (this.proxyMode == "local") {
+            if (!this.settings.proxy || this.settings.proxy.mode == "local") {
                 return this.rootUrl;
             }
             else {
@@ -41,7 +40,7 @@ define(["js/Utils"], function (Utils) {
          * @returns {string}
          */
         ConsoleService.prototype.getEventNamespaceUrl = function (node) {
-            if (this.proxyMode == "local") {
+            if (!this.settings.proxy || this.settings.proxy.mode == "local") {
                 return this.rootUrl + "/events";
             }
             else {
@@ -55,7 +54,7 @@ define(["js/Utils"], function (Utils) {
          * @returns {string}
          */
         ConsoleService.prototype.getComponentRootUrl = function (node) {
-            if (this.proxyMode == "local") {
+            if (!this.settings.proxy || this.settings.proxy.mode == "local") {
                 return this.rootUrl;
             }
             else {
@@ -74,16 +73,14 @@ define(["js/Utils"], function (Utils) {
         /**
          *
          */
-        ConsoleService.prototype.getAuthenticationMode = function () {
+        ConsoleService.prototype.getSettings = function () {
             var deferred = jQuery.Deferred();
 
-            Utils.ajax(this.rootUrl + "/authentication", "GET",
-                "application/json").done(function (authenticationMode) {
-                    if (authenticationMode.proxyMode) {
-                        this.proxyMode = authenticationMode.proxyMode;
-                    }
+            Utils.ajax(this.rootUrl + "/settings", "GET",
+                "application/json").done(function (settings) {
+                    this.settings = settings;
 
-                    deferred.resolve(authenticationMode);
+                    deferred.resolve(settings);
                 }.bind(this)).fail(function () {
                     deferred.reject();
                 });
@@ -126,7 +123,7 @@ define(["js/Utils"], function (Utils) {
          *
          */
         ConsoleService.prototype.getNode = function (mesh, node) {
-            if (this.proxyMode == "local") {
+            if (!this.settings.proxy || this.settings.proxy.mode === "local") {
                 return Utils.ajax(this.rootUrl + "/configuration", "GET",
                     "application/json");
             }

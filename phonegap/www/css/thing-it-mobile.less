@@ -63,6 +63,26 @@ button {
   box-shadow: 2px 2px 2px 0px @borderColor !important;
 }
 
+::-webkit-input-placeholder {
+  font-size: @defaultFontSize;
+  color: red;
+}
+
+:-moz-placeholder { /* older Firefox*/
+  font-size: @defaultFontSize;
+  color: red;
+}
+
+::-moz-placeholder { /* Firefox 19+ */
+  font-size: @defaultFontSize;
+  color: red;
+}
+
+:-ms-input-placeholder {
+  font-size: @defaultFontSize;
+  color: red;
+}
+
 /* General Styling */
 
 .lightenedPrimaryColor {
@@ -268,30 +288,32 @@ i.treeHandle {
 
 .circleText:hover {
   &:after {
-    background: @secondaryColor;
+    background: @contrastColor;
     color: #FFFFFF;
     cursor: hand;
   }
 }
 
-.roundButton {
+.circleButton {
   display: block;
-  width: 2 * @defaultFontSize;
-  height: 2 * @defaultFontSize;
-  line-height: 2 * @defaultFontSize;
-  border: 2px solid @primaryColor;
+  width: 3 * @defaultFontSize;
+  height: 3 * @defaultFontSize;
+  line-height: 3 * @defaultFontSize;
+  border: none;
   border-radius: 50%;
-  color: @primaryColor;
+  background: @primaryColor;
+  color: #FFFFFF;
   text-align: center;
   text-decoration: none;
-  background: lighten(@primaryColor, @lightPercentage);
-  box-shadow: 0 0 3px gray;
+  -webkit-box-shadow: 2px 2px 2px 0px @borderColor !important;
+  -moz-box-shadow: 2px 2px 2px 0px @borderColor !important;
+  box-shadow: 2px 2px 2px 0px @borderColor !important;
   font-size: @defaultFontSize;
   font-weight: bold;
 }
 
-.roundButton:hover {
-  background: @secondaryColor;
+.circleButton:hover {
+  background: @contrastColor;
   cursor: hand;
 }
 

@@ -98,7 +98,7 @@ function initializeDirectives(module) {
     module.directive('tiVideo', function ($timeout, $parse) {
         return {
             restrict: "E",
-            template: "<video><source type='video/mp4'></video>",
+            template: "<video><source type='video/mp4' webkit-playsinline></video>",
             //template: "<canvas width='320' height='180' style='border: 1px solid red;'></canvas>",
             link: function (scope, element, attrs) {
                 //var transports;

@@ -7,9 +7,12 @@ module.exports = {
     usersDirectory: "../thing-it-users",
     simulated: true,
     hotDeployment: false,
-    //reverseProxy: "http://www.thing-it.com",
+    proxy: {
+        mode: "local"/*,
+        reverseProxy: "http://localhost:3000"*/
+    },
     verifyCallSignature: false,
     publicKeyFile: "",
     signingAlgorithm: "RSA-SHA256",
-    authentication: {type: "local"}
+    authentication: {mode: "user"}
 };

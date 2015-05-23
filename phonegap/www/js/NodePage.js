@@ -60,7 +60,7 @@ define([ "js/Utils", "js/ConsoleService" ], function(Utils,
         NodePage.prototype.expandComponentUi = function(component) {
             this.component = component;
 
-            this.console.Ui.turnOn("componentPluginUi")
+            this.console.Ui.turnOn("componentPluginUi");
         };
 	}
 });

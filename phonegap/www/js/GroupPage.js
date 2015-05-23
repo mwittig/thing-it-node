@@ -63,5 +63,14 @@ define([ "js/Utils", "js/ConsoleService" ], function(Utils,
 				jQuery.mobile.loading("hide");
 			});
 		};
-	}
+
+        /**
+         *
+         */
+        GroupPage.prototype.expandComponentUi = function(component) {
+            this.component = component;
+
+            this.console.Ui.turnOn("componentPluginUi");
+        };
+    }
 });

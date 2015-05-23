@@ -32,7 +32,7 @@
                ng-click="callNodeService(service)">
                 <i class="fa fa-gear"></i> {{service.label}} <i class="fa fa-chevron-right pull-right navigationIcon"></i>
             </a>
-            <a ng-repeat="device in topPage().node.devices" class="list-group-item">
+            <a ng-repeat="device in topPage().node.devices" class="list-group-item" ng-show="device.__type.tangible && !isDeviceInGroups(device)">
                 <div class="itemLabel" ng-click="topPage().expandComponentUi(device)">{{device.label}}</div>
                 <table width="100%">
                     <tr>
@@ -47,8 +47,8 @@
                 </table>
             </a>
             <a ng-repeat="actor in topPage().actors"
-               class="list-group-item">
-                <div class="itemLabel">{{actor.label}}</div>
+               class="list-group-item" ng-show="!isActorInGroups(actor)">
+                <div class="itemLabel" ng-click="topPage().expandComponentUi(actor)">{{actor.label}}</div>
                 <table
                         width="100%">
                     <tr>
@@ -63,8 +63,8 @@
                 </table>
             </a>
             <a ng-repeat="sensor in topPage().sensors"
-               class="list-group-item">
-                <div class="itemLabel">{{sensor.label}}</div>
+               class="list-group-item" ng-show="!isSensorInGroups(sensor)">
+                <div class="itemLabel"ng-click="topPage().expandComponentUi(sensor)">{{sensor.label}}</div>
                 <table width="100%">
                     <tr>
                         <td width="90%" align="center">
