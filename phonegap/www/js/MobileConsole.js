@@ -35,12 +35,12 @@ define(
 
                 ConsoleService
                     .instance()
-                    .getAuthenticationMode()
+                    .getSettings()
                     .done(
-                    function (authenticationMode) {
-                        this.authenticationMode = authenticationMode;
+                    function (settings) {
+                        this.settings = settings;
 
-                        if (this.authenticationMode.type == "none") {
+                        if (this.settings.authentication.mode == "none") {
                             this.login();
                         }
                         else {
@@ -184,7 +184,7 @@ define(
                             function (deviceTypes) {
                                 this.deviceTypes = deviceTypes;
 
-                                if (ConsoleService.instance().proxyMode == "local") {
+                                if (!this.settings.proxy || this.settings.proxy.mode == "local") {
                                     ConsoleService
                                         .instance()
                                         .getNode()

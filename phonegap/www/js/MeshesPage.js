@@ -15,7 +15,7 @@ define(["js/Utils", "js/ConsoleService"], function (Utils,
          *
          */
         MeshesPage.prototype.initialize = function (console) {
-            this.id = "meshesPage";
+            this.id = "meshes";
             this.console = console;
 
             return this;

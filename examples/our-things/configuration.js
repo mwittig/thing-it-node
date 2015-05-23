@@ -20,6 +20,11 @@ module.exports = {
             configuration: {
                 "pin": 13
             }
+        }, {
+            id: "samsungTVInfraredRemote",
+            label: "Samsung TV Infrared Remote",
+            type: "samsungTVInfraredRemote",
+            configuration: {}
         }],
         sensors: [{
             id: "button1",
@@ -95,6 +100,24 @@ module.exports = {
         configuration: [],
         actors: [],
         sensors: []
+    }, {
+        label: "Apple Device Manager",
+        id: "appleDeviceManager",
+        plugin: "apple-device/appleDevice",
+        actors: [{
+            label: "Apple TV",
+            id: "appleTv",
+            type: "dacpActor",
+            configuration: {
+                host: "192.168.1.7",
+                port: 3689,
+                pairingCode: "EE53C46CE0B5E4B6"
+            }
+        }, {
+            label: "Pairing Agent",
+            id: "pairingAgent",
+            type: "pairingAgent"
+        }]
     }],
     groups: [{
         id: "group1",
@@ -105,8 +128,8 @@ module.exports = {
             label: "Dining Room",
             icon: "cutlery",
             subGroups: [],
-            devices: ["sensorTagDiningRoom"],
-            actors: ["arduino1.led1", "arduino1.led2"],
+            devices: ["sensorTagDiningRoom", "appleDeviceManager"],
+            actors: ["arduino1.led1", "arduino1.led2", "arduino1.samsungTVInfraredRemote"],
             sensors: ["arduino1.button1", "arduino1.button2",
                 "arduino1.photocell1"],
             services: ["toggleAll"]
@@ -143,7 +166,9 @@ module.exports = {
     }, {
         id: "ourEntertainment",
         label: "Our Entertainment",
-        icon: "music"
+        icon: "music",
+        devices: ["appleDeviceManager"],
+        actors: ["arduino1.samsungTVInfraredRemote"]
     }, {
         id: "ourSecurity",
         label: "Our Security",
