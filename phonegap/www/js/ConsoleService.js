@@ -2,7 +2,7 @@
  * Copyright (c) 2014-2015 Marc Gille. All rights reserved.
  ******************************************************************************/
 
-define(["js/Utils"], function (Utils) {
+define(["js/Utils", "js/Node"], function (Utils, Node) {
     return {
         instance: function () {
 
@@ -23,11 +23,80 @@ define(["js/Utils"], function (Utils) {
         + window.location.hostname + ":" + window.location.port;
 
         /**
+         *
+         */
+        ConsoleService.prototype.get = function (url) {
+            if (this.http) {
+                var deferred = jQuery.Deferred();
+
+                this.http.get(url).success(function (data) {
+                    deferred.resolve(data);
+                }).error(function (data) {
+                    deferred.reject(data);
+                });
+
+                return deferred.promise();
+            }
+            else {
+                return Utils.ajax(this.rootUrl + "/plugins", "GET",
+                    "application/json");
+            }
+        };
+
+        /**
+         *
+         */
+        ConsoleService.prototype.post = function (url, data) {
+            if (this.http) {
+                var deferred = jQuery.Deferred();
+
+                this.http.post(url, Utils
+                    .cloneFiltered(data, /\_\_|\$\$/)).success(function (data) {
+                    deferred.resolve(data);
+                }).error(function (data) {
+                    deferred.reject(data);
+                });
+
+                return deferred.promise();
+            }
+            else {
+                return Utils.ajax(this.rootUrl + "/plugins", "POST",
+                    "application/json", JSON.stringify(Utils
+                        .cloneFiltered(data, /\_\_|\$\$/)));
+            }
+        };
+
+        /**
+         *
+         */
+        ConsoleService.prototype.put = function (url, data) {
+            if (this.http) {
+                var deferred = jQuery.Deferred();
+
+                this.http.put(url, data).success(function (data) {
+                    deferred.resolve(data);
+                }).error(function (data) {
+                    deferred.reject(data);
+                });
+
+                return deferred.promise();
+            }
+            else {
+                return Utils.ajax(this.rootUrl + "/plugins", "PUT",
+                    "application/json", JSON.stringify(Utils
+                        .cloneFiltered(data, /\_\_|\$\$/)));
+            }
+        };
+
+        /**
          * TODO May homogenize local URL to contain UUID as well.
          */
         ConsoleService.prototype.getNodeRootUrl = function (node) {
             if (!this.settings.proxy || this.settings.proxy.mode == "local") {
                 return this.rootUrl;
+            }
+            else if (this.settings.proxy.mode === 'remoteSimulated') {
+                return this.rootUrl + "/nodes/" + node.uuid;
             }
             else {
                 return this.rootUrl + "/reverse-proxy/nodes/" + node.uuid;
@@ -42,6 +111,9 @@ define(["js/Utils"], function (Utils) {
         ConsoleService.prototype.getEventNamespaceUrl = function (node) {
             if (!this.settings.proxy || this.settings.proxy.mode == "local") {
                 return this.rootUrl + "/events";
+            }
+            else if (this.settings.proxy.mode === 'remoteSimulated') {
+                return this.rootUrl + "/nodes/" + node.uuid + "/events";
             }
             else {
                 return this.rootUrl + "/reverse-proxy/nodes/" + node.uuid + "/client/events";
@@ -66,8 +138,7 @@ define(["js/Utils"], function (Utils) {
          *
          */
         ConsoleService.prototype.getDeviceTypes = function (node) {
-            return Utils.ajax(this.rootUrl + "/plugins", "GET",
-                "application/json");
+            return this.get(this.rootUrl + "/plugins");
         };
 
         /**
@@ -100,37 +171,61 @@ define(["js/Utils"], function (Utils) {
          *
          */
         ConsoleService.prototype.logout = function () {
-            return Utils.ajax(this.rootUrl + "/logout", "POST",
-                "application/json");
+            return this.post(this.rootUrl + "/logout");
         };
 
         /**
          *
          */
         ConsoleService.prototype.getMeshes = function () {
-            return Utils.ajax(this.rootUrl + "/meshes", "GET",
-                "application/json");
+            return this.get(this.rootUrl + "/meshes");
         };
 
         /**
          *
          */
         ConsoleService.prototype.getMesh = function (mesh) {
-            return Utils.ajax(this.rootUrl + "/meshes/" + mesh._id, "GET");
+            return this.get(this.rootUrl + "/meshes/" + mesh._id);
         };
 
         /**
          *
          */
-        ConsoleService.prototype.getNode = function (mesh, node) {
+        ConsoleService.prototype.getNode = function (deviceTypes, mesh, node) {
+            var deferred = jQuery.Deferred();
+
             if (!this.settings.proxy || this.settings.proxy.mode === "local") {
-                return Utils.ajax(this.rootUrl + "/configuration", "GET",
-                    "application/json");
+                return this.get(this.rootUrl + "/configuration").done(function (node) {
+                    node = Node
+                        .bind(
+                        deviceTypes,
+                        node);
+
+                    deferred.resolve(node);
+                }.bind(this)).fail(function (error) {
+                    console.trace(error);
+
+                    deferred.reject(data);
+                }.bind(this));
             }
             else {
-                return Utils.ajax(this.rootUrl + "/meshes/" + mesh._id + "/nodes/" + node._id, "GET",
-                    "application/json");
+                // TODO Homogenize
+
+                return this.get(this.rootUrl + "/meshes/" + mesh._id + "/nodes/" + node._id).done(function (node) {
+                    node = Node
+                        .bind(
+                        deviceTypes,
+                        node);
+
+                    deferred.resolve(node);
+                }.bind(this)).fail(function (error) {
+                    console.trace(error);
+
+                    deferred.reject(data);
+                }.bind(this));
             }
+
+            return deferred.promise();
         };
 
         /**
@@ -149,8 +244,14 @@ define(["js/Utils"], function (Utils) {
                 transports: transports
             });
 
-            namespace.on('connect', function () {
-            });
+            console.log("WebSocket Namespace created at " + this.getEventNamespaceUrl(node));
+
+            namespace.on('connection', function () {
+                console.log("WebSocket Namespace connected at " + this.getEventNamespaceUrl(node));
+            }.bind(this));
+            namespace.on('disconnect', function () {
+                console.log("WebSocket Namespace disconnected at " + this.getEventNamespaceUrl(node));
+            }.bind(this));
 
             window.setTimeout(function () {
                 // Force Node to push state for all Devices and Actors
@@ -166,65 +267,58 @@ define(["js/Utils"], function (Utils) {
          *
          */
         ConsoleService.prototype.callNodeService = function (node, service, parameters) {
-            return Utils.ajax(this.getNodeRootUrl(node) + "/services/" + service.id, "POST",
-                "application/json", JSON.stringify(parameters));
+            return this.post(this.getNodeRootUrl(node) + "/services/" + service.id, parameters);
         };
 
         /**
          *
          */
-        ConsoleService.prototype.callDeviceService = function (node, device, service, parameters) {
-            return Utils.ajax(this.getNodeRootUrl(node) + "/devices/" + device.id
-                + "/services/" + service, "POST",
-                "application/json", JSON.stringify(parameters));
+        ConsoleService.prototype.callDeviceService = function (device, service, parameters) {
+            return this.post(this.getNodeRootUrl(device.__node) + "/devices/" + device.id
+            + "/services/" + service, parameters);
         };
 
         /**
          *
          */
-        ConsoleService.prototype.callActorService = function (node, actor, service,
+        ConsoleService.prototype.callActorService = function (actor, service,
                                                               parameters) {
-            return Utils.ajax(this.getNodeRootUrl(node) + "/devices/" + actor.device.id
-                + "/actors/" + actor.id + "/services/" + service, "POST",
-                "application/json", JSON.stringify(parameters));
+            return this.post(this.getNodeRootUrl(actor.device.__node) + "/devices/" + actor.device.id
+            + "/actors/" + actor.id + "/services/" + service, parameters);
         };
 
         /**
          *
          */
-        ConsoleService.prototype.pushSensorValue = function (node, sensor, value) {
-            return Utils.ajax(this.getNodeRootUrl(node) + "/devices/" + sensor.device.id
-                + "/sensors/" + sensor.id + "/data", "POST",
-                "application/json", JSON.stringify({
-                    data: sensor._value
-                }));
+        ConsoleService.prototype.pushSensorValue = function (sensor, value) {
+            return this.post(this.getNodeRootUrl(sensor.device.__node) + "/devices/" + sensor.device.id
+            + "/sensors/" + sensor.id + "/data", {
+                data: sensor._value
+            });
         };
 
         /**
          *
          */
-        ConsoleService.prototype.pushSensorEvent = function (node, sensor, event) {
-            return Utils.ajax(this.getNodeRootUrl(node) + "/devices/" + sensor.device.id
-                + "/sensors/" + sensor.id + "/event", "POST",
-                "application/json", JSON.stringify({
-                    type: event
-                }));
+        ConsoleService.prototype.pushSensorEvent = function (sensor, event) {
+            return this.post(this.getNodeRootUrl(sensor.device.__node) + "/devices/" + sensor.device.id
+            + "/sensors/" + sensor.id + "/event", {
+                type: event
+            });
         };
 
         /**
          *
          */
         ConsoleService.prototype.getDataValue = function (node, data) {
-            return Utils.ajax(this.getNodeRootUrl(node) + "/data/" + data.id, "GET",
-                "application/json");
+            return this.get(this.getNodeRootUrl(node) + "/data/" + data.id);
         };
 
         /**
          *
          */
         ConsoleService.prototype.registerDevice = function (node, device) {
-            return Utils.ajax(this.getNodeRootUrl(node) + "/devices/" + device.uuid + "/register", "POST",
-                "application/json");
+            return this.post(this.getNodeRootUrl(node) + "/devices/" + device.uuid + "/register", device);
         };
 
         /**
@@ -252,34 +346,28 @@ define(["js/Utils"], function (Utils) {
          *
          */
         ConsoleService.prototype.getUsers = function (node) {
-            return Utils.ajax(this.getNodeRootUrl(node) + "/users", "GET",
-                "application/json");
+            return this.get(this.getNodeRootUrl(node) + "/users");
         };
 
         /**
          *
          */
         ConsoleService.prototype.getUser = function (id) {
-            return Utils.ajax(this.getNodeRootUrl(node) + "/users/" + id, "GET",
-                "application/json");
+            return this.get(this.getNodeRootUrl(node) + "/users/" + id);
         };
 
         /**
          *
          */
         ConsoleService.prototype.createUser = function (node, user) {
-            return Utils.ajax(this.getNodeRootUrl(node) + "/users", "POST",
-                "application/json", JSON.stringify(Utils
-                    .cloneFiltered(user, /\_\_|\$\$/)));
+            return this.post(this.getNodeRootUrl(node) + "/users", user);
         };
 
         /**
          *
          */
         ConsoleService.prototype.updateUser = function (node, user) {
-            return Utils.ajax(this.getNodeRootUrl(node) + "/users/" + user.account, "PUT",
-                "application/json", JSON.stringify(Utils
-                    .cloneFiltered(user, /\_\_|\$\$/)));
+            return this.put(this.getNodeRootUrl(node) + "/users/" + user);
         };
     }
 });

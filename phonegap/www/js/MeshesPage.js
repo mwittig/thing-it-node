@@ -35,7 +35,10 @@ define(["js/Utils", "js/ConsoleService"], function (Utils,
                     this.meshes = meshes;
 
                     deferred.resolve();
-                }.bind(this)).fail(function () {
+                }.bind(this)).fail(function (error) {
+                    console.trace(error);
+
+                    deferred.reject(error);
                 });
 
             return deferred.promise();
