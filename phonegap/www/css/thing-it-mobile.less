@@ -153,15 +153,6 @@ i.treeHandle {
   color: #FFFFFF;
 }
 
-.navbar-app .btn:active, .navbar-app .btn:hover {
-  background-color: @primaryColor;
-  color: #FFFFFF;
-}
-
-.navbar-brand {
-  font-size: @h1FontSize;
-}
-
 .btn {
   background-color: @primaryColor;
   color: #FFFFFF;
@@ -180,6 +171,24 @@ i.treeHandle {
 
 .btn-primary {
   border-color: @primaryColor;
+}
+
+.btn-primary.disabled, .btn-primary[disabled] {
+  border-color: @primaryColor;
+  background-color: #BBBBBB;
+  box-shadow: none !important;
+  border: none;
+}
+
+.navbar-app .btn:active, .navbar-app .btn:hover {
+  background-color: @primaryColor;
+  color: #FFFFFF;
+  border-color: @primaryColor;
+  box-shadow: none !important;
+}
+
+.navbar-brand {
+  font-size: @h1FontSize;
 }
 
 .list-group-item {

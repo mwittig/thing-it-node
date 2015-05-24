@@ -1,10 +1,10 @@
 <div ui-content-for="topbar">
     <div class="navbar-brand navbar-brand-center">
-        <i class="fa fa-globe"></i> Meshes
+        <i class="fa fa-gears"></i> {{topPage().mesh.label}}
     </div>
     <div class="btn-group pull-left">
         <div class="btn">
-            <a ng-click="logout()"><i class="fa fa-power-off"></i></a>
+            <a ng-click="popPage()"><i class="fa fa-arrow-left"></i></a>
         </div>
     </div>
     <div class="btn-group pull-right">
@@ -22,9 +22,9 @@
 <div class="scrollable" ui-state="searchBar">
     <div class="scrollable-content" ui-scroll-bottom='bottomReached()'>
         <div class="list-group">
-            <a ng-repeat="mesh in topPage().meshes" ng-click="pushMeshPage(mesh)" class="list-group-item">
+            <a ng-repeat="node in topPage().mesh.nodes" ng-click="openNodePage(topPage().mesh, node)" class="list-group-item">
                 <i
-                        class="fa fa-gears"></i> {{mesh.label}} <i
+                        class="fa fa-calculator"></i> {{node.label}} ({{node.state}}, {{node.lastHeartbeat | date:"MM/dd/yyyy mm:ss"}})<i
                     class="fa fa-chevron-right pull-right navigationIcon"></i>
             </a>
         </div>

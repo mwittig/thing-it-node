@@ -41,7 +41,7 @@
             </div>
             <div class="modal-footer">
                 <button ui-turn-off="userDialog" class="btn btn-default">Close</button>
-                <button ui-turn-off="userDialog" class="btn btn-primary" ng-click="createUser()">Add</button>
+                <button ui-turn-off="userDialog" class="btn btn-primary" ng-click="createUser()" ng-disabled="!userCreationDialog.user.account || !userCreationDialog.user.password || !userCreationDialog.user.firstName || !userCreationDialog.user.lastName">Add</button>
             </div>
         </div>
     </div>

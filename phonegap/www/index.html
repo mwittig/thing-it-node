@@ -25,7 +25,7 @@
     <link href="./css/fonts/oswald.css" rel="stylesheet" type="text/css">
     <link href="./css/font-awesome/css/font-awesome.min.css"
           rel="stylesheet">
-    <link rel="stylesheet" href="./css/mobile-angular-ui/mobile-angular-ui-base.min.css" />
+    <link rel="stylesheet" href="./css/mobile-angular-ui/mobile-angular-ui-base.min.css"/>
     <link rel="stylesheet" href="./css/jquery.mobile.icons.min.css"/>
     <link rel="stylesheet" href="./css/ion.rangeslider.css">
     <link rel="stylesheet" href="./css/thing-it-mobile.css" type="text/css" type="text/css">
@@ -72,37 +72,40 @@
         var module = angular.module("mobileConsoleApplication", ["ngRoute",
             "mobile-angular-ui"]);
 
-        module.config(function($routeProvider) {
-            $routeProvider.when('/login',              {templateUrl: 'loginPage.html', reloadOnSearch: false});
-            $routeProvider.when('/node',              {templateUrl: 'nodePage.html', reloadOnSearch: false});
-            $routeProvider.when('/group',        {templateUrl: 'groupPage.html', reloadOnSearch: false});
-            $routeProvider.when('/device',        {templateUrl: 'devicePage.html', reloadOnSearch: false});
-            $routeProvider.when('/actor',        {templateUrl: 'actorPage.html', reloadOnSearch: false});
-            $routeProvider.when('/sensor',        {templateUrl: 'sensorPage.html', reloadOnSearch: false});
-            $routeProvider.when('/deviceMonitoring',        {templateUrl: 'deviceMonitoringPage.html', reloadOnSearch: false});
-            $routeProvider.when('/userManagement',        {templateUrl: 'userManagementPage.html', reloadOnSearch: false});
-            $routeProvider.when('/user',        {templateUrl: 'userPage.html', reloadOnSearch: false});
+        module.config(function ($routeProvider) {
+            $routeProvider.when('/login', {templateUrl: 'loginPage.html', reloadOnSearch: false});
+            $routeProvider.when('/meshes', {templateUrl: 'meshesPage.html', reloadOnSearch: false});
+            $routeProvider.when('/mesh', {templateUrl: 'meshPage.html', reloadOnSearch: false});
+            $routeProvider.when('/node', {templateUrl: 'nodePage.html', reloadOnSearch: false});
+            $routeProvider.when('/group', {templateUrl: 'groupPage.html', reloadOnSearch: false});
+            $routeProvider.when('/device', {templateUrl: 'devicePage.html', reloadOnSearch: false});
+            $routeProvider.when('/actor', {templateUrl: 'actorPage.html', reloadOnSearch: false});
+            $routeProvider.when('/sensor', {templateUrl: 'sensorPage.html', reloadOnSearch: false});
+            $routeProvider.when('/deviceMonitoring', {templateUrl: 'deviceMonitoringPage.html', reloadOnSearch: false});
+            $routeProvider.when('/userManagement', {templateUrl: 'userManagementPage.html', reloadOnSearch: false});
+            $routeProvider.when('/user', {templateUrl: 'userPage.html', reloadOnSearch: false});
         });
 
         initializeDirectives(module);
 
-        module.controller('mobileConsole', function ($scope, $location) {
+        module.controller('mobileConsole', function ($scope, $location, $http) {
             require(["require", "lodash", "jquery", "jquery-ui", "jquery.ui.touch-punch", "jquery.knob",
                 "jquery.jqplot", "jquery.jqplot.dateAxisRenderer",
-                "jquery.rangeslider", "json",  "socketio", "moment",
+                "jquery.rangeslider", "json", "socketio", "moment",
                 "js/Utils", "js/AngularDirectives",
-                "js/MobileConsole"], function (require, lodash, jquery, jqueryUi, jqueryUiTouchPunch, jqueryKnob,
+                "js/MobileConsole", "js/ConsoleService"], function (require, lodash, jquery, jqueryUi, jqueryUiTouchPunch, jqueryKnob,
                                                jqueryJqPlot, jqplotDateAxisRenderer,
                                                jqueryRangeslider, json, socketio, moment, Utils,
-                                               AngularDirectives, MobileConsole) {
+                                               AngularDirectives, MobileConsole, ConsoleService) {
                 Utils.inheritMethods($scope, MobileConsole.create());
 
                 $scope.initialize(socketio, $location);
 
-                console.log("Shared State", $scope.Ui);
+                ConsoleService.instance().http = $http;
+                $scope.rootScope = $scope.$root;
             });
         });
-   </script>
+    </script>
 </head>
 <body ng-app="mobileConsoleApplication" ng-controller="mobileConsole">
 <div ng-include="'menu.html'"
@@ -124,4 +127,5 @@
 
 <div ui-yield-to="modals"></div>
 
-</body></html>
+</body>
+</html>

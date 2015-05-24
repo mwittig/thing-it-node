@@ -32,6 +32,12 @@ define(
                 this.pageStack = [];
                 this.sensorPlotData = {};
                 this.plotData = {};
+                this.deviceAdvertisementDialog = {};
+                this.Ui.initialize(this, "deviceAdvertisementDialog");
+                this.userCreationDialog = {};
+                this.Ui.initialize(this, "userCreationDialog");
+                this.messageDialog = {};
+                this.Ui.initialize(this, "messageDialog");
 
                 ConsoleService
                     .instance()
@@ -48,39 +54,44 @@ define(
 
                             this.showPage(this.loginPage);
                         }
-
-                        this.deviceAdvertisementDialog = {};
-                        this.Ui.initialize(this, "deviceAdvertisementDialog");
-                        this.userCreationDialog = {};
-                        this.Ui.initialize(this, "userCreationDialog");
-                        this.messageDialog = {};
-                        this.Ui.initialize(this, "messageDialog");
                     }.bind(this)).fail(function (error) {
                         this
                             .openMessageDialog(error, "error");
-                    });
+                    }.bind(this));
             };
 
             /**
              *
              */
             MobileConsole.prototype.showPage = function (page, object) {
-                var promise;
-
-                if (object) {
-                    promise = page.show(object);
-                } else {
-                    promise = page.show();
-                }
-
-                promise.done(function () {
+                try {
                     this.location.path('/' + page.id);
-                    this.safeApply();
-                    console.log("Pushed Page: " + page.id);
-                }.bind(this)).fail(function (error) {
+
+                    var promise;
+
+                    if (object) {
+                        promise = page.show(object);
+                    } else {
+                        promise = page.show();
+                    }
+
+                    promise.done(function () {
+                        this.safeApply(function () {
+                        }.bind(this));
+                    }.bind(this)).fail(function (error) {
+                        console.trace(error);
+
+                        this
+                            .openMessageDialog(error, "error");
+                    });
+                }
+                catch (error)
+                {
+                    console.trace(error);
+
                     this
                         .openMessageDialog(error, "error");
-                });
+                }
             };
 
             /**
@@ -187,15 +198,17 @@ define(
                                 if (!this.settings.proxy || this.settings.proxy.mode == "local") {
                                     ConsoleService
                                         .instance()
-                                        .getNode()
+                                        .getNode(this.deviceTypes)
                                         .done(
                                         function (node) {
+                                            this.loggedInUser = User.bind(node, loggedInUser);
+
+                                            console.log("Node 1 ==> ", node);
+                                            console.log("Logged-In User ===>", this.loggedInUser);
+
                                             this
                                                 .pushNodePage(
                                                 node);
-                                            this.loggedInUser = User.bind(node, loggedInUser);
-
-                                            console.log("Logged-In User ===>", this.loggedInUser);
                                         }.bind(this))
                                         .fail(function (error) {
                                             this
@@ -208,10 +221,14 @@ define(
                                 }
                             }.bind(this))
                             .fail(function (error) {
+                                console.trace(error);
+
                                 this
                                     .openMessageDialog(error, "error");
                             }.bind(this));
                     }.bind(this)).fail(function (error) {
+                        console.trace(error);
+
                         this
                             .openMessageDialog(error, "error");
                     }.bind(this));
@@ -224,25 +241,24 @@ define(
                 this.namespace = ConsoleService.instance().connectNode(
                     this.io, node);
 
-                var self = this;
-
                 this.namespace.on("connection", function (socket) {
-                });
+                }.bind(this));
                 this.namespace.on("disconnect", function (socket) {
-                    self.node.state = "disconnected";
-
-                    self.safeApply();
-                });
+                    this.safeApply(function () {
+                        node.state = "disconnected";
+                    }.bind(this));
+                }.bind(this));
                 this.namespace.on("heartbeat", function (details) {
-                    self.node.state = "running";
-                    self.node.lastHeartbeat = new Date().getTime();
+                    this.safeApply(function () {
+                        node.state = "running";
+                        node.lastHeartbeat = new Date().getTime();
 
-                    self.safeApply();
-                });
+                    }.bind(this));
+                }.bind(this));
                 this.namespace.on("message", function (message) {
                     console.log("Receiving message");
                     console.log(message);
-                });
+                }.bind(this));
                 this.namespace
                     .on(
                     "event",
@@ -251,39 +267,39 @@ define(
                         console.log(event);
 
                         if (event.sensor) {
-                            console.log(self.node.getDevice(
+                            console.log(node.getDevice(
                                 event.device).getSensor(
                                 event.sensor).device);
 
-                            self.node.getDevice(event.device)
+                            node.getDevice(event.device)
                                 .getSensor(event.sensor).value = event.value;
-                            self.node.getDevice(event.device)
+                            node.getDevice(event.device)
                                 .getSensor(event.sensor).lastEventTimestamp = new Date()
                                 .getTime();
 
                             if (event.type == "valueChange") {
                                 console.log(event);
-                                self.node.getDevice(event.device)
+                                node.getDevice(event.device)
                                     .getSensor(event.sensor).lastValueChangeTimestamp = new Date()
                                     .getTime();
 
                                 if (event.sensor) {
-                                    self.addValue(event.device,
+                                    this.addValue(event.device,
                                         event.sensor, event.value);
                                 } else {
-                                    self.writeToDeviceStream(event.device,
+                                    this.writeToDeviceStream(event.device,
                                         event.value);
                                 }
 
-                                if (self.topPage().id == "sensorMonitoringPage"
-                                    && self.topPage().sensor.device.id == event.device
-                                    && self.topPage().sensor.id == event.sensor) {
-                                    self.topPage().updatePlot();
+                                if (this.topPage().id == "sensorMonitoringPage"
+                                    && this.topPage().sensor.device.id == event.device
+                                    && this.topPage().sensor.id == event.sensor) {
+                                    this.topPage().updatePlot();
                                 }
                             }
                         }
                         else {
-                            var device = self.node.getDevice(event.device);
+                            var device = node.getDevice(event.device);
 
                             console.log("Trigger event:");
                             console.log(JSON.stringify(event));
@@ -291,19 +307,23 @@ define(
                             window.postMessage(JSON.stringify(event), window.location.href);
                         }
 
-                        self.safeApply();
-                    });
+                        this.safeApply();
+                    }.bind(this));
                 this.namespace.on("deviceStateChange", function (deviceStateChange) {
-                    self.onDeviceStateChanged(deviceStateChange);
-                    self.safeApply();
-                });
+                    this.safeApply(function(){
+                        this.onDeviceStateChanged(deviceStateChange);
+                    }.bind(this));
+                }.bind(this));
                 this.namespace.on("actorStateChange", function (actorStateChange) {
-                    self.onActorStateChanged(actorStateChange);
-                    self.safeApply();
-                });
+                    console.log("Receiving Actor State Change");
+                    this.safeApply(function () {
+                        this.onActorStateChanged(actorStateChange);
+                    }.bind(this));
+                }.bind(this));
                 this.namespace.on("deviceAdvertisement", function (device) {
                     console.log("Device advertisement ");
                     console.log(device);
+
                     this.onDeviceAdvertisement(device);
                 }.bind(this));
             };
@@ -343,7 +363,7 @@ define(
             MobileConsole.prototype.openNodePage = function (mesh, node) {
                 ConsoleService
                     .instance()
-                    .getNode(mesh, node)
+                    .getNode(this.deviceTypes, mesh, node)
                     .done(
                     function (node) {
                         this.pushNodePage(node);
@@ -354,13 +374,6 @@ define(
              *
              */
             MobileConsole.prototype.pushNodePage = function (node) {
-                this.node = Node
-                    .bind(
-                    this.deviceTypes,
-                    node);
-
-                this
-                    .connectNode(this.node);
                 this.pushPage(NodePage.create(this, node));
             };
 
@@ -430,6 +443,19 @@ define(
             /**
              *
              */
+            MobileConsole.prototype.openMessageDialog = function (message, type) {
+                this.messageDialog.message = message;
+                this.messageDialog.type = type;
+
+                this.Ui.turnOn("messageDialog");
+
+                this.safeApply();
+            };
+
+
+            /**
+             *
+             */
             MobileConsole.prototype.pushUserPage = function (user) {
                 this.pushPage(UserPage.create(this, user));
             };
@@ -455,9 +481,9 @@ define(
             /**
              *
              */
-            MobileConsole.prototype.isDeviceInGroups = function (device) {
-                for (var n in this.node.groups) {
-                    if (this.node.groups[n].containsDevice(device)) {
+            MobileConsole.prototype.isDeviceInGroups = function (node, device) {
+                for (var n in node.groups) {
+                    if (node.groups[n].containsDevice(device)) {
                         return true;
                     }
                 }
@@ -468,19 +494,9 @@ define(
             /**
              *
              */
-            MobileConsole.prototype.openMessageDialog = function (message, type) {
-                this.messageDialog.message = message;
-                this.messageDialog.type = type;
-
-                this.Ui.turnOn("messageDialog");
-            };
-
-            /**
-             *
-             */
-            MobileConsole.prototype.isActorInGroups = function (actor) {
-                for (var n in this.node.groups) {
-                    if (this.node.groups[n].containsActor(actor)) {
+            MobileConsole.prototype.isActorInGroups = function (node, actor) {
+                for (var n in node.groups) {
+                    if (node.groups[n].containsActor(actor)) {
                         return true;
                     }
                 }
@@ -491,9 +507,9 @@ define(
             /**
              *
              */
-            MobileConsole.prototype.isSensorInGroups = function (sensor) {
-                for (var n in this.node.groups) {
-                    if (this.node.groups[n].containsSensor(sensor)) {
+            MobileConsole.prototype.isSensorInGroups = function (node, sensor) {
+                for (var n in node.groups) {
+                    if (node.groups[n].containsSensor(sensor)) {
                         return true;
                     }
                 }
@@ -505,11 +521,13 @@ define(
              *
              */
             MobileConsole.prototype.pushSensorValue = function (sensor) {
-                ConsoleService.instance().pushSensorValue(this.node, sensor).done(
+                ConsoleService.instance().pushSensorValue(sensor).done(
                     function () {
                     }).fail(function (error) {
+                        console.trace(error);
+
                         this.openMessageDialog("Cannot push Sensor Event.");
-                    });
+                    }.bind(this));
             };
 
             /**
@@ -521,14 +539,16 @@ define(
 
                 ConsoleService
                     .instance()
-                    .pushSensorEvent(this.node, sensor, event)
+                    .pushSensorEvent(sensor, event)
                     .done(function () {
                     })
                     .fail(
                     function (error) {
+                        console.trace(error);
+
                         this
                             .openMessageDialog(error, "error");
-                    });
+                    }.bind(this));
             };
 
             /**
@@ -570,8 +590,8 @@ define(
             /**
              *
              */
-            MobileConsole.prototype.callNodeService = function (service) {
-                ConsoleService.instance().callNodeService(this.node, service, {})
+            MobileConsole.prototype.callNodeService = function (node, service) {
+                ConsoleService.instance().callNodeService(node, service, {})
                     .done(function () {
                     }).fail(function (error) {
                         this
@@ -592,8 +612,8 @@ define(
             /**
              *
              */
-            MobileConsole.prototype.callDeviceService = function (device, service) {
-                ConsoleService.instance().callDeviceService(this.node, device, service, {})
+            MobileConsole.prototype.callDeviceService = function (node, device, service) {
+                ConsoleService.instance().callDeviceService(node, device, service, {})
                     .done(function () {
                     }).fail(function (error) {
                         this
@@ -604,9 +624,9 @@ define(
             /**
              *
              */
-            MobileConsole.prototype.callActorService = function (actor,
+            MobileConsole.prototype.callActorService = function (node, actor,
                                                                  service, parameters) {
-                ConsoleService.instance().callActorService(this.node, actor, service,
+                ConsoleService.instance().callActorService(node, actor, service,
                     parameters).done(function () {
                     }).fail(function (error) {
                         this
@@ -705,14 +725,14 @@ define(
              *
              */
             MobileConsole.prototype.safeApply = function (fn) {
-                var phase = this.$root.$$phase;
+                console.log(this);
 
-                if (phase == '$apply' || phase == '$digest') {
+                if (this.rootScope && (this.rootScope.$$phase == "$apply" || this.rootScope.$$phase == "$digest")) {
                     if (fn && (typeof (fn) === 'function')) {
                         fn();
                     }
                 } else {
-                    this.$apply(fn);
+                    this.rootScope.$apply(fn);
                 }
             };
         }

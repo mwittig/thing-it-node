@@ -15,7 +15,7 @@ define(["js/Utils", "js/ConsoleService"], function (Utils,
          *
          */
         MeshPage.prototype.initialize = function (console, mesh) {
-            this.id = "meshPage";
+            this.id = "mesh";
             this.console = console;
             this.mesh = mesh;
 
@@ -36,7 +36,10 @@ define(["js/Utils", "js/ConsoleService"], function (Utils,
                     this.mesh = mesh;
 
                     deferred.resolve();
-                }.bind(this)).fail(function () {
+                }.bind(this)).fail(function (error) {
+                    console.trace(error);
+
+                    deferred.reject(error);
                 });
 
             return deferred.promise();
