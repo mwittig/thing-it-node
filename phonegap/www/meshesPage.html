@@ -22,7 +22,7 @@
 <div class="scrollable" ui-state="searchBar">
     <div class="scrollable-content" ui-scroll-bottom='bottomReached()'>
         <div class="list-group">
-            <a ng-repeat="mesh in topPage().meshes" ng-click="pushMeshPage(mesh)" class="list-group-item">
+            <a ng-repeat="mesh in topPage().meshes track by $index" ng-click="pushMeshPage(mesh)" class="list-group-item">
                 <i
                         class="fa fa-gears"></i> {{mesh.label}} <i
                     class="fa fa-chevron-right pull-right navigationIcon"></i>
