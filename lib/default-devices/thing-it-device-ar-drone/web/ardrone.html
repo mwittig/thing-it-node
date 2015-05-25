@@ -6,7 +6,7 @@
 <table>
     <tr style="vertical-align: top;">
         <td>
-            <ti-drone ti-height="device._state.height" ti-device="device"></ti-drone>
+            <ti-drone ti-height="component._state.height" ti-device="device"></ti-drone>
         </td>
         <td style="padding-left: 20px;">
             <table>
@@ -26,18 +26,18 @@
             <table>
                 <tr>
                     <td><label>Longitude</label></td>
-                    <td>{{device._state.longitude}}</td>
+                    <td>{{component._state.longitude}}</td>
                 </tr>
                 <tr>
                     <td><label>Latitude</label></td>
-                    <td>{{device._state.latitude}}</td>
+                    <td>{{component._state.latitude}}</td>
                 </tr>
                 <tr>
                     <td><label>Height</label></td>
-                    <td>{{device._state.height}}</td>
+                    <td>{{component._state.height}}</td>
                 </tr>
             </table>
-            <ti-battery ti-model="device._state.batteryLevel"></ti-battery>
+            <ti-battery ti-model="component._state.batteryLevel"></ti-battery>
         </td>
     </tr>
 </table>

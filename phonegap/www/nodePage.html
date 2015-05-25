@@ -43,7 +43,7 @@
                     <tr>
                         <td width="90%" align="center">
                             <div class="componentPlugin" ng-include="getComponentPluginPath(device)"
-                                 ng-repeat="device in [device]"></div>
+                                 ng-repeat="component in [device]"></div>
                         </td>
                         <td width="10%" align="right"><a
                                 ng-click="pushDevicePage(device)"><i
@@ -59,7 +59,7 @@
                     <tr>
                         <td width="90%" align="center">
                             <div class="componentPlugin" ng-include="getComponentPluginPath(actor)"
-                                 ng-repeat="actor in [actor]"></div>
+                                 ng-repeat="component in [actor]"></div>
                         </td>
                         <td width="10%" align="right"><a
                                 ng-click="pushActorPage(actor)"><i
@@ -74,7 +74,7 @@
                     <tr>
                         <td width="90%" align="center">
                             <div class="componentPlugin" ng-include="getComponentPluginPath(sensor)"
-                                 ng-repeat="sensor in [sensor]"></div>
+                                 ng-repeat="component in [sensor]"></div>
                         </td>
                         <td width="10%" align="right"><a
                                 ng-click="pushSensorPage(sensor)"><i
@@ -96,8 +96,8 @@
                     <div class="circleText pull-right" style="width: 20px;" ui-turn-off="componentPluginUi"><div><i class="fa fa-times"></i></div></div>
                     <h1>{{topPage().component.label}}</h1>
                 </div>
-                <div class="modal-body">
-                    <div ng-include="getComponentPluginPath(topPage().component)" ng-repeat="device in [topPage().component]"></div>
+                <div class="modal-body" style="text-align: center;">
+                    <div ng-include="getComponentPluginPath(topPage().component)" ng-repeat="component in [topPage().component]"></div>
                 </div>
             </div>
         </div>

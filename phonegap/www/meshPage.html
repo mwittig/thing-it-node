@@ -22,9 +22,13 @@
 <div class="scrollable" ui-state="searchBar">
     <div class="scrollable-content" ui-scroll-bottom='bottomReached()'>
         <div class="list-group">
-            <a ng-repeat="node in topPage().mesh.nodes track by $index" ng-click="openNodePage(topPage().mesh, node)" class="list-group-item">
+            <a ng-repeat="node in topPage().mesh.nodes track by $index" ng-click="openNodePage(topPage().mesh, node)"
+               class="list-group-item">
                 <i
-                        class="fa fa-calculator"></i> {{node.label}} ({{node.state}}, {{node.lastHeartbeat | date:"MM/dd/yyyy mm:ss"}})<i
+                        class="fa fa-calculator"></i> {{node.label}}
+                <i class="fa fa-question stateIcon" ng-show="node.state === 'disconnected'"></i>
+                <i class="fa fa-repeat fa-spin stateIcon" ng-show="node.state === 'running'"></i>
+                {{node.lastHeartbeat }}<i
                     class="fa fa-chevron-right pull-right navigationIcon"></i>
             </a>
         </div>

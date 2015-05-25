@@ -216,6 +216,9 @@ i.treeHandle {
   padding: 5px;
   color: #5e829a;
 }
+.stateIcon {
+  color: #bfae99;
+}
 .value {
   font-size: 40px;
   color: #abbfcc;

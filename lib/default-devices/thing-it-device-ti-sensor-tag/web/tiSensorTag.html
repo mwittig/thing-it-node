@@ -44,76 +44,76 @@
 <div style="width: 100%; display: table;">
     <div style="display: table-cell; text-align: center;">
         <table class="formTable" style="text-align: left; display: inline-block;">
-            <tr ng-show="device.configuration.ambientTemperatureEnabled">
+            <tr ng-show="component.configuration.ambientTemperatureEnabled">
                 <td><label>Ambient Temperature</label></td>
                 <td></td>
-                <td style="text-align: right;">{{formatDecimal(device._state.ambientTemperature)}}</td>
+                <td style="text-align: right;">{{formatDecimal(component._state.ambientTemperature)}}</td>
                 <td>&#8451;</td>
             </tr>
-            <tr ng-show="device.configuration.irTemperatureEnabled">
+            <tr ng-show="component.configuration.irTemperatureEnabled">
                 <td><label>IR Temperature</label></td>
                 <td></td>
-                <td style="text-align: right;">{{formatDecimal(device._state.ambientTemperature)}}</td>
+                <td style="text-align: right;">{{formatDecimal(component._state.ambientTemperature)}}</td>
                 <td>&#8451;</td>
             </tr>
-            <tr ng-show="device.configuration.accelerometerEnabled">
+            <tr ng-show="component.configuration.accelerometerEnabled">
                 <td rowspan="3"><label>Acceleration</label></td>
                 <td><label>X</label></td>
-                <td style="text-align: right;">{{formatDecimal(device._state.acceleration.x)}}</td>
+                <td style="text-align: right;">{{formatDecimal(component._state.acceleration.x)}}</td>
                 <td>G</td>
             </tr>
-            <tr ng-show="device.configuration.accelerometerEnabled" style="vertical-align: center !important;">
+            <tr ng-show="component.configuration.accelerometerEnabled" style="vertical-align: middle !important;">
                 <td><label>Y</label></td>
-                <td style="text-align: right;">{{formatDecimal(device._state.acceleration.y)}}</td>
+                <td style="text-align: right;">{{formatDecimal(component._state.acceleration.y)}}</td>
                 <td>G</td>
             </tr>
-            <tr ng-show="device.configuration.accelerometerEnabled" style="vertical-align: center !important;">
+            <tr ng-show="component.configuration.accelerometerEnabled" style="vertical-align: middle !important;">
                 <td><label>Z</label></td>
-                <td style="text-align: right;">{{formatDecimal(device._state.acceleration.z)}}</td>
+                <td style="text-align: right;">{{formatDecimal(component._state.acceleration.z)}}</td>
                 <td>G</td>
             </tr>
-            <tr ng-show="device.configuration.magnetometerEnabled">
+            <tr ng-show="component.configuration.magnetometerEnabled">
                 <td rowspan="3"><label>Magnetic Field Strength</label></td>
                 <td><label>X</label></td>
-                <td style="text-align: right;">{{formatDecimal(device._state.magneticFieldStrength.x)}}</td>
+                <td style="text-align: right;">{{formatDecimal(component._state.magneticFieldStrength.x)}}</td>
                 <td>&mu;T</td>
             </tr>
-            <tr ng-show="device.configuration.magnetometerEnabled">
+            <tr ng-show="component.configuration.magnetometerEnabled">
                 <td><label>Y</label></td>
-                <td style="text-align: right;">{{formatDecimal(device._state.magneticFieldStrength.y)}}</td>
+                <td style="text-align: right;">{{formatDecimal(component._state.magneticFieldStrength.y)}}</td>
                 <td>&mu;T</td>
             </tr>
-            <tr ng-show="device.configuration.magnetometerEnabled">
+            <tr ng-show="component.configuration.magnetometerEnabled">
                 <td><label>Z</label></td>
-                <td style="text-align: right;">{{formatDecimal(device._state.magneticFieldStrength.z)}}</td>
+                <td style="text-align: right;">{{formatDecimal(component._state.magneticFieldStrength.z)}}</td>
                 <td>&mu;T</td>
             </tr>
-            <tr ng-show="device.configuration.humidityEnabled">
+            <tr ng-show="component.configuration.humidityEnabled">
                 <td><label>Humidity</label></td>
                 <td></td>
-                <td style="text-align: right;">{{formatDecimal(device._state.humidity)}}</td>
+                <td style="text-align: right;">{{formatDecimal(component._state.humidity)}}</td>
                 <td>%rH</td>
             </tr>
-            <tr ng-show="device.configuration.barometricPressureEnabled">
+            <tr ng-show="component.configuration.barometricPressureEnabled">
                 <td><label>Barometric Pressure</label></td>
                 <td></td>
-                <td style="text-align: right;">{{formatDecimal(device._state.barometricPressure)}}</td>
+                <td style="text-align: right;">{{formatDecimal(component._state.barometricPressure)}}</td>
                 <td>mbar</td>
             </tr>
-            <tr ng-show="device.configuration.gyroscopeEnabled">
+            <tr ng-show="component.configuration.gyroscopeEnabled">
                 <td rowspan="3"><label>Gyroscopic Propulsion</label></td>
                 <td><label>X</label></td>
-                <td style="text-align: right;">{{formatDecimal(device._state.gyroscopicPropulsion.x)}}</td>
+                <td style="text-align: right;">{{formatDecimal(component._state.gyroscopicPropulsion.x)}}</td>
                 <td>&deg;/s</td>
             </tr>
-            <tr ng-show="device.configuration.gyroscopeEnabled">
+            <tr ng-show="component.configuration.gyroscopeEnabled">
                 <td><label>Y</label></td>
-                <td style="text-align: right;">{{formatDecimal(device._state.gyroscopicPropulsion.y)}}</td>
+                <td style="text-align: right;">{{formatDecimal(component._state.gyroscopicPropulsion.y)}}</td>
                 <td>&deg;/s</td>
             </tr>
-            <tr ng-show="device.configuration.gyroscopeEnabled">
+            <tr ng-show="component.configuration.gyroscopeEnabled">
                 <td><label>Z</label></td>
-                <td style="text-align: right;">{{device._state.gyroscopicPropulsion.z}}</td>
+                <td style="text-align: right;">{{component._state.gyroscopicPropulsion.z}}</td>
                 <td>&deg;/s</td>
             </tr>
         </table>
