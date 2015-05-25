@@ -381,7 +381,13 @@ define(
              *
              */
             MobileConsole.prototype.pushHomePage = function () {
-                this.rootPage(NodePage.create(this, this.node));
+                if (this.settings.proxy.mode === 'local') {
+                    this.rootPage(NodePage.create(this, this.node));
+                }
+                else
+                {
+                    this.rootPage(MeshesPage.create(this));
+                }
             };
 
             /**

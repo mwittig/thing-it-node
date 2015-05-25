@@ -1,11 +1,11 @@
 <table>
 	<tr valign="bottom">
-		<td>{{sensor.configuration.min}}</td>
+		<td>{{component.configuration.min}}</td>
 		<td><input
 			ti-knob="{width: 100, fgColor: '#5E829A', bgColor: '#E7E6E6', angleOffset: -135, angleArc: 270, font: '\'Titillium Web\', sans-serif'}"
-			ti-model="sensor._value" ti-min="sensor.configuration.min"
-			ti-max="sensor.configuration.max" ti-change="pushSensorValue(sensor)"
+			ti-model="component._value" ti-min="component.configuration.min"
+			ti-max="component.configuration.max" ti-change="pushSensorValue(component)"
 			data-height="100"></td>
-		<td>{{sensor.configuration.max}}</td>
+		<td>{{component.configuration.max}}</td>
 	</tr>
 </table>

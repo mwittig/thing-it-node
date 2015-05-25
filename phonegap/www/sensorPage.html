@@ -21,8 +21,8 @@
                 <table width="100%" style="margin: 10px;">
                     <tr valign="center">
                         <td align="center">
-                            <div ng-include="getComponentPluginPath(sensor)"
-                                 ng-repeat="sensor in [topPage().sensor]"></div>
+                            <div ng-include="getComponentPluginPath(topPage().sensor)"
+                                 ng-repeat="component in [topPage().sensor]"></div>
                         </td>
                     </tr>
                 </table>

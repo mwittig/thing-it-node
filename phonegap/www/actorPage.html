@@ -21,8 +21,8 @@
                 <table width="100%" style="margin: 10px;">
                     <tr valign="center">
                         <td align="center">
-                            <div ng-include="getComponentPluginPath(actor)"
-                                 ng-repeat="actor in [topPage().actor]"></div>
+                            <div ng-include="getComponentPluginPath(topPage().actor)"
+                                 ng-repeat="component in [topPage().actor]"></div>
                         </td>
                     </tr>
                 </table>
