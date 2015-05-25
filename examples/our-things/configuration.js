@@ -21,6 +21,15 @@ module.exports = {
                 "pin": 13
             }
         }, {
+            id: "rgbLed1",
+            label: "LED (RGB)",
+            type: "rgbLed",
+            configuration: {
+                "pinRed": 3,
+                "pinGreen": 5,
+                "pinBlue": 6
+            }
+        }, {
             id: "samsungTVInfraredRemote",
             label: "Samsung TV Infrared Remote",
             type: "samsungTVInfraredRemote",
@@ -48,7 +57,37 @@ module.exports = {
                 "pin": "A0",
                 "rate": 2000
             }
-        }]
+        }, {
+            id : "potentiometerRed",
+            label : "Red Value",
+            type : "potentiometer",
+            configuration : {
+                pin : "A0",
+                rate : 100,
+                min : 0,
+                max : 255
+            }
+        }, {
+            id : "potentiometerGreen",
+            label : "Green Value",
+            type : "potentiometer",
+            configuration : {
+                pin : "A1",
+                rate : 100,
+                min : 0,
+                max : 255
+            }
+        }, {
+            id : "potentiometerBlue",
+            label : "Blue Value",
+            type : "potentiometer",
+            configuration : {
+                pin : "A2",
+                rate : 100,
+                min : 0,
+                max : 255
+            }
+        } ]
     }, {
         uuid: "9ef7f55f18d448e4888f34ca397753ef",
         id: "sensorTagDiningRoom",
@@ -128,8 +167,8 @@ module.exports = {
             label: "Dining Room",
             icon: "cutlery",
             subGroups: [],
-            devices: ["sensorTagDiningRoom", "appleDeviceManager"],
-            actors: ["arduino1.led1", "arduino1.led2", "arduino1.samsungTVInfraredRemote"],
+            devices: [],
+            actors: ["arduino1.led1", "arduino1.led2", "arduino1.samsungTVInfraredRemote", "appleDeviceManager.appleTv"],
             sensors: ["arduino1.button1", "arduino1.button2",
                 "arduino1.photocell1"],
             services: ["toggleAll"]
@@ -157,6 +196,32 @@ module.exports = {
             actors: [],
             sensors: [],
             services: []
+        }, {
+            id: "partyRoom",
+            label: "Party Room",
+            icon: "glass",
+            subGroups: [],
+            actors: ["arduino1.rgbLed1"],
+            sensors: ["arduino1.potentiometerRed", "arduino1.potentiometerGreen", "arduino1.potentiometerBlue"],
+            services: []
+        }, {
+            id: "garden",
+            label: "Garden",
+            icon: "tree",
+            subGroups: [],
+            devices: ["sensorTagDiningRoom"],
+            actors: [],
+            sensors: [],
+            services: []
+        }, , {
+            id: "garage",
+            label: "Garage",
+            icon: "car",
+            subGroups: [],
+            devices: [],
+            actors: [],
+            sensors: [],
+            services: []
         }]
     }, {
         id: "ourHealth",
@@ -167,8 +232,8 @@ module.exports = {
         id: "ourEntertainment",
         label: "Our Entertainment",
         icon: "music",
-        devices: ["appleDeviceManager"],
-        actors: ["arduino1.samsungTVInfraredRemote"]
+        devices: [],
+        actors: ["arduino1.samsungTVInfraredRemote", "appleDeviceManager.appleTv"]
     }, {
         id: "ourSecurity",
         label: "Our Security",
@@ -215,6 +280,35 @@ module.exports = {
             content: {
                 type: "script",
                 script: "arduino1.led1.on(); arduino1.led2.on();"
+            }
+        }, {
+            id : "eventProcessor4",
+            label : "Event Processor 4",
+            observables : [ "arduino1.potentiometerRed" ],
+            match : "arduino1.potentiometerRed.event.type == 'valueChange'",
+            content : {
+                type : "script",
+                script : "arduino1.rgbLed1.setRedValue({value: arduino1.potentiometerRed.value})"
+            }
+        },
+        {
+            id : "eventProcessor5",
+            label : "Event Processor 5",
+            observables : [ "arduino1.potentiometerGreen" ],
+            match : "arduino1.potentiometerGreen.event.type == 'valueChange'",
+            content : {
+                type : "script",
+                script : "arduino1.rgbLed1.setGreenValue({value: arduino1.potentiometerGreen.value})"
+            }
+        },
+        {
+            id : "eventProcessor6",
+            label : "Event Processor 6",
+            observables : [ "arduino1.potentiometerBlue" ],
+            match : "arduino1.potentiometerBlue.event.type == 'valueChange'",
+            content : {
+                type : "script",
+                script : "arduino1.rgbLed1.setBlueValue({value: arduino1.potentiometerBlue.value})"
             }
         }],
     data: []

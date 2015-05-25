@@ -324,7 +324,7 @@ define(["js/Utils", "js/Node"], function (Utils, Node) {
         /**
          *
          */
-        ConsoleService.prototype.getComponentPluginPath = function (component) {
+        ConsoleService.prototype.getComponentPluginDirectory = function (component) {
             if (!component) {
                 return null;
             }
@@ -333,13 +333,22 @@ define(["js/Utils", "js/Node"], function (Utils, Node) {
                 // Actors and sensors
 
                 return this.getComponentRootUrl()
-                    + component.device.__type.pluginDirectory + "/web/"
-                    + component.__type.family + ".html";
+                    + component.device.__type.pluginDirectory + "/web/";
             }
             else {
-                return this.getComponentRootUrl() + component.__type.pluginDirectory + "/web/"
-                    + component.__type.family + ".html";
+                return this.getComponentRootUrl() + component.__type.pluginDirectory + "/web/";
             }
+        };
+
+        /**
+         *
+         */
+        ConsoleService.prototype.getComponentPluginPath = function (component) {
+            if (!component) {
+                return null;
+            }
+
+            return this.getComponentPluginDirectory(component) + component.__type.family + ".html";
         };
 
         /**
