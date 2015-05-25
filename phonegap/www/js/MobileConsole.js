@@ -648,6 +648,14 @@ define(
                     component);
             };
 
+            /*
+             *
+             */
+            MobileConsole.prototype.getComponentPluginDirectory = function (component) {
+                return ConsoleService.instance().getComponentPluginDirectory(
+                    component);
+            };
+
             /**
              *
              */
@@ -731,8 +739,6 @@ define(
              *
              */
             MobileConsole.prototype.safeApply = function (fn) {
-                console.log(this);
-
                 if (this.rootScope && (this.rootScope.$$phase == "$apply" || this.rootScope.$$phase == "$digest")) {
                     if (fn && (typeof (fn) === 'function')) {
                         fn();
