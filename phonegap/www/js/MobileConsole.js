@@ -85,8 +85,7 @@ define(
                             .openMessageDialog(error, "error");
                     });
                 }
-                catch (error)
-                {
+                catch (error) {
                     console.trace(error);
 
                     this
@@ -310,7 +309,7 @@ define(
                         this.safeApply();
                     }.bind(this));
                 this.namespace.on("deviceStateChange", function (deviceStateChange) {
-                    this.safeApply(function(){
+                    this.safeApply(function () {
                         this.onDeviceStateChanged(deviceStateChange);
                     }.bind(this));
                 }.bind(this));
@@ -384,8 +383,7 @@ define(
                 if (this.settings.proxy.mode === 'local') {
                     this.rootPage(NodePage.create(this, this.node));
                 }
-                else
-                {
+                else {
                     this.rootPage(MeshesPage.create(this));
                 }
             };
@@ -596,6 +594,16 @@ define(
             /**
              *
              */
+            MobileConsole.prototype.onDeviceAdvertisement = function (device) {
+                this.deviceAdvertisementDialog.device = device;
+
+                this.safeApply();
+                this.openDeviceAdvertisementDialog();
+            };
+
+            /**
+             *
+             */
             MobileConsole.prototype.callNodeService = function (node, service) {
                 ConsoleService.instance().callNodeService(node, service, {})
                     .done(function () {
@@ -608,20 +616,12 @@ define(
             /**
              *
              */
-            MobileConsole.prototype.onDeviceAdvertisement = function (device) {
-                this.deviceAdvertisementDialog.device = device;
-
-                this.safeApply();
-                this.openDeviceAdvertisementDialog();
-            };
-
-            /**
-             *
-             */
-            MobileConsole.prototype.callDeviceService = function (node, device, service) {
-                ConsoleService.instance().callDeviceService(node, device, service, {})
+            MobileConsole.prototype.callDeviceService = function (device, service) {
+                ConsoleService.instance().callDeviceService(device, service, {})
                     .done(function () {
                     }).fail(function (error) {
+                        console.trace(error);
+
                         this
                             .openMessageDialog(error, "error");
                     }.bind(this));
@@ -630,11 +630,13 @@ define(
             /**
              *
              */
-            MobileConsole.prototype.callActorService = function (node, actor,
+            MobileConsole.prototype.callActorService = function (actor,
                                                                  service, parameters) {
-                ConsoleService.instance().callActorService(node, actor, service,
+                ConsoleService.instance().callActorService(actor, service,
                     parameters).done(function () {
                     }).fail(function (error) {
+                        console.trace(error);
+
                         this
                             .openMessageDialog(error, "error");
                     }.bind(this));
