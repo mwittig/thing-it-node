@@ -29,10 +29,14 @@ define(["js/Utils", "js/Node"], function (Utils, Node) {
             if (this.http) {
                 var deferred = jQuery.Deferred();
 
+                console.log("Invoking GET " + url);
+
                 this.http.get(url).success(function (data) {
                     deferred.resolve(data);
-                }).error(function (data) {
-                    deferred.reject(data);
+                }).error(function (error) {
+                    console.trace(error);
+
+                    deferred.reject(error);
                 });
 
                 return deferred.promise();
@@ -49,6 +53,8 @@ define(["js/Utils", "js/Node"], function (Utils, Node) {
         ConsoleService.prototype.post = function (url, data) {
             if (this.http) {
                 var deferred = jQuery.Deferred();
+
+                console.log("Invoking POST " + url);
 
                 this.http.post(url, Utils
                     .cloneFiltered(data, /\_\_|\$\$/)).success(function (data) {

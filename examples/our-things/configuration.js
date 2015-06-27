@@ -34,6 +34,16 @@ module.exports = {
             label: "Samsung TV Infrared Remote",
             type: "samsungTVInfraredRemote",
             configuration: {}
+        }, {
+            id: "servo1",
+            label: "Servo 1",
+            type: "servo",
+            configuration: {
+                pin: 10,
+                minimum: 45,
+                maximum: 135,
+                startAt: 120
+            }
         }],
         sensors: [{
             id: "button1",
@@ -58,36 +68,36 @@ module.exports = {
                 "rate": 2000
             }
         }, {
-            id : "potentiometerRed",
-            label : "Red Value",
-            type : "potentiometer",
-            configuration : {
-                pin : "A0",
-                rate : 100,
-                min : 0,
-                max : 255
+            id: "potentiometerRed",
+            label: "Red Value",
+            type: "potentiometer",
+            configuration: {
+                pin: "A0",
+                rate: 100,
+                min: 0,
+                max: 255
             }
         }, {
-            id : "potentiometerGreen",
-            label : "Green Value",
-            type : "potentiometer",
-            configuration : {
-                pin : "A1",
-                rate : 100,
-                min : 0,
-                max : 255
+            id: "potentiometerGreen",
+            label: "Green Value",
+            type: "potentiometer",
+            configuration: {
+                pin: "A1",
+                rate: 100,
+                min: 0,
+                max: 255
             }
         }, {
-            id : "potentiometerBlue",
-            label : "Blue Value",
-            type : "potentiometer",
-            configuration : {
-                pin : "A2",
-                rate : 100,
-                min : 0,
-                max : 255
+            id: "potentiometerBlue",
+            label: "Blue Value",
+            type: "potentiometer",
+            configuration: {
+                pin: "A2",
+                rate: 100,
+                min: 0,
+                max: 255
             }
-        } ]
+        }]
     }, {
         uuid: "9ef7f55f18d448e4888f34ca397753ef",
         id: "sensorTagDiningRoom",
@@ -219,9 +229,9 @@ module.exports = {
             icon: "car",
             subGroups: [],
             devices: [],
-            actors: [],
+            actors: ["arduino1.servo1"],
             sensors: [],
-            services: []
+            services: ["stepLeft", "stepRight"]
         }]
     }, {
         id: "ourHealth",
@@ -247,7 +257,23 @@ module.exports = {
             type: "script",
             script: "if (arduino1.led1.state.light == 'on') {arduino1.led1.off(); arduino1.led2.off();} else {arduino1.led1.on(); arduino1.led2.on();}"
         }
-    }],
+    },
+        {
+            id: "stepLeft",
+            label: "Step Left",
+            content: {
+                type: "script",
+                script: "arduino1.servo1.toPosition({position: Math.max(arduino1.servo1.state.position - 10, arduino1.servo1.configuration.minimum)});"
+            }
+        },
+        {
+            id: "stepRight",
+            label: "Step Right",
+            content: {
+                type: "script",
+                script: "arduino1.servo1.toPosition({position: Math.min(arduino1.servo1.state.position + 10, arduino1.servo1.configuration.maximum)});"
+            }
+        }],
     eventProcessors: [
         {
             id: "eventProcessor1",
@@ -282,33 +308,33 @@ module.exports = {
                 script: "arduino1.led1.on(); arduino1.led2.on();"
             }
         }, {
-            id : "eventProcessor4",
-            label : "Event Processor 4",
-            observables : [ "arduino1.potentiometerRed" ],
-            match : "arduino1.potentiometerRed.event.type == 'valueChange'",
-            content : {
-                type : "script",
-                script : "arduino1.rgbLed1.setRedValue({value: arduino1.potentiometerRed.value})"
+            id: "eventProcessor4",
+            label: "Event Processor 4",
+            observables: ["arduino1.potentiometerRed"],
+            match: "arduino1.potentiometerRed.event.type == 'valueChange'",
+            content: {
+                type: "script",
+                script: "arduino1.rgbLed1.setRedValue({value: arduino1.potentiometerRed.value})"
             }
         },
         {
-            id : "eventProcessor5",
-            label : "Event Processor 5",
-            observables : [ "arduino1.potentiometerGreen" ],
-            match : "arduino1.potentiometerGreen.event.type == 'valueChange'",
-            content : {
-                type : "script",
-                script : "arduino1.rgbLed1.setGreenValue({value: arduino1.potentiometerGreen.value})"
+            id: "eventProcessor5",
+            label: "Event Processor 5",
+            observables: ["arduino1.potentiometerGreen"],
+            match: "arduino1.potentiometerGreen.event.type == 'valueChange'",
+            content: {
+                type: "script",
+                script: "arduino1.rgbLed1.setGreenValue({value: arduino1.potentiometerGreen.value})"
             }
         },
         {
-            id : "eventProcessor6",
-            label : "Event Processor 6",
-            observables : [ "arduino1.potentiometerBlue" ],
-            match : "arduino1.potentiometerBlue.event.type == 'valueChange'",
-            content : {
-                type : "script",
-                script : "arduino1.rgbLed1.setBlueValue({value: arduino1.potentiometerBlue.value})"
+            id: "eventProcessor6",
+            label: "Event Processor 6",
+            observables: ["arduino1.potentiometerBlue"],
+            match: "arduino1.potentiometerBlue.event.type == 'valueChange'",
+            content: {
+                type: "script",
+                script: "arduino1.rgbLed1.setBlueValue({value: arduino1.potentiometerBlue.value})"
             }
         }],
     data: []
