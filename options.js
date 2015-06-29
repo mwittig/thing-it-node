@@ -1,7 +1,7 @@
-/*module.exports = {
+module.exports = {
     port: 3001,
     protocol: "http",
-    nodeConfigurationFile: "../examples/our-things/configuration.js",
+    nodeConfigurationFile: "../examples/temporary/configuration.js",
     dataDirectory: "../thing-it-data",
     usersDirectory: "../thing-it-users",
     simulated: true,
@@ -11,8 +11,9 @@
     signingAlgorithm: "RSA-SHA256",
     authentication: "none",//"user",
     logLevel: "debug"
-};*/
+};
 
+/*
 module.exports = {
     port: 3001,
     protocol: "http",
@@ -20,4 +21,4 @@ module.exports = {
     proxy: "http://localhost:3000",
     nodeConfigurationFile: "../examples/temporary/configuration.js",
     logLevel: "debug"
-};
+};*/
