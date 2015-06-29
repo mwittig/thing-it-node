@@ -58,7 +58,7 @@
             </table>
         </td>
         <td style="width: 30px;"><a style="margin-left: 10px;"
-                                    ng-click="callActorService(component, 'playPause')"><i
+                                    ng-click="panel.callActorService(component, 'playPause')"><i
                 class="fa fa-play"></i><i class="fa fa-pause"></i></a></td>
     </tr>
     <tr>
@@ -72,7 +72,7 @@
                                 <td style="width: 20px;"><i class="fa fa-volume-down"></i></td>
                                 <td width="99%"><input ti-slider="" ti-model="actor._volume"
                                                        ti-min="0" ti-max="100"
-                                                       ti-change="callActorService(component, 'volume', {volume: component._volume})">
+                                                       ti-change="panel.callActorService(component, 'volume', {volume: component._volume})">
                                 <td style="width: 20px;"><i class="fa fa-volume-up"></i></td>
                                 </td>
                             </tr>
