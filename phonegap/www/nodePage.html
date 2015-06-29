@@ -2,12 +2,14 @@
     <div class="navbar-brand navbar-brand-center">
         <i class="fa fa-home"></i> {{topPage().node.label}}
     </div>
-    <div class="btn-group pull-left" ng-hide="settings.proxy.mode === 'remoteProxy' || settings.proxy.mode === 'remoteSimulated'">
+    <div class="btn-group pull-left"
+         ng-hide="settings.proxy.mode === 'remoteProxy' || settings.proxy.mode === 'remoteSimulated'">
         <div class="btn">
             <a ng-click="logout()"><i class="fa fa-power-off"></i></a>
         </div>
     </div>
-    <div class="btn-group pull-left" ng-show="settings.proxy.mode === 'remoteProxy' || settings.proxy.mode === 'remoteSimulated'">
+    <div class="btn-group pull-left"
+         ng-show="settings.proxy.mode === 'remoteProxy' || settings.proxy.mode === 'remoteSimulated'">
         <div class="btn">
             <a ng-click="popPage()"><i class="fa fa-arrow-left"></i></a>
         </div>
@@ -35,15 +37,19 @@
             </a>
             <a ng-repeat="service in topPage().node.services" class="list-group-item"
                ng-click="callNodeService(topPage().node, service)">
-                <i class="fa fa-gear"></i> {{service.label}} <i class="fa fa-chevron-right pull-right navigationIcon"></i>
+                <i class="fa fa-gear"></i> {{service.label}} <i
+                    class="fa fa-chevron-right pull-right navigationIcon"></i>
             </a>
-            <a ng-repeat="device in topPage().node.devices" class="list-group-item" ng-show="device.__type.tangible && !isDeviceInGroups(topPage().node, device)">
+            <a ng-repeat="device in topPage().node.devices" class="list-group-item"
+               ng-show="device.__type.tangible && !isDeviceInGroups(topPage().node, device)">
                 <div class="itemLabel" ng-click="topPage().expandComponentUi(device)">{{device.label}}</div>
                 <table width="100%">
                     <tr>
                         <td width="90%" align="center">
-                            <div class="componentPlugin" ng-include="getComponentPluginPath(device)"
-                                 ng-repeat="component in [device]"></div>
+                            <div ng-repeat="panel in [console()]">
+                                <div class="componentPlugin" ng-include="getComponentPluginPath(device)"
+                                     ng-repeat="component in [device]"></div>
+                            </div>
                         </td>
                         <td width="10%" align="right"><a
                                 ng-click="pushDevicePage(device)"><i
@@ -58,8 +64,10 @@
                         width="100%">
                     <tr>
                         <td width="90%" align="center">
-                            <div class="componentPlugin" ng-include="getComponentPluginPath(actor)"
-                                 ng-repeat="component in [actor]"></div>
+                            <div ng-repeat="panel in [console()]">
+                                <div class="componentPlugin" ng-include="getComponentPluginPath(actor)"
+                                     ng-repeat="component in [actor]"></div>
+                            </div>
                         </td>
                         <td width="10%" align="right"><a
                                 ng-click="pushActorPage(actor)"><i
@@ -69,12 +77,14 @@
             </a>
             <a ng-repeat="sensor in topPage().sensors"
                class="list-group-item" ng-show="!isSensorInGroups(topPage().node, sensor)">
-                <div class="itemLabel"ng-click="topPage().expandComponentUi(sensor)">{{sensor.label}}</div>
+                <div class="itemLabel" ng-click="topPage().expandComponentUi(sensor)">{{sensor.label}}</div>
                 <table width="100%">
                     <tr>
                         <td width="90%" align="center">
-                            <div class="componentPlugin" ng-include="getComponentPluginPath(sensor)"
-                                 ng-repeat="component in [sensor]"></div>
+                            <div ng-repeat="panel in [console()]">
+                                <div class="componentPlugin" ng-include="getComponentPluginPath(sensor)"
+                                     ng-repeat="component in [sensor]"></div>
+                            </div>
                         </td>
                         <td width="10%" align="right"><a
                                 ng-click="pushSensorPage(sensor)"><i
@@ -93,11 +103,16 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <div class="circleText pull-right" style="width: 20px;" ui-turn-off="componentPluginUi"><div><i class="fa fa-times"></i></div></div>
+                    <div class="circleText pull-right" style="width: 20px;" ui-turn-off="componentPluginUi">
+                        <div><i class="fa fa-times"></i></div>
+                    </div>
                     <h1>{{topPage().component.label}}</h1>
                 </div>
                 <div class="modal-body" style="text-align: center;">
-                    <div ng-include="getComponentPluginPath(topPage().component)" ng-repeat="component in [topPage().component]"></div>
+                    <div ng-repeat="panel in [console()]">
+                        <div ng-include="getComponentPluginPath(topPage().component)"
+                             ng-repeat="component in [topPage().component]"></div>
+                    </div>
                 </div>
             </div>
         </div>

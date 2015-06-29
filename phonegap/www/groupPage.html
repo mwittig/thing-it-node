@@ -32,8 +32,10 @@
                 <table width="100%">
                     <tr>
                         <td width="90%" align="center">
-                            <div class="componentPlugin" ng-include="getComponentPluginPath(device)"
-                                 ng-repeat="component in [device]"></div>
+                            <div ng-repeat="panel in [console()]">
+                                <div class="componentPlugin" ng-include="getComponentPluginPath(device)"
+                                     ng-repeat="component in [device]"></div>
+                            </div>
                         </td>
                         <td width="10%" align="right"><a
                                 ng-click="pushDevicePage(device)"><i
@@ -48,8 +50,10 @@
                         width="100%">
                     <tr>
                         <td width="90%" align="center">
-                            <div class="componentPlugin" ng-include="getComponentPluginPath(actor)"
-                                 ng-repeat="component in [actor]"></div>
+                            <div ng-repeat="panel in [console()]">
+                                <div class="componentPlugin" ng-include="getComponentPluginPath(actor)"
+                                     ng-repeat="component in [actor]"></div>
+                            </div>
                         </td>
                         <td width="10%" align="right"><a
                                 ng-click="pushActorPage(actor)"><i
@@ -63,8 +67,10 @@
                 <table width="100%">
                     <tr>
                         <td width="90%" align="center">
-                            <div class="componentPlugin" ng-include="getComponentPluginPath(sensor)"
-                                 ng-repeat="component in [sensor]"></div>
+                            <div ng-repeat="panel in [console()]">
+                                <div class="componentPlugin" ng-include="getComponentPluginPath(sensor)"
+                                     ng-repeat="component in [sensor]"></div>
+                            </div>
                         </td>
                         <td width="10%" align="right"><a
                                 ng-click="pushSensorPage(sensor)"><i
@@ -83,11 +89,16 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <div class="circleText pull-right" style="width: 20px;" ui-turn-off="componentPluginUi"><div><i class="fa fa-times"></i></div></div>
+                    <div class="circleText pull-right" style="width: 20px;" ui-turn-off="componentPluginUi">
+                        <div><i class="fa fa-times"></i></div>
+                    </div>
                     <h1>{{topPage().component.label}}</h1>
                 </div>
                 <div class="modal-body" style="text-align: center;">
-                    <div ng-include="getComponentPluginPath(topPage().component)" ng-repeat="component in [topPage().component]"></div>
+                    <div ng-repeat="panel in [console()]">
+                        <div ng-include="getComponentPluginPath(topPage().component)"
+                             ng-repeat="component in [topPage().component]"></div>
+                    </div>
                 </div>
             </div>
         </div>
