@@ -26,6 +26,13 @@ define(
             /**
              *
              */
+            MobileConsole.prototype.console = function () {
+                return this;
+            };
+
+            /**
+             *
+             */
             MobileConsole.prototype.initialize = function (io, location) {
                 this.location = location;
                 this.io = io;
@@ -46,7 +53,7 @@ define(
                     function (settings) {
                         this.settings = settings;
 
-                        if (this.settings.authentication.mode == "none") {
+                        if (this.settings.authentication == "none") {
                             this.login();
                         }
                         else {
@@ -194,7 +201,7 @@ define(
                             function (deviceTypes) {
                                 this.deviceTypes = deviceTypes;
 
-                                if (!this.settings.proxy || this.settings.proxy.mode == "local") {
+                                if (!this.settings.server || this.settings.server == "local") {
                                     ConsoleService
                                         .instance()
                                         .getNode(this.deviceTypes)
@@ -380,7 +387,7 @@ define(
              *
              */
             MobileConsole.prototype.pushHomePage = function () {
-                if (this.settings.proxy.mode === 'local') {
+                if (this.settings.server === 'local') {
                     this.rootPage(NodePage.create(this, this.node));
                 }
                 else {

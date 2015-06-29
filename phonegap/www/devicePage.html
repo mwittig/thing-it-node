@@ -2,8 +2,8 @@
     <div class="navbar-brand navbar-brand-center">
         <i class="fa fa-calculator"></i> {{topPage().device.label}}
     </div>
-    <div class="btn-group pull-left" >
-        <div class="btn" >
+    <div class="btn-group pull-left">
+        <div class="btn">
             <a ng-click="popPage()"><i class="fa fa-arrow-left"></i></a>
         </div>
     </div>
@@ -21,8 +21,10 @@
                 <table width="100%" style="margin: 10px;">
                     <tr valign="center">
                         <td align="center">
-                            <div ng-include="getComponentPluginPath(topPage().device)"
-                                 ng-repeat="component in [topPage().device]"></div>
+                            <div ng-repeat="panel in [console()]">
+                                <div ng-include="getComponentPluginPath(topPage().device)"
+                                     ng-repeat="component in [topPage().device]"></div>
+                            </div>
                         </td>
                     </tr>
                 </table>

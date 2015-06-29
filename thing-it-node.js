@@ -43,26 +43,34 @@ var server = app
     .listen(
     options.port,
     function () {
-        var host = server.address().address
-        var port = server.address().port
-
         console.log("\n");
         console
             .log("---------------------------------------------------------------------------");
-        console.log(" [thing-it-node] at http://%s:%s", host, port);
+        console.log(" [thing-it-node] at http://%s:%s", server.address().address, server.address().port);
         console.log("\n");
-        console.log(" Node Configuration File: %s",
-            options.nodeConfigurationFile);
-        console.log(" Simulated              : %s",
-            options.simulated);
-        console.log(" Hot Deployment         : %s",
-            options.hotDeployment);
-        console.log(" Verify Call Signature  : %s",
-            options.verifyCallSignature);
-        console.log(" Public Key File        : %s",
-            options.publicKeyFile);
-        console.log(" Signing Algorithm      : %s",
-            options.signingAlgorithm);
+        console.log(" Proxy                  : %s",
+            options.proxy);
+
+        if (options.proxy == "local") {
+            console.log(" Node Configuration File: %s",
+                options.nodeConfigurationFile);
+            console.log(" Simulated              : %s",
+                options.simulated);
+            console.log(" Hot Deployment         : %s",
+                options.hotDeployment);
+            console.log(" Verify Call Signature  : %s",
+                options.verifyCallSignature);
+            console.log(" Public Key File        : %s",
+                options.publicKeyFile);
+            console.log(" Signing Algorithm      : %s",
+                options.signingAlgorithm);
+        }
+        else
+        {
+            console.log(" UUID                   : %s",
+                options.uuid);
+        }
+
         console.log(" Log Level              : %s",
             options.logLevel);
         console.log("\n");
