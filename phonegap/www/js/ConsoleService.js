@@ -98,14 +98,11 @@ define(["js/Utils", "js/Node"], function (Utils, Node) {
          * TODO May homogenize local URL to contain UUID as well.
          */
         ConsoleService.prototype.getNodeRootUrl = function (node) {
-            if (!this.settings.proxy || this.settings.proxy.mode == "local") {
+            if (this.settings.server === "local") {
                 return this.rootUrl;
             }
-            else if (this.settings.proxy.mode === 'remoteSimulated') {
-                return this.rootUrl + "/nodes/" + node.uuid;
-            }
             else {
-                return this.rootUrl + "/reverse-proxy/nodes/" + node.uuid;
+                return this.rootUrl + "/nodes/" + node.uuid;
             }
         };
 
@@ -115,14 +112,11 @@ define(["js/Utils", "js/Node"], function (Utils, Node) {
          * @returns {string}
          */
         ConsoleService.prototype.getEventNamespaceUrl = function (node) {
-            if (!this.settings.proxy || this.settings.proxy.mode == "local") {
+            if (this.settings.server === "local") {
                 return this.rootUrl + "/events";
             }
-            else if (this.settings.proxy.mode === 'remoteSimulated') {
-                return this.rootUrl + "/nodes/" + node.uuid + "/events";
-            }
             else {
-                return this.rootUrl + "/reverse-proxy/nodes/" + node.uuid + "/client/events";
+                return this.rootUrl + "/nodes/" + node.uuid + "/events";
             }
         };
 
@@ -132,7 +126,7 @@ define(["js/Utils", "js/Node"], function (Utils, Node) {
          * @returns {string}
          */
         ConsoleService.prototype.getComponentRootUrl = function (node) {
-            if (!this.settings.proxy || this.settings.proxy.mode == "local") {
+            if (this.settings.server === "local") {
                 return this.rootUrl;
             }
             else {
@@ -200,7 +194,7 @@ define(["js/Utils", "js/Node"], function (Utils, Node) {
         ConsoleService.prototype.getNode = function (deviceTypes, mesh, node) {
             var deferred = jQuery.Deferred();
 
-            if (!this.settings.proxy || this.settings.proxy.mode === "local") {
+            if (this.server === "local") {
                 return this.get(this.rootUrl + "/configuration").done(function (node) {
                     node = Node
                         .bind(
@@ -211,7 +205,7 @@ define(["js/Utils", "js/Node"], function (Utils, Node) {
                 }.bind(this)).fail(function (error) {
                     console.trace(error);
 
-                    deferred.reject(data);
+                    deferred.reject(error);
                 }.bind(this));
             }
             else {
