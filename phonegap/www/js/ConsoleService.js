@@ -151,6 +151,9 @@ define(["js/Utils", "js/Node"], function (Utils, Node) {
                 "application/json").done(function (settings) {
                     this.settings = settings;
 
+                    console.log("Settings ===>");
+                    console.log(settings);
+
                     deferred.resolve(settings);
                 }.bind(this)).fail(function () {
                     deferred.reject();
