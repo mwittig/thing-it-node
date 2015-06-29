@@ -201,7 +201,7 @@ define(
                             function (deviceTypes) {
                                 this.deviceTypes = deviceTypes;
 
-                                if (!this.settings.server || this.settings.server == "local") {
+                                if (this.settings.server === "local") {
                                     ConsoleService
                                         .instance()
                                         .getNode(this.deviceTypes)
