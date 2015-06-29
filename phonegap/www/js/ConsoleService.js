@@ -197,7 +197,7 @@ define(["js/Utils", "js/Node"], function (Utils, Node) {
         ConsoleService.prototype.getNode = function (deviceTypes, mesh, node) {
             var deferred = jQuery.Deferred();
 
-            if (this.server === "local") {
+            if (this.settings.server === "local") {
                 return this.get(this.rootUrl + "/configuration").done(function (node) {
                     node = Node
                         .bind(
