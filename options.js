@@ -19,6 +19,7 @@ module.exports = {
     protocol: "http",
     uuid: "1c178e30-1cf1-11e5-bbd4-55db91e41791",
     proxy: "http://localhost:3000",
-    nodeConfigurationFile: "../examples/temporary/configuration.js",
-    logLevel: "debug"
+    nodeConfigurationFile: "/Users/marcgille/git/thing-it-node/examples/temporary/configuration.js",
+    logLevel: "debug",
+    simulated: true
 };*/
