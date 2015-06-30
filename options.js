@@ -1,4 +1,4 @@
-module.exports = {
+/*module.exports = {
     port: 3001,
     protocol: "http",
     nodeConfigurationFile: "../examples/temporary/configuration.js",
@@ -11,9 +11,8 @@ module.exports = {
     signingAlgorithm: "RSA-SHA256",
     authentication: "none",//"user",
     logLevel: "debug"
-};
+};*/
 
-/*
 module.exports = {
     port: 3001,
     protocol: "http",
@@ -22,4 +21,4 @@ module.exports = {
     nodeConfigurationFile: "/Users/marcgille/git/thing-it-node/examples/temporary/configuration.js",
     logLevel: "debug",
     simulated: true
-};*/
+};
