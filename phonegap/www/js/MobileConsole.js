@@ -611,8 +611,8 @@ define(
             /**
              *
              */
-            MobileConsole.prototype.callNodeService = function (node, service) {
-                ConsoleService.instance().callNodeService(node, service, {})
+            MobileConsole.prototype.callNodeService = function (node, service, parameters) {
+                ConsoleService.instance().callNodeService(node, service, parameters)
                     .done(function () {
                     }).fail(function (error) {
                         this
@@ -623,8 +623,8 @@ define(
             /**
              *
              */
-            MobileConsole.prototype.callDeviceService = function (device, service) {
-                ConsoleService.instance().callDeviceService(device, service, {})
+            MobileConsole.prototype.callDeviceService = function (device, service, parameters) {
+                ConsoleService.instance().callDeviceService(device, service, parameters)
                     .done(function () {
                     }).fail(function (error) {
                         console.trace(error);
