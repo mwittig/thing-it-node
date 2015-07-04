@@ -86,17 +86,17 @@
             $routeProvider.when('/user', {templateUrl: 'userPage.html', reloadOnSearch: false});
         });
 
-        initializeDirectives(module);
+        initializePluginDirectives(module);
 
         module.controller('mobileConsole', function ($scope, $location, $http) {
             require(["require", "lodash", "jquery", "jquery-ui", "jquery.ui.touch-punch", "jquery.knob",
                 "jquery.jqplot", "jquery.jqplot.dateAxisRenderer",
                 "jquery.rangeslider", "json", "socketio", "moment",
-                "js/Utils", "js/AngularDirectives",
+                "js/Utils",
                 "js/MobileConsole", "js/ConsoleService"], function (require, lodash, jquery, jqueryUi, jqueryUiTouchPunch, jqueryKnob,
-                                               jqueryJqPlot, jqplotDateAxisRenderer,
-                                               jqueryRangeslider, json, socketio, moment, Utils,
-                                               AngularDirectives, MobileConsole, ConsoleService) {
+                                                                    jqueryJqPlot, jqplotDateAxisRenderer,
+                                                                    jqueryRangeslider, json, socketio, moment, Utils,
+                                                                    MobileConsole, ConsoleService) {
                 Utils.inheritMethods($scope, MobileConsole.create());
 
                 $scope.initialize(socketio, $location);

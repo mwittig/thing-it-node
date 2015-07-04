@@ -1,4 +1,4 @@
-function initializeDirectives(module) {
+function initializePluginDirectives(module) {
     module.directive('ngBlur', function () {
         return function (scope, elem, attrs) {
             elem.bind('blur', function () {
@@ -389,12 +389,12 @@ function bufferedChange(scope, element, value, tiChange,
     if (new Date().getTime()
         - jQuery(element).data("lastChangeTimestamp") < bufferLength) {
         console.log("" + new Date() + ": Overwrite buffered value "
-        + value);
+            + value);
     } else {
         // Apply the change and start next buffer interval
 
         console.log("" + new Date()
-        + ": Execute immediate change with " + value);
+            + ": Execute immediate change with " + value);
         jQuery(element).data("lastChangeTimestamp",
             new Date().getTime());
         scope.$eval(tiChange);
