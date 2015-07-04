@@ -1,0 +1,10 @@
+<table class="formTable" style="width: 100%;">
+    <tr style="vertical-align: middle">
+        <td style="width: 20px;"><div class="circleButton" ng-click="panel.callDevicService(component, 'off')">0</div></td>
+        <td style="width: 99%;">
+            <input ti-slider=""
+                   ti-model="component._state.percentage" ti-min="component.configuration.minimum"
+                   ti-max="component.configuration.maximum" ti-change="panel.callDeviceService(component, 'change')"></td>
+        <td style="width: 20px;"><div class="circleButton" ng-click="panel.callDevicService(component, 'on')">1</div></td>
+    </tr>
+</table>
