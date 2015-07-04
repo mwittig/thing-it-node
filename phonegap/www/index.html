@@ -86,7 +86,7 @@
             $routeProvider.when('/user', {templateUrl: 'userPage.html', reloadOnSearch: false});
         });
 
-        initializePluginDirectives(module);
+        thingItNode.initializePluginDirectives(module);
 
         module.controller('mobileConsole', function ($scope, $location, $http) {
             require(["require", "lodash", "jquery", "jquery-ui", "jquery.ui.touch-punch", "jquery.knob",
