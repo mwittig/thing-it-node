@@ -156,28 +156,20 @@ var thingItNode = (function () {
                         options.min = scope.$eval(attrs.tiMin);
                         options.max = scope.$eval(attrs.tiMax);
                         options.change = function (value) {
-                            var expression = attrs.tiModel + "=" + value;
-                            scope.$eval(expression);
-
-                            if (attrs.tiChange) {
-                                bufferedChange(scope, element, value,
-                                    attrs.tiChange, 500);
-                            }
+                            bufferedChange(scope, element,
+                                value,
+                                attrs.tiChange, 500);
                         }
                         options.release = function (value) {
-                            var expression = attrs.tiModel + "=" + value;
-
-                            scope.$eval(expression);
+                            scope.$eval(attrs.tiModel
+                                + "=" + value);
 
                             if (attrs.tiChange) {
-                                bufferedChange(scope, element, value,
-                                    attrs.tiChange, 500);
+                                scope.$eval(attrs.tiChange);
                             }
                         }
 
                         jQuery(element).knob(options);
-                        jQuery(element).data("lastChangeTimestamp",
-                            new Date().getTime());
 
                         scope.$watch(attrs.tiModel, function (value) {
                             jQuery(element).val(value).trigger('change');
@@ -203,31 +195,19 @@ var thingItNode = (function () {
                                 fillClass: 'rangeslider__fill',
                                 handleClass: 'rangeslider__handle',
                                 onChange: function (value) {
-                                    var expression = attrs.tiModel
-                                        + "=" + value.from;
-                                    scope.$eval(expression);
-
-                                    if (attrs.tiChange) {
-                                        bufferedChange(scope, element,
-                                            value.from,
-                                            attrs.tiChange, 500);
-                                    }
+                                    bufferedChange(scope, element,
+                                        value.from,
+                                        attrs.tiChange, 500);
                                 },
                                 onFinish: function (value) {
-                                    var expression = attrs.tiModel
-                                        + "=" + value.from;
-
-                                    scope.$eval(expression);
+                                    scope.$eval(attrs.tiModel
+                                        + "=" + value.from);
 
                                     if (attrs.tiChange) {
-                                        bufferedChange(scope, element,
-                                            value.from,
-                                            attrs.tiChange, 500);
+                                        scope.$eval(attrs.tiChange);
                                     }
                                 }
                             });
-                        jQuery(element).data("lastChangeTimestamp",
-                            new Date().getTime());
 
                         scope.$watch(attrs.tiModel, function (value) {
                             jQuery(element).data("ionRangeSlider").update({
@@ -366,29 +346,21 @@ var thingItNode = (function () {
     }
 
     /**
-     *
+     * Does not write to the model! Could do if we would block watches during change.
      */
     function bufferedChange(scope, element, value, tiChange,
                             bufferLength) {
         if (new Date().getTime()
             - jQuery(element).data("lastChangeTimestamp") < bufferLength) {
-            console.log("" + new Date() + ": Overwrite buffered value "
-                + value);
         } else {
-            // Apply the change and start next buffer interval
-
-            console.log("" + new Date()
-                + ": Execute immediate change with " + value);
             jQuery(element).data("lastChangeTimestamp",
                 new Date().getTime());
-            scope.$eval(tiChange);
 
-            window.setTimeout(function () {
-                // Values are cached in the model
+            // Apply the change and start next buffer interval
 
-                console.log("" + new Date() + ": Delayed execution");
+            if (tiChange) {
                 scope.$eval(tiChange);
-            }, bufferLength);
+            }
         }
     }
 }());

@@ -54,8 +54,6 @@ define(["js/Utils", "js/Node"], function (Utils, Node) {
             if (this.http) {
                 var deferred = jQuery.Deferred();
 
-                console.log("Invoking POST " + url);
-
                 this.http.post(url, Utils
                     .cloneFiltered(data, /\_\_|\$\$/)).success(function (data) {
                     deferred.resolve(data);
