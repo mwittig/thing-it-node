@@ -7,8 +7,8 @@ module.exports = {
     simulated: true,
     proxy: "local",
     verifyCallSignature: false,
-    publicKeyFile: "",
-    signingAlgorithm: "RSA-SHA256",
+    //publicKeyFile: "",
+    //signingAlgorithm: "RSA-SHA256",
     authentication: "none",//"user",
     logLevel: "debug"
 };
