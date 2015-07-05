@@ -10,7 +10,7 @@
     "body-parser": "^1.11.0",
     "cors": "^2.5.3",
     "express": "^4.11.2",
-    "johnny-five": "^0.8.42",
+    "johnny-five": "^0.8.84",
     "lodash": "^3.1.0",
     "moment": "^2.9.0",
     "net": "^1.0.2",
@@ -18,7 +18,7 @@
     "q": "^1.1.2",
     "socket.io": "^1.3.3",
     "socket.io-client": "^1.3.5",
-    "thing-it-device-aircable": "0.0.11",
+    "thing-it-device-aircable": "0.0.12",
     "ti-sensortag": "^0.1.0"
   },
   "_shasum": "19135244b31f607be6b283cc328fdd2501783050",
