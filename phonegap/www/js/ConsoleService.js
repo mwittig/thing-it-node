@@ -20,7 +20,7 @@ define(["js/Utils", "js/Node"], function (Utils, Node) {
     function ConsoleService() {
         //this.rootUrl = "";
         this.rootUrl = window.location.protocol + "//"
-        + window.location.hostname + ":" + window.location.port;
+            + window.location.hostname + ":" + window.location.port;
 
         /**
          *
@@ -116,12 +116,10 @@ define(["js/Utils", "js/Node"], function (Utils, Node) {
                 return this.rootUrl + "/events";
             }
             else {
-                if (node.connectionMode == "reverseProxy") {
-                    return this.rootUrl + "/reverse-proxy/nodes/" + node.uuid + "/client/events";
-                } else {
-                    // TODO Simulated only?
-
+                if (node.simulated) {
                     return this.rootUrl + "/nodes/" + node.uuid + "/events";
+                } else if (node.connectionMode == "reverseProxy") {
+                    return this.rootUrl + "/reverse-proxy/nodes/" + node.uuid + "/client/events";
                 }
             }
         };
@@ -284,7 +282,7 @@ define(["js/Utils", "js/Node"], function (Utils, Node) {
          */
         ConsoleService.prototype.callDeviceService = function (device, service, parameters) {
             return this.post(this.getNodeRootUrl(device.__node) + "/devices/" + device.id
-            + "/services/" + service, parameters);
+                + "/services/" + service, parameters);
         };
 
         /**
@@ -293,7 +291,7 @@ define(["js/Utils", "js/Node"], function (Utils, Node) {
         ConsoleService.prototype.callActorService = function (actor, service,
                                                               parameters) {
             return this.post(this.getNodeRootUrl(actor.device.__node) + "/devices/" + actor.device.id
-            + "/actors/" + actor.id + "/services/" + service, parameters);
+                + "/actors/" + actor.id + "/services/" + service, parameters);
         };
 
         /**
@@ -301,7 +299,7 @@ define(["js/Utils", "js/Node"], function (Utils, Node) {
          */
         ConsoleService.prototype.pushSensorValue = function (sensor, value) {
             return this.post(this.getNodeRootUrl(sensor.device.__node) + "/devices/" + sensor.device.id
-            + "/sensors/" + sensor.id + "/data", {
+                + "/sensors/" + sensor.id + "/data", {
                 data: sensor._value
             });
         };
@@ -311,7 +309,7 @@ define(["js/Utils", "js/Node"], function (Utils, Node) {
          */
         ConsoleService.prototype.pushSensorEvent = function (sensor, event) {
             return this.post(this.getNodeRootUrl(sensor.device.__node) + "/devices/" + sensor.device.id
-            + "/sensors/" + sensor.id + "/event", {
+                + "/sensors/" + sensor.id + "/event", {
                 type: event
             });
         };
