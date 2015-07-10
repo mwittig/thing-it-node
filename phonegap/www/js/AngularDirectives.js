@@ -67,7 +67,7 @@ var thingItNode = (function () {
                     }
                 };
             });
-            module.directive('tiAudio', function ($timeout, $parse) {
+            module.directive('tiAudio', function () {
                 return {
                     restrict: "E",
                     template: "<audio controls><source type='audio/wav'></audio>",
@@ -79,7 +79,7 @@ var thingItNode = (function () {
                     }
                 };
             });
-            module.directive('tiVideo', function ($timeout, $parse) {
+            module.directive('tiVideo', function () {
                 return {
                     restrict: "E",
                     template: "<video><source type='video/mp4' webkit-playsinline></video>",
