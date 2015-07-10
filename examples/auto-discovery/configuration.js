@@ -2,13 +2,6 @@ module.exports = {
     label: "Home",
     id: "home",
     autoDiscoveryDeviceTypes: [{
-        plugin: "ar-drone/ardroneBluetoothLE",
-        confirmRegistration: true,
-        persistRegistration: false,
-        defaultConfiguration: {},
-        options: {}
-    },
-        {
             plugin: "ti-sensor-tag/tiSensorTag",
             confirmRegistration: true,
             persistRegistration: false,

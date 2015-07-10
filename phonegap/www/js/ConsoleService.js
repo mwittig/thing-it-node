@@ -110,11 +110,19 @@ define(["js/Utils", "js/Node"], function (Utils, Node) {
          * @returns {string}
          */
         ConsoleService.prototype.getEventNamespaceUrl = function (node) {
+            console.log(node);
+
             if (this.settings.server === "local") {
                 return this.rootUrl + "/events";
             }
             else {
-                return this.rootUrl + "/nodes/" + node.uuid + "/events";
+                if (node.connectionMode == "reverseProxy") {
+                    return this.rootUrl + "/reverse-proxy/nodes/" + node.uuid + "/client/events";
+                } else {
+                    // TODO Simulated only?
+
+                    return this.rootUrl + "/nodes/" + node.uuid + "/events";
+                }
             }
         };
 
