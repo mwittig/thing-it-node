@@ -81,7 +81,9 @@ var server = app
         console.log("\n");
 
         try {
-            node.bootstrap(options, app, io, server);
+            io.listen(server);
+
+            node.bootstrap(options, app, io);
         } catch (x) {
             console.error("Cannot start node: " + x);
             process.exit();
