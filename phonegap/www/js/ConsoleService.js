@@ -116,7 +116,7 @@ define(["js/Utils", "js/Node"], function (Utils, Node) {
                 return this.rootUrl + "/events";
             }
             else {
-                if (node.simulated) {
+                if (node.connectionMode == "test") {
                     return this.rootUrl + "/nodes/" + node.uuid + "/events";
                 } else if (node.connectionMode == "reverseProxy") {
                     return this.rootUrl + "/reverse-proxy/nodes/" + node.uuid + "/client/events";
