@@ -31,9 +31,11 @@ define(
 
 					// Set default values
 
-					for (var n = 0; n < this.__type.configuration.length; ++n) {
-						if (!this.configuration[this.__type.configuration[n].id]) {
-							this.configuration[this.__type.configuration[n].id] = this.__type.configuration[n].defaultValue;
+					if (this.configuration) {
+						for (var n = 0; n < this.__type.configuration.length; ++n) {
+							if (!this.configuration[this.__type.configuration[n].id]) {
+								this.configuration[this.__type.configuration[n].id] = this.__type.configuration[n].defaultValue;
+							}
 						}
 					}
 				};
