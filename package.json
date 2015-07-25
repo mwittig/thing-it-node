@@ -19,7 +19,7 @@
     "socket.io": "^1.3.3",
     "socket.io-client": "^1.3.5",
     "thing-it-device-aircable": "0.0.12",
-    "thing-it-device-ti-sensortag": "0.0.1"
+    "thing-it-device-ti-sensortag": "0.0.3"
   },
   "_shasum": "19135244b31f607be6b283cc328fdd2501783050",
   "_from": "thing-it-node@",
