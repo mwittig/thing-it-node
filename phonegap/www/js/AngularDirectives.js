@@ -219,6 +219,10 @@ var thingItNode = (function () {
             });
             module.directive('tiSwitch', function ($timeout, $parse) {
                 return {
+                    restrict: "E",
+                    template: "<div class='onoffswitch'>" +
+                    "<input type='checkbox' name='onoffswitch' class='onoffswitch-checkbox' checked><label class='onoffswitch-label'>" +
+                    "<span class='onoffswitch-inner'></span> <span class='onoffswitch-switch'></span></label></div>",
                     link: function (scope, element, attrs) {
                         var options = scope.$eval(attrs.tiSwitch);
 
