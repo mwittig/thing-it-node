@@ -2,26 +2,26 @@ module.exports = {
     label: "Home",
     id: "home",
     autoDiscoveryDeviceTypes: [{
-            plugin: "ti-sensor-tag/tiSensorTag",
-            confirmRegistration: true,
-            persistRegistration: false,
-            defaultConfiguration: {
-                barometricPressureEnabled: false,
-                irTemperatureEnabled: false,
-                ambientTemperatureEnabled: false,
-                accelerometerEnabled: true,
-                gyroscopeEnabled: false,
-                magnetometerEnabled: false,
-                humidityEnabled: false
-            },
-            options: {}
-        }
+        plugin: "ti-sensortag/tiSensorTag",
+        confirmRegistration: true,
+        persistRegistration: false,
+        defaultConfiguration: {
+            barometricPressureEnabled: false,
+            irTemperatureEnabled: false,
+            ambientTemperatureEnabled: false,
+            accelerometerEnabled: true,
+            gyroscopeEnabled: false,
+            magnetometerEnabled: false,
+            humidityEnabled: false
+        },
+        options: {}
+    }
     ],
     devices: [{
         uuid: "9ef7f55f18d448e4888f34ca397753ef", //3b34d7c7160d429fbe9552d46114e29c
         id: "sensorTagLounge",
         label: "Sensor Tag Lounge",
-        plugin: "ti-sensor-tag/tiSensorTag",
+        plugin: "ti-sensortag/tiSensorTag",
         configuration: {
             barometricPressureEnabled: true,
             irTemperatureEnabled: false,
@@ -62,6 +62,18 @@ module.exports = {
         content: {
             type: "script",
             script: "console.log('====> Both fired')"
+        }
+    }, {
+        id: "eventProcessor4",
+        label: "Event Processor 4",
+        observables: ["sensorTagLounge"],
+        window: {
+            "duration": 10000
+        },
+        match: "maximum(sensorTagLounge.luminousIntensity.series) > 1500",
+        content: {
+            type: "script",
+            script: "console.log('Fired!!!')"
         }
     }]
 };
