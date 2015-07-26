@@ -73,7 +73,7 @@ module.exports = {
         match: "maximum(sensorTagLounge.luminousIntensity.series) > 1500",
         content: {
             type: "script",
-            script: "console.log('Fired!!!')"
+            script: "console.log('Maximum of luminous intensity exceeds 1500 Lux.')"
         }
     }]
 };
