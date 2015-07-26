@@ -221,35 +221,28 @@ var thingItNode = (function () {
                 return {
                     restrict: "E",
                     template: "<div class='onoffswitch'>" +
-                    "<input type='checkbox' name='onoffswitch' class='onoffswitch-checkbox' checked><label class='onoffswitch-label'>" +
+                    "<input type='checkbox' class='onoffswitch-checkbox' checked><label class='onoffswitch-label'>" +
                     "<span class='onoffswitch-inner'></span> <span class='onoffswitch-switch'></span></label></div>",
                     link: function (scope, element, attrs) {
-                        var options = scope.$eval(attrs.tiSwitch);
+                        var label = jQuery(element).find("label");
+                        var checkbox = jQuery(element).find("input");
 
-                        if (!options) {
-                            options = {};
-                        }
+                        label.click(function () {
+                            checkbox.prop("checked", !checkbox.prop("checked"));
 
-                        jQuery(element).find("input")
-                            .prop("checked", false);
+                            var expression = attrs.tiModel
+                                + "="
+                                + checkbox
+                                    .prop("checked");
+                            scope.$eval(expression);
 
-                        jQuery(element).find("input").click(
-                            function () {
-                                var expression = attrs.tiModel
-                                    + "="
-                                    + jQuery(element).find("input")
-                                        .prop("checked");
-                                scope.$eval(expression);
-
-                                if (attrs.tiChange) {
-                                    console.log("Switch value change");
-
-                                    scope.$eval(attrs.tiChange);
-                                }
-                            });
+                            if (attrs.tiChange) {
+                                scope.$eval(attrs.tiChange);
+                            }
+                        });
 
                         scope.$watch(attrs.tiModel, function (value) {
-                            jQuery(element).find("input").prop("checked",
+                            checkbox.prop("checked",
                                 value);
                         });
                     }
