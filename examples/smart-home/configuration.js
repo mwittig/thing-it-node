@@ -18,11 +18,12 @@ module.exports = {
     }
     ],
     devices: [{
-        uuid: "9ef7f55f18d448e4888f34ca397753ef", //3b34d7c7160d429fbe9552d46114e29c
         id: "sensorTagLounge",
         label: "Sensor Tag Lounge",
         plugin: "ti-sensortag/tiSensorTag",
         configuration: {
+            uuid: "3b34d7c7160d429fbe9552d46114e29c",
+            simulated: false,
             barometricPressureEnabled: true,
             irTemperatureEnabled: false,
             ambientTemperatureEnabled: true,
@@ -30,6 +31,18 @@ module.exports = {
             gyroscopeEnabled: false,
             magnetometerEnabled: false,
             humidityEnabled: true
+        },
+        actors: [],
+        sensors: []
+    }, {
+        label: "AirCable SmartDimmer Lounge",
+        id: "airCableSmartDimmerLounge",
+        plugin: "aircable/airCableSmartDimmer",
+        configuration: {
+            simulated: true,
+            minimumLevel: 0,
+            maximumLevel: 100,
+            step: 5
         },
         actors: [],
         sensors: []
@@ -72,7 +85,7 @@ module.exports = {
         match: "maximum(sensorTagLounge.luminousIntensity.series) > 1500",
         content: {
             type: "script",
-            script: "console.log('Maximum of luminous intensity exceeds 1500 Lux.')"
+            script: "airCableSmartDimmerLounge.toggle();"
         }
     }]
 };
