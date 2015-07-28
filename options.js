@@ -4,7 +4,7 @@ module.exports = {
     nodeConfigurationFile: "../examples/smart-home/configuration.js",
     dataDirectory: "../thing-it-data",
     usersDirectory: "../thing-it-users",
-    simulated: false,
+    simulated: true,
     verifyCallSignature: false,
     //publicKeyFile: "",
     //signingAlgorithm: "RSA-SHA256",

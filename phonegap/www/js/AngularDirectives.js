@@ -253,7 +253,7 @@ var thingItNode = (function () {
                 return {
                     restrict: "E",
                     link: function (scope, element, attrs) {
-                        var batteryLevel = jQuery("<div class='battery-level' style='height:100%;'>");
+                        var batteryLevel = jQuery("<div class='batteryLevel' style='height:100%;'>");
                         var battery = jQuery("<div class='battery'></div>");
 
                         battery.append(batteryLevel);
@@ -262,28 +262,28 @@ var thingItNode = (function () {
                         scope.$watch(attrs.tiModel, function (value) {
                             if (value <= 10) {
                                 batteryLevel.css({height: "10%"});
-                                batteryLevel.removeClass("warn");
-                                batteryLevel.addClass("alert");
+                                batteryLevel.removeClass("batteryLevelWarn");
+                                batteryLevel.addClass("batteryLevelAlert");
                             } else if (value > 10 && value <= 18) {
                                 batteryLevel.css({height: "18%"});
-                                batteryLevel.removeClass("alert");
-                                batteryLevel.addClass("warn");
+                                batteryLevel.removeClass("batteryLevelAlert");
+                                batteryLevel.addClass("batteryLevelWarn");
                             } else if (value > 18 && value <= 25) {
                                 batteryLevel.css({height: "25%"});
-                                batteryLevel.removeClass("alert");
-                                batteryLevel.removeClass("warn");
+                                batteryLevel.removeClass("batteryLevelAlert");
+                                batteryLevel.removeClass("batteryLevelWarn");
                             } else if (value > 25 && value <= 50) {
                                 batteryLevel.css({height: "50%"});
-                                batteryLevel.removeClass("alert");
-                                batteryLevel.removeClass("warn");
+                                batteryLevel.removeClass("batteryLevelAlert");
+                                batteryLevel.removeClass("batteryLevelWarn");
                             } else if (value > 50 && value <= 75) {
                                 batteryLevel.css({height: "75%"});
-                                batteryLevel.removeClass("alert");
-                                batteryLevel.removeClass("warn");
+                                batteryLevel.removeClass("batteryLevelAlert");
+                                batteryLevel.removeClass("batteryLevelWarn");
                             } else {
                                 batteryLevel.css({height: "100%"});
-                                batteryLevel.removeClass("alert");
-                                batteryLevel.removeClass("warn");
+                                batteryLevel.removeClass("batteryLevelAlert");
+                                batteryLevel.removeClass("batteryLevelWarn");
                             }
                         });
                     }
