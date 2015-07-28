@@ -47,6 +47,18 @@ module.exports = {
         },
         actors: [],
         sensors: []
+    }, {
+        label: "AirCable SmartDimmer Hallway",
+        id: "airCableSmartDimmerHallway",
+        plugin: "aircable/airCableSmartDimmer",
+        configuration: {
+            simulated: true,
+            minimumLevel: 0,
+            maximumLevel: 100,
+            step: 5
+        },
+        actors: [],
+        sensors: []
     }],
     services: [],
     eventProcessors: [{
@@ -86,7 +98,7 @@ module.exports = {
         match: "maximum(sensorTagLounge.luminousIntensity.series) > 1500",
         content: {
             type: "script",
-            script: "airCableSmartDimmerLounge.toggle();"
+            script: "airCableSmartDimmerLounge.toggle(); airCableSmartDimmerHallway.toggle();"
         }
     }, {
         id: "eventProcessor5",
