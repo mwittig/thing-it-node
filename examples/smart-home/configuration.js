@@ -154,33 +154,6 @@ module.exports = {
         }
     }],
     eventProcessors: [{
-        id: "eventProcessor1",
-        label: "Event Processor 1",
-        observables: ["sensorTagLounge"],
-        match: "sensorTagLounge.event.type == 'left'",
-        content: {
-            type: "script",
-            script: "console.log('====> Right fired')"
-        }
-    }, {
-        id: "eventProcessor2",
-        label: "Event Processor 2",
-        observables: ["sensorTagLounge"],
-        match: "sensorTagLounge.event.type == 'right'",
-        content: {
-            type: "script",
-            script: "console.log('====> Left fired')"
-        }
-    }, {
-        id: "eventProcessor3",
-        label: "Event Processor 3",
-        observables: ["sensorTagLounge"],
-        match: "sensorTagLounge.event.type == 'both'",
-        content: {
-            type: "script",
-            script: "console.log('====> Both fired')"
-        }
-    }, {
         id: "eventProcessor4",
         label: "Event Processor 4",
         observables: ["sensorTagLounge"],
