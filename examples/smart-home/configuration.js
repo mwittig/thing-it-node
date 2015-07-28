@@ -25,13 +25,20 @@ module.exports = {
             uuid: "3b34d7c7160d429fbe9552d46114e29c",
             simulated: false,
             barometricPressureEnabled: true,
-            irTemperatureEnabled: false,
+            irTemperatureEnabled: true,
+            irTemperatureNotificationInterval: 2000,
             ambientTemperatureEnabled: true,
-            accelerometerEnabled: false,
-            gyroscopeEnabled: false,
-            magnetometerEnabled: false,
+            ambientTemperatureNotificationInterval: 2000,
+            accelerometerEnabled: true,
+            accelerometerNotificationInterval: 300,
+            gyroscopeEnabled: true,
+            gyroscopeNotificationInterval: 300,
+            magnetometerEnabled: true,
+            magnetometerNotificationInterval: 300,
             humidityEnabled: true,
-            luminousIntensity: true
+            humidityNotificationInterval: 2000,
+            luminousIntensity: true,
+            luminousIntensityNotificationInterval: 2000
         },
         actors: [],
         sensors: []
@@ -59,8 +66,93 @@ module.exports = {
         },
         actors: [],
         sensors: []
+    }, {
+        label: "AirCable SmartDimmer Studio",
+        id: "airCableSmartDimmerStudio",
+        plugin: "aircable/airCableSmartDimmer",
+        configuration: {
+            simulated: true,
+            minimumLevel: 0,
+            maximumLevel: 100,
+            step: 5
+        },
+        actors: [],
+        sensors: []
     }],
-    services: [],
+    services: [{
+        id: "storyboard1",
+        label: "At Home Simulation",
+        description: "Simulate lighting etc. as the family was at home.",
+        verbose: true,
+        content: {
+            type: "storyboard",
+            easingInterval: 100,
+            timeline: [{
+                timestamp: 0,
+                entries: [{
+                    type: "deviceServiceCall",
+                    device: "airCableSmartDimmerStudio",
+                    service: "on"
+                }]
+            }, {
+                timestamp: 2000,
+                entries: [{
+                    type: "deviceServiceCall",
+                    device: "airCableSmartDimmerStudio",
+                    service: "off"
+                }, {
+                    type: "deviceStateChange",
+                    device: "airCableSmartDimmerStudio",
+                    state: {
+                        level: 0
+                    }
+                }]
+            }, {
+                timestamp: 5000,
+                entries: [{
+                    type: "deviceServiceCall",
+                    device: "airCableSmartDimmerStudio",
+                    service: "on"
+                }, {
+                    type: "deviceStateChange",
+                    device: "airCableSmartDimmerStudio",
+                    state: {
+                        level: 100
+                    },
+                    easing: "linear"
+                }]
+            }, {
+                timestamp: 8000,
+                entries: [{
+                    type: "deviceServiceCall",
+                    type: "deviceServiceCall",
+                    device: "airCableSmartDimmerStudio",
+                    service: "off"
+                }]
+            }, {
+                timestamp: 11000,
+                entries: [{
+                    type: "deviceServiceCall",
+                    device: "airCableSmartDimmerStudio",
+                    service: "on"
+                }]
+            }, {
+                timestamp: 14000,
+                entries: [{
+                    type: "deviceServiceCall",
+                    device: "airCableSmartDimmerStudio",
+                    service: "off"
+                }, {
+                    type: "deviceStateChange",
+                    device: "airCableSmartDimmerStudio",
+                    state: {
+                        level: 0
+                    },
+                    easing: "linear"
+                }]
+            }]
+        }
+    }],
     eventProcessors: [{
         id: "eventProcessor1",
         label: "Event Processor 1",
