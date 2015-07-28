@@ -30,7 +30,8 @@ module.exports = {
             accelerometerEnabled: false,
             gyroscopeEnabled: false,
             magnetometerEnabled: false,
-            humidityEnabled: true
+            humidityEnabled: true,
+            luminousIntensity: true
         },
         actors: [],
         sensors: []
@@ -86,6 +87,15 @@ module.exports = {
         content: {
             type: "script",
             script: "airCableSmartDimmerLounge.toggle();"
+        }
+    }, {
+        id: "eventProcessor5",
+        label: "Event Processor 5",
+        observables: ["sensorTagLounge"],
+        match: "sensorTagLounge.event.type == 'stateChange'",
+        content: {
+            type: "script",
+            script: "airCableSmartDimmerLounge.changeLevel({level: eventProcessor5.sensorTagLounge.event.state.luminousIntensity - 1500 })"
         }
     }]
 };
