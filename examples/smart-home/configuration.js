@@ -23,7 +23,7 @@ module.exports = {
         plugin: "ti-sensortag/tiSensorTag",
         configuration: {
             uuid: "3b34d7c7160d429fbe9552d46114e29c",
-            simulated: false,
+            simulated: true,
             barometricPressureEnabled: true,
             irTemperatureEnabled: true,
             irTemperatureNotificationInterval: 2000,
