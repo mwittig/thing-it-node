@@ -164,7 +164,8 @@ module.exports = {
         content: {
             type: "script",
             script: "airCableSmartDimmerLounge.toggle(); airCableSmartDimmerHallway.toggle();"
-        }
+        },
+        logLevel: "info"
     }, {
         id: "eventProcessor5",
         label: "Event Processor 5",
@@ -173,6 +174,7 @@ module.exports = {
         content: {
             type: "script",
             script: "airCableSmartDimmerLounge.changeLevel({level: eventProcessor5.sensorTagLounge.event.state.luminousIntensity - 1500 })"
-        }
+        },
+        logLevel: "info"
     }]
 };
