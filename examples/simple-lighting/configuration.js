@@ -6,6 +6,7 @@ module.exports = {
         label: "Arduino Uno 1",
         id: "arduino1",
         plugin: "microcontroller/arduino",
+        configuration: {},
         actors: [{
             id: "led1",
             label: "LED1",
