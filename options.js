@@ -1,7 +1,7 @@
 /*module.exports = {
     port: 3001,
     protocol: "http",
-    nodeConfigurationFile: "../examples/auto-discovery/configuration.js",
+    nodeConfigurationFile: "../examples/camera-and-microphone/configuration.js",
     dataDirectory: "../thing-it-data",
     usersDirectory: "../thing-it-users",
     simulated: true,
