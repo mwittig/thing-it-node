@@ -7,18 +7,6 @@ var express = require('express');
 var app = express();
 var Server = require('socket.io');
 
-// Logging
-
-if (options.logLevel == "debug") {
-    console.debug = function (output) {
-        console.log(output);
-    };
-}
-else {
-    console.debug = function (output) {
-    };
-}
-
 var io = new Server({
     transports: ["websocket", "htmlfile", "xhr-polling", "jsonp-polling"]
 });
