@@ -42,6 +42,17 @@ module.exports = {
             service: "test"
         }
     }, {
+        id: "testEMail",
+        label: "Test E-Mail",
+        type: "eMailService",
+        content: {
+            provider: "xy",
+            user: "test@test.com",
+            password: "***",
+            to: "test@test.com",
+            from: "test@test.com"
+        }
+    }, {
         id: "testScript",
         label: "Test Script",
         type: "scriptService",
