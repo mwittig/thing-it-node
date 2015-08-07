@@ -20,16 +20,16 @@ module.exports = {
 	services : [ {
 		id : "ledRed",
 		label : "LED Red",
+		type : "script",
 		content : {
-			type : "script",
 			script : "arduino1.rgbLed1.color({rgbColorHex: '#FF0000'});"
 		}
 	}, {
 		id : "storyboard1",
 		label : "Storyboard 1",
 		description : "Simple service call and state change Storyboard.",
+		type : "storyboard",
 		content : {
-			type : "storyboard",
 			easingInterval : 200,
 			timeline : [ {
 				timestamp : 0,

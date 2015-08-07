@@ -64,8 +64,8 @@ module.exports = {
     services: [{
         id: "toggleAll",
         label: "Toggle All",
+        type: "script",
         content: {
-            type: "script",
             script: "if (arduino1.led1.state.light == 'on') {arduino1.led1.off(); arduino1.led2.off();} else {arduino1.led1.on(); arduino1.led2.on();}"
         }
     }],

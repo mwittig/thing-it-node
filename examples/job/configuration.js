@@ -20,15 +20,15 @@ module.exports = {
 	services : [ {
 		id : "ledRed",
 		label : "Led Red",
+		type : "script",
 		content : {
-			type : "script",
 			script : "arduino1.rgbLed1.color({rgbColorHex: '#FF0000'});"
 		}
 	}, {
 		id : "ledGreen",
 		label : "Led Green",
+		type : "script",
 		content : {
-			type : "script",
 			script : "arduino1.rgbLed1.color({rgbColorHex: '#00FF00'});"
 		}
 	} ],
