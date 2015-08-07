@@ -83,9 +83,8 @@ module.exports = {
         id: "storyboard1",
         label: "At Home Simulation",
         description: "Simulate lighting etc. as the family was at home.",
-        verbose: true,
+        type: "storyboard",
         content: {
-            type: "storyboard",
             easingInterval: 100,
             timeline: [{
                 timestamp: 0,

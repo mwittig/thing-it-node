@@ -2,6 +2,7 @@
 
 var options = require("./options");
 var node = require("./lib/node");
+var utils = require("./lib/utils");
 var bodyParser = require('body-parser')
 var express = require('express');
 var app = express();
@@ -36,8 +37,6 @@ var server = app
             .log("---------------------------------------------------------------------------");
         console.log(" [thing-it-node] at http://%s:%s", server.address().address, server.address().port);
         console.log("\n");
-        console.log(" Proxy                  : %s",
-            options.proxy);
 
         if (options.proxy == "local") {
             console.log(" Node Configuration File: %s",
@@ -53,8 +52,7 @@ var server = app
             console.log(" Signing Algorithm      : %s",
                 options.signingAlgorithm);
         }
-        else
-        {
+        else {
             console.log(" UUID                   : %s",
                 options.uuid);
         }

@@ -23,16 +23,16 @@ module.exports = {
 			{
 				id : "service1",
 				label : "Step Left",
+				type : "script",
 				content : {
-					type : "script",
 					script : "arduino1.servo1.toPosition({position: Math.max(arduino1.servo1.state.position - 10, arduino1.servo1.configuration.minimum)});"
 				}
 			},
 			{
 				id : "service2",
 				label : "Step Right",
+				type : "script",
 				content : {
-					type : "script",
 					script : "arduino1.servo1.toPosition({position: Math.min(arduino1.servo1.state.position + 10, arduino1.servo1.configuration.maximum)});"
 				}
 			} ],

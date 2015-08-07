@@ -235,24 +235,24 @@ module.exports = {
     services: [{
         id: "toggleAll",
         label: "Toggle All",
+        type: "script",
         content: {
-            type: "script",
             script: "if (arduino1.led1.state.light == 'on') {arduino1.led1.off(); arduino1.led2.off();} else {arduino1.led1.on(); arduino1.led2.on();}"
         }
     },
         {
             id: "stepLeft",
             label: "Step Left",
+            type: "script",
             content: {
-                type: "script",
                 script: "arduino1.servo1.toPosition({position: Math.max(arduino1.servo1.state.position - 10, arduino1.servo1.configuration.minimum)});"
             }
         },
         {
             id: "stepRight",
             label: "Step Right",
+            type: "script",
             content: {
-                type: "script",
                 script: "arduino1.servo1.toPosition({position: Math.min(arduino1.servo1.state.position + 10, arduino1.servo1.configuration.maximum)});"
             }
         }],
