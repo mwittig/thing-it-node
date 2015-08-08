@@ -23,8 +23,8 @@ module.exports = {
 		label : "Event Processor 1",
 		observables : [ "networkUtilities.hostDetector1" ],
 		match : "networkUtilities.hostDetector1.event.type == 'hostUp'",
+		type : "script",
 		content : {
-			type : "script",
 			script : "lastHost.name = networkUtilities.hostDetector1.event.data; lastHost.time = new Date();"
 		}
 	} ],

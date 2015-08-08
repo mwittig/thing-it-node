@@ -38,8 +38,8 @@ module.exports = {
 		label : "Event Processor 1",
 		observables : [ "arduino1.potentiometer1" ],
 		match : "arduino1.potentiometer1.event.type == 'valueChange'",
+		type : "script",
 		content : {
-			type : "script",
 			script : "arduino1.lcd1.clear(); arduino1.lcd1.print({text: eventProcessor1.arduino1.potentiometer1.event.data});"
 		}
 	} ],
