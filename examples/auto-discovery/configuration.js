@@ -40,8 +40,8 @@ module.exports = {
         label: "Event Processor 1",
         observables: ["sensorTagLounge"],
         match: "sensorTagLounge.event.type == 'left'",
+        type: "script",
         content: {
-            type: "script",
             script: "console.log('====> Right fired')"
         }
     }, {
@@ -49,8 +49,8 @@ module.exports = {
         label: "Event Processor 2",
         observables: ["sensorTagLounge"],
         match: "sensorTagLounge.event.type == 'right'",
+        type: "script",
         content: {
-            type: "script",
             script: "console.log('====> Left fired')"
         }
     }, {
@@ -58,8 +58,8 @@ module.exports = {
         label: "Event Processor 3",
         observables: ["sensorTagLounge"],
         match: "sensorTagLounge.event.type == 'both'",
+        type: "script",
         content: {
-            type: "script",
             script: "console.log('====> Both fired')"
         }
     }, {
@@ -69,9 +69,9 @@ module.exports = {
         window: {
             "duration": 10000
         },
+        type: "script",
         match: "maximum(sensorTagLounge.luminousIntensity.series) > 1500",
         content: {
-            type: "script",
             script: "console.log('Maximum of luminous intensity exceeds 1500 Lux.')"
         }
     }]

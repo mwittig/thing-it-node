@@ -160,8 +160,8 @@ module.exports = {
             "duration": 10000
         },
         match: "maximum(sensorTagLounge.luminousIntensity.series) > 1500",
+        type: "script",
         content: {
-            type: "script",
             script: "airCableSmartDimmerLounge.toggle(); airCableSmartDimmerHallway.toggle();"
         },
         logLevel: "info"
@@ -170,8 +170,8 @@ module.exports = {
         label: "Event Processor 5",
         observables: ["sensorTagLounge"],
         match: "sensorTagLounge.event.type == 'stateChange'",
+        type: "script",
         content: {
-            type: "script",
             script: "airCableSmartDimmerLounge.changeLevel({level: eventProcessor5.sensorTagLounge.event.state.luminousIntensity - 1500 })"
         },
         logLevel: "info"
