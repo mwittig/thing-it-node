@@ -4,7 +4,7 @@ module.exports = {
     devices: [{
         label: "Sonos",
         id: "sonos",
-        plugin: "sonos",
+        plugin: "sonos/sonos",
         configuration: {
             simulated: false,
             host: "sonosHost",

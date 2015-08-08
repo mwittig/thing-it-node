@@ -1,7 +1,7 @@
 module.exports = {
     port: 3001,
     protocol: "http",
-    nodeConfigurationFile: "../examples/services/configuration.js",
+    nodeConfigurationFile: "../examples/sonos/configuration.js",
     dataDirectory: "../thing-it-data",
     usersDirectory: "../thing-it-users",
     simulated: true,
