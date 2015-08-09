@@ -3,13 +3,13 @@
         <i class="fa fa-home"></i> {{topPage().node.label}}
     </div>
     <div class="btn-group pull-left"
-         ng-hide="settings.proxy.mode === 'remoteProxy' || settings.proxy.mode === 'remoteSimulated'">
+         ng-hide="settings.proxy">
         <div class="btn">
             <a ng-click="logout()"><i class="fa fa-power-off"></i></a>
         </div>
     </div>
     <div class="btn-group pull-left"
-         ng-show="settings.proxy.mode === 'remoteProxy' || settings.proxy.mode === 'remoteSimulated'">
+         ng-show="settings.proxy">
         <div class="btn">
             <a ng-click="popPage()"><i class="fa fa-arrow-left"></i></a>
         </div>
@@ -25,13 +25,7 @@
             <a ng-show="speech.listening" ng-click="speech.hold()"><i class="fa fa-microphone-slash"></i></a>
         </div>
     </div>
-    <div class="btn-group pull-right">
-        <div ui-toggle="uiSidebarRight" class="btn">
-            <i class="fa fa-search"></i>
-        </div>
-    </div>
 </div>
-
 <div class="scrollable" ui-state="searchBar">
     <div class="scrollable-content" ui-scroll-bottom='bottomReached()'>
         <div class="list-group">
