@@ -30,11 +30,6 @@ module.exports = {
                 "pinBlue": 6
             }
         }, {
-            id: "samsungTVInfraredRemote",
-            label: "Samsung TV Infrared Remote",
-            type: "samsungTVInfraredRemote",
-            configuration: {}
-        }, {
             id: "servo1",
             label: "Servo 1",
             type: "servo",
@@ -102,7 +97,7 @@ module.exports = {
         uuid: "9ef7f55f18d448e4888f34ca397753ef",
         id: "sensorTagDiningRoom",
         label: "Sensor Tag Dining Room",
-        plugin: "ti-sensor-tag/tiSensorTag",
+        plugin: "ti-sensortag/tiSensorTag",
         configuration: {
             barometricPressureEnabled: true,
             irTemperatureEnabled: false,
@@ -117,14 +112,14 @@ module.exports = {
     }, {
         id: "heartMonitorJenn",
         label: "Heart Monitor Jenn",
-        plugin: "heart-rate-monitor/heartRateMonitor",
+        plugin: "btle-heart-rate-monitor/btleHeartRateMonitor",
         configuration: {},
         actors: [],
         sensors: []
     }, {
         id: "heartMonitorFrank",
         label: "Heart Monitor Frank",
-        plugin: "heart-rate-monitor/heartRateMonitor",
+        plugin: "btle-heart-rate-monitor/btleHeartRateMonitor",
         configuration: {},
         actors: [],
         sensors: []
@@ -139,6 +134,16 @@ module.exports = {
             videoHeight: 180,
             bufferFiles: 2,
             latency: 5
+        },
+        actors: [],
+        sensors: []
+    }, {
+        label: "Sonos",
+        id: "sonos",
+        plugin: "sonos/sonos",
+        configuration: {
+            host: "sonosHost",
+            name: "My Sonos"
         },
         actors: [],
         sensors: []
@@ -160,7 +165,7 @@ module.exports = {
             icon: "cutlery",
             subGroups: [],
             devices: [],
-            actors: ["arduino1.led1", "arduino1.led2", "arduino1.samsungTVInfraredRemote"],
+            actors: ["arduino1.led1", "arduino1.led2"],
             sensors: ["arduino1.button1", "arduino1.button2",
                 "arduino1.photocell1"],
             services: ["toggleAll"]
@@ -205,7 +210,7 @@ module.exports = {
             actors: [],
             sensors: [],
             services: []
-        }, , {
+        }, {
             id: "garage",
             label: "Garage",
             icon: "car",
@@ -224,8 +229,7 @@ module.exports = {
         id: "ourEntertainment",
         label: "Our Entertainment",
         icon: "music",
-        devices: [],
-        actors: ["arduino1.samsungTVInfraredRemote"]
+        devices: ["sonos"]
     }, {
         id: "ourSecurity",
         label: "Our Security",
@@ -264,9 +268,9 @@ module.exports = {
             match: "arduino1.button1.event.type == 'hold'",
             type: "script",
             content: {
-                script: "if (arduino1.led1.state.light == 'on') {arduino1.led1.off(); } else {arduino1.led1.on();}"
+                script: ""//"if (arduino1.led1.state.light == 'on') {arduino1.led1.off(); } else {arduino1.led1.on();}"
             }
-        },
+        }/*,
         {
             id: "eventProcessor2",
             label: "Event Processor 2",
@@ -318,6 +322,6 @@ module.exports = {
             content: {
                 script: "arduino1.rgbLed1.setBlueValue({value: arduino1.potentiometerBlue.value})"
             }
-        }],
+        }*/],
     data: []
 };
