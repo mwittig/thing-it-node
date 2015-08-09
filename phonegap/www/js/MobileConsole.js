@@ -10,9 +10,9 @@ define(
         "js/DeviceMonitoringPage",
         "js/SensorMonitoringPage",
         "js/UserManagementPage",
-        "js/UserPage"],
+        "js/UserPage", "js/Speech"],
     function (Utils, Node, User, ConsoleService, LoginPage, MeshesPage, MeshPage, NodePage, GroupPage, DevicePage,
-              ActorPage, SensorPage, DataPage, DeviceMonitoringPage, SensorMonitoringPage, UserManagementPage, UserPage) {
+              ActorPage, SensorPage, DataPage, DeviceMonitoringPage, SensorMonitoringPage, UserManagementPage, UserPage, Speech) {
         return {
             create: function () {
                 return new MobileConsole();
@@ -45,6 +45,7 @@ define(
                 this.Ui.initialize(this, "userCreationDialog");
                 this.messageDialog = {};
                 this.Ui.initialize(this, "messageDialog");
+                this.speech = Speech.initialize(this);
 
                 ConsoleService
                     .instance()
