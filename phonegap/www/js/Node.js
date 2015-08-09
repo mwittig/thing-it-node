@@ -50,21 +50,6 @@ define([ "js/Utils", "js/Device", "js/Group" ], function(
 			throw "Cannot find Device [" + id + "].";
 		};
 
-		/**
-		 *
-		 */
-		Node.prototype.getDeviceByLabel = function(label) {
-			for ( var n in this.devices) {
-				console.log(this.devices[n].label.toLowerCase());
-
-				if (this.devices[n].label.toLowerCase() === label.toLowerCase()) {
-					return this.devices[n];
-				}
-			}
-
-			throw "Cannot find Device " + label;
-		};
-
         /**
          *
          */
@@ -104,5 +89,35 @@ define([ "js/Utils", "js/Device", "js/Group" ], function(
 
 			return groups;
 		};
-	}
+
+        /**
+         *
+         */
+        Node.prototype.getContextObject = function(label) {
+            for ( var n in this.services) {
+                if (this.services[n].label.toLowerCase() === label.toLowerCase()) {
+
+                    // TODO Trick, we do not have a Service class
+
+                    this.services[n].class = "Service";
+
+                    return this.services[n];
+                }
+            }
+
+            for ( var n in this.devices) {
+                if (this.devices[n].label.toLowerCase() === label.toLowerCase()) {
+                    return this.devices[n];
+                }
+            }
+
+            for ( var n in this.groups) {
+                if (this.groups[n].label.toLowerCase() === label.toLowerCase()) {
+                    return this.groups[n];
+                }
+            }
+
+            return null;
+        };
+    }
 });

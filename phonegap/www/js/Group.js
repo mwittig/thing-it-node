@@ -20,6 +20,7 @@ define(
              *
              */
             Group.prototype.bind = function (node, superGroup) {
+                this.class = "Group";
                 this.__node = node;
                 this.__superGroup = superGroup;
 
