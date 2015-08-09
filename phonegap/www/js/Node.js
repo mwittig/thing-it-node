@@ -50,6 +50,21 @@ define([ "js/Utils", "js/Device", "js/Group" ], function(
 			throw "Cannot find Device [" + id + "].";
 		};
 
+		/**
+		 *
+		 */
+		Node.prototype.getDeviceByLabel = function(label) {
+			for ( var n in this.devices) {
+				console.log(this.devices[n].label.toLowerCase());
+
+				if (this.devices[n].label.toLowerCase() === label.toLowerCase()) {
+					return this.devices[n];
+				}
+			}
+
+			throw "Cannot find Device " + label;
+		};
+
         /**
          *
          */

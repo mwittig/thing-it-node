@@ -1,6 +1,6 @@
 {
   "name": "thing-it-node",
-  "version": "0.12.0",
+  "version": "0.12.1",
   "description": "thing-it Node Server",
   "main": "lib/node.js",
   "scripts": {},
@@ -24,7 +24,7 @@
     "thing-it-device-ar-drone": "0.0.3",
     "thing-it-device-btle-heart-rate-monitor": "0.0.6",
     "thing-it-device-microcontroller": "0.0.30",
-    "thing-it-device-sonos": "0.0.3",
+    "thing-it-device-sonos": "0.0.5",
     "thing-it-device-ti-sensortag": "0.0.28"
   },
   "_shasum": "19135244b31f607be6b283cc328fdd2501783050",
