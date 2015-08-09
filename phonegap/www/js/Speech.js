@@ -202,7 +202,7 @@ define(
                         console.log("\t Step " + m);
 
                         if (step.token && !this.matchToken(tokens[m], step)) {
-                            console.log("Token " + tokens[m] + " does match.");
+                            console.log("Token " + tokens[m] + " does not match.");
 
                             break;
                         }
