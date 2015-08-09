@@ -61,7 +61,15 @@ define(
                             sequence: [{
                                 class: "Group",
                                 action: function (objects, object) {
-                                    this.utter("switching context to group " + object + label);
+                                    this.utter("switching context to group " + object.label);
+                                }.bind(this)
+                            }]
+                        }, {
+                            name: "Node Service Call",
+                            sequence: [{
+                                class: "Service",
+                                action: function (objects, object) {
+                                    this.utter("invoking service " + object.label);
                                 }.bind(this)
                             }]
                         }, {
@@ -194,25 +202,26 @@ define(
                         console.log("\t Step " + m);
 
                         if (step.token && !this.matchToken(tokens[m], step)) {
+                            console.log("Token " + tokens[m] + " does match.");
+
                             break;
                         }
+                        else if (step.class) {
+                            // Check maximum of 3 concatenated tokens as object labels
+                            // TODO Could check till the end of sequence
 
-                        // Check maximum of 3 concatenated tokens as object labels
-                        // TODO Could check till the end of sequence
+                            var label = "";
+                            var newContextObject = null;
 
-                        var label = "";
-                        var newContextObject = null;
+                            for (var l = m; l < tokens.length; ++l) {
+                                if (l > 0) {
+                                    label += " ";
+                                }
 
-                        for (var l = 0; l < 3 && l + m < production.sequence.length; ++l) {
-                            if (l > 0) {
-                                label += " ";
-                            }
+                                label += tokens[m + l];
 
-                            label += tokens[m + 1];
+                                console.log("Trying label [" + label + "]");
 
-                            console.log("Trying label " + label);
-
-                            if (step.class) {
                                 newContextObject = this.matchObject(label, step, currentContextObject);
 
                                 if (newContextObject) {
@@ -221,15 +230,17 @@ define(
 
                                 console.log("No context object.");
                             }
+
+                            if (!newContextObject) {
+                                console.log("No context object found.");
+
+                                break;
+                            }
+
+                            currentContextObject = newContextObject;
+
+                            console.log("Current Context Object", currentContextObject);
                         }
-
-                        if (!newContextObject) {
-                            break;
-                        }
-
-                        currentContextObject = newContextObject;
-
-                        console.log("Current Context Object", currentContextObject);
 
                         if (step.action) {
                             step.action(objects, currentContextObject);
@@ -273,6 +284,12 @@ define(
              */
             Speech.prototype.matchObject = function (token, objectStep, contextObject) {
                 var subContextObject = contextObject.getContextObject(token);
+
+                console.log("Expected Class " + objectStep.class);
+
+                if (subContextObject) {
+                    console.log("Actual Class " + subContextObject.class);
+                }
 
                 if (subContextObject && subContextObject.class == objectStep.class) {
                     return subContextObject;
