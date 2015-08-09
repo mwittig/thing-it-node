@@ -18,6 +18,68 @@ define(
                 this.listening = false;
                 this.parent = parent;
 
+                this.contexts = {
+                    "Global": {
+                        productions: [{
+                            name: "Hello",
+                            sequence: [{
+                                token: "hello",
+                                reaction: function () {
+                                    this.utter("hello i am thing it, how can i help");
+                                }.bind(this)
+                            }]
+                        }, {
+                            name: "Help",
+                            sequence: [{
+                                token: "help",
+                                action: function () {
+                                    this.utter("no help in the global context");
+                                }.bind(this)
+                            }]
+                        }]
+                    },
+                    "Node": {
+                        productions: [{
+                            name: "Hello",
+                            sequence: [{
+                                token: "hello",
+                                action: function () {
+                                    this.utter("hello i am thing it how can i help");
+                                }.bind(this)
+                            }]
+                        }, {
+                            name: "Help",
+                            sequence: [{
+                                token: "help",
+                                synophones: ["held"],
+                                action: function () {
+                                    this.utter("you have selected a node");
+                                }.bind(this)
+                            }]
+                        }, {
+                            name: "Device Service Call",
+                            sequence: [{
+                                class: "Device", action: function (objects, object) {
+                                    objects.device = object;
+                                }.bind(this)
+                            }, {
+                                class: "Service", action: function (objects, object) {
+                                    try {
+                                        this.utter("invoking " + object.label + " on " + objects.device.label);
+
+                                        this.parent.callDeviceService(objects.device, object.id);
+                                    }
+                                    catch (error) {
+                                        console.error(error);
+
+                                        this.utter(error);
+                                    }
+                                }.bind(this)
+                            }]
+                        }]
+                    }
+                }
+
                 return this;
             };
 
@@ -26,6 +88,8 @@ define(
              */
             Speech.prototype.listen = function () {
                 console.log("listen");
+
+                this.context = this.contexts["Node"]
                 this.listening = true;
                 this.recognition = new webkitSpeechRecognition();
                 this.synthesis = window.speechSynthesis;
@@ -69,7 +133,7 @@ define(
 
                     console.log(this.finalTranscript);
 
-                    this.understand(this.finalTranscript);
+                    this.respond(this.finalTranscript);
                 }.bind(this);
 
                 this.recognition.start();
@@ -78,99 +142,105 @@ define(
             /**
              *
              */
+            Speech.prototype.utter = function (utterance) {
+                this.synthesis.speak(new SpeechSynthesisUtterance(utterance));
+            };
+
+            /**
+             *
+             */
             Speech.prototype.respond = function (tokens) {
-                if (tokens[0] === "hello") {
-                    this.synthesis.speak(new SpeechSynthesisUtterance("hello i am thing it how can i help"));
-                }
-                else if (tokens[0] === "help") {
-                    var utterance = "you have selected a node and have the devices";
+                var originalTokens = tokens;
+                tokens = tokens.split(" ");
 
-                    for (var n in this.parent.node.devices) {
-                        utterance += " ";
-                        utterance += this.parent.node.devices[n].label;
+                for (var n in tokens) {
+                    tokens[n] = tokens[n].toLowerCase();
+                }
+
+                var currentContextObject = this.parent.node;
+                var objects = {};
+
+                for (var n in this.context.productions) {
+                    var production = this.context.productions[n];
+
+                    console.log("Check production " + production.name);
+
+                    if (tokens.length != production.sequence.length) {
+                        console.log("Length do not match.");
+                        continue;
                     }
 
-                    this.synthesis.speak(new SpeechSynthesisUtterance(utterance));
-                }
-                else if (tokens[0] === "mesh") {
-                    if (tokens.length == 1) {
-                        this.synthesis.speak(new SpeechSynthesisUtterance("which mesh"));
-                    }
-                    else {
-                        this.synthesis.speak(new SpeechSynthesisUtterance("Switching to mesh " + tokens[1]));
-                    }
-                }
-                else if (tokens[0] === "node") {
-                    this.synthesis.speak(new SpeechSynthesisUtterance("which node"));
-                }
-                else if (tokens[0] === "device") {
-                    if (tokens.length == 1) {
-                        this.synthesis.speak(new SpeechSynthesisUtterance("which device"));
-                    }
-                    else if (tokens.length == 2) {
-                        this.synthesis.speak(new SpeechSynthesisUtterance("what to do with device " + tokens[1]));
-                    }
-                    else {
-                        try {
-                            var device = this.parent.node.getDeviceByLabel(tokens[1]);
+                    for (var m = 0; m < production.sequence.length; ++m) {
+                        var step = production.sequence[m];
 
-                            this.synthesis.speak(new SpeechSynthesisUtterance("invoking " + tokens[2] + " on " + tokens[1]));
+                        console.log("\t Step " + m);
 
-                            this.parent.callDeviceService(device, tokens[2]);
+                        if (step.token && !this.matchToken(tokens[m], step)) {
+                            break;
                         }
-                        catch (error) {
-                            console.error(error);
 
-                            this.synthesis.speak(new SpeechSynthesisUtterance(error));
+                        if (step.class) {
+                            var newContextObject = this.matchObject(tokens[m], step, currentContextObject);
+
+                            if (!newContextObject) {
+                                console.log("No context object.");
+
+                                break;
+                            }
+
+                            currentContextObject = newContextObject;
+
+                            console.log("Current Context Object", currentContextObject);
+                        }
+
+                        if (step.action) {
+                            step.action(objects, currentContextObject);
+                        }
+
+                        if (m == production.sequence.length - 1) {
+                            console.log("Production completed");
+
+                            this.listen();
+
+                            return;
                         }
                     }
                 }
-                else if (tokens[0] === "stop") {
-                    this.synthesis.speak(new SpeechSynthesisUtterance("good bye"));
 
-                    this.listening = false;
-
-                    this.parent.safeApply();
-
-                    return;
-                }
-                else {
-                    this.synthesis.speak(new SpeechSynthesisUtterance("i dont understand " + tokens));
-                }
-
+                this.utter("I do not understand " + originalTokens);
                 this.listen();
             };
 
             /**
              *
              */
-            Speech.prototype.understand = function (tokens) {
-                console.log("Tokens: " + tokens);
+            Speech.prototype.matchToken = function (token, tokenStep) {
+                if (token == tokenStep.token) {
+                    return true;
+                }
 
-                var tokens = tokens.split(" ");
-
-                console.log("Tokens: ", tokens);
-
-                // TODO Replace by self-learning
-
-                for (var n in tokens) {
-                    tokens[n] = tokens[n].toLowerCase();
-
-                    if (tokens[n] === "help") {
-                        tokens[n] = "help";
-                    }
-                    else if (tokens[n] === "mash" || tokens[n] === "mesh") {
-                        tokens[n] = "mesh";
-                    }
-                    else if (tokens[n] === "note" || tokens[n] === "node" || tokens[n] === "not") {
-                        tokens[n] = "node";
-                    }
-                    else if (tokens[n] === "divine" || tokens[n] === "divide") {
-                        tokens[n] = "device";
+                if (tokenStep.synophones) {
+                    for (var n in tokenStep.synophones[n]) {
+                        if (token == tokenStep.synophones[n]) {
+                            return true;
+                        }
                     }
                 }
 
-                this.respond(tokens);
+                return false;
+            };
+
+            /**
+             *
+             */
+            Speech.prototype.matchObject = function (token, objectStep, contextObject) {
+                var subContextObject = contextObject.getContextObject(token);
+
+                if (subContextObject && subContextObject.class == objectStep.class) {
+                    return subContextObject;
+                }
+
+                return null;
             };
 
             /**
@@ -182,4 +252,6 @@ define(
                 this.listening = false;
             };
         }
-    });
+    }
+)
+;
