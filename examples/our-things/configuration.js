@@ -94,6 +94,36 @@ module.exports = {
             }
         }]
     }, {
+        label: "AirCable SmartDimmer Master Bedroom 1",
+        id: "airCableSmartDimmerMasterBedroom1",
+        plugin: "aircable/airCableSmartDimmer",
+        configuration: {
+            minimum: 0,
+            maximum: 100
+        },
+        actors: [],
+        sensors: []
+    }, {
+        label: "AirCable SmartDimmer Master Bedroom 2",
+        id: "airCableSmartDimmerMasterBedroom2",
+        plugin: "aircable/airCableSmartDimmer",
+        configuration: {
+            minimum: 0,
+            maximum: 100
+        },
+        actors: [],
+        sensors: []
+    }, {
+        label: "AirCable SmartDimmer Master Bedroom 3",
+        id: "airCableSmartDimmerMasterBedroom3",
+        plugin: "aircable/airCableSmartDimmer",
+        configuration: {
+            minimum: 0,
+            maximum: 100
+        },
+        actors: [],
+        sensors: []
+    }, {
         uuid: "9ef7f55f18d448e4888f34ca397753ef",
         id: "sensorTagDiningRoom",
         label: "Sensor Tag Dining Room",
@@ -165,7 +195,7 @@ module.exports = {
             icon: "cutlery",
             subGroups: [],
             devices: [],
-            actors: ["arduino1.led1", "arduino1.led2"],
+            actors: ["arduino1.led1", "arduino1.led2"]4
             sensors: ["arduino1.button1", "arduino1.button2",
                 "arduino1.photocell1"],
             services: ["toggleAll"]
@@ -174,6 +204,7 @@ module.exports = {
             label: "Master Bedroom",
             icon: "bed",
             subGroups: [],
+            devices: ["airCableSmartDimmerMasterBedroom1", "airCableSmartDimmerMasterBedroom2", "airCableSmartDimmerMasterBedroom3"],
             actors: [],
             sensors: [],
             services: []
@@ -268,9 +299,9 @@ module.exports = {
             match: "arduino1.button1.event.type == 'hold'",
             type: "script",
             content: {
-                script: ""//"if (arduino1.led1.state.light == 'on') {arduino1.led1.off(); } else {arduino1.led1.on();}"
+                script: "if (arduino1.led1.state.light == 'on') {arduino1.led1.off(); } else {arduino1.led1.on();}"
             }
-        }/*,
+        },
         {
             id: "eventProcessor2",
             label: "Event Processor 2",
@@ -322,6 +353,6 @@ module.exports = {
             content: {
                 script: "arduino1.rgbLed1.setBlueValue({value: arduino1.potentiometerBlue.value})"
             }
-        }*/],
+        }],
     data: []
 };

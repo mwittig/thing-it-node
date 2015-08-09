@@ -57,6 +57,14 @@ define(
                                 }.bind(this)
                             }]
                         }, {
+                            name: "Group Navigation",
+                            sequence: [{
+                                class: "Group",
+                                action: function (objects, object) {
+                                    this.utter("switching context to group " + object + label);
+                                }.bind(this)
+                            }]
+                        }, {
                             name: "Device Service Call",
                             sequence: [{
                                 class: "Device", action: function (objects, object) {
@@ -74,6 +82,16 @@ define(
 
                                         this.utter(error);
                                     }
+                                }.bind(this)
+                            }]
+                        }]
+                    }, "Group": {
+                        productions: [{
+                            name: "Back Navigation",
+                            sequence: [{
+                                token: "back",
+                                action: function () {
+                                    this.utter("back to node");
                                 }.bind(this)
                             }]
                         }]
@@ -165,10 +183,10 @@ define(
 
                     console.log("Check production " + production.name);
 
-                    if (tokens.length != production.sequence.length) {
-                        console.log("Length do not match.");
-                        continue;
-                    }
+                    //if (tokens.length != production.sequence.length) {
+                    //    console.log("Length do not match.");
+                    //    continue;
+                    //}
 
                     for (var m = 0; m < production.sequence.length; ++m) {
                         var step = production.sequence[m];
@@ -179,19 +197,39 @@ define(
                             break;
                         }
 
-                        if (step.class) {
-                            var newContextObject = this.matchObject(tokens[m], step, currentContextObject);
+                        // Check maximum of 3 concatenated tokens as object labels
+                        // TODO Could check till the end of sequence
 
-                            if (!newContextObject) {
-                                console.log("No context object.");
+                        var label = "";
+                        var newObject = null;
 
-                                break;
+                        for (var l = 0; l < 3 && l + m < production.sequence.length; ++l) {
+                            if (l > 0) {
+                                label += " ";
                             }
 
-                            currentContextObject = newContextObject;
+                            label += tokens[m + 1];
 
-                            console.log("Current Context Object", currentContextObject);
+                            console.log("Trying label " + label);
+
+                            if (step.class) {
+                                newContextObject = this.matchObject(label, step, currentContextObject);
+
+                                if (newContextObject) {
+                                    break;
+                                }
+
+                                console.log("No context object.");
+                            }
                         }
+
+                        if (!newContextObject) {
+                            break;
+                        }
+
+                        currentContextObject = newContextObject;
+
+                        console.log("Current Context Object", currentContextObject);
 
                         if (step.action) {
                             step.action(objects, currentContextObject);
