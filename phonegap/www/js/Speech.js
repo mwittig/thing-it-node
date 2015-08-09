@@ -201,7 +201,7 @@ define(
                         // TODO Could check till the end of sequence
 
                         var label = "";
-                        var newObject = null;
+                        var newContextObject = null;
 
                         for (var l = 0; l < 3 && l + m < production.sequence.length; ++l) {
                             if (l > 0) {
