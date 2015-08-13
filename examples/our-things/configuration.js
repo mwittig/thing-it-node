@@ -178,6 +178,17 @@ module.exports = {
         actors: [],
         sensors: []
     }, {
+        label: "Yamaha Amplifier",
+        id: "yamaha",
+        plugin: "yamaha/yamaha",
+        configuration: {
+            host: "yamahaHost",
+            name: "Yamaha Host",
+            updateInterval: 10000
+        },
+        actors: [],
+        sensors: []
+    }, {
         label: "Surveillance Drone",
         id: "surveillanceDrone",
         plugin: "ar-drone/ardroneBluetoothLE",
@@ -260,7 +271,7 @@ module.exports = {
         id: "ourEntertainment",
         label: "Our Entertainment",
         icon: "music",
-        devices: ["sonos"]
+        devices: ["sonos", "yamaha"]
     }, {
         id: "ourSecurity",
         label: "Our Security",
