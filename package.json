@@ -7,7 +7,7 @@
   "authors": "Marc Gille, Julian Seibert, Neil Palmer",
   "license": "MIT, EPL",
   "dependencies": {
-    "body-parser": "^1.11.1",
+    "body-parser": "^1.11.2",
     "cors": "^2.5.3",
     "express": "^4.11.2",
     "getmac": "^1.0.7",
