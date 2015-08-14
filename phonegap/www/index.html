@@ -27,6 +27,7 @@
           rel="stylesheet">
     <link rel="stylesheet" href="./css/mobile-angular-ui/mobile-angular-ui-base.min.css"/>
     <link rel="stylesheet" href="./css/jquery.mobile.icons.min.css"/>
+    <link rel="stylesheet" href="./css/thirdparty/boostrap-colorpicker/bootstrap-colorpicker.css">
     <link rel="stylesheet" href="./css/ion.rangeslider.css">
     <link rel="stylesheet" href="./css/thing-it-mobile.css" type="text/css" type="text/css">
     <link rel="stylesheet" href="./css/thing-it-plugins.css" type="text/css" type="text/css">
@@ -47,6 +48,8 @@
                         "jquery.ui.touch-punch": ["js/libs/jquery/plugins/jquery.ui.touch-punch.min"],
                         "jquery.knob": ['js/libs/jquery/plugins/jquery.knob.min'],
                         "jquery.rangeslider": ['js/libs/jquery/plugins/ion.rangeslider.min'],
+                        "colors": ['js/libs/boostrap-colorpicker/colors'],
+                        "bootstrap-colorpicker": ['js/libs/bootstrap-colorpicker/bootstrap-colorpicker'],
                         'json': ['js/libs/json/json2'],
                         "socketio": [window.location.protocol + "//"
                         + window.location.hostname + ":"
@@ -60,6 +63,7 @@
                         "jquery.ui.touch-punch": ["jquery"],
                         "jquery.knob": ["jquery"],
                         "jquery.rangeslider": ["jquery"],
+                        "bootstrap-colorpicker": ["jquery"],
                         "angularjs": {
                             require: "jquery",
                             exports: "angular"
@@ -91,11 +95,12 @@
         module.controller('mobileConsole', function ($scope, $location, $http) {
             require(["require", "lodash", "jquery", "jquery-ui", "jquery.ui.touch-punch", "jquery.knob",
                 "jquery.jqplot", "jquery.jqplot.dateAxisRenderer",
-                "jquery.rangeslider", "json", "socketio", "moment",
+                "jquery.rangeslider", "bootstrap-colorpicker", "json", "socketio", "moment",
                 "js/Utils",
                 "js/MobileConsole", "js/ConsoleService"], function (require, lodash, jquery, jqueryUi, jqueryUiTouchPunch, jqueryKnob,
                                                                     jqueryJqPlot, jqplotDateAxisRenderer,
-                                                                    jqueryRangeslider, json, socketio, moment, Utils,
+                                                                    jqueryRangeslider,
+                                                                    bootstrapColorpicker, json, socketio, moment, Utils,
                                                                     MobileConsole, ConsoleService) {
                 Utils.inheritMethods($scope, MobileConsole.create());
 

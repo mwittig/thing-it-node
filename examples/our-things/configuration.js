@@ -94,6 +94,20 @@ module.exports = {
             }
         }]
     }, {
+        label: "Art-Net Universe 1",
+        id: "artNetUniverse1",
+        plugin: "art-net/artNetUniverse",
+        logLevel: "debug",
+        configuration: {},
+        actors: [{
+            id: "rgbLed1",
+            label: "RGB LED1",
+            type: "rgbLed",
+            configuration: {
+                "dmxStartAddress": 1
+            }
+        }], sensors: []
+    }, {
         label: "AirCable SmartDimmer Master Bedroom 1",
         id: "airCableSmartDimmerMasterBedroom1",
         plugin: "aircable/airCableSmartDimmer",
@@ -240,7 +254,7 @@ module.exports = {
             label: "Party Room",
             icon: "glass",
             subGroups: [],
-            actors: ["arduino1.rgbLed1"],
+            actors: ["arduino1.rgbLed1", "artNetUniverse1.rgbLed1"],
             sensors: ["arduino1.potentiometerRed", "arduino1.potentiometerGreen", "arduino1.potentiometerBlue"],
             services: []
         }, {

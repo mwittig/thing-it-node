@@ -299,8 +299,12 @@ var thingItNode = (function () {
                         controlStick.draggable({
                             containment: "parent",
                             start: function (event) {
+                                event.stopPropagation();
                                 //jQuery(element).data();
+                            }, drag: function (event) {
+                                event.stopPropagation();
                             }, stop: function (event) {
+                                event.stopPropagation();
                                 console.log("Last top: " + jQuery(controlStick).data("lastTop"));
                                 console.log("New top : " + jQuery(controlStick).position().top);
 
@@ -335,6 +339,25 @@ var thingItNode = (function () {
                                 top: controlPanel.height() - 40 - controlPanel.height() * value / 400
                             });
                             jQuery(controlStick).data("lastTop", controlStick.position().top);
+                        });
+                    }
+                };
+            });
+            module.directive('tiColorPicker', function ($timeout, $parse) {
+                return {
+                    restrict: "E",
+                    template: "<div style='width: 30px; height: 30px; border: 1px solid #999999;'><i></i></div>",
+                    link: function (scope, element, attrs) {
+                        var div = jQuery(element).find("div");
+
+                        div.colorpicker({component: div}).on('changeColor.colorpicker', function (event) {
+                            scope.$eval(attrs.ngModel + "='" + event.color.toHex() + "'");
+                        });
+
+                        scope.$watch(attrs.ngModel, function (value) {
+                            div.css(
+                                "background-color", value);
+                            //div.data("colorpicker").setValue(value);;
                         });
                     }
                 };
