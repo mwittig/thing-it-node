@@ -54,7 +54,7 @@ If you are not so interested in tinkering with Microcontrollers and e.g. just in
 Then stop reading. Check what we have on git/npm under
 
 * [thing-it-device-sonos](https://www.npmjs.com/package/thing-it-device-sonos)
-* [thing-it-device-aircable]([https://www.npmjs.com/package/thing-it-device-aircable)
+* [thing-it-device-aircable](https://www.npmjs.com/package/thing-it-device-aircable)
 * [thing-it-device-ar-drone](https://www.npmjs.com/package/thing-it-device-ar-drone)
 * [thing-it-device-ti-sensortag](https://www.npmjs.com/package/thing-it-device-sensortag)
 * [thing-it-device-ti-art-net](https://www.npmjs.com/package/thing-it-device-art-net)
