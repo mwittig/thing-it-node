@@ -327,6 +327,14 @@ define(
                         this.onActorStateChanged(actorStateChange);
                     }.bind(this));
                 }.bind(this));
+                this.namespace.on("storyboardProgress", function (storyboardProgress) {
+                    console.log("Storyboard Progress ");
+                    console.log(storyboardProgress);
+
+                    this.safeApply(function () {
+                        this.onStoryboardProgress(storyboardProgress);
+                    }.bind(this));
+                }.bind(this));
                 this.namespace.on("deviceAdvertisement", function (device) {
                     console.log("Device advertisement ");
                     console.log(device);
@@ -602,6 +610,21 @@ define(
             /**
              *
              */
+            MobileConsole.prototype.onStoryboardProgress = function (storyboardProgress) {
+                var service = this.node.getService(storyboardProgress.storyboard);
+
+                service._elapsedTime = storyboardProgress.elapsedTime;
+
+                // elapsedTime may be 0 which is different from null
+
+                if (storyboardProgress.elapsedTime == null) {
+                    service._status = "stopped";
+                }
+            };
+
+            /**
+             *
+             */
             MobileConsole.prototype.onDeviceAdvertisement = function (device) {
                 this.deviceAdvertisementDialog.device = device;
 
@@ -609,12 +632,73 @@ define(
                 this.openDeviceAdvertisementDialog();
             };
 
+
             /**
              *
              */
             MobileConsole.prototype.callNodeService = function (node, service, parameters) {
+                if (service.type == "storyboard") {
+                    // TODO Skip for now - done with play button
+
+                    return;
+                }
+
                 ConsoleService.instance().callNodeService(node, service, parameters)
                     .done(function () {
+                    }).fail(function (error) {
+                        this
+                            .openMessageDialog(error, "error");
+                    }.bind(this));
+            };
+
+            /**
+             *
+             */
+            MobileConsole.prototype.startStoryboard = function (node, storyboard) {
+                ConsoleService.instance().callNodeService(node, storyboard)
+                    .done(function () {
+                        storyboard._status = "playing";
+                        storyboard._elapsedTime = 0;
+                    }).fail(function (error) {
+                        this
+                            .openMessageDialog(error, "error");
+                    }.bind(this));
+
+            };
+
+            /**
+             *
+             */
+            MobileConsole.prototype.playStoryboard = function (node, storyboard) {
+                ConsoleService.instance().playStoryboard(node, storyboard)
+                    .done(function () {
+                        storyboard._status = "playing";
+                    }).fail(function (error) {
+                        this
+                            .openMessageDialog(error, "error");
+                    }.bind(this));
+            };
+
+            /**
+             *
+             */
+            MobileConsole.prototype.pauseStoryboard = function (node, storyboard) {
+                ConsoleService.instance().pauseStoryboard(node, storyboard)
+                    .done(function () {
+                        storyboard._status = "paused";
+                    }).fail(function (error) {
+                        this
+                            .openMessageDialog(error, "error");
+                    }.bind(this));
+            };
+
+            /**
+             *
+             */
+            MobileConsole.prototype.stopStoryboard = function (node, storyboard) {
+                ConsoleService.instance().stopStoryboard(node, storyboard)
+                    .done(function () {
+                        storyboard._status = "stopped";
                     }).fail(function (error) {
                         this
                             .openMessageDialog(error, "error");

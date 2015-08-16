@@ -280,6 +280,27 @@ define(["js/Utils", "js/Node"], function (Utils, Node) {
         /**
          *
          */
+        ConsoleService.prototype.playStoryboard = function (node, storyboard) {
+            return this.post(this.getNodeRootUrl(node) + "/storyboards/" + storyboard.id + "/play");
+        };
+
+        /**
+         *
+         */
+        ConsoleService.prototype.pauseStoryboard = function (node, storyboard) {
+            return this.post(this.getNodeRootUrl(node) + "/storyboards/" + storyboard.id + "/pause");
+        };
+
+        /**
+         *
+         */
+        ConsoleService.prototype.stopStoryboard = function (node, storyboard) {
+            return this.post(this.getNodeRootUrl(node) + "/storyboards/" + storyboard.id + "/stop");
+        };
+
+        /**
+         *
+         */
         ConsoleService.prototype.callDeviceService = function (device, service, parameters) {
             return this.post(this.getNodeRootUrl(device.__node) + "/devices/" + device.id
                 + "/services/" + service, parameters);
