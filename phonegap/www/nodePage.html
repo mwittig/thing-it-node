@@ -50,25 +50,29 @@
                             </td>
                             <td style="padding-left: 20px;"
                                 ng-show="service._status == 'playing'">
-                                <div class="circleButton" ng-click="pauseStoryboard(topPage().node, service)">
+                                <div class="circleButton"
+                                     ng-click="pauseStoryboard(topPage().node, service); $event.stopPropagation();">
                                     <i class="fa fa-pause"></i>
                                 </div>
                             </td>
-                            <td style="padding-left: 20px;"
+                            <!--td style="padding-left: 20px;"
                                 ng-show="service._status == 'stopped' || !service._status">
-                                <div class="circleButton" ng-click="startStoryboard(topPage().node, service)">
+                                <div class="circleButton"
+                                     ng-click="startStoryboard(topPage().node, service); $event.stopPropagation();">
                                     <i class="fa fa-play"></i>
                                 </div>
-                            </td>
+                            </td-->
                             <td style="padding-left: 20px;"
                                 ng-show="service._status == 'paused'">
-                                <div class="circleButton" ng-click="playStoryboard(topPage().node, service)">
+                                <div class="circleButton"
+                                     ng-click="playStoryboard(topPage().node, service); $event.stopPropagation();">
                                     <i class="fa fa-play"></i>
                                 </div>
                             </td>
                             <td style="padding-left: 20px;"
                                 ng-show="service._status == 'playing' || service._status == 'paused'">
-                                <div class="circleButton" ng-click="stopStoryboard(topPage().node, service)">
+                                <div class="circleButton"
+                                     ng-click="stopStoryboard(topPage().node, service); $event.stopPropagation();">
                                     <i class="fa fa-stop"></i>
                                 </div>
                             </td>

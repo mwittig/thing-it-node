@@ -638,9 +638,8 @@ define(
              */
             MobileConsole.prototype.callNodeService = function (node, service, parameters) {
                 if (service.type == "storyboard") {
-                    // TODO Skip for now - done with play button
-
-                    return;
+                    service._status = "playing";
+                    service._elapsedTime = 0;
                 }
 
                 ConsoleService.instance().callNodeService(node, service, parameters)
@@ -655,15 +654,15 @@ define(
              *
              */
             MobileConsole.prototype.startStoryboard = function (node, storyboard) {
+                storyboard._status = "playing";
+                storyboard._elapsedTime = 0;
+
                 ConsoleService.instance().callNodeService(node, storyboard)
                     .done(function () {
-                        storyboard._status = "playing";
-                        storyboard._elapsedTime = 0;
                     }).fail(function (error) {
                         this
                             .openMessageDialog(error, "error");
                     }.bind(this));
-
             };
 
             /**
