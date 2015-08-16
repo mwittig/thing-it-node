@@ -72,7 +72,7 @@ define(["js/Utils", "js/Device", "js/Group"], function (Utils, Device, Group) {
                 }
             }
 
-            throw "Cannot find Services [" + id + "].";
+            throw "Cannot find Service [" + id + "].";
         };
 
         /**

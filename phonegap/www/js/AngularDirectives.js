@@ -2,6 +2,25 @@ var thingItNode = (function () {
     return {
 
         initializePluginDirectives: function (module) {
+            module.filter('duration', function () {
+                return function (millseconds) {
+                    var seconds = Math.floor(millseconds / 1000);
+                    var h = 3600;
+                    var m = 60;
+                    var hours = Math.floor(seconds / h);
+                    var minutes = Math.floor((seconds % h) / m);
+                    var seconds = Math.floor((seconds % m));
+                    var timeString = '';
+
+                    if (seconds < 10) seconds = "0" + seconds;
+                    if (hours < 10) hours = "0" + hours;
+                    if (minutes < 10) minutes = "0" + minutes;
+
+                    timeString = hours + ":" + minutes + ":" + seconds;
+
+                    return timeString;
+                }
+            });
             module.directive('ngBlur', function () {
                 return function (scope, elem, attrs) {
                     elem.bind('blur', function () {

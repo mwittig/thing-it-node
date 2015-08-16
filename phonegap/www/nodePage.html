@@ -37,8 +37,45 @@
             </a>
             <a ng-repeat="service in topPage().node.services" class="list-group-item"
                ng-click="callNodeService(topPage().node, service)">
-                <i class="fa fa-gear"></i> {{service.label}} <i
-                    class="fa fa-chevron-right pull-right navigationIcon"></i>
+                <div ng-show="service.type != 'storyboard'">
+                    <i class="fa fa-gear"></i> {{service.label}} {{service.type}}<i
+                        class="fa fa-chevron-right pull-right navigationIcon"></i></div>
+                <div ng-show="service.type == 'storyboard'">
+                    <table>
+                        <tr>
+                            <td><i class="fa fa-gear"></i></td>
+                            <td style="padding-left: 3px;">{{service.label}}</td>
+                            <td style="padding-left: 20px; width: 80px;" ng-hide="service._elapsedTime == null">
+                                {{service._elapsedTime | duration}}
+                            </td>
+                            <td style="padding-left: 20px;"
+                                ng-show="service._status == 'playing'">
+                                <div class="circleButton" ng-click="pauseStoryboard(topPage().node, service)">
+                                    <i class="fa fa-pause"></i>
+                                </div>
+                            </td>
+                            <td style="padding-left: 20px;"
+                                ng-show="service._status == 'stopped' || !service._status">
+                                <div class="circleButton" ng-click="startStoryboard(topPage().node, service)">
+                                    <i class="fa fa-play"></i>
+                                </div>
+                            </td>
+                            <td style="padding-left: 20px;"
+                                ng-show="service._status == 'paused'">
+                                <div class="circleButton" ng-click="playStoryboard(topPage().node, service)">
+                                    <i class="fa fa-play"></i>
+                                </div>
+                            </td>
+                            <td style="padding-left: 20px;"
+                                ng-show="service._status == 'playing' || service._status == 'paused'">
+                                <div class="circleButton" ng-click="stopStoryboard(topPage().node, service)">
+                                    <i class="fa fa-stop"></i>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                    <i class="fa fa-chevron-right pull-right navigationIcon"></i>
+                </div>
             </a>
             <a ng-repeat="device in topPage().node.devices" class="list-group-item"
                ng-show="device.__type.tangible && !isDeviceInGroups(topPage().node, device)">
