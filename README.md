@@ -42,8 +42,28 @@ Let's set up a simple - but not too simple - home automation scenario:
 1. Two buttons to toggle the state of each lamp.
 1. A simple (mobile capable) web application to toggle the state of both lamps individually and together - alternatively to using the buttons - and to display the event under 2.
 
-If you are not so interested in tinkering with Microcontrollers and e.g. just intend to connect some Bluetooth LE Devices have a look at other Node Configurations
-on the [thing-it.com Mesh Market](http://www.thing-it.com/thing-it/index.html#/marketPanel).
+If you are not so interested in tinkering with Microcontrollers and e.g. just intend to
+
+* Control your Sonos Sound System?
+* Get your Smart Home with Aircable Bluetooth Dimmers and Texas Instruments Sensor Tags to work to control your lighting?
+* Control your drones?
+* Control your Art-Net/DMX lighting, fog machines etc.?
+* Configure a Universal Remote Control?
+* ...
+
+Then stop reading. Check what we have on git/npm under
+
+* (thing-it-device-sonos)[https://www.npmjs.com/package/thing-it-device-sonos]
+* (thing-it-device-aircable)[https://www.npmjs.com/package/thing-it-device-aircable]
+* (thing-it-device-ar-drone)[https://www.npmjs.com/package/thing-it-device-ar-drone]
+* (thing-it-device-ti-sensortag)[https://www.npmjs.com/package/thing-it-device-sensortag]
+* (thing-it-device-ti-art-net)[https://www.npmjs.com/package/thing-it-device-art-net]
+* (thing-it-device-itach)[https://www.npmjs.com/package/thing-it-device-itach]
+* and more every day ...
+
+Or check the [thing-it.com Mesh Market](http://www.thing-it.com/thing-it/index.html#/marketPanel).
+
+Or just continue reading ...
 
 ## Installing, Configuring and Running [thing-it-node]
 
