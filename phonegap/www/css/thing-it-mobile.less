@@ -171,7 +171,6 @@ i.treeHandle {
 }
 
 .btn-primary {
-  border-color: @primaryColor;
 }
 
 .btn-primary.disabled, .btn-primary[disabled] {
@@ -203,15 +202,15 @@ i.treeHandle {
   top: 0;
   left: 0;
   padding: 2px 5px 2px 5px;
-  background-color: lighten(@contrastColor, @lightPercentage);
-  color: darken(@contrastColor, @darkPercentage);
+  background-color: lighten(@contrastColor, 45);
+  color: lighten(@contrastColor, 15);
   text-transform: uppercase;
   border-color: @contrastColor;
   border-bottom-right-radius: 3px;
 }
 
 .componentPlugin {
-  margin-top: 20px;
+  margin-top: 45px;
 }
 
 .form-control {
