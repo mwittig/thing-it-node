@@ -203,6 +203,27 @@ module.exports = {
         actors: [],
         sensors: []
     }, {
+        label: "Samsung TV",
+        id: "samsungTv",
+        plugin: "itach/tvRemote",
+        configuration: {
+            simulated: true,
+            host: "192.168.10.1"
+        },
+        actors: [],
+        sensors: []
+    }, {
+        logLevel: "debug",
+        label: "iRobot Roomba",
+        id: "iRobotRoomba",
+        plugin: "itach/iRobotRoombaRemote",
+        configuration: {
+            simulated: true,
+            host: "192.168.10.1"
+        },
+        actors: [],
+        sensors: []
+    }, {
         label: "Surveillance Drone",
         id: "surveillanceDrone",
         plugin: "ar-drone/ardroneBluetoothLE",
@@ -219,7 +240,7 @@ module.exports = {
             label: "Dining Room",
             icon: "cutlery",
             subGroups: [],
-            devices: [],
+            devices: ["iRobotRoomba"],
             actors: ["arduino1.led1", "arduino1.led2"],
             sensors: ["arduino1.button1", "arduino1.button2",
                 "arduino1.photocell1"],
@@ -285,7 +306,7 @@ module.exports = {
         id: "ourEntertainment",
         label: "Our Entertainment",
         icon: "music",
-        devices: ["sonos", "yamaha"]
+        devices: ["samsungTv", "sonos", "yamaha"]
     }, {
         id: "ourSecurity",
         label: "Our Security",
