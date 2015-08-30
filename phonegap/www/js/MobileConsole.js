@@ -541,13 +541,14 @@ define(
              *
              */
             MobileConsole.prototype.pushSensorValue = function (sensor) {
-                ConsoleService.instance().pushSensorValue(sensor).done(
-                    function () {
-                    }).fail(function (error) {
-                        console.trace(error);
-
-                        this.openMessageDialog("Cannot push Sensor Event.");
-                    }.bind(this));
+                // TODO Deprecated cannot create sensor value from UI
+                //ConsoleService.instance().pushSensorValue(sensor).done(
+                //    function () {
+                //    }).fail(function (error) {
+                //        console.trace(error);
+                //
+                //        this.openMessageDialog("Cannot push Sensor Event.");
+                //    }.bind(this));
             };
 
             /**
@@ -555,20 +556,21 @@ define(
              */
             MobileConsole.prototype.pushSensorEvent = function (sensor,
                                                                 event) {
-                var self = this;
-
-                ConsoleService
-                    .instance()
-                    .pushSensorEvent(sensor, event)
-                    .done(function () {
-                    })
-                    .fail(
-                    function (error) {
-                        console.trace(error);
-
-                        this
-                            .openMessageDialog(error, "error");
-                    }.bind(this));
+                // TODO Deprecated cannot create sensor value from UI
+                //var self = this;
+                //
+                //ConsoleService
+                //    .instance()
+                //    .pushSensorEvent(sensor, event)
+                //    .done(function () {
+                //    })
+                //    .fail(
+                //    function (error) {
+                //        console.trace(error);
+                //
+                //        this
+                //            .openMessageDialog(error, "error");
+                //    }.bind(this));
             };
 
             /**

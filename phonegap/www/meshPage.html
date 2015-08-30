@@ -28,7 +28,7 @@
                         class="fa fa-calculator"></i> {{node.label}}
                 <i class="fa fa-question stateIcon" ng-show="node.state === 'disconnected'"></i>
                 <i class="fa fa-repeat fa-spin stateIcon" ng-show="node.state === 'running'"></i>
-                {{node.lastHeartbeat }}<i
+                {{node.lastHeartbeat }} <label style="margin-left: 10px;">Last Configured</label> {{node.lastConfigurationTimestamp | date:'dd/MM/yy HH:mm'}} <label style="margin-left: 10px;">[thing-it-node] Version</label> {{node.firmwareVersion}}<i
                     class="fa fa-chevron-right pull-right navigationIcon"></i>
             </a>
         </div>
