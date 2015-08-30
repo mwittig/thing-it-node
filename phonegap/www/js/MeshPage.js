@@ -35,6 +35,20 @@ define(["js/Utils", "js/ConsoleService"], function (Utils,
                 function (mesh) {
                     this.mesh = mesh;
 
+                    // Concurrently load Node states
+
+                    for (var n in this.mesh.nodes) {
+                        ConsoleService.instance().getNodeState(this.mesh.nodes[n]).done(function (state) {
+                            this.mesh.nodes[n].state = state.state;
+                            this.mesh.nodes[n].lastConfigurationTimestamp = state.lastConfigurationTimestamp;
+                            this.mesh.nodes[n].firmwareVersion = state.firmwareVersion;
+
+                            this.console.safeApply();
+                        }.bind(this)).fail(function (error) {
+                            console.error(error);
+                        }.bind(this));
+                    }
+
                     deferred.resolve();
                 }.bind(this)).fail(function (error) {
                     console.trace(error);

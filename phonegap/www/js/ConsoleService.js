@@ -238,6 +238,13 @@ define(["js/Utils", "js/Node"], function (Utils, Node) {
         /**
          *
          */
+        ConsoleService.prototype.getNodeState = function (node) {
+            return this.get(this.getNodeRootUrl(node) + "/state");
+        };
+
+        /**
+         *
+         */
         ConsoleService.prototype.connectNode = function (io, node) {
             var transports;
 
@@ -358,12 +365,20 @@ define(["js/Utils", "js/Node"], function (Utils, Node) {
             }
 
             if (component.device) {
-                // Actors and sensors
+                if (!component.device.__type) {
+                    return null;
+                }
+
+                // Actors and Sensors
 
                 return this.getComponentRootUrl()
                     + component.device.__type.pluginDirectory + "/web/";
             }
             else {
+                if (!component.__type) {
+                    return null;
+                }
+
                 return this.getComponentRootUrl() + component.__type.pluginDirectory + "/web/";
             }
         };
@@ -372,7 +387,7 @@ define(["js/Utils", "js/Node"], function (Utils, Node) {
          *
          */
         ConsoleService.prototype.getComponentPluginPath = function (component) {
-            if (!component) {
+            if (!component || !component.__type) {
                 return null;
             }
 
