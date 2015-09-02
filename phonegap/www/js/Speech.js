@@ -15,98 +15,35 @@ define(
              *
              */
             Speech.prototype.initialize = function (parent) {
-                this.listening = false;
+                this.active = false;
                 this.parent = parent;
 
-                this.contexts = {
-                    "Global": {
-                        productions: [{
-                            name: "Hello",
-                            sequence: [{
-                                token: "hello",
-                                reaction: function () {
-                                    this.utter("hello i am thing it, how can i help");
-                                }.bind(this)
-                            }]
-                        }, {
-                            name: "Help",
-                            sequence: [{
-                                token: "help",
-                                action: function () {
-                                    this.utter("no help in the global context");
-                                }.bind(this)
-                            }]
-                        }]
-                    },
-                    "Node": {
-                        productions: [{
-                            name: "Hello",
-                            sequence: [{
-                                token: "hello",
-                                action: function () {
-                                    this.utter("hello i am thing it how can i help");
-                                }.bind(this)
-                            }]
-                        }, {
-                            name: "Help",
-                            sequence: [{
-                                token: "help",
-                                synophones: ["held"],
-                                action: function () {
-                                    this.utter("you have selected a node");
-                                }.bind(this)
-                            }]
-                        }, {
-                            name: "Group Navigation",
-                            sequence: [{
-                                class: "Group",
-                                action: function (objects, object) {
-                                    this.utter("switching context to group " + object.label);
-                                }.bind(this)
-                            }]
-                        }, {
-                            name: "Node Service Call",
-                            sequence: [{
-                                class: "Service",
-                                action: function (objects, object) {
-                                    this.utter("invoking service " + object.label);
-                                }.bind(this)
-                            }]
-                        }, {
-                            name: "Device Service Call",
-                            sequence: [{
-                                class: "Device", action: function (objects, object) {
-                                    objects.device = object;
-                                }.bind(this)
-                            }, {
-                                class: "Service", action: function (objects, object) {
-                                    try {
-                                        this.utter("invoking " + object.label + " on " + objects.device.label);
-
-                                        this.parent.callDeviceService(objects.device, object.id);
-                                    }
-                                    catch (error) {
-                                        console.error(error);
-
-                                        this.utter(error);
-                                    }
-                                }.bind(this)
-                            }]
-                        }]
-                    }, "Group": {
-                        productions: [{
-                            name: "Back Navigation",
-                            sequence: [{
-                                token: "back",
-                                action: function () {
-                                    this.utter("back to node");
-                                }.bind(this)
-                            }]
-                        }]
-                    }
-                }
-
                 return this;
+            };
+
+            /**
+             *
+             */
+            Speech.prototype.setContext = function (context) {
+                this.context = context;
+            };
+
+            /**
+             *
+             */
+            Speech.prototype.activate = function () {
+                this.active = true;
+
+                this.listen();
+            };
+
+            /**
+             *
+             */
+            Speech.prototype.deactivate = function () {
+                this.recognition.abort();
+
+                this.active = false;
             };
 
             /**
@@ -115,7 +52,6 @@ define(
             Speech.prototype.listen = function () {
                 console.log("listen");
 
-                this.context = this.contexts["Node"]
                 this.listening = true;
                 this.recognition = new webkitSpeechRecognition();
                 this.synthesis = window.speechSynthesis;
@@ -179,102 +115,80 @@ define(
                 var originalTokens = tokens;
                 tokens = tokens.split(" ");
 
-                for (var n in tokens) {
-                    tokens[n] = tokens[n].toLowerCase();
+                for (var l in tokens) {
+                    tokens[l] = tokens[l].toLowerCase();
                 }
 
-                var currentContextObject = this.parent.node;
-                var objects = {};
+                console.log("tokens", tokens);
+
+                var candidateProduction;
+                var candidateProductionTokens;
 
                 for (var n in this.context.productions) {
-                    var production = this.context.productions[n];
+                    var productionTokens = this.context.productions[n].tokens.split(" ");
 
-                    console.log("Check production " + production.name);
+                    for (var l in productionTokens) {
+                        productionTokens[l] = productionTokens[l].toLowerCase();
+                    }
 
-                    //if (tokens.length != production.sequence.length) {
-                    //    console.log("Length do not match.");
-                    //    continue;
-                    //}
+                    console.log("Check production " + this.context.productions[n].name);
+                    console.log("Production Tokens", productionTokens);
 
-                    for (var m = 0; m < production.sequence.length; ++m) {
-                        var step = production.sequence[m];
+                    if (tokens.length != productionTokens.length) {
+                        console.log("Length does not match.");
+                        continue;
+                    }
 
-                        console.log("\t Step " + m);
+                    var match = true;
 
-                        if (step.token && !this.matchToken(tokens[m], step)) {
-                            console.log("Token " + tokens[m] + " does not match.");
+                    for (var m in tokens) {
+                        if (!this.matchToken(tokens[m], productionTokens[m])) {
+                            console.log("Token " + tokens[m] + " and " + productionTokens[m] + " does not match.");
+
+                            match = false;
 
                             break;
                         }
-                        else if (step.class) {
-                            // Check maximum of 3 concatenated tokens as object labels
-                            // TODO Could check till the end of sequence
 
-                            var label = "";
-                            var newContextObject = null;
+                    }
 
-                            for (var l = m; l < tokens.length; ++l) {
-                                if (l > 0) {
-                                    label += " ";
-                                }
+                    if (match && (!candidateProductionTokens || productionTokens.length > candidateProductionTokens.length)) {
 
-                                label += tokens[m + l];
-
-                                console.log("Trying label [" + label + "]");
-
-                                newContextObject = this.matchObject(label, step, currentContextObject);
-
-                                if (newContextObject) {
-                                    break;
-                                }
-
-                                console.log("No context object.");
-                            }
-
-                            if (!newContextObject) {
-                                console.log("No context object found.");
-
-                                break;
-                            }
-
-                            currentContextObject = newContextObject;
-
-                            console.log("Current Context Object", currentContextObject);
-                        }
-
-                        if (step.action) {
-                            step.action(objects, currentContextObject);
-                        }
-
-                        if (m == production.sequence.length - 1) {
-                            console.log("Production completed");
-
-                            this.listen();
-
-                            return;
-                        }
+                        candidateProduction = this.context.productions[n];
+                        candidateProductionTokens = productionTokens;
                     }
                 }
 
-                this.utter("I do not understand " + originalTokens);
+                if (candidateProduction)
+                {
+                    console.log("Matching production", candidateProduction);
+                    candidateProduction.action();
+                }
+                else
+                {
+                    console.log("No match found");
+
+                    this.utter("I do not understand " + originalTokens);
+                }
+
                 this.listen();
             };
 
             /**
              *
              */
-            Speech.prototype.matchToken = function (token, tokenStep) {
-                if (token == tokenStep.token) {
+            Speech.prototype.matchToken = function (token, productionToken) {
+                if (token == productionToken) {
                     return true;
                 }
 
-                if (tokenStep.synophones) {
-                    for (var n in tokenStep.synophones[n]) {
-                        if (token == tokenStep.synophones[n]) {
-                            return true;
-                        }
-                    }
-                }
+                //if (tokenStep.synophones) {
+                //    for (var n in tokenStep.synophones[n]) {
+                //        if (token == tokenStep.synophones[n]) {
+                //            return true;
+                //        }
+                //    }
+                //}
 
                 return false;
             };
@@ -297,16 +211,6 @@ define(
 
                 return null;
             };
-
-            /**
-             *
-             */
-            Speech.prototype.hold = function (token) {
-                this.recognition.abort();
-
-                this.listening = false;
-            };
         }
     }
-)
-;
+);

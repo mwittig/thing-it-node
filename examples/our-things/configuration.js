@@ -138,6 +138,34 @@ module.exports = {
         actors: [],
         sensors: []
     }, {
+        label: "Philips Hue Bridge",
+        id: "philipsHueBridge",
+        plugin: "philips-hue/hueBridge",
+        logLevel: "debug",
+        configuration: {},
+        actors: [{
+            id: "lightBulbKitchenCounter",
+            label: "Light Bulb Kitchen Counter",
+            type: "lightBulb",
+            configuration: {
+                "index": 1
+            }
+        }, {
+            id: "lightBulbCouch",
+            label: "Light Bulb Couch",
+            type: "lightBulb",
+            configuration: {
+                "index": 2
+            }
+        }, {
+            id: "lightBulbBar",
+            label: "Light Bulb Bar",
+            type: "lightBulb",
+            configuration: {
+                "index": 3
+            }
+        }], sensors: []
+    }, {
         uuid: "9ef7f55f18d448e4888f34ca397753ef",
         id: "sensorTagDiningRoom",
         label: "Sensor Tag Dining Room",
@@ -244,6 +272,15 @@ module.exports = {
             actors: ["arduino1.led1", "arduino1.led2"],
             sensors: ["arduino1.button1", "arduino1.button2",
                 "arduino1.photocell1"],
+            services: ["toggleAll"]
+        }, {
+            id: "lounge",
+            label: "Lounge",
+            icon: "coffee",
+            subGroups: [],
+            actors: ["philipsHueBridge.lightBulbKitchenCounter",
+                "philipsHueBridge.lightBulbCouch", "philipsHueBridge.lightBulbBar"],
+            sensors: [],
             services: ["toggleAll"]
         }, {
             id: "masterBedroom",
