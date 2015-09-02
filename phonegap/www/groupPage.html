@@ -12,6 +12,12 @@
             <i class="fa fa-bars"></i>
         </div>
     </div>
+    <div class="btn-group pull-right">
+        <div class="btn">
+            <a ng-hide="speech.active" ng-click="speech.activate()"><i class="fa fa-microphone"></i></a>
+            <a ng-show="speech.active" ng-click="speech.deactivate()"><i class="fa fa-microphone-slash"></i></a>
+        </div>
+    </div>
 </div>
 
 <div class="scrollable" ui-state="searchBar">

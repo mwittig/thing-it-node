@@ -44,6 +44,14 @@
                                 State Change</label></td>
                             <td>{{formatDateTime(topPage().device.lastStateChangeTimestamp)}}</td>
                         </tr>
+                        <tr ng-repeat="field in topPage().device.__type.state">
+                            <td><label>{{field.label}}</label></td>
+                            <td><span ng-hide="field.type.id == 'boolean'">{{topPage().device._state[field.id]}}</span>
+                            <span ng-show="field.type.id == 'boolean' && topPage().device._state[field.id]"><i
+                                    class="fa fa-check-square-o"></i></span><span
+                                    ng-show="field.type.id == 'boolean' && !topPage().device._state[field.id]"><i
+                                    class="fa fa-square-o"></i></span></td>
+                        </tr>
                     </table>
                 </div>
             </div>

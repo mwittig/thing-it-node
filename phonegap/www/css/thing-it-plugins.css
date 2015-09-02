@@ -9,7 +9,7 @@
   width: 100%;
   height: 0;
   padding-bottom: 100%;
-  background: #76a4de;
+  background: #8ab2e3;
   -moz-border-radius: 50%;
   -webkit-border-radius: 50%;
   border-radius: 50%;
@@ -136,7 +136,7 @@ table.buttonGrid td {
 /* Switch */
 .onoffswitch {
   position: relative !important;
-  width: 70px !important;
+  width: 40px !important;
   -webkit-user-select: none !important;
   -moz-user-select: none !important;
   -ms-user-select: none !important;
@@ -150,7 +150,7 @@ table.buttonGrid td {
   cursor: pointer;
   font-size: 16px;
   border: 1px solid #CCC;
-  border-radius: 18px;
+  border-radius: 16px;
 }
 .onoffswitch-inner {
   display: block;
@@ -163,9 +163,9 @@ table.buttonGrid td {
   display: block;
   float: left;
   width: 50%;
-  height: 20px;
+  height: 15px;
   padding: 0;
-  line-height: 20px;
+  line-height: 15px;
   font-size: 12px;
   color: white;
   font-family: 'Titillium Web', sans-serif;
@@ -175,7 +175,7 @@ table.buttonGrid td {
 .onoffswitch-inner:before {
   content: " ";
   padding-left: 0px;
-  background-color: #76a4de;
+  background-color: #8ab2e3;
   color: #FFFFFF;
 }
 .onoffswitch-inner:after {
@@ -187,15 +187,15 @@ table.buttonGrid td {
 }
 .onoffswitch-switch {
   display: block;
-  width: 22px;
+  width: 17px;
   margin: 0px;
   background: #FFFFFF;
   position: absolute;
   top: 0;
   bottom: 0;
-  right: 48px;
-  border: 1px solid #76a4de;
-  border-radius: 20px;
+  right: 28px;
+  border: 1px solid #8ab2e3;
+  border-radius: 16px;
   -webkit-box-shadow: 2px 2px 2px 0px #cccccc !important;
   -moz-box-shadow: 2px 2px 2px 0px #cccccc !important;
   box-shadow: 2px 2px 2px 0px #cccccc !important;
@@ -238,17 +238,17 @@ table.buttonGrid td {
 .irs-bar {
   height: 15px;
   top: 33px;
-  border-top: 1px solid #76a4de;
-  border-bottom: 1px solid #76a4de;
-  background: #76a4de;
+  border-top: 1px solid #8ab2e3;
+  border-bottom: 1px solid #8ab2e3;
+  background: #8ab2e3;
 }
 .irs-bar-edge {
   height: 15px;
   top: 33px;
   width: 14px;
-  border: 1px solid #76a4de;
+  border: 1px solid #8ab2e3;
   border-right: 0;
-  background: #76a4de;
+  background: #8ab2e3;
   border-radius: 16px 0 0 16px;
   -moz-border-radius: 16px 0 0 16px;
 }

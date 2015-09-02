@@ -51,6 +51,8 @@ define(["js/Utils", "js/ConsoleService"], function (Utils,
 
                 this.services = this.node.services;
 
+                this.initializeSpeech();
+
                 deferred.resolve();
             }
             catch (error) {
@@ -60,6 +62,42 @@ define(["js/Utils", "js/ConsoleService"], function (Utils,
             }
 
             return deferred.promise();
+        };
+
+        /**
+         *
+         */
+        NodePage.prototype.initializeSpeech = function () {
+            var context = {productions: []};
+
+            context.productions.push({
+                name: "help",
+                tokens: "help",
+                synophones: "held",
+                action: function () {
+                    this.console.speech.utter("You have selected node " + this.node.label);
+                }.bind(this)
+            });
+            context.productions.push({
+                name: "Context",
+                tokens: "context",
+                action: function () {
+                    this.console.speech.utter("You have selected node " + this.node.label);
+                }.bind(this)
+            });
+
+            for (var n in this.node.groups) {
+                context.productions.push({
+                    name: "Group Navigation",
+                    tokens: this.node.groups[n].label,
+                    action: function () {
+                        this.console.speech.utter("switching context to group " + this.node.groups[n].label);
+                        this.console.pushGroupPage(this.node.groups[n]);
+                    }.bind(this)
+                });
+            }
+
+            this.console.speech.setContext(context);
         };
 
         /**

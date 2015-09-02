@@ -368,8 +368,22 @@ var thingItNode = (function () {
                     template: "<div style='width: 30px; height: 30px; border: 1px solid #999999;'><i></i></div>",
                     link: function (scope, element, attrs) {
                         var div = jQuery(element).find("div");
+                        var options = scope.$eval(attrs.tiOptions);
 
-                        div.colorpicker({component: div}).on('changeColor.colorpicker', function (event) {
+                        options = options ? options : {};
+                        options.component = div;
+
+                        if (attrs.style) {
+                            var styles = attrs.style.split(";");
+                            for (var n in styles) {
+                                if (styles[n].trim().length) {
+                                    var style = styles[n].split(":");
+                                    div.css(style[0].trim(), style[1].trim());
+                                }
+                            }
+                        }
+
+                        div.colorpicker(options).on('changeColor.colorpicker', function (event) {
                             scope.$eval(attrs.ngModel + "='" + event.color.toHex() + "'");
                         });
 
