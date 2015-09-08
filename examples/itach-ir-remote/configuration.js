@@ -7,8 +7,19 @@ module.exports = {
         id: "tv",
         plugin: "itach/tvRemote",
         configuration: {
-            simulated: true,
-            host: "192.168.10.1"
+            simulated: false,
+            host: "192.168.1.5"
+        },
+        actors: [],
+        sensors: []
+    }, {
+        logLevel: "debug",
+        label: "EMOTIVA RM-100",
+        id: "emotivaRm100",
+        plugin: "itach/emotivaRm100",
+        configuration: {
+            simulated: false,
+            host: "192.168.1.5"
         },
         actors: [],
         sensors: []
@@ -18,8 +29,8 @@ module.exports = {
         id: "iRobotRoomba",
         plugin: "itach/iRobotRoombaRemote",
         configuration: {
-            simulated: true,
-            host: "192.168.10.1"
+            simulated: false,
+            host: "192.168.1.5"
         },
         actors: [],
         sensors: []
@@ -29,8 +40,8 @@ module.exports = {
         id: "irSniffer",
         plugin: "itach/irSniffer",
         configuration: {
-            simulated: true,
-            host: "192.168.10.1"
+            simulated: false,
+            host: "192.168.1.5"
         },
         actors: [],
         sensors: []
