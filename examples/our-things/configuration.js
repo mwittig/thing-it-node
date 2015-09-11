@@ -195,7 +195,7 @@ module.exports = {
         configuration: {},
         actors: [],
         sensors: []
-    }, {
+    }/*, {
         label: "USB Camera",
         id: "usbCamera",
         plugin: "usb-camera/usbCamera",
@@ -209,7 +209,7 @@ module.exports = {
         },
         actors: [],
         sensors: []
-    }, {
+    }*/, {
         label: "Sonos",
         id: "sonos",
         plugin: "sonos/sonos",
@@ -348,7 +348,7 @@ module.exports = {
         id: "ourSecurity",
         label: "Our Security",
         icon: "video-camera",
-        devices: ["usbCamera", "surveillanceDrone"]
+        devices: [/*"usbCamera",*/ "surveillanceDrone"]
     }],
     services: [{
         id: "toggleAll",
