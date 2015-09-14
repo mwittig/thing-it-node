@@ -260,6 +260,10 @@ The browser content should look like
 
 If you have remote (e.g. Wifi) access to the computer running the **[thing-it-node]**, you may also use a mobile device (e.g. an iPhone or iPad) to connect to your simple lighting system.
 
+Note, that instead of the browser-based UI - mobile or on your computer - you can alternatively use the native apps provided with the
+[thing-it Mobile UI](https://github.com/marcgille/thing-it-mobile) configured eitherto directly access yur local Node Computer
+or use *thing-it.com* (see below) as a bridge.
+
 ## Summary
 
 Let us recap what we did:
