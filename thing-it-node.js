@@ -12,21 +12,24 @@ var io = new Server({
     transports: ["websocket", "htmlfile", "xhr-polling", "jsonp-polling"]
 });
 
-app.use(express.static(__dirname + "/phonegap/www"));
-
-// TODO Provide all device plugin pathes
-
-//app.use("/default-devices", express.static(__dirname + "/lib/default-devices"));
-//app.use('/examples', express.static(__dirname + '/examples'));
-app.use("/", express.static(__dirname + "/"));
-
-app.use(bodyParser.json());
 app.use(function (req, res, next) {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-    res.header('Access-Control-Allow-Headers', 'Content-Type');
-    next();
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header('Access-Control-Allow-Methods', 'POST, GET, PUT, DELETE, OPTIONS');
+    res.header("Access-Control-Allow-Headers",
+        "accept, origin, content-type, cookie, X-Requested-With, X-HTTP-Method-Override");
+    res.header("Access-Control-Allow-Credentials", true);
+
+    if (req.method === 'OPTIONS') {
+        // Fulfills pre-flight/promise request
+
+        res.send(200);
+    } else {
+        next();
+    }
 });
+app.use(express.static(__dirname + "/node_modules/thing-it-mobile/www"));
+app.use("/", express.static(__dirname + "/"));
+app.use(bodyParser.json());
 
 var server = app
     .listen(
