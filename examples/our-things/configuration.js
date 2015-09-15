@@ -137,7 +137,7 @@ module.exports = {
         },
         actors: [],
         sensors: []
-    }, /*{
+    }, {
         label: "Philips Hue Bridge",
         id: "philipsHueBridge",
         plugin: "philips-hue/hueBridge",
@@ -165,7 +165,7 @@ module.exports = {
                 "index": 3
             }
         }], sensors: []
-    },*/ {
+    }, {
         uuid: "9ef7f55f18d448e4888f34ca397753ef",
         id: "sensorTagDiningRoom",
         label: "Sensor Tag Dining Room",
@@ -196,20 +196,20 @@ module.exports = {
         actors: [],
         sensors: []
     }/*, {
-        label: "USB Camera",
-        id: "usbCamera",
-        plugin: "usb-camera/usbCamera",
-        configuration: {
-            inputFormat: "avfoundation",
-            inputDevice: "0",
-            videoWidth: 320,
-            videoHeight: 180,
-            bufferFiles: 2,
-            latency: 5
-        },
-        actors: [],
-        sensors: []
-    }*/, {
+     label: "USB Camera",
+     id: "usbCamera",
+     plugin: "usb-camera/usbCamera",
+     configuration: {
+     inputFormat: "avfoundation",
+     inputDevice: "0",
+     videoWidth: 320,
+     videoHeight: 180,
+     bufferFiles: 2,
+     latency: 5
+     },
+     actors: [],
+     sensors: []
+     }*/, {
         label: "Sonos",
         id: "sonos",
         plugin: "sonos/sonos",
@@ -278,8 +278,8 @@ module.exports = {
             label: "Lounge",
             icon: "coffee",
             subGroups: [],
-            actors: [/*"philipsHueBridge.lightBulbKitchenCounter",
-                "philipsHueBridge.lightBulbCouch", "philipsHueBridge.lightBulbBar"*/],
+            actors: ["philipsHueBridge.lightBulbKitchenCounter",
+                "philipsHueBridge.lightBulbCouch", "philipsHueBridge.lightBulbBar"],
             sensors: [],
             services: ["toggleAll"]
         }, {
