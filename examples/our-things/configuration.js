@@ -137,7 +137,7 @@ module.exports = {
         },
         actors: [],
         sensors: []
-    }, {
+    }/*, {
         label: "Philips Hue Bridge",
         id: "philipsHueBridge",
         plugin: "philips-hue/hueBridge",
@@ -165,7 +165,7 @@ module.exports = {
                 "index": 3
             }
         }], sensors: []
-    }, {
+    }*/, {
         uuid: "9ef7f55f18d448e4888f34ca397753ef",
         id: "sensorTagDiningRoom",
         label: "Sensor Tag Dining Room",
@@ -262,11 +262,11 @@ module.exports = {
     groups: [{
         id: "group1",
         label: "Our Home",
-        icon: "home",
+        icon: "icon sl-house-1",
         subGroups: [{
             id: "diningRoom",
             label: "Dining Room",
-            icon: "cutlery",
+            icon: "icon sl-fork-and-knife",
             subGroups: [],
             devices: ["iRobotRoomba"],
             actors: ["arduino1.led1", "arduino1.led2"],
@@ -276,16 +276,16 @@ module.exports = {
         }, {
             id: "lounge",
             label: "Lounge",
-            icon: "coffee",
+            icon: "icon sl-sofa-3",
             subGroups: [],
-            actors: ["philipsHueBridge.lightBulbKitchenCounter",
-                "philipsHueBridge.lightBulbCouch", "philipsHueBridge.lightBulbBar"],
+            actors: [/*"philipsHueBridge.lightBulbKitchenCounter",
+                "philipsHueBridge.lightBulbCouch", "philipsHueBridge.lightBulbBar"*/],
             sensors: [],
             services: ["toggleAll"]
         }, {
             id: "masterBedroom",
             label: "Master Bedroom",
-            icon: "bed",
+            icon: "icon sl-bed",
             subGroups: [],
             devices: ["airCableSmartDimmerMasterBedroom1", "airCableSmartDimmerMasterBedroom2", "airCableSmartDimmerMasterBedroom3"],
             actors: [],
@@ -294,7 +294,7 @@ module.exports = {
         }, {
             id: "bedroomSandra",
             label: "Bedroom Sandra",
-            icon: "bed",
+            icon: "icon sl-bed",
             subGroups: [],
             actors: [],
             sensors: [],
@@ -302,7 +302,7 @@ module.exports = {
         }, {
             id: "bedroomKevin",
             label: "Bedroom Kevin",
-            icon: "bed",
+            icon: "icon sl-bed",
             subGroups: [],
             actors: [],
             sensors: [],
@@ -310,7 +310,7 @@ module.exports = {
         }, {
             id: "partyRoom",
             label: "Party Room",
-            icon: "glass",
+            icon: "icon sl-cocktail-2",
             subGroups: [],
             actors: ["arduino1.rgbLed1", "artNetUniverse1.rgbLed1"],
             sensors: ["arduino1.potentiometerRed", "arduino1.potentiometerGreen", "arduino1.potentiometerBlue"],
@@ -318,7 +318,7 @@ module.exports = {
         }, {
             id: "garden",
             label: "Garden",
-            icon: "tree",
+            icon: "icon sl-tree",
             subGroups: [],
             devices: ["sensorTagDiningRoom"],
             actors: [],
@@ -327,7 +327,7 @@ module.exports = {
         }, {
             id: "garage",
             label: "Garage",
-            icon: "car",
+            icon: "icon sl-car-3",
             subGroups: [],
             devices: [],
             actors: ["arduino1.servo1"],
@@ -337,17 +337,17 @@ module.exports = {
     }, {
         id: "ourHealth",
         label: "Our Health",
-        icon: "heartbeat",
+        icon: "icon sl-heartpulse",
         devices: ["heartMonitorJenn", "heartMonitorFrank"]
     }, {
         id: "ourEntertainment",
         label: "Our Entertainment",
-        icon: "music",
+        icon: "icon sl-notes-1",
         devices: ["samsungTv", "sonos", "yamaha"]
     }, {
         id: "ourSecurity",
         label: "Our Security",
-        icon: "video-camera",
+        icon: "icon sl-camera-symbol-3",
         devices: [/*"usbCamera",*/ "surveillanceDrone"]
     }],
     services: [{
