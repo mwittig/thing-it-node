@@ -252,7 +252,7 @@ You should also be able switch both LEDs on and off via the respective buttons o
 
 Connect your browser to 
 
-`http://localhost:3001/mobile/console.html`
+`http://localhost:3001/mobile/index.html`
 
 The browser content should look like
 
