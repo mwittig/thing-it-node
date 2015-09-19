@@ -254,11 +254,9 @@ Connect your browser to
 
 `http://localhost:3001/mobile/index.html`
 
-The browser content should look like
+From a mobile device, replace **localhost** by the IP address of the computer running [thing-it] Node The browser content should look like
 
 <p align="center"><a href="./documentation/images/mobile-client.png"><img src="./documentation/images/mobile-client.png" width="70%" height="70%"></a></p>
-
-If you have remote (e.g. Wifi) access to the computer running the **[thing-it-node]**, you may also use a mobile device (e.g. an iPhone or iPad) to connect to your simple lighting system.
 
 Note, that instead of the browser-based UI - mobile or on your computer - you can alternatively use the native apps provided with the
 [[thing-it] Mobile UI](https://github.com/marcgille/thing-it-mobile) configured either to directly access your local Node Computer
