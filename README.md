@@ -256,7 +256,7 @@ Connect your browser to
 
 The browser content should look like
 
-<p align="center"><a href="./documentation/images/mobile-client.png"><img src="./documentation/images/mobile-client.png" width="40%" height="40%"></a></p>
+<p align="center"><a href="./documentation/images/mobile-client.png"><img src="./documentation/images/mobile-client.png" width="70%" height="70%"></a></p>
 
 If you have remote (e.g. Wifi) access to the computer running the **[thing-it-node]**, you may also use a mobile device (e.g. an iPhone or iPad) to connect to your simple lighting system.
 
