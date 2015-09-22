@@ -2,13 +2,13 @@ module.exports = {
     label: "Suite 1302 Lighting",
     id: "suite1302Lighting",
     autoDiscoveryDeviceTypes: [{
-        plugin: "philips-hue/hueBridge",
-        confirmRegistration: true,
-        persistRegistration: false,
-        defaultConfiguration: {
-        },
-        options: {}
-    }],
+     plugin: "philips-hue/hueBridge",
+     confirmRegistration: true,
+     persistRegistration: false,
+     defaultConfiguration: {
+     },
+     options: {}
+     }],
     devices: [{
         label: "Philips Hue Bridge",
         id: "philipsHueBridge",
