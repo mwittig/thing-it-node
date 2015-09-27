@@ -137,7 +137,7 @@ module.exports = {
         },
         actors: [],
         sensors: []
-    }/*, {
+    }, {
         label: "Philips Hue Bridge",
         id: "philipsHueBridge",
         plugin: "philips-hue/hueBridge",
@@ -158,14 +158,14 @@ module.exports = {
                 "index": 2
             }
         }, {
-            id: "lightBulbBar",
-            label: "Light Bulb Bar",
-            type: "lightBulb",
+            id: "livingColorLampBar",
+            label: "Living Color Lamp Bar",
+            type: "livingColorLamp",
             configuration: {
                 "index": 3
             }
         }], sensors: []
-    }*/, {
+    }, {
         uuid: "9ef7f55f18d448e4888f34ca397753ef",
         id: "sensorTagDiningRoom",
         label: "Sensor Tag Dining Room",
@@ -278,8 +278,8 @@ module.exports = {
             label: "Lounge",
             icon: "icon sl-sofa-3",
             subGroups: [],
-            actors: [/*"philipsHueBridge.lightBulbKitchenCounter",
-                "philipsHueBridge.lightBulbCouch", "philipsHueBridge.lightBulbBar" */ ],
+            actors: ["philipsHueBridge.lightBulbKitchenCounter",
+                "philipsHueBridge.lightBulbCouch", "philipsHueBridge.livingColorLampBar"],
             sensors: [],
             services: ["toggleAll"]
         }, {
