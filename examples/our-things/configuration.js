@@ -6,28 +6,32 @@ module.exports = {
         label: "Arduino Uno 1",
         id: "arduino1",
         plugin: "microcontroller/arduino",
+        configuration: {simulated: true},
         actors: [{
             id: "led1",
             label: "LED1",
             type: "led",
             configuration: {
-                "pin": 12
+                pin: 12,
+                simulated: true
             }
         }, {
             id: "led2",
             label: "LED2",
             type: "led",
             configuration: {
-                "pin": 13
+                pin: 13,
+                simulated: true
             }
         }, {
             id: "rgbLed1",
             label: "LED (RGB)",
             type: "rgbLed",
             configuration: {
-                "pinRed": 3,
-                "pinGreen": 5,
-                "pinBlue": 6
+                pinRed: 3,
+                pinGreen: 5,
+                pinBlue: 6,
+                simulated: true
             }
         }, {
             id: "servo1",
@@ -37,7 +41,8 @@ module.exports = {
                 pin: 10,
                 minimum: 45,
                 maximum: 135,
-                startAt: 120
+                startAt: 120,
+                simulated: true
             }
         }],
         sensors: [{
@@ -45,22 +50,25 @@ module.exports = {
             label: "Button 1",
             type: "button",
             configuration: {
-                "pin": 2
+                pin: 2,
+                simulated: true
             }
         }, {
             id: "button2",
             label: "Button 2",
             type: "button",
             configuration: {
-                "pin": 4
+                pin: 4,
+                simulated: true
             }
         }, {
             id: "photocell1",
             label: "Photocell 1",
             type: "photocell",
             configuration: {
-                "pin": "A0",
-                "rate": 2000
+                pin: "A0",
+                rate: 2000,
+                simulated: true
             }
         }, {
             id: "potentiometerRed",
@@ -70,7 +78,8 @@ module.exports = {
                 pin: "A0",
                 rate: 100,
                 min: 0,
-                max: 255
+                max: 255,
+                simulated: true
             }
         }, {
             id: "potentiometerGreen",
@@ -80,7 +89,8 @@ module.exports = {
                 pin: "A1",
                 rate: 100,
                 min: 0,
-                max: 255
+                max: 255,
+                simulated: true
             }
         }, {
             id: "potentiometerBlue",
@@ -90,7 +100,8 @@ module.exports = {
                 pin: "A2",
                 rate: 100,
                 min: 0,
-                max: 255
+                max: 255,
+                simulated: true
             }
         }]
     }, {
@@ -104,7 +115,8 @@ module.exports = {
             label: "RGB LED1",
             type: "rgbLed",
             configuration: {
-                "dmxStartAddress": 1
+                dmxStartAddress: 1,
+                simulated: true
             }
         }], sensors: []
     }, {
@@ -113,7 +125,8 @@ module.exports = {
         plugin: "aircable/airCableSmartDimmer",
         configuration: {
             minimum: 0,
-            maximum: 100
+            maximum: 100,
+            simulated: true
         },
         actors: [],
         sensors: []
@@ -123,7 +136,8 @@ module.exports = {
         plugin: "aircable/airCableSmartDimmer",
         configuration: {
             minimum: 0,
-            maximum: 100
+            maximum: 100,
+            simulated: true
         },
         actors: [],
         sensors: []
@@ -133,7 +147,8 @@ module.exports = {
         plugin: "aircable/airCableSmartDimmer",
         configuration: {
             minimum: 0,
-            maximum: 100
+            maximum: 100,
+            simulated: true
         },
         actors: [],
         sensors: []
@@ -142,27 +157,33 @@ module.exports = {
         id: "philipsHueBridge",
         plugin: "philips-hue/hueBridge",
         logLevel: "debug",
-        configuration: {},
+        configuration: {simulated: true},
         actors: [{
             id: "lightBulbKitchenCounter",
             label: "Light Bulb Kitchen Counter",
             type: "lightBulb",
+            logLevel: "debug",
             configuration: {
-                "index": 1
+                index: 1,
+                simulated: true
             }
-        }, {
+        }/*, {
             id: "lightBulbCouch",
             label: "Light Bulb Couch",
             type: "lightBulb",
+            logLevel: "debug",
             configuration: {
-                "index": 2
+                index: 2,
+                simulated: true
             }
-        }, {
+        }*/, {
             id: "livingColorLampBar",
             label: "Living Color Lamp Bar",
             type: "livingColorLamp",
+            logLevel: "debug",
             configuration: {
-                "index": 3
+                index: 3,
+                simulated: true
             }
         }], sensors: []
     }, {
@@ -177,7 +198,8 @@ module.exports = {
             accelerometerEnabled: false,
             gyroscopeEnabled: false,
             magnetometerEnabled: false,
-            humidityEnabled: true
+            humidityEnabled: true,
+            simulated: true
         },
         actors: [],
         sensors: []
@@ -185,14 +207,14 @@ module.exports = {
         id: "heartMonitorJenn",
         label: "Heart Monitor Jenn",
         plugin: "btle-heart-rate-monitor/btleHeartRateMonitor",
-        configuration: {},
+        configuration: {simulated: true},
         actors: [],
         sensors: []
     }, {
         id: "heartMonitorFrank",
         label: "Heart Monitor Frank",
         plugin: "btle-heart-rate-monitor/btleHeartRateMonitor",
-        configuration: {},
+        configuration: {simulated: true},
         actors: [],
         sensors: []
     }/*, {
@@ -215,7 +237,8 @@ module.exports = {
         plugin: "sonos/sonos",
         configuration: {
             host: "sonosHost",
-            name: "My Sonos"
+            name: "My Sonos",
+            simulated: true
         },
         actors: [],
         sensors: []
@@ -226,7 +249,8 @@ module.exports = {
         configuration: {
             host: "yamahaHost",
             name: "Yamaha Host",
-            updateInterval: 10000
+            updateInterval: 10000,
+            simulated: true
         },
         actors: [],
         sensors: []
@@ -236,7 +260,8 @@ module.exports = {
         plugin: "itach/tvRemote",
         configuration: {
             simulated: true,
-            host: "192.168.10.1"
+            host: "192.168.10.1",
+            simulated: true
         },
         actors: [],
         sensors: []
@@ -249,13 +274,14 @@ module.exports = {
             simulated: true,
             host: "192.168.10.1"
         },
+        simulated: true,
         actors: [],
         sensors: []
     }, {
         label: "Surveillance Drone",
         id: "surveillanceDrone",
         plugin: "ar-drone/ardroneBluetoothLE",
-        configuration: [],
+        configuration: {simulated: true},
         actors: [],
         sensors: []
     }],
@@ -279,7 +305,7 @@ module.exports = {
             icon: "icon sl-sofa-3",
             subGroups: [],
             actors: ["philipsHueBridge.lightBulbKitchenCounter",
-                "philipsHueBridge.lightBulbCouch", "philipsHueBridge.livingColorLampBar"],
+                /*"philipsHueBridge.lightBulbCouch", */"philipsHueBridge.livingColorLampBar"],
             sensors: [],
             services: ["toggleAll"]
         }, {
