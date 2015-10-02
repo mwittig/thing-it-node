@@ -1,6 +1,6 @@
 {
   "name": "thing-it-node",
-  "version": "0.3.9",
+  "version": "0.3.10",
   "description": "thing-it Node Server",
   "main": "lib/node.js",
   "scripts": {},
@@ -25,7 +25,7 @@
     "thing-it-device-art-net": "0.0.19",
     "thing-it-device-btle-heart-rate-monitor": "0.0.6",
     "thing-it-device-itach": "0.0.27",
-    "thing-it-device-microcontroller": "0.0.30",
+    "thing-it-device-microcontroller": "0.0.2",
     "thing-it-device-philips-hue": "^0.1.1",
     "thing-it-device-sonos": "^0.2.1",
     "thing-it-device-ti-sensortag": "^0.1.3",
