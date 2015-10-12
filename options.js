@@ -10,8 +10,8 @@ module.exports = {
     verifyCallSignature: false,
     authentication: "none",//"user",
     logLevel: "debug",
-    //uuid: "06f66250-241d-11e5-908b-d1730e52aab0",
+    uuid: "06f66250-241d-11e5-908b-d1730e52aab0",
     //uuid: "c0fb5520-2418-11e5-948f-2764e628de85",
-    //proxy: "https://www.thing-it.com",
+    proxy: "https://www.thing-it.com",
     //proxy: "http://localhost:3000",
 };
