@@ -27,8 +27,8 @@ app.use(function (req, res, next) {
         next();
     }
 });
-app.use(express.static(__dirname + "/node_modules/thing-it-mobile/www"));
-app.use("/", express.static(__dirname + "/"));
+app.use(express.static(__dirname + "/www"));
+app.use("/node_modules", express.static(__dirname + "/node_modules"));
 app.use(bodyParser.json());
 
 var server = app
