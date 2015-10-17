@@ -258,9 +258,7 @@ From a mobile device, replace **localhost** by the IP address of the computer ru
 
 <p align="center"><a href="./documentation/images/mobile-client.png"><img src="./documentation/images/mobile-client.png" width="70%" height="70%"></a></p>
 
-Note, that instead of the browser-based UI - mobile or on your computer - you can alternatively use the native apps provided with the
-[[thing-it] Mobile UI](https://github.com/marcgille/thing-it-mobile) configured either to directly access your local Node Computer
-or use [thing-it.com](http://www.thing-it.com) (see below) as a bridge.
+Note, that instead of the browser-based UI - mobile or on your computer - you will soon be able to alternatively use the native app we are preparing.
 
 ## Summary
 
