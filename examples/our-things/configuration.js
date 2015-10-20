@@ -180,7 +180,12 @@ module.exports = {
         "actors": [],
         "sensors": []
     }],
-    "services": [{"id": "toggleAll", "label": "Toggle All", "type": "script"}, {
+    "services": [{
+        "id": "toggleAll",
+        "label": "Toggle All",
+        "type": "script",
+        "content": {script: "philipsHueBridge.lightBulbKitchenCounter.toggle();philipsHueBridge.lightBulbCouch;philipsHueBridge.livingColorLampBar;"}
+    }, {
         "id": "stepLeft",
         "label": "Step Left",
         "type": "script"
@@ -268,6 +273,22 @@ module.exports = {
         "icon": "icon sl-camera-symbol-3",
         "devices": ["surveillanceDrone"],
         "subGroups": []
+    }],
+    "eventProcessors": [{
+        "id": "toggleAllOnTemperatur",
+        "label": "Toggle all on Temperature",
+        "observables": ["sensorTagDiningRoom"],
+        "trigger": {
+            "type": "timeInterval",
+            "content": {
+                "interval": 10000,
+                "cumulation": "maximum",
+                "stateVariable": "ambientTemperature",
+                "compareOperator": ">",
+                "compareValue": 28
+            }
+        },
+        "action": {"type": "nodeService", "content": {"service": "toggleAll"}}
     }],
     "data": []
 };
