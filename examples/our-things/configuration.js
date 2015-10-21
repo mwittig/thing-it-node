@@ -275,7 +275,7 @@ module.exports = {
         "subGroups": []
     }],
     "eventProcessors": [{
-        "id": "toggleAllOnTemperatur",
+        "id": "toggleAllOnTemperature",
         "label": "Toggle all on Temperature",
         "observables": ["sensorTagDiningRoom"],
         "trigger": {

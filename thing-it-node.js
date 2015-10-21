@@ -29,6 +29,7 @@ app.use(function (req, res, next) {
 });
 app.use(express.static(__dirname + "/www"));
 app.use("/node_modules", express.static(__dirname + "/node_modules"));
+app.use("/files", express.static(options.dataDirectory + "/files"));
 app.use(bodyParser.json());
 
 var server = app
