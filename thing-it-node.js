@@ -75,7 +75,8 @@ var server = app
 
             node.bootstrap(options, app, io);
         } catch (x) {
-            console.error("Cannot start node: " + x);
+            console.error("Cannot start node: ", x);
+
             process.exit();
         }
     });
