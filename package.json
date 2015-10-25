@@ -28,7 +28,7 @@
     "thing-it-device-art-net": "0.0.19",
     "thing-it-device-btle-heart-rate-monitor": "0.0.10",
     "thing-it-device-camera": "0.0.1",
-    "thing-it-device-itach": "0.0.27",
+    "thing-it-device-itach": "^0.1.0",
     "thing-it-device-microcontroller": "0.0.4",
     "thing-it-device-philips-hue": "^0.1.2",
     "thing-it-device-sonos": "^0.2.1",
