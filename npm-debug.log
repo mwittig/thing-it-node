@@ -1,0 +1,138 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/Users/marcgille/.nvm/versions/node/v0.12.7/bin/node',
+1 verbose cli   '/Users/marcgille/.nvm/versions/node/v0.12.7/bin/npm',
+1 verbose cli   'publish' ]
+2 info using npm@2.11.3
+3 info using node@v0.12.7
+4 verbose publish [ '.' ]
+5 silly cache add args [ '.', null ]
+6 verbose cache add spec .
+7 silly cache add parsed spec { raw: '.',
+7 silly cache add   scope: null,
+7 silly cache add   name: null,
+7 silly cache add   rawSpec: '.',
+7 silly cache add   spec: '/Users/marcgille/git/thing-it-node',
+7 silly cache add   type: 'directory' }
+8 verbose addLocalDirectory /Users/marcgille/.npm/thing-it-node/0.5.16/package.tgz not in flight; packing
+9 verbose tar pack [ '/Users/marcgille/.npm/thing-it-node/0.5.16/package.tgz',
+9 verbose tar pack   '/Users/marcgille/git/thing-it-node' ]
+10 verbose tarball /Users/marcgille/.npm/thing-it-node/0.5.16/package.tgz
+11 verbose folder /Users/marcgille/git/thing-it-node
+12 info prepublish thing-it-node@0.5.16
+13 verbose addLocalTarball adding from inside cache /Users/marcgille/.npm/thing-it-node/0.5.16/package.tgz
+14 silly cache afterAdd thing-it-node@0.5.16
+15 verbose afterAdd /Users/marcgille/.npm/thing-it-node/0.5.16/package/package.json not in flight; writing
+16 verbose afterAdd /Users/marcgille/.npm/thing-it-node/0.5.16/package/package.json written
+17 silly publish { name: 'thing-it-node',
+17 silly publish   version: '0.5.16',
+17 silly publish   description: 'thing-it Node Server',
+17 silly publish   main: 'lib/node.js',
+17 silly publish   scripts: {},
+17 silly publish   authors: 'Marc Gille, Julian Seibert, Neil Palmer',
+17 silly publish   license: 'MIT, EPL',
+17 silly publish   dependencies:
+17 silly publish    { 'body-parser': '^1.11.0',
+17 silly publish      busboy: '^0.2.11',
+17 silly publish      cors: '^2.5.3',
+17 silly publish      express: '^4.11.2',
+17 silly publish      getmac: '^1.0.7',
+17 silly publish      lodash: '^3.1.0',
+17 silly publish      mime: '^1.3.4',
+17 silly publish      moment: '^2.9.0',
+17 silly publish      net: '^1.0.2',
+17 silly publish      'node-uuid': '^1.4.3',
+17 silly publish      nodemailer: '^1.4.0',
+17 silly publish      npm: '^3.3.5',
+17 silly publish      q: '^1.1.2',
+17 silly publish      request: '^2.60.0',
+17 silly publish      'socket.io': '^1.3.3',
+17 silly publish      'socket.io-client': '^1.3.5',
+17 silly publish      'thing-it-device-aircable': '^0.0.21',
+17 silly publish      'thing-it-device-ar-drone': '0.0.9',
+17 silly publish      'thing-it-device-art-net': '0.0.19',
+17 silly publish      'thing-it-device-btle-heart-rate-monitor': '0.0.10',
+17 silly publish      'thing-it-device-camera': '0.0.1',
+17 silly publish      'thing-it-device-ecobee': '0.0.3',
+17 silly publish      'thing-it-device-helbio': '0.0.2',
+17 silly publish      'thing-it-device-itach': '^0.1.0',
+17 silly publish      'thing-it-device-kidde': '0.0.2',
+17 silly publish      'thing-it-device-microcontroller': '0.0.4',
+17 silly publish      'thing-it-device-philips-hue': '^0.1.2',
+17 silly publish      'thing-it-device-plugwise': '0.0.2',
+17 silly publish      'thing-it-device-safe-plug': '0.0.2',
+17 silly publish      'thing-it-device-sonos': '^0.2.1',
+17 silly publish      'thing-it-device-swann': '0.0.1',
+17 silly publish      'thing-it-device-ti-sensortag': '^0.1.3',
+17 silly publish      'thing-it-device-yamaha': '^0.2.0' },
+17 silly publish   _shasum: '19cf2ff69410f0d5f96150c5fe0552dfe67b9bd2',
+17 silly publish   _from: '.',
+17 silly publish   directories: { example: 'examples', test: 'test' },
+17 silly publish   devDependencies: {},
+17 silly publish   repository:
+17 silly publish    { type: 'git',
+17 silly publish      url: 'git+https://github.com/marcgille/thing-it-node.git' },
+17 silly publish   keywords:
+17 silly publish    [ 'IoT',
+17 silly publish      'nodejs',
+17 silly publish      'REST',
+17 silly publish      'WebSocket',
+17 silly publish      'Actor Animation',
+17 silly publish      'Arduino',
+17 silly publish      'BeagleBone Black',
+17 silly publish      'Raspberry Pi' ],
+17 silly publish   bugs: { url: 'https://github.com/marcgille/thing-it-node/issues' },
+17 silly publish   homepage: 'https://github.com/marcgille/thing-it-node',
+17 silly publish   readme: '[![NPM](https://nodei.co/npm/thing-it-node.png)](https://nodei.co/npm/thing-it-node/)\n[![NPM](https://nodei.co/npm-dl/thing-it-node.png)](https://nodei.co/npm/thing-it-node/)\n\n**[thing-it-node]** is **a scalable Operating System for Things** and allows you to\n\n* connect multiple Devices (e.g. Heart Rate Monitors, Sensor Tags, Drones) as well as low-level Actors and Sensors managed via Microcontrollers like an Arduino\n  to your node computer (e.g. a regular server, a Raspberry Pi or a BeagleBone Black)\n* invoke **REST Services** on all Devices and Actors,\n* receive **WebSocket Notifications** on all Device and Sensor state changes and events,\n* define **Higher-level REST Services** to control multiple Actors,\n* define **Complex Event Processing** to react to Sensor events and state changes,\n* define **Storyboards** for the timeline-based invocation of Node, Device and Actor Services (e.g. for robotics),\n* define **Job Schedules** for a calendar-based, recurring execution of Services including start of Storyboards,\n* define **Complex Data Variables** to persistently store Event Data for later evaluation or for configurations\n* manage **Users an their Entitlements** to access the above elements and\n* use a **Mobile Client** to monitor and control your Devices.\n\nAll of the above is controlled by a [nodejs](http://nodejs.org/) server which is bootstrapped from a **simple JSON configuration**, which allows you to\nconfigure a **home automation system in minutes**.\n\n<p align="center"><a href="./documentation/images/architecture.png"><img src="./documentation/images/architecture.png" width="80%" height="80%"></a></p>\n\nMore details can be found on the [thing-it-node Wiki](https://github.com/marcgille/thing-it-node/wiki).\n\n# thing-it.com\n\nYou can use [www.thing-it.com](http://www.thing-it.com) to create and simulate your setup for **[thing-it-node]** and then just download the configuration file or\nconnect your Nodes permanently.\n\n# Dual License\n\n**[thing-it-node]** is available under the [MIT License](./thing-it-node/license.mit) and the [Eclipse Public License](https://eclipse.org/org/documents/epl-v10.html).\n\n# Getting Started\n\n## The Scenario\n\nLet\'s set up a simple - but not too simple - home automation scenario:\n\n1. Two LEDs representing e.g. two lamps (you could actually immediately replace the LEDs by two relays to switch lamps on and off).\n1. A Photocell to detect the ambient light in a room and event processing to switch both LEDs on if the light goes below some threshold for a while (to distinguish sunset from the Photocell being temporarily covered by your curious cat).\n1. Two buttons to toggle the state of each lamp.\n1. A simple (mobile capable) web application to toggle the state of both lamps individually and together - alternatively to using the buttons - and to display the event under 2.\n\n## Not interested in Arduino Experiments?\n\nIf you are not interested in tinkering with Microcontrollers and just intend to e.g.\n\n* control your Sonos Sound System,\n* get your Smart Home with Aircable Bluetooth Dimmers and Texas Instruments Sensor Tags to work to control your lighting,\n* control your drones,\n* control your Art-Net/DMX lighting, fog machines etc.,\n* configure a Universal Infrared Remote Control?\n* control Philips Hue Light Bulbs,\n* ...\n\nThen stop reading. Check what we have on git/npm under\n\n* [thing-it-device-sonos](https://www.npmjs.com/package/thing-it-device-sonos)\n* [thing-it-device-aircable](https://www.npmjs.com/package/thing-it-device-aircable)\n* [thing-it-device-ar-drone](https://www.npmjs.com/package/thing-it-device-ar-drone)\n* [thing-it-device-ti-sensortag](https://www.npmjs.com/package/thing-it-device-sensortag)\n* [thing-it-device-ti-art-net](https://www.npmjs.com/package/thing-it-device-art-net)\n* [thing-it-device-itach](https://www.npmjs.com/package/thing-it-device-itach)\n* [thing-it-device-philips-hue](https://www.npmjs.com/package/thing-it-device-philips-hue)\n* and more every day ...\n\nOr check the [thing-it.com Mesh Market](http://www.thing-it.com/thing-it/index.html#/marketPanel).\n\nOr just continue reading ...\n\n## Installing, Configuring and Running [thing-it-node]\n\nTo install, configure and run  **[thing-it-node]**, first install\n\n* [Python](https://www.python.org/downloads/)\n\nand then\n\t\n* [nodejs](http://nodejs.org/download/)\n \non your computer (e.g. your PC or your Raspberry Pi). \n\nThen install **[thing-it-node]**:\n\n```\nmkdir -p <installDir>/node_modules\nnpm install --prefix <installDir> thing-it-node\n```\n\nwhich will install **[thing-it-node]** in the directory **_&lt;installDir&gt;_/node_modules**.\n\nThe options file **_&lt;installDir&gt;_/node_modules/options.js** is already configured as\n\n```javascript\nnodeConfigurationFile : "./examples/simple-lighting/configuration.json"\n```\n\nso that the **[thing-it-node]** server will be booted against the Configuration File for our simple lighting scenario.\n\nIf you are interested, have a look at the [configuration file](./thing-it-node/examples/simple-lighting/configuration.json) - the content should be self-explanatory.\n\nProbably the most interesting part is the definition of the Photocell \n\n```javascript\n{\n       "id": "photocell1",\n       "label": "Photocell 1",\n       "type": "photocell",\n       "configuration": {\n       "pin": "A0",\n       "rate": 2000\n       }\n}\n```\n\nand the Event Processing for the same\n\n```javascript\n{\n       "id": "eventProcessor3",\n       "label": "Event Processor 3",\n       "observables": ["arduino1.photocell1"],\n       "window" : {"duration": 10000},\n       "match" : "minimum(arduino1.photocell1.series) < 700 && deviation(arduino1.photocell1.series) < 100 && arduino1.photocell1.series.length > 1",\n       "script": "arduino1.led1.on(); arduino1.led2.on();"\n}\n```\n\nwhich ensures that the setup only reacts to a slow, consistent reduction of the ambient light.\n\nStart the **[thing-it-node]** from **_&lt;installDir&gt;_/node_modules** via\n\n`node thing-it-node.js`\n\nYou will see something like\n\n    ---------------------------------------------------------------------------\n     [thing-it-node] at http://0.0.0.0:3001\n\n\n     Node Configuration File: /Users/marcgille/git/thing-it-node/thing-it-node/examples/simple-lighting/configuration.json\n     Simulated              : true\n     Hot Deployment         : false\n     Verify Call Signature  : true\n     Public Key File        : /Users/marcgille/git/thing-it-node/thing-it-node/examples/simple-lighting/cert.pem\n     Signing Algorithm      : sha256\n\n\n     Copyright (c) 2014-2015 Marc Gille. All rights reserved.\n    -----------------------------------------------------------------------------\n\n\n    Loading plugin [arduino].\n    Starting Node [Home].\n    Actor [LED1] started.\n\t\t    Actor [LED2] started.\n\t\t    Sensor [Button 1] started.\n\t\t    Sensor [Button 2] started.\n\t\t    Sensor [Photocell 1] started.\n\t    Device [Arduino Uno 1] started.\n\t    Event Processor [Event Processor 1] listening.\n\t    Event Processor [Event Processor 2] listening.\n\t    Event Processor [Event Processor 3] listening.\n\t    Service [toggleAll] available.\n    Node [Home] started.  \n\nwhich means that your **[thing-it-node]** server found its configuration and has been started properly. It is not doing anything because the option **simulated** is set to **true** in the options file **_&lt;installDir&gt;_/options.js**. You could already use the **[thing-it-node]** Mobile Client against the simulated configuration (which you definitely would do on a new configuration), but for now we want the real thing.\n\nStop the **[thing-it-node]** Server with **CTRL-C** and change its value to\n\n```javascript\nsimulated : false\n```\n\nto prepare **[thing-it-node]** to talk to a real device - which we still have to set up.\n\n## Setting up Device, Actors and Sensors\n\nTo setup your Device you need the following hardware\n\n* an Arduino Uno board (e.g. [http://www.adafruit.com/product/50](http://www.adafruit.com/product/50)),\n* two LEDs (e.g. [https://www.sparkfun.com/products/9590](https://www.sparkfun.com/products/9590)),\n* a Photocell (e.g. [http://www.adafruit.com/product/161](http://www.adafruit.com/product/161)),\n* two buttons (e.g.),\n* possibly a breadboard (e.g. [http://www.adafruit.com/product/64](http://www.adafruit.com/product/64)) and \n* possibly some jumper wires (e.g. [http://www.adafruit.com/product/758](http://www.adafruit.com/product/758)).\n\nAll of the above is also available with Arduino Starter Kits like\n\n* the [Arduino Starter Kit](http://www.amazon.com/Arduino-Starter-Official-170-page-Projects/dp/B009UKZV0A/ref=sr_1_1?s=electronics&ie=UTF8&qid=1420481357&sr=1-1&keywords=arduino+starter+kit) or \n* the [Sparkfun Inventor\'s Kit]() or\n* the [Fritzing Creator Kit](http://shop.fritzing.org/en/a-136/).\n\nTo get the Arduino Uno connected\n\n* download and install the Arduino IDE\n* plug in your Arduino or Arduino compatible microcontroller via USB,\n* open the Arduino IDE, select: *File &raquo; Examples &raquo; Firmata &raquo; StandardFirmata*,\n* click *Upload*.\n\nIf the upload was successful, the board is now prepared. Now,\n\n* connect your Arduino Board via USB,\n* connect the LEDs to Pin 12 and 13.\n* connect the Buttons to Pin 2 and 4.\n* connect the Photocell to Pin A0.\n\ne.g. like\n\n![wiring](./examples/simple-lighting/wiring.png)\n\nRestart the **thing-it-node** server. The output should now look like \n\n    ---------------------------------------------------------------------------\n     [thing-it-node] at http://0.0.0.0:3001\n\n\n     Node Configuration File: /Users/marcgille/git/thing-it-node/thing-it-node/examples/simple-lighting/configuration.json\n     Simulated              : false\n     Hot Deployment         : false\n     Verify Call Signature  : true\n     Public Key File        : /Users/marcgille/git/thing-it-node/thing-it-node/examples/simple-lighting/cert.pem\n     Signing Algorithm      : sha256\n\n\n     Copyright (c) 2014-2015 Marc Gille. All rights reserved.\n    -----------------------------------------------------------------------------\n\n\n    Loading plugin [arduino].\n    Starting Node [Home].\n    1422043614997 Device(s) /dev/cu.usbmodem1411 \n    1422043618304 Connected /dev/cu.usbmodem1411 \n    1422043618305 Repl Initialized \n    >> \tStarting Device [Arduino Uno 1]\n \t\t    Actor [LED1] started.\n\t\t    Actor [LED2] started.\n\t\t    Sensor [Button 1] started.\n\t\t    Sensor [Button 2] started.\n\t\t    Sensor [Photocell 1] started.\n\t    Device [Arduino Uno 1] started.\n\t    Event Processor [Event Processor 1] listening.\n\t    Event Processor [Event Processor 2] listening.\n\t    Event Processor [Event Processor 3] listening.\n\t    Service [toggleAll] available.\n    Node [Home] started.\n\nYou should also be able switch both LEDs on and off via the respective buttons or switch both LEDs on by covering the Photocell for more than a few seconds.\n\n## Running the Mobile Web App\n\nConnect your browser to \n\n`http://localhost:3001/mobile/index.html`\n\nFrom a mobile device, replace **localhost** by the IP address of the computer running [thing-it] Node The browser content should look like\n\n<p align="center"><a href="./documentation/images/mobile-client.png"><img src="./documentation/images/mobile-client.png" width="70%" height="70%"></a></p>\n\nNote, that instead of the browser-based UI - mobile or on your computer - you will soon be able to alternatively use the native app we are preparing.\n\n## Summary\n\nLet us recap what we did:\n\nWith\n\n* a simple configuration file,\n* the corresponding wiring of the Arduino \n\nbut **no programming** we were able to create a simple but realistic home automation scenario.\n\n## Using thing-it.com\n\nIf you still find the creation of the configuration file too technical (we agree ...) - you may consider to use the free services of [www.thing-it.com](http://www.thing-it.com) to create and simulate your setup and then just download the configuration file.\n\nThe Simple Lighting solution presented here is available as a Mesh under\n\n[http://www.thing-it.com/thing-it/index.html?offer=54d417205a538cc81b0d31c9#/meshOfferPanel](http://www.thing-it.com/thing-it/index.html?offer=54d417205a538cc81b0d31c9#/meshOfferPanel)\n\nYou can find other Meshes in the [thing-it] [Mesh Market](http://www.thing-it.com/thing-it/index.html#/searchPanel) for free simulation and download.\n\nTo create your own solutions on [www.thing-it.com](http://www.thing-it.com) you would define **Nodes** and **Devices**\n\n<img src="./documentation/images/thing-it-node-configuration.png" style="">\n\nput **Actors**, **Sensors**, **Services** and **Event Processors** together,\n\n<img src="./documentation/images/thing-it-switchboard.png" style="">\n\nedit the logic of **Event Processors**\n\n<img src="./documentation/images/thing-it-event-processor.png" style="">\n\nand **Services** and then simulate and test the configuration before you download it to your **[thing-it-node]** deployment.\n\nConsider the [[thing-it] Documentation](http://www.thing-it.com/thing-it/index.html#/documentationPanel) to configure the scenario described above.\n\n# Taking it further\n\nIf you have the **Getting Started** example running, you may want to\n\n* understand the concepts of *[thing-it-node]* better\n* have a look at further examples e.g.\n    * [Color Changes for an RGB LED with Potentiometers](https://github.com/marcgille/thing-it-node/wiki/RGB-LED-Example)\n    * [Animation of RGB LED Color Changes using a Storyboard](https://github.com/marcgille/thing-it-node/wiki/RGB-LED-Color-Changing-Storyboard)\n    * [Recurring Service Execution with Jobs](https://github.com/marcgille/thing-it-node/wiki/Recurring-Service-Execution-with-Jobs)\n* [connect your [thing-it-node] to the Internet](https://github.com/marcgille/thing-it-node/wiki/Connecting-%5Bthing-it-node%5D-to-the-Internet)\n* [apply security measures for your [thing-it-node]](https://github.com/marcgille/thing-it-node/wiki/Using-Signature-and-Encryption-for-REST-Services-and-Web-Socket-Messages)\n',
+17 silly publish   readmeFilename: 'README.md',
+17 silly publish   gitHead: 'ead7234edd1b609e659c6d0fb7130cc2869fc1a3',
+17 silly publish   _id: 'thing-it-node@0.5.16' }
+18 verbose getPublishConfig undefined
+19 silly mapToRegistry name thing-it-node
+20 silly mapToRegistry using default registry
+21 silly mapToRegistry registry https://registry.npmjs.org/
+22 silly mapToRegistry uri https://registry.npmjs.org/thing-it-node
+23 verbose publish registryBase https://registry.npmjs.org/
+24 silly publish uploading /Users/marcgille/.npm/thing-it-node/0.5.16/package.tgz
+25 verbose request uri https://registry.npmjs.org/thing-it-node
+26 verbose request sending authorization for write operation
+27 info attempt registry request try #1 at 10:15:39 AM
+28 verbose request using bearer token for auth
+29 verbose request id b511bbea45174ba1
+30 http request PUT https://registry.npmjs.org/thing-it-node
+31 http 403 https://registry.npmjs.org/thing-it-node
+32 verbose headers { 'content-type': 'application/json',
+32 verbose headers   'cache-control': 'max-age=60',
+32 verbose headers   'content-length': '96',
+32 verbose headers   'accept-ranges': 'bytes',
+32 verbose headers   date: 'Sun, 01 Nov 2015 15:15:44 GMT',
+32 verbose headers   via: '1.1 varnish',
+32 verbose headers   connection: 'keep-alive',
+32 verbose headers   'x-served-by': 'cache-atl6232-ATL',
+32 verbose headers   'x-cache': 'MISS',
+32 verbose headers   'x-cache-hits': '0',
+32 verbose headers   'x-timer': 'S1446390939.477164,VS0,VE4756' }
+33 verbose request invalidating /Users/marcgille/.npm/registry.npmjs.org/thing-it-node on PUT
+34 error publish Failed PUT 403
+35 verbose stack Error: "You cannot publish over the previously published version 0.5.16." : thing-it-node
+35 verbose stack     at CachingRegistryClient.<anonymous> (/Users/marcgille/.nvm/versions/node/v0.12.7/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:247:14)
+35 verbose stack     at Request._callback (/Users/marcgille/.nvm/versions/node/v0.12.7/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:170:14)
+35 verbose stack     at Request.self.callback (/Users/marcgille/.nvm/versions/node/v0.12.7/lib/node_modules/npm/node_modules/request/request.js:354:22)
+35 verbose stack     at Request.emit (events.js:110:17)
+35 verbose stack     at Request.<anonymous> (/Users/marcgille/.nvm/versions/node/v0.12.7/lib/node_modules/npm/node_modules/request/request.js:1207:14)
+35 verbose stack     at Request.emit (events.js:129:20)
+35 verbose stack     at IncomingMessage.<anonymous> (/Users/marcgille/.nvm/versions/node/v0.12.7/lib/node_modules/npm/node_modules/request/request.js:1153:12)
+35 verbose stack     at IncomingMessage.emit (events.js:129:20)
+35 verbose stack     at _stream_readable.js:908:16
+35 verbose stack     at process._tickCallback (node.js:355:11)
+36 verbose statusCode 403
+37 verbose pkgid thing-it-node
+38 verbose cwd /Users/marcgille/git/thing-it-node
+39 error Darwin 14.5.0
+40 error argv "/Users/marcgille/.nvm/versions/node/v0.12.7/bin/node" "/Users/marcgille/.nvm/versions/node/v0.12.7/bin/npm" "publish"
+41 error node v0.12.7
+42 error npm  v2.11.3
+43 error code E403
+44 error "You cannot publish over the previously published version 0.5.16." : thing-it-node
+45 error If you need help, you may report this error at:
+45 error     <https://github.com/npm/npm/issues>
+46 verbose exit [ 1, true ]
