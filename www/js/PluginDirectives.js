@@ -592,7 +592,7 @@ angular.module("ThingItMobile.PluginDirectives", [])
             restrict: "E",
             template: "<div style='display: table-cell; width: 100%; text-align: center'><i class='fa fa-bullseye overlay-alarm-icon' style='display: inline-block:'></i></div>",
             link: function (scope, element, attrs) {
-                jQuery("div").css("height", "2em");
+                jQuery(element).find("div").css("height", "2em");
 
                 var i = jQuery(element).find("i");
 
