@@ -547,4 +547,62 @@ angular.module("ThingItMobile.PluginDirectives", [])
                 });
             }
         };
+    }).directive('tiClickOverlay', function ($timeout, $parse) {
+        return {
+            restrict: "A",
+            link: function (scope, element, attrs) {
+                jQuery(element).addClass("center-overlay");
+
+                var i = jQuery("<i class='fa fa-bullseye overlay-icon'></i>");
+
+                jQuery(element).click(function () {
+                    i.addClass("pulseAnimation");
+
+                    window.setTimeout(function () {
+                        i.removeClass("pulseAnimation");
+                    }, 2000);
+                });
+
+                jQuery(element).append(i);
+            }
+        };
+    }).directive('tiMotionSensor', function ($timeout, $parse) {
+        return {
+            restrict: "E",
+            template: "<div style='display: table-cell; width: 100%; text-align: center'><i class='icon sl-contacts-1 overlay-alarm-icon' style='display: inline-block:'></i><span>No Motion detected.</span></div>",
+            link: function (scope, element, attrs) {
+                var i = jQuery(element).find("i");
+                var span = jQuery(element).find("span");
+
+                scope.$watch(attrs.ngModel, function (value) {
+                    if (value) {
+                        i.css("display", "inline-block");
+                        span.css("display", "none");
+                        i.addClass("infinitePulseAnimation");
+                    } else {
+                        i.removeClass("infinitePulseAnimation");
+                        i.css("display", "none");
+                        span.css("display", "inline-block");
+                    }
+                });
+            }
+        };
+    }).directive('tiSmokeDetector', function ($timeout, $parse) {s
+        return {
+            restrict: "E",
+            template: "<div style='display: table-cell; width: 100%; text-align: center'><i class='fa fa-bullseye overlay-alarm-icon' style='display: inline-block:'></i></div>",
+            link: function (scope, element, attrs) {
+                jQuery("div").css("height", "2em");
+
+                var i = jQuery(element).find("i");
+
+                scope.$watch(attrs.ngModel, function (value) {
+                    if (value) {
+                        i.addClass("infinitePulseAnimation");
+                    } else {
+                        i.removeClass("infinitePulseAnimation");
+                    }
+                });
+            }
+        };
     });
