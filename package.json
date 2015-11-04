@@ -32,6 +32,7 @@
     "thing-it-device-helbio": "0.0.2",
     "thing-it-device-itach": "^0.1.0",
     "thing-it-device-kidde": "0.0.2",
+    "thing-it-device-microcontroller": "^0.0.4",
     "thing-it-device-philips-hue": "^0.1.2",
     "thing-it-device-plugwise": "0.0.2",
     "thing-it-device-safe-plug": "0.0.2",
