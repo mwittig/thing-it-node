@@ -587,17 +587,16 @@ angular.module("ThingItMobile.PluginDirectives", [])
                 });
             }
         };
-    }).directive('tiSmokeDetector', function ($timeout, $parse) {s
+    }).directive('tiSmokeDetector', function ($timeout, $parse) {
+        s
         return {
             restrict: "E",
-            template: "<div style='display: table-cell; width: 100%; text-align: center'><i class='fa fa-bullseye overlay-alarm-icon' style='display: inline-block:'></i></div>",
+            template: "<div style='display: table-cell; width: 3em;  height: 3em; text-align: center'><i class='fa fa-bullseye overlay-alarm-icon' style='display: inline-block:'></i></div>",
             link: function (scope, element, attrs) {
-                jQuery(element).find("div").css("height", "2em");
-
                 var i = jQuery(element).find("i");
 
                 scope.$watch(attrs.ngModel, function (value) {
-                    if (value) {
+                    if (value > scope.$eval(attrs.tiThreshold)) {
                         i.addClass("infinitePulseAnimation");
                     } else {
                         i.removeClass("infinitePulseAnimation");
