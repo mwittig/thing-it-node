@@ -174,62 +174,12 @@ angular.module("ThingItMobile.PluginDirectives", [])
         return {
             restrict: "E",
             template: "<video><source type='video/mp4' webkit-playsinline></video>",
-            //template: "<canvas width='320' height='180' style='border: 1px solid red;'></canvas>",
             link: function (scope, element, attrs) {
-                //var transports;
-                //
-                //if ("WebSocket" in window && WebSocket.CLOSED > 2) {
-                //    transports: ['websocket', 'xhr-polling']
-                //} else {
-                //    transports: ['xhr-polling']
-                //}
-                //
-                //var rootUrl = window.location.protocol + "//"
-                //    + window.location.hostname + ":" + window.location.port;
-                //
-                //var ws = {OPEN: "OPEN"};
-                //
-                //var canvas = jQuery(element).children("canvas")[0];
-                //
-                //var ctx = canvas.getContext('2d');
-                //
-                //ctx.fillStyle = '#444';
-                //ctx.fillText('Loading...', canvas.width / 2 - 30, canvas.height / 3);
-                //
-                //// Setup the WebSocket connection and start the player
-                //
-                //var player = new jsmpeg(ws, {canvas: canvas});
-                //
-                //ws.onopen(ws);
-                //
-                //var namespaceName = rootUrl + scope.$eval(attrs.tiModel);
-                //
-                //console.log("Connecting: " + namespaceName);
-                //
-                //namespace = scope.io.connect(namespaceName, {
-                //    transports: transports
-                //});
-                //
-                //namespace.on("connection", function (socket) {
-                //    console.log("Data Stream connected");
-                //
-                //    ws.readyState = ws.OPEN;
-                //});
-                //namespace.on("disconnect", function (socket) {
-                //    console.log("Data Stream disconnected");
-                //});
-                //namespace.on("data", function (message) {
-                //    console.log("Data received");
-                //
-                //    ws.onmessage({data: message.raw});
-                //});
+                //jQuery(element).children("video")[0].autoplay = true;
 
-                jQuery(element).children("video")[0].autoplay = true;
-
-                scope.$watch(attrs.tiModel, function (value) {
-                    console.log(value);
+                scope.$watch(attrs.ngModel, function (value) {
                     jQuery(element).children("video").children("source").attr("src", value);
-                    jQuery(element).children("video")[0].load();
+                    //jQuery(element).children("video")[0].load();
                 });
             }
         };
@@ -354,15 +304,15 @@ angular.module("ThingItMobile.PluginDirectives", [])
 
                 scope.$watch(attrs.tiModel, function (value) {
                     if (value <= 10) {
-                        icon.attr("class", "icon sl-battery-low batteryLevelAlert")
+                        icon.attr("class", "icon sl-battery-low alertColor")
                     } else if (value > 10 && value <= 25) {
-                        icon.attr("class", "icon sl-battery-medium batteryLevelWarn")
+                        icon.attr("class", "icon sl-battery-medium warningColor")
                     } else if (value > 25 && value <= 50) {
-                        icon.attr("class", "icon sl-battery-medium batteryLevelOk")
+                        icon.attr("class", "icon sl-battery-medium okColor")
                     } else if (value > 50 && value <= 75) {
-                        icon.attr("class", "icon sl-battery-high batteryLevelOk")
+                        icon.attr("class", "icon sl-battery-high okColor")
                     } else {
-                        icon.attr("class", "icon sl-battery-full batteryLevelOk")
+                        icon.attr("class", "icon sl-battery-full okColor")
                     }
                 });
             }
@@ -554,7 +504,7 @@ angular.module("ThingItMobile.PluginDirectives", [])
     }).directive('tiMotionSensor', function ($timeout, $parse) {
         return {
             restrict: "E",
-            template: "<div style='display: table-cell; width: 100%; text-align: center'><i class='icon sl-contacts-1 overlay-alarm-icon' style='display: inline-block:'></i><span>No Motion detected.</span></div>",
+            template: "<div style='display: table-row; height: 2em; vertical-align: middle'><div style='display: table-cell; width: 100%; text-align: center'><i class='icon sl-contacts-1 overlay-alarm-icon' style='display: inline-block:'></i><span class='smallFont lightPrimaryColor'>No Motion detected.</span></div></div>",
             link: function (scope, element, attrs) {
                 var i = jQuery(element).find("i");
                 var span = jQuery(element).find("span");
@@ -576,15 +526,18 @@ angular.module("ThingItMobile.PluginDirectives", [])
         s
         return {
             restrict: "E",
-            template: "<div style='display: table-cell; width: 3em;  height: 3em; text-align: center'><i class='fa fa-bullseye overlay-alarm-icon' style='display: inline-block:'></i></div>",
+            template: "<div style='display: table-row; height: 2em; vertical-align: middle'><div style='display: table-cell; width: 2em;  height: 2em; text-align: center'><i class='noSmoke icon sl-smiley-happy-1 okColor' style='font-size: 2em;'></i><i class='smoke fa fa-bullseye overlay-alarm-icon' style='display: inline-block:'></i></div></div>",
             link: function (scope, element, attrs) {
-                var i = jQuery(element).find("i");
+                var noSmokeIcon = jQuery(element).find(".noSmoke");
+                var smokeIcon = jQuery(element).find(".smoke");
 
                 scope.$watch(attrs.ngModel, function (value) {
                     if (value > scope.$eval(attrs.tiThreshold)) {
-                        i.addClass("infinitePulseAnimation");
+                        noSmokeIcon.css("display", "none");
+                        smokeIcon.addClass("infinitePulseAnimation");
                     } else {
-                        i.removeClass("infinitePulseAnimation");
+                        noSmokeIcon.css("display", "inline-block");
+                        smokeIcon.removeClass("infinitePulseAnimation");
                     }
                 });
             }
