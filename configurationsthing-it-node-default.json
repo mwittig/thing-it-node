@@ -1,1 +1,0 @@
-module.exports = {"uuid":"1445613123781","id":"thingItNodeDefaultNodeConfiguration","devices":[],"services":[{"id":"service1","label":"Nase","icon":"icon icon sl-cocktail-1","type":"script","content":{"script":""}}],"eventProcessors":[],"jobs":[],"groups":[],"data":[]};

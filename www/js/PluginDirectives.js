@@ -534,9 +534,11 @@ angular.module("ThingItMobile.PluginDirectives", [])
                 scope.$watch(attrs.ngModel, function (value) {
                     if (value > scope.$eval(attrs.tiThreshold)) {
                         noSmokeIcon.css("display", "none");
+                        smokeIcon.css("display", "inline-block");
                         smokeIcon.addClass("infinitePulseAnimation");
                     } else {
                         noSmokeIcon.css("display", "inline-block");
+                        smokeIcon.css("display", "none");
                         smokeIcon.removeClass("infinitePulseAnimation");
                     }
                 });
