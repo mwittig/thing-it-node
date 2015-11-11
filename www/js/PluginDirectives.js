@@ -523,7 +523,6 @@ angular.module("ThingItMobile.PluginDirectives", [])
             }
         };
     }).directive('tiSmokeDetector', function ($timeout, $parse) {
-        s
         return {
             restrict: "E",
             template: "<div style='display: table-row; height: 2em; vertical-align: middle'><div style='display: table-cell; width: 2em;  height: 2em; text-align: center'><i class='noSmoke icon sl-smiley-happy-1 okColor' style='font-size: 2em;'></i><i class='smoke fa fa-bullseye overlay-alarm-icon' style='display: inline-block:'></i></div></div>",
