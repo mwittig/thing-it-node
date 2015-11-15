@@ -173,13 +173,41 @@ angular.module("ThingItMobile.PluginDirectives", [])
     .directive('tiVideo', function () {
         return {
             restrict: "E",
-            template: "<video><source type='video/mp4' webkit-playsinline></video>",
+            template: "<img><br><video><source type='video/mp4' webkit-playsinline></video>",
             link: function (scope, element, attrs) {
-                //jQuery(element).children("video")[0].autoplay = true;
+                var video = jQuery(element).children("video");
+                var img = jQuery(element).children("img");
+
+                video.css("display", "none");
+                img.css("width", "100%");
+                img.css("display", "inline-block");
+
+                img.click(function () {
+                    img.css("display", "none");
+                    video.css("display", "inline-block");
+                    video.css("width", "100%");
+
+                    video[0].autoplay = true;
+
+                    video[0].play();
+                });
+
+                video.bind("abort", function () {
+                    video.css("display", "none");
+                    img.css("display", "inline-block");
+                }.bind(this));
+
+                video.bind("ended", function () {
+                    video.css("display", "none");
+                    img.css("display", "inline-block");
+                }.bind(this));
 
                 scope.$watch(attrs.ngModel, function (value) {
                     jQuery(element).children("video").children("source").attr("src", value);
-                    //jQuery(element).children("video")[0].load();
+                });
+
+                scope.$watch(attrs.tiSnapshotImage, function (value) {
+                    img.attr("src", value);
                 });
             }
         };
