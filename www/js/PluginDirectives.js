@@ -202,7 +202,7 @@ angular.module("ThingItMobile.PluginDirectives", [])
                     img.css("display", "inline-block");
                 }.bind(this));
 
-                scope.$watch(attrs.ngModel, function (value) {
+                scope.$watch(attrs.tiVideoStream, function (value) {
                     jQuery(element).children("video").children("source").attr("src", value);
                 });
 
