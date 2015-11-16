@@ -181,6 +181,7 @@ angular.module("ThingItMobile.PluginDirectives", [])
                 video.css("display", "none");
                 img.css("width", "100%");
                 img.css("display", "inline-block");
+                img.addClass("snapshotImage");
 
                 img.click(function () {
                     img.css("display", "none");
