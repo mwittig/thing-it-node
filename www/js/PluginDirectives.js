@@ -573,3 +573,22 @@ angular.module("ThingItMobile.PluginDirectives", [])
             }
         };
     });
+
+/**
+ * Does not write to the model! Could do if we would block watches during change.
+ */
+function bufferedChange(scope, element, value, tiChange,
+                        bufferLength) {
+    if (new Date().getTime()
+        - jQuery(element).data("lastChangeTimestamp") < bufferLength) {
+    } else {
+        jQuery(element).data("lastChangeTimestamp",
+            new Date().getTime());
+
+        // Apply the change and start next buffer interval
+
+        if (tiChange) {
+            scope.$eval(tiChange);
+        }
+    }
+}
