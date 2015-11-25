@@ -1,0 +1,691 @@
+/* Reusable Tags */
+
+.lightenedPrimaryColor {
+  color: lighten(@primaryColor, @lightPercentage);
+}
+
+.lightPrimaryColor {
+  color: lighten(@primaryColor, @lightPercentage);
+}
+
+.secondaryColor {
+  color: @secondaryColor;
+}
+
+.ternaryColor {
+  color: @ternaryColor;
+}
+
+.alertColor {
+  color: @ternaryColor;
+}
+
+.primaryBackgroundColor {
+  background-color: @primaryColor;
+}
+
+.lightPrimaryColor {
+  color: lighten(@primaryColor, @lightPercentage);
+}
+
+.lightPrimaryBackgroundColor {
+  background-color: lighten(@primaryColor, @lightPercentage);
+}
+
+.lighterPrimaryBackgroundColor {
+  background-color: lighten(@primaryColor, @lighterPercentage);
+}
+
+.lightestPrimaryBackgroundColor {
+  background-color: lighten(@primaryColor, @lightestPercentage);
+}
+
+.secondaryBackgroundColor {
+  background-color: @secondaryColor;
+}
+
+.lightSecondaryBackgroundColor {
+  background-color: lighten(@secondaryColor, @lightPercentage);
+}
+
+.lighterSecondaryBackgroundColor {
+  background-color: lighten(@secondaryColor, @lighterPercentage);
+}
+
+.lightestSecondaryBackgroundColor {
+  background-color: lighten(@secondaryColor, @lightestPercentage);
+}
+
+.ternaryBackgroundColor {
+  background-color: @ternaryColor;
+}
+
+.lightTernaryBackgroundColor {
+  background-color: lighten(@ternaryColor, @lightPercentage);
+}
+
+.lighterTernaryBackgroundColor {
+  background-color: lighten(@ternaryColor, @lighterPercentage);
+}
+
+.lightestTernaryBackgroundColor {
+  background-color: lighten(@ternaryColor, @lightestPercentage);
+}
+
+.contrastBackgroundColor {
+  background-color: @contrastColor;
+}
+
+.lightContrastBackgroundColor {
+  background-color: lighten(@contrastColor, @lightPercentage);
+}
+
+.lighterContrastBackgroundColor {
+  background-color: lighten(@contrastColor, @lighterPercentage);
+}
+
+.lightestContrastBackgroundColor {
+  background-color: lighten(@contrastColor, @lightestPercentage);
+}
+
+.titleFont {
+  font-family: @headerFontFamily;
+}
+
+.defaultFont {
+  font-size: @defaultFontSize;
+  font-family: @defaultFontFamily;
+}
+
+.smallFont {
+  font-size: @smallFontSize;
+  font-family: @defaultFontFamily;
+}
+
+.okColor {
+  color: #30b455;
+}
+
+.warningColor {
+  color: #EFAF13;
+}
+
+.alertColor {
+  color: @alertColor;
+}
+
+
+// Basic Tags
+
+html {
+  font-size: 100%;
+}
+
+body,
+input,
+select,
+textarea,
+button {
+  font-size: @defaultFontSize;
+  line-height: 1.3;
+  font-family: @defaultFontFamily;
+}
+
+a {
+  color: @primaryColor;
+}
+
+label {
+  color: lighten(@textColor, @lightestPercentage);
+  font-weight: normal;
+}
+
+h1 {
+  text-transform: uppercase;
+  color: lighten(@primaryColor, @lightPercentage);
+  font-family: @headerFontFamily;
+  font-size: @h1FontSize;
+}
+
+h2 {
+  text-transform: uppercase;
+  color: @secondaryColor;
+  font-family: @headerFontFamily;
+  font-size: @h2FontSize;
+}
+
+h3 {
+  text-transform: uppercase;
+  color: @contrastColor;
+  font-family: @headerFontFamily;
+  font-size: @h3FontSize;
+}
+
+h4 {
+  text-transform: uppercase;
+  font-family: @headerFontFamily;
+  font-size: @defaultFontSize;
+}
+
+input, input[type=text], input[type=password] {
+  font-size: @defaultFontSize;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+input[type=checkbox] {
+  outline: none;
+  width: 1.5em;
+  height: 1.5em;
+  padding: 2px;
+  line-height: 2;
+  display: block;
+  border-radius: 1px;
+  border: 1px solid @ternaryColor;
+  -webkit-appearance: none;
+  background-color: #FFFFFF;
+}
+
+input[type=checkbox]:checked {
+  background-color: @ternaryColor;
+  border: 1px solid #99B9E8;
+}
+
+input[type=checkbox]:before {
+  border-radius: 3px;
+  border-top: 1px solid #F7F7F7;
+  border-right: 1px solid #999999;
+  border-bottom: 1px solid: #BABABA;
+  border-left: 1px solid #BDBDBD;
+  background-image: -webkit-gradient(
+          linear, left top, left bottom,
+          color-stop(0, #D8D8D8),
+          color-stop(1, #FBFBFB)
+  );
+  height: 20px;
+  width: 22px;
+  display: inline-block;
+  text-indent: 27px;
+}
+
+input[type=checkbox]:checked:before {
+  text-indent: -25px;
+  margin-left: 33px;
+}
+
+input[type=number] {
+  text-align: right;
+  width: 5em;
+}
+
+input.ng-untouched, select.ng-untouched {
+  border: 1px solid @secondaryColor !important;
+}
+
+input.ng-invalid.ng-touched, select.ng-invalid.ng-touched {
+  border-color: @alertColor !important;
+  -webkit-box-shadow: none !important;
+  -moz-box-shadow: none !important;
+  box-shadow: none !important;
+}
+
+select {
+  background-color: #FFFFFF;
+  border: 1px solid @secondaryColor;
+}
+
+.formControl {
+  height: 34px;
+  padding: 6px 12px;
+  font-size: @defaultFontSize;
+  line-height: 1.42857143;
+  color: #555555;
+  background-color: #ffffff;
+  background-image: none;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+.fullWidth {
+  display: block;
+  width: 100%;
+}
+
+.formControl:focus {
+  border-color: @ternaryColor;
+  outline: 0;
+  -webkit-box-shadow: none !important;
+  -moz-box-shadow: none !important;
+  box-shadow: none !important;
+}
+
+.formControl::-moz-placeholder {
+  color: #999999;
+  opacity: 1;
+}
+
+.formControl:-ms-input-placeholder {
+  color: #999999;
+}
+
+.formControl::-webkit-input-placeholder {
+  color: #999999;
+}
+
+.formControl[disabled],
+.formControl[readonly],
+fieldset[disabled] .formControl {
+  background-color: #eeeeee;
+  opacity: 1;
+}
+
+.formControl[disabled],
+fieldset[disabled] .formControl {
+  cursor: not-allowed;
+}
+
+::-webkit-input-placeholder {
+  font-size: @defaultFontSize;
+  color: red;
+}
+
+:-moz-placeholder {
+  /* older Firefox*/
+  font-size: @defaultFontSize;
+  color: red;
+}
+
+::-moz-placeholder {
+  /* Firefox 19+ */
+  font-size: @defaultFontSize;
+  color: red;
+}
+
+:-ms-input-placeholder {
+  font-size: @defaultFontSize;
+  color: red;
+}
+
+.btn, .btn:focus, a.btn {
+  font-size: @defaultFontSize;
+  background-color: #FFFFFF;
+  color: @primaryColor;
+  border-color: @primaryColor;
+  outline: none !important;
+  -webkit-box-shadow: none !important;
+  -moz-box-shadow: none !important;
+  box-shadow: none !important;
+}
+
+.btn:active, .btn:hover {
+  background-color: @contrastColor;
+  border-color: @contrastColor;
+  color: #FFFFFF;
+}
+
+.btn-primary {
+  background-color: @primaryColor;
+  border-color: @primaryColor;
+  color: #FFFFFF;
+}
+
+.btn-primary.disabled, .btn-primary[disabled] {
+  background-color: #BBBBBB;
+  border-color: #BBBBBB;
+  color: #FFFFFF;
+}
+
+.dropdown-menu {
+  font-size: @defaultFontSize !important;
+}
+
+.validationMessages {
+  font-size: @smallFontSize;
+  color: @alertColor;
+  margin: 1em;
+}
+
+.horizontalLine {
+  border-top: 1px solid lighten(@secondaryColor, @lighterPercentage);
+  width: 100%;
+  height: 0px;
+  clear: both;
+}
+
+.titleTextTransform {
+  text-transform: uppercase;
+}
+
+.ellipsisTextOverflow {
+  text-overflow: ellipsis;
+}
+
+/* jqPlot Overwrites*/
+
+.jqplot-target {
+  position: relative;
+  color: #666666;
+  font-family: @defaultFontFamily;
+  font-size: @defaultFontSize;
+}
+
+.jqplot-xaxis {
+  margin-top: 10px;
+}
+
+.jqplot-yaxis {
+  margin-right: 10px;
+}
+
+/* Form Table */
+
+.formTable {
+  display: table;
+}
+
+.formRow {
+  display: table-row;
+}
+
+.formCell {
+  display: table-cell;
+  padding: 0.2em;
+  text-align: left;
+}
+
+/* Tree */
+
+table.tree {
+  width: 100%;
+}
+
+table.tree tr {
+  height: 35px;
+}
+
+i.treeHandle {
+  font-size: 25px;
+}
+
+/* Monitoring Page */
+
+.monitoringPage .value {
+  font-size: 40px;
+  color: lighten(@primaryColor, @lightPercentage);
+}
+
+/* Mobile Angular UI Overwrites */
+
+.app {
+  background-color: #FFFFFF;
+}
+
+.navbar {
+}
+
+.navbar-app {
+  background-color: @primaryColor;
+  color: #FFFFFF;
+  border-bottom: none;
+  min-height: 55px !important;
+  z-index: 950 !important;
+  font-size: @h1FontSize;
+  display: table-cell;
+  vertical-align: middle;
+  padding-top: 8px;
+}
+
+.navbar-app .btn {
+  color: #FFFFFF;
+}
+
+.navbar-app a {
+  display: inline-block;
+  color: #FFFFFF;
+}
+
+.navbar-app .btn:active, .navbar-app .btn:hover {
+  background-color: @primaryColor !important;
+  color: #FFFFFF !important;
+  border-color: @primaryColor;
+  box-shadow: none !important;
+}
+
+.colorBar {
+  position: absolute;
+  height: 8px;
+  top: 55px;
+  z-index: 995 !important;
+  width: 100%;
+}
+
+.app-body {
+  padding-top: 63px !important;
+}
+
+.list-group-item {
+  border-bottom: 1px solid lighten(@contrastColor, @lightPercentage) !important;
+}
+
+.itemLabel {
+  font-size: @defaultFontSize - 2;
+  position: absolute;
+  width: 70%;
+  max-width: 70%;
+  top: 0;
+  left: 0;
+  padding: 2px 5px 2px 5px;
+  background-color: lighten(@contrastColor, 45);
+  color: lighten(@contrastColor, 15);
+  text-transform: uppercase;
+  text-overflow: ellipsis;
+  border-color: @contrastColor;
+  border-bottom-right-radius: 3px;
+}
+
+.componentPlugin {
+  margin-top: 1.5em;
+  font-size: @defaultFontSize;
+}
+
+.formControl {
+  font-size: @defaultFontSize;
+  border-radius: @borderRadius;
+  border: 1px solid @borderColor;
+  padding: 5px 12px;
+  line-height: @defaultFontSize + 10;
+  color: @textColor;
+}
+
+.formControl:focus {
+  border-color: @contrastColor;
+  -webkit-box-shadow: 0 0 2px lighten(@contrastColor, @lightPercentage);
+  -moz-box-shadow: 0 0 2px lighten(@contrastColor, @lightPercentage);
+  box-shadow: 0 0 2px lighten(@contrastColor, @lightPercentage);
+}
+
+.section {
+  padding: 1em !important;
+}
+
+.panel {
+  border-color: lighten(@contrastColor, @lighterPercentage) !important;
+  margin-bottom: 0.5em !important;
+  box-shadow: none;
+}
+
+.panel-heading {
+  background-color: lighten(@contrastColor, @lighterPercentage) !important;
+  border-bottom: none;
+  color: @contrastColor !important;
+}
+
+.panel-title {
+  font-size: @defaultFontSize;
+}
+
+.panel-default > .panel-heading {
+  color: #333;
+  background-color: #FAFAFA !important;
+  border-color: #FAFAFA !important;
+}
+
+.modal-overlay {
+  background: @backgroundColor;
+}
+
+.modal-dialog {
+  margin-top: 20px !important;
+}
+
+.divLink {
+
+}
+
+.divLink:active {
+  -webkit-animation: divLinkClick 1s;
+  -moz-animation: divLinkClick 1s;
+  -o-animation: divLinkClick 1s;
+  animation: divLinkClick 1s;
+  cursor: hand;
+}
+
+@keyframes divLinkClick {
+  0% {
+    background: lighten(@ternaryColor, @lightestPercentage);
+  }
+  100% {
+    background: #FFFFFF;
+  }
+}
+
+.listGroupItem {
+  display: table;
+  width: 100%;
+}
+
+.listGroupItem .titleIcon {
+  width: 2em;
+  display: table-cell;
+  vertical-align: middle;
+  color: lighten(@ternaryColor, @lightPercentage);
+  font-size: @defaultFontSize + 4;
+}
+
+.buttonIcon {
+  color: lighten(@ternaryColor, @lightPercentage);
+  font-size: @defaultFontSize + 4;
+}
+
+.listGroupItem .listGroupItemRow {
+  display: table-row;
+  vertical-align: middle;
+}
+
+.listGroupItem .content {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.listGroupItem .navigationIcon {
+  color: lighten(@ternaryColor, @lightPercentage);
+  font-size: @defaultFontSize + 4;
+  width: 2em;
+  display: table-cell;
+  vertical-align: middle;
+  text-align: right;
+}
+
+.stateIcon {
+  color: lighten(@ternaryColor, @lightPercentage);
+}
+
+.listGroupItem .titleIcon {
+  width: 2em;
+  display: table-cell;
+  vertical-align: middle;
+  color: lighten(@ternaryColor, @lightPercentage);
+  font-size: @defaultFontSize + 4;
+}
+
+.checklistItem {
+  display: table;
+  width: 100%;
+  margin-top: 0.2em;
+  margin-bottom: 0.2em;
+}
+
+.checklistItem .content {
+  display: table-cell;
+  vertical-align: middle;
+  width: 99%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.checklistItem .checkBox {
+  display: table-cell;
+  width: 3em;
+  vertical-align: middle;
+}
+
+// TODO Make directive
+
+.numberInput {
+  text-align: right;
+}
+
+// @TODO only for monitoring page
+
+.value {
+  font-size: 40px;
+  color: lighten(@primaryColor, @lightPercentage);
+}
+
+img.photo {
+  -webkit-box-shadow: 2px 2px 2px 0px @borderColor;
+  -moz-box-shadow: 2px 2px 2px 0px @borderColor;
+  box-shadow: 2px 2px 2px 0px @borderColor;
+  border-radius: 3px;
+}
+
+.center-overlay {
+  position: absolute;
+  width: 100%;
+  opacity: 0.6;
+  text-align: center;
+  margin-left: -0.5em;
+  margin-top: -0.3em;
+}
+
+.overlay-icon {
+  display: inline-block;
+  font-size: 2em;
+  color: @primaryColor;
+  visibility: hidden;
+}
+
+.overlay-alarm-icon {
+  display: inline-block;
+  font-size: 2em;
+  color: red;
+  visibility: hidden;
+}
+
+// Storyboard Configuration
+
+.listGroupItem .timestamp {
+  width: 3em;
+  display: table-cell;
+  vertical-align: middle;
+  color: lighten(@ternaryColor, @lightPercentage);
+  padding-right: 1em;
+}
+
+.storyboardStepEntries {
+  list-style: none;
+  padding-left: 0;
+}
