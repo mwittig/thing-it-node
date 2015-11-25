@@ -173,7 +173,7 @@ angular.module("ThingItMobile.PluginDirectives", [])
     .directive('tiVideo', function () {
         return {
             restrict: "E",
-            template: "<img><br><video><source type='video/mp4' webkit-playsinline></video>",
+            template: "<img><br><video><source type='video/mp4' webkit-playsinline><source type='application/x-mpegURL’></video>",
             link: function (scope, element, attrs) {
                 var video = jQuery(element).children("video");
                 var img = jQuery(element).children("img");
@@ -292,7 +292,7 @@ angular.module("ThingItMobile.PluginDirectives", [])
             template: /*"<div class='onoffswitch'>" +
              "<input type='checkbox' class='onoffswitch-checkbox' checked><label class='onoffswitch-label'>" +
              "<span class='onoffswitch-inner'></span> <span class='onoffswitch-switch'></span></label></div>",*/
-                "<div><input class='tiToggle tiToggleRoundFlat' type='checkbox'><label></label></div>",
+                "<div style='display: inline-block;'><input class='tiToggle tiToggleRoundFlat' type='checkbox'><label></label></div>",
             link: function (scope, element, attrs) {
                 var label = jQuery(element).find("label");
                 var checkbox = jQuery(element).find("input");
@@ -300,20 +300,21 @@ angular.module("ThingItMobile.PluginDirectives", [])
                 checkbox.uniqueId();
                 label.attr("for", checkbox.attr("id"));
 
-                label.click(function () {
-                    console.log("Switch clicked");
-                    checkbox.prop("checked", !checkbox.prop("checked"));
+                if (!scope.$eval(attrs.ngDisabled)) {
+                    label.click(function () {
+                        checkbox.prop("checked", !checkbox.prop("checked"));
 
-                    var expression = attrs.tiModel
-                        + "="
-                        + checkbox
-                            .prop("checked");
-                    scope.$eval(expression);
+                        var expression = attrs.tiModel
+                            + "="
+                            + checkbox
+                                .prop("checked");
+                        scope.$eval(expression);
 
-                    if (attrs.tiChange) {
-                        scope.$eval(attrs.tiChange);
-                    }
-                });
+                        if (attrs.tiChange) {
+                            scope.$eval(attrs.tiChange);
+                        }
+                    });
+                }
 
                 scope.$watch(attrs.tiModel, function (value) {
                     checkbox.prop("checked",
