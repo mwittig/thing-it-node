@@ -35,7 +35,7 @@
     "thing-it-device-kidde": "0.0.12",
     "thing-it-device-microcontroller": "^0.0.4",
     "thing-it-device-philips-hue": "^0.1.2",
-    "thing-it-device-plugwise": "0.0.10",
+    "thing-it-device-plugwise": "0.0.12",
     "thing-it-device-safe-plug": "0.0.2",
     "thing-it-device-sonos": "^0.2.1",
     "thing-it-device-swann": "0.0.20",
