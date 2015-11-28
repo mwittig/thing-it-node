@@ -1,6 +1,6 @@
 {
   "name": "thing-it-node",
-  "version": "0.5.55",
+  "version": "0.5.56",
   "description": "thing-it Node Server",
   "main": "lib/node.js",
   "scripts": {},
@@ -29,7 +29,7 @@
     "thing-it-device-btle-heart-rate-monitor": "0.0.10",
     "thing-it-device-camera": "0.0.1",
     "thing-it-device-ecobee": "0.0.4",
-    "thing-it-device-foscam": "0.0.2",
+    "thing-it-device-foscam": "0.0.12",
     "thing-it-device-helbio": "0.0.2",
     "thing-it-device-itach": "^0.1.0",
     "thing-it-device-kidde": "0.0.12",
