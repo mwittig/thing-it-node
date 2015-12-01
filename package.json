@@ -1,6 +1,6 @@
 {
   "name": "thing-it-node",
-  "version": "0.5.58",
+  "version": "0.6.0",
   "description": "thing-it Node Server",
   "main": "lib/node.js",
   "scripts": {},
@@ -65,5 +65,8 @@
   "bugs": {
     "url": "https://github.com/marcgille/thing-it-node/issues"
   },
-  "homepage": "https://github.com/marcgille/thing-it-node"
+  "homepage": "https://github.com/marcgille/thing-it-node",
+  "bin": {
+    "tin": "bin/thing-it-node.js"
+  }
 }
