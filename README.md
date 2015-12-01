@@ -83,10 +83,10 @@ Then install **[thing-it-node]**:
 npm -g install thing-it-node 
 ```
 
-which will install **[thing-it-node]** in your global **_/node_modules** directory and makes it available 
+which will install **[thing-it-node]** in your global **/node_modules** directory and makes it available 
 via the command line program **tin**.
 
-Now create an arbitrary Installation Directory **_&lt;installDir&gt;** and make it your current working directory, e.g.
+Now create an arbitrary Installation Directory **_&lt;installDir&gt;_** and make it your current working directory, e.g.
 
 ```
 mkdir ~/thing-it-test
@@ -99,7 +99,7 @@ Then invoke
 tin example -f simple-lighting
 ```
 
-which will create a directory **_&lt;installDir&gt;/configurations** and copy the sample **[thing-it-node]** Node Configuration
+which will create a directory **_&lt;installDir&gt;_/configurations** and copy the sample **[thing-it-node]** Node Configuration
 **simple-lighting.js** into it from which **[thing-it-node]** can be booted.
 
 If you are interested, have a look at this [Node Configuration File](./thing-it-node/examples/simple-lighting/configuration.json) - the content should be self-explanatory.
