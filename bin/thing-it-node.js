@@ -23,6 +23,40 @@ function init(yargs) {
     console.log("Initialize empty [thing-it-node] Configuration File.");
 
     createConfigurationsDirectory();
+
+    var configuration = "module.exports = {label: 'Default', id: 'default', autoDiscoveryDeviceTypes: [";
+    var plugins = node.plugins();
+
+    for (var plugin in plugins) {
+        if (!plugins[plugin].discoverable) {
+            continue;
+        }
+
+        configuration += "{plugin: '" + plugin + "', confirmRegistration: true, " +
+            "persistRegistration: true, defaultConfiguration: {";
+
+        for (var n in plugins[plugin].configuration) {
+            if (plugins[plugin].configuration[n].defaultValue) {
+                configuration += plugins[plugin].configuration[n].id + ": ";
+                if (plugins[plugin].configuration[n].type.id === "string") {
+                    configuration += "'" + plugins[plugin].configuration[n].defaultValue + "'";
+                }
+                else {
+                    configuration += plugins[plugin].configuration[n].defaultValue;
+                }
+
+                configuration += ",";
+            }
+        }
+
+        configuration += "}, options: {";
+        configuration += "}},\n";
+    }
+
+    configuration += "], devices: [], services: [], eventProcessors: []};";
+
+    fs
+        .writeFileSync(process.cwd() + "/configurations/default.js", configuration);
 }
 
 /**

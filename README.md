@@ -13,10 +13,10 @@
 * define **Job Schedules** for a calendar-based, recurring execution of Services including start of Storyboards,
 * define **Complex Data Variables** to persistently store Event Data for later evaluation or for configurations
 * manage **Users an their Entitlements** to access the above elements and
-* use a **Mobile Client** to monitor and control your Devices.
+* use a **Mobile App** to monitor and control arbitrary Devices.
 
 All of the above is controlled by a [nodejs](http://nodejs.org/) server which is bootstrapped from a **simple JSON configuration**, which allows you to
-configure a **home automation system in minutes**.
+e.g. configure a **home automation system in minutes**.
 
 <p align="center"><a href="./documentation/images/architecture.png"><img src="./documentation/images/architecture.png" width="80%" height="80%"></a></p>
 
@@ -24,8 +24,8 @@ More details can be found on the [thing-it-node Wiki](https://github.com/marcgil
 
 # thing-it.com
 
-You can use [www.thing-it.com](http://www.thing-it.com) to create and simulate your setup for **[thing-it-node]** and then just download the configuration file or
-connect your Nodes permanently.
+You can use [www.thing-it.com](http://www.thing-it.com) to create and simulate your setup for **[thing-it-node]** and then just push the configuration file or
+connect your Nodes safely to the Internet.
 
 # Dual License
 
@@ -71,10 +71,7 @@ Or just continue reading ...
 
 ## Installing, Configuring and Running [thing-it-node]
 
-To install, configure and run  **[thing-it-node]**, first install **nodejs**
-	
-* [nodejs](https://nodejs.org/en/download/)
- 
+To install, configure and run  **[thing-it-node]**, first install [nodejs](https://nodejs.org/en/download/)
 on your computer (e.g. your PC or your Raspberry Pi). 
 
 Then install **[thing-it-node]**:
@@ -141,7 +138,7 @@ and the Event Processing for the same
         }
 ```
 
-Start the **[thing-it-node]** from **_&lt;installDir&gt;_/node_modules** via
+Start the **[thing-it-node]** via
 
 ```
 tin run
@@ -169,7 +166,7 @@ You will see something like
 which means that your **[thing-it-node]** Server found its configuration and has been started properly. It is not doing anything because the option **simulated** is set to **true** in the default options. 
 You could already use the **[thing-it-node]** Mobile Client against the simulated configuration (which you definitely would do on a new configuration), but for now we want the real thing.
 
-Stop the **[thing-it-node]** Server with **CTRL-C** to prepare **[thing-it-node]** to talk to a real device - which we still have to set up.
+Stop the **[thing-it-node]** Server with **CTRL-C** to prepare **[thing-it-node]** to talk to a real Device - which we still have to set up.
 
 ## Setting up Device, Actors and Sensors
 
@@ -239,11 +236,10 @@ Connect your browser to
 
 `http://localhost:3001/mobile/index.html`
 
-From a mobile device, replace **localhost** by the IP address of the computer running [thing-it] Node The browser content should look like
-
 <p align="center"><a href="./documentation/images/mobile-client.png"><img src="./documentation/images/mobile-client.png" width="70%" height="70%"></a></p>
 
-Note, that instead of the browser-based UI - mobile or on your computer - you will soon be able to alternatively use the native app we are preparing.
+Instead of the browser-based UI - mobile or on your computer - you can use the **[thing-it] Mobile App** from [Apple Appstore]() or
+[Google Play]().
 
 ## Summary
 
@@ -281,15 +277,3 @@ edit the logic of **Event Processors**
 and **Services** and then simulate and test the configuration before you download it to your **[thing-it-node]** deployment.
 
 Consider the [[thing-it] Documentation](http://www.thing-it.com/thing-it/index.html#/documentationPanel) to configure the scenario described above.
-
-# Taking it further
-
-If you have the **Getting Started** example running, you may want to
-
-* understand the concepts of *[thing-it-node]* better
-* have a look at further examples e.g.
-    * [Color Changes for an RGB LED with Potentiometers](https://github.com/marcgille/thing-it-node/wiki/RGB-LED-Example)
-    * [Animation of RGB LED Color Changes using a Storyboard](https://github.com/marcgille/thing-it-node/wiki/RGB-LED-Color-Changing-Storyboard)
-    * [Recurring Service Execution with Jobs](https://github.com/marcgille/thing-it-node/wiki/Recurring-Service-Execution-with-Jobs)
-* [connect your [thing-it-node] to the Internet](https://github.com/marcgille/thing-it-node/wiki/Connecting-%5Bthing-it-node%5D-to-the-Internet)
-* [apply security measures for your [thing-it-node]](https://github.com/marcgille/thing-it-node/wiki/Using-Signature-and-Encryption-for-REST-Services-and-Web-Socket-Messages)
