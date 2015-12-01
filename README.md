@@ -80,7 +80,7 @@ on your computer (e.g. your PC or your Raspberry Pi).
 Then install **[thing-it-node]**:
 
 ```
-npm install -g thing-it-node 
+npm -g install thing-it-node 
 ```
 
 which will install **[thing-it-node]** in your global **_/node_modules** directory and makes it available 
