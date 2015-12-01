@@ -66,7 +66,14 @@ module.exports = {
         label: "Toggle All",
         type: "script",
         content: {
-            script: "if (arduino1.led1.state.light == 'on') {arduino1.led1.off(); arduino1.led2.off();} else {arduino1.led1.on(); arduino1.led2.on();}"
+            script: "if ([node].arduino1.led1.state.light == 'on') {[node].arduino1.led1.off(); [node].arduino1.led2.off();} else {[node].arduino1.led1.on(); [node].arduino1.led2.on();}"
+        }
+    }, {
+        id: "lightsOff",
+        label: "Lights Off",
+        type: "script",
+        content: {
+            script: "[node].arduino1.led1.off(); [node].arduino1.led2.off();"
         }
     }],
     eventProcessors: [
@@ -77,7 +84,7 @@ module.exports = {
             match: "arduino1.button1.event.type == 'hold'",
             type: "script",
             content: {
-                script: "if (arduino1.led1.state.light == 'on') {arduino1.led1.off(); } else {arduino1.led1.on();}"
+                script: "if ([node].arduino1.led1.state.light == 'on') {[node].arduino1.led1.off(); } else {[node].arduino1.led1.on();}"
             }
         },
         {
@@ -87,20 +94,25 @@ module.exports = {
             match: "arduino1.button2.event.type == 'hold'",
             type: "script",
             content: {
-                script: "if (arduino1.led2.state.light == 'on') {arduino1.led2.off(); } else {arduino1.led2.on();}"
+                script: "if ([node].arduino1.led2.state.light == 'on') {[node].arduino1.led2.off(); } else {[node].arduino1.led2.on();}"
             }
         },
         {
             id: "eventProcessor3",
             label: "Event Processor 3",
             observables: ["arduino1.photocell1"],
-            window: {
-                "duration": 10000
+            trigger: {
+                type: "timeInterval",
+                content: {
+                    interval: 10000,
+                    cumulation: "maximum",
+                    stateVariable: "luminousIntensity",
+                    compareOperator: "<",
+                    compareValue: 600
+                }
             },
-            match: "minimum(arduino1.photocell1.series) < 700 && deviation(arduino1.photocell1.series) < 100 && arduino1.photocell1.series.length > 1",
-            type: "script",
-            content: {
-                script: "arduino1.led1.on(); arduino1.led2.on();"
+            action: {
+                type: "nodeService", "content": {"service": "lightsOff"}
             }
         }],
     data: []

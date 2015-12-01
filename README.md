@@ -71,34 +71,38 @@ Or just continue reading ...
 
 ## Installing, Configuring and Running [thing-it-node]
 
-To install, configure and run  **[thing-it-node]**, first install
-
-* [Python](https://www.python.org/downloads/)
-
-and then
+To install, configure and run  **[thing-it-node]**, first install **nodejs**
 	
-* [nodejs](http://nodejs.org/download/)
+* [nodejs](https://nodejs.org/en/download/)
  
 on your computer (e.g. your PC or your Raspberry Pi). 
 
 Then install **[thing-it-node]**:
 
 ```
-mkdir -p <installDir>/node_modules
-npm install --prefix <installDir> thing-it-node
+npm install -g thing-it-node 
 ```
 
-which will install **[thing-it-node]** in the directory **_&lt;installDir&gt;_/node_modules**.
+which will install **[thing-it-node]** in your global **_/node_modules** directory and makes it available 
+via the command line program **tin**.
 
-The options file **_&lt;installDir&gt;_/node_modules/options.js** is already configured as
+Now create an arbitrary Installation Directory **_&lt;installDir&gt;** and make it your current working directory, e.g.
 
-```javascript
-nodeConfigurationFile : "./examples/simple-lighting/configuration.json"
+```
+mkdir ~/thing-it-test
+cd ~/thing-it-test
 ```
 
-so that the **[thing-it-node]** server will be booted against the Configuration File for our simple lighting scenario.
+Then invoke
 
-If you are interested, have a look at the [configuration file](./thing-it-node/examples/simple-lighting/configuration.json) - the content should be self-explanatory.
+```
+tin example -f simple-lighting
+```
+
+which will create a directory **_&lt;installDir&gt;/configurations** and copy the sample **[thing-it-node]** Node Configuration
+**simple-lighting.js** into it from which **[thing-it-node]** can be booted.
+
+If you are interested, have a look at this [Node Configuration File](./thing-it-node/examples/simple-lighting/configuration.json) - the content should be self-explanatory.
 
 Probably the most interesting part is the definition of the Photocell 
 
@@ -118,62 +122,54 @@ and the Event Processing for the same
 
 ```javascript
 {
-       "id": "eventProcessor3",
-       "label": "Event Processor 3",
-       "observables": ["arduino1.photocell1"],
-       "window" : {"duration": 10000},
-       "match" : "minimum(arduino1.photocell1.series) < 700 && deviation(arduino1.photocell1.series) < 100 && arduino1.photocell1.series.length > 1",
-       "script": "arduino1.led1.on(); arduino1.led2.on();"
-}
+            id: "eventProcessor3",
+            label: "Event Processor 3",
+            observables: ["arduino1.photocell1"],
+            trigger: {
+                type: "timeInterval",
+                content: {
+                    interval: 10000,
+                    cumulation: "maximum",
+                    stateVariable: "luminousIntensity",
+                    compareOperator: "<",
+                    compareValue: 600
+                }
+            },
+            action: {
+                type: "nodeService", "content": {"service": "lightsOff"}
+            }
+        }
 ```
-
-which ensures that the setup only reacts to a slow, consistent reduction of the ambient light.
 
 Start the **[thing-it-node]** from **_&lt;installDir&gt;_/node_modules** via
 
-`node thing-it-node.js`
+```
+tin run
+```
 
 You will see something like
 
+    Running [thing-it-node] from Default Options.
+      
     ---------------------------------------------------------------------------
-     [thing-it-node] at http://0.0.0.0:3001
-
-
-     Node Configuration File: /Users/marcgille/git/thing-it-node/thing-it-node/examples/simple-lighting/configuration.json
-     Simulated              : true
-     Hot Deployment         : false
-     Verify Call Signature  : true
-     Public Key File        : /Users/marcgille/git/thing-it-node/thing-it-node/examples/simple-lighting/cert.pem
-     Signing Algorithm      : sha256
-
-
-     Copyright (c) 2014-2015 Marc Gille. All rights reserved.
+     Protocol                     : http
+     Port                         : 3001
+     Node Configurations Directory: /Users/marcgille/git/thing-it-node/configurations
+     Simulated                    : true
+     Log Level                    : debug
     -----------------------------------------------------------------------------
+    
+    
+    12/1/2015 6:32:01 AM INFO NodeManager ===> Scanning directory [/Users/marcgille/git/thing-it-node/lib/../node_modules] for Device Plugins: 		    Actor [LED1] started.
+    ...
+    12/1/2015 6:32:01 AM INFO Node[The Node] Event Processors started.
+    12/1/2015 6:32:01 AM INFO Node[The Node] Jobs activated.
+    12/1/2015 6:32:01 AM INFO Node[The Node] Node [The Node] started.
 
+which means that your **[thing-it-node]** Server found its configuration and has been started properly. It is not doing anything because the option **simulated** is set to **true** in the default options. 
+You could already use the **[thing-it-node]** Mobile Client against the simulated configuration (which you definitely would do on a new configuration), but for now we want the real thing.
 
-    Loading plugin [arduino].
-    Starting Node [Home].
-    Actor [LED1] started.
-		    Actor [LED2] started.
-		    Sensor [Button 1] started.
-		    Sensor [Button 2] started.
-		    Sensor [Photocell 1] started.
-	    Device [Arduino Uno 1] started.
-	    Event Processor [Event Processor 1] listening.
-	    Event Processor [Event Processor 2] listening.
-	    Event Processor [Event Processor 3] listening.
-	    Service [toggleAll] available.
-    Node [Home] started.  
-
-which means that your **[thing-it-node]** server found its configuration and has been started properly. It is not doing anything because the option **simulated** is set to **true** in the options file **_&lt;installDir&gt;_/options.js**. You could already use the **[thing-it-node]** Mobile Client against the simulated configuration (which you definitely would do on a new configuration), but for now we want the real thing.
-
-Stop the **[thing-it-node]** Server with **CTRL-C** and change its value to
-
-```javascript
-simulated : false
-```
-
-to prepare **[thing-it-node]** to talk to a real device - which we still have to set up.
+Stop the **[thing-it-node]** Server with **CTRL-C** to prepare **[thing-it-node]** to talk to a real device - which we still have to set up.
 
 ## Setting up Device, Actors and Sensors
 
@@ -210,41 +206,30 @@ e.g. like
 
 ![wiring](./examples/simple-lighting/wiring.png)
 
-Restart the **thing-it-node** server. The output should now look like 
+Restart the **thing-it-node** server with
 
+```
+tin run --no-simulate
+```
+
+The output should now look like 
+
+    Running [thing-it-node] from Default Options.
+      
     ---------------------------------------------------------------------------
-     [thing-it-node] at http://0.0.0.0:3001
-
-
-     Node Configuration File: /Users/marcgille/git/thing-it-node/thing-it-node/examples/simple-lighting/configuration.json
-     Simulated              : false
-     Hot Deployment         : false
-     Verify Call Signature  : true
-     Public Key File        : /Users/marcgille/git/thing-it-node/thing-it-node/examples/simple-lighting/cert.pem
-     Signing Algorithm      : sha256
-
-
-     Copyright (c) 2014-2015 Marc Gille. All rights reserved.
+     Protocol                     : http
+     Port                         : 3001
+     Node Configurations Directory: /Users/marcgille/git/thing-it-node/configurations
+     Simulated                    : false
+     Log Level                    : debug
     -----------------------------------------------------------------------------
-
-
-    Loading plugin [arduino].
-    Starting Node [Home].
-    1422043614997 Device(s) /dev/cu.usbmodem1411 
-    1422043618304 Connected /dev/cu.usbmodem1411 
-    1422043618305 Repl Initialized 
-    >> 	Starting Device [Arduino Uno 1]
- 		    Actor [LED1] started.
-		    Actor [LED2] started.
-		    Sensor [Button 1] started.
-		    Sensor [Button 2] started.
-		    Sensor [Photocell 1] started.
-	    Device [Arduino Uno 1] started.
-	    Event Processor [Event Processor 1] listening.
-	    Event Processor [Event Processor 2] listening.
-	    Event Processor [Event Processor 3] listening.
-	    Service [toggleAll] available.
-    Node [Home] started.
+    
+    
+    12/1/2015 6:32:01 AM INFO NodeManager ===> Scanning directory [/Users/marcgille/git/thing-it-node/lib/../node_modules] for Device Plugins: 		    Actor [LED1] started.
+    ...
+    12/1/2015 6:32:01 AM INFO Node[The Node] Event Processors started.
+    12/1/2015 6:32:01 AM INFO Node[The Node] Jobs activated.
+    12/1/2015 6:32:01 AM INFO Node[The Node] Node [The Node] started.
 
 You should also be able switch both LEDs on and off via the respective buttons or switch both LEDs on by covering the Photocell for more than a few seconds.
 
