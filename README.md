@@ -74,7 +74,7 @@ Or just continue reading ...
 To install, configure and run  **[thing-it-node]**, first install [nodejs](https://nodejs.org/en/download/)
 on your computer (e.g. your PC or your Raspberry Pi). 
 
-Then install **[thing-it-node]**:
+Then install **[thing-it-node]** via
 
 ```
 npm -g install thing-it-node 
