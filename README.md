@@ -141,7 +141,7 @@ and the Event Processing for the same
 Start the **[thing-it-node]** via
 
 ```
-tin run
+tin run --simulate
 ```
 
 You will see something like
@@ -206,7 +206,7 @@ e.g. like
 Restart the **thing-it-node** server with
 
 ```
-tin run --no-simulate
+tin run
 ```
 
 The output should now look like 

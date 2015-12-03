@@ -13,16 +13,14 @@ var fs = require('fs');
 require("yargs").usage("tin <command> [options]")
     .help("help", "Print this help")
     .demand(1)
-    .command("init", "Create Configurations Directory and an empty Configurations File.", init)
+    .command("init", "Create Configurations Directory with an empty Configurations File as well as the Data and User Directories .", init)
     .command("example", "Create an example Node Configurations file from a source.", example)
     .command("run", "Starts the [thing-it-node] Server.", run)
     .alias("h", "help")
     .argv;
 
 function init(yargs) {
-    console.log("Initialize empty [thing-it-node] Configuration File.");
-
-    createConfigurationsDirectory();
+    createDirectories();
 
     var configuration = "module.exports = {label: 'Default', id: 'default', autoDiscoveryDeviceTypes: [";
     var plugins = node.plugins();
@@ -73,7 +71,7 @@ function example(yargs) {
 
     console.log("Initialize [thing-it-node] Configuration File from example.");
 
-    createConfigurationsDirectory();
+    createDirectories();
 
     var source;
     var target;
@@ -92,20 +90,25 @@ function example(yargs) {
     copyFile(source, target);
 }
 
-function createConfigurationsDirectory() {
+function createDirectories() {
+    createDirectory("configurations", "Configurations");
+    createDirectory("users", "Users");
+    createDirectory("data", "Data");
+}
+
+function createDirectory(name, purpose) {
     try {
-        fs.mkdirSync(process.cwd() + "/configurations");
+        fs.mkdirSync(process.cwd() + "/" + name);
     } catch (e) {
         if (e.code == "EEXIST") {
-            console.log("Configurations Directory  [" + process.cwd() + "/configurations" + "] already exists");
+            console.log(purpose + " Directory  [" + process.cwd() + "/" + name + "] already exists");
         } else {
-            console.error("Cannot create Configurations Directory [" + process.cwd() + "/configurations" + "]: ", e);
+            console.error("Cannot create " + purpose + " Directory [" + process.cwd() + "/" + name + "]: ", e);
 
             process.exit();
         }
     }
 }
-
 function copyFile(source, target) {
     var rd = fs.createReadStream(source);
 
@@ -131,9 +134,10 @@ function copyFile(source, target) {
  *
  */
 function run(yargs) {
-    var argv = yargs.option("no-simulate", {
-        alias: "ns",
-        description: 'Deactivate simulation mode'
+    var argv = yargs.option("simulate", {
+        alias: "s",
+        description: 'Activate simulation mode',
+        type: "boolean"
     }).help("help").argv;
 
     console.log();
