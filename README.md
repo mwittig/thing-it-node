@@ -260,7 +260,8 @@ With
 * a simple configuration file,
 * the corresponding wiring of the Arduino 
 
-but **no programming** we were able to create a simple but realistic home automation scenario.
+but **no programming** we were able to access a not-too-trivial Actor/Sensor setup. Imagine you had put together complex electronics, 
+wanted a control panel and put most of the Device's logic in the [thing-it-node] configuration.
 
 ## Using thing-it.com
 
