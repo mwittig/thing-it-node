@@ -16,7 +16,7 @@
 * use a **Mobile App** to monitor and control arbitrary Devices.
 
 All of the above is controlled by a [nodejs](http://nodejs.org/) server which is bootstrapped from a **simple JSON configuration**, which allows you to
-e.g. configure a **home automation system in minutes**.
+e.g. configure a **complex Device control in minutes**.
 
 <p align="center"><a href="./documentation/images/architecture.png"><img src="./documentation/images/architecture.png" width="80%" height="80%"></a></p>
 
