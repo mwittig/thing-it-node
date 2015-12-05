@@ -1,7 +1,9 @@
 [![NPM](https://nodei.co/npm/thing-it-node.png)](https://nodei.co/npm/thing-it-node/)
 [![NPM](https://nodei.co/npm-dl/thing-it-node.png)](https://nodei.co/npm/thing-it-node/)
 
-<div style="color: #245797; font-size: 2em;">Now running on <a href="https://github.com/marcgille/thing-it-node/wiki/Installation-Raspberry-Pi-Zero">Raspberry Pi Zero</a></div>
+<div style="color: #245797; font-size: 2em;">
+    Now running on <a href="https://github.com/marcgille/thing-it-node/wiki/Installation-Raspberry-Pi-Zero">Raspberry Pi Zero</a>
+</div>
 
 **[thing-it-node]** is **a scalable Operating System for Things** and allows you to
 
