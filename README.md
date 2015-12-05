@@ -56,13 +56,15 @@ If you are not interested in tinkering with Microcontrollers and just intend to 
 
 Then stop reading. Check what we have on git/npm under
 
-* [thing-it-device-sonos](https://www.npmjs.com/package/thing-it-device-sonos)
-* [thing-it-device-aircable](https://www.npmjs.com/package/thing-it-device-aircable)
-* [thing-it-device-ar-drone](https://www.npmjs.com/package/thing-it-device-ar-drone)
-* [thing-it-device-ti-sensortag](https://www.npmjs.com/package/thing-it-device-sensortag)
-* [thing-it-device-ti-art-net](https://www.npmjs.com/package/thing-it-device-art-net)
-* [thing-it-device-itach](https://www.npmjs.com/package/thing-it-device-itach)
-* [thing-it-device-philips-hue](https://www.npmjs.com/package/thing-it-device-philips-hue)
+* [thing-it-device-sonos](https://www.npmjs.com/package/thing-it-device-sonos) to connect Sonos Entertainment systems,
+* [thing-it-device-aircable](https://www.npmjs.com/package/thing-it-device-aircable) to connect Aircable Smart Dimmers,
+* [thing-it-device-ar-drone](https://www.npmjs.com/package/thing-it-device-ar-drone) to control AR Drones,
+* [thing-it-device-ti-sensortag](https://www.npmjs.com/package/thing-it-device-sensortag) to monitor Texas Instruments SensorTag devices,
+* [thing-it-device-ti-art-net](https://www.npmjs.com/package/thing-it-device-art-net) to control lighting and more in an ArtNet/DMX network,
+* [thing-it-device-itach](https://www.npmjs.com/package/thing-it-device-itach) to get access to IR-controlled devices (e.g. TVs, cleaning robots),
+* [thing-it-device-philips-hue](https://www.npmjs.com/package/thing-it-device-philips-hue) to control lighting with Philips Hue,
+* [thing-it-device-plugwise](https://www.npmjs.com/package/thing-it-device-plugwise) to control Plugwise switches, thermostats and sensors,
+* [thing-it-device-foscam](https://www.npmjs.com/package/thing-it-device-foscam) to access Foscam cameras,
 * and more every day ...
 
 Or check the [thing-it.com Mesh Market](http://www.thing-it.com/thing-it/index.html#/marketPanel).
@@ -82,6 +84,12 @@ npm -g install thing-it-node
 
 which will install **[thing-it-node]** in your global **/node_modules** directory and makes it available 
 via the command line program **tin**.
+
+Depending on the access right settings on your file system you may need to do
+
+```
+sudo npm -g install thing-it-node 
+```
 
 Now create an arbitrary Installation Directory **_&lt;installDir&gt;_** and make it your current working directory, e.g.
 
