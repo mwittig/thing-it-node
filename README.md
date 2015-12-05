@@ -91,7 +91,9 @@ Depending on the access right settings on your file system you may need to do
 sudo npm -g install thing-it-node 
 ```
 
-Now create an arbitrary Installation Directory **_&lt;installDir&gt;_** and make it your current working directory, e.g.
+instead.
+
+Now create an arbitrary Installation Directory **_installDir_** and make it your current working directory, e.g.
 
 ```
 mkdir ~/thing-it-test
@@ -104,7 +106,7 @@ Then invoke
 tin example -f simple-lighting
 ```
 
-which will create a directory **_&lt;installDir&gt;_/configurations** and copy the sample **[thing-it-node]** Node Configuration
+which will create a directory **_installDir_/configurations** and copy the sample **[thing-it-node]** Node Configuration
 **simple-lighting.js** into it from which **[thing-it-node]** can be booted.
 
 If you are interested, have a look at this [Node Configuration File](./thing-it-node/examples/simple-lighting/configuration.json) - the content should be self-explanatory.
