@@ -85,7 +85,7 @@ npm -g install thing-it-node
 which will install **[thing-it-node]** in your global **/node_modules** directory and makes it available 
 via the command line program **tin**.
 
-Depending on the access right settings on your file system you may need to do
+Note, that depending on the access right settings on your file system you may need to invoke
 
 ```
 sudo npm -g install thing-it-node 
