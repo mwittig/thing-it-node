@@ -35,7 +35,7 @@ connect your Nodes safely to the Internet.
 
 ## The Scenario
 
-Let's set up a simple - but not too simple - home automation scenario:
+Let's set up a simple - but not too simple - setup:
 
 1. Two LEDs representing e.g. two lamps (you could actually immediately replace the LEDs by two relays to switch lamps on and off).
 1. A Photocell to detect the ambient light in a room and event processing to switch both LEDs on if the light goes below some threshold for a while (to distinguish sunset from the Photocell being temporarily covered by your curious cat).
@@ -44,17 +44,13 @@ Let's set up a simple - but not too simple - home automation scenario:
 
 ## Not interested in Arduino Experiments?
 
-If you are not interested in tinkering with Microcontrollers and just intend to e.g.
+If you are not interested in tinkering with microcontrollers and just intend to e.g. control your
 
-* control your Sonos Sound System,
-* get your Smart Home with Aircable Bluetooth Dimmers and Texas Instruments Sensor Tags to work to control your lighting,
-* control your drones,
-* control your Art-Net/DMX lighting, fog machines etc.,
-* configure a Universal Infrared Remote Control?
-* control Philips Hue Light Bulbs,
-* ...
+* sound system,
+* lighting or
+* drones,
 
-Then stop reading. Check what we have on git/npm under
+then stop reading. Check what we have on git/npm under
 
 * [thing-it-device-sonos](https://www.npmjs.com/package/thing-it-device-sonos) to connect Sonos Entertainment systems,
 * [thing-it-device-aircable](https://www.npmjs.com/package/thing-it-device-aircable) to connect Aircable Smart Dimmers,
