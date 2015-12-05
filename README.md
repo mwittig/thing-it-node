@@ -4,7 +4,7 @@
 **[thing-it-node]** is **a scalable Operating System for Things** and allows you to
 
 * connect multiple Devices (e.g. Heart Rate Monitors, Sensor Tags, Drones) as well as low-level Actors and Sensors managed via Microcontrollers like an Arduino
-  to your node computer (e.g. a regular server, a Raspberry Pi or a BeagleBone Black)
+  to your node computer (e.g. a regular server, a [Raspberry Pi Zero](https://github.com/marcgille/thing-it-node/wiki/Installation-Raspberry-Pi-Zero) or a BeagleBone Black)
 * invoke **REST Services** on all Devices and Actors,
 * receive **WebSocket Notifications** on all Device and Sensor state changes and events,
 * define **Higher-level REST Services** to control multiple Actors,
@@ -70,7 +70,7 @@ Or just continue reading ...
 ## Installing, Configuring and Running [thing-it-node]
 
 To install, configure and run  **[thing-it-node]**, first install [nodejs](https://nodejs.org/en/download/)
-on your computer (e.g. your PC or your Raspberry Pi). 
+on your computer (e.g. your PC or your [Raspberry Pi Zero](https://github.com/marcgille/thing-it-node/wiki/Installation-Raspberry-Pi-Zero)). 
 
 Then install **[thing-it-node]** via
 
