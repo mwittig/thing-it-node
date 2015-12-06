@@ -35,7 +35,7 @@ connect your Nodes safely to the Internet.
 
 ## The Scenario
 
-Let's set up a simple - but not too simple - setup:
+Let's set up a simple - but not too simple - configuration:
 
 1. Two LEDs representing e.g. two lamps (you could actually immediately replace the LEDs by two relays to switch lamps on and off).
 1. A Photocell to detect the ambient light in a room and event processing to switch both LEDs on if the light goes below some threshold for a while (to distinguish sunset from the Photocell being temporarily covered by your curious cat).
