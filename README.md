@@ -244,8 +244,8 @@ Connect your browser to
 
 <p align="center"><a href="./documentation/images/mobile-client.png"><img src="./documentation/images/mobile-client.png" width="70%" height="70%"></a></p>
 
-Instead of the browser-based UI - mobile or on your computer - you can use the **[thing-it] Mobile App** from [Apple Appstore]() or
-[Google Play]().
+Instead of the browser-based UI - mobile or on your computer - you can use the **[thing-it] Mobile App** from [Apple Appstore](https://itunes.apple.com/us/app/thing-it-mobile/id1055394072?ls=1&mt=8) or
+[Google Play](https://play.google.com/store/apps/details?id=org.thingit.console&hl=en).
 
 ## Summary
 
