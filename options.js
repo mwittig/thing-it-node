@@ -4,7 +4,7 @@ module.exports = {
     nodeConfigurationsDirectory: "/Users/marcgille/git/thing-it-node/configurations",
     dataDirectory: "../thing-it-data",
     usersDirectory: "../thing-it-users",
-    simulated: true,
+    simulated: false,
     verifyCallSignature: false,
     authentication: "none",//"user",
     logLevel: "debug",
