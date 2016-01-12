@@ -26,7 +26,7 @@ function init(yargs) {
     var plugins = node.plugins();
 
     for (var plugin in plugins) {
-        if (!plugins[plugin].discoverable) {
+        if (!plugins[plugin].discoverable || (plugins[plugin].additionalSoftware && plugins[plugin].additionalSoftware.length > 0)) {
             continue;
         }
 
