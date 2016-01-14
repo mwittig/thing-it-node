@@ -2,6 +2,7 @@
 
 // Imports
 
+var package = require('../package.json');
 var node = require("../lib/node");
 var utils = require("../lib/utils");
 var bodyParser = require('body-parser')
@@ -16,6 +17,7 @@ require("yargs").usage("tin <command> [options]")
     .command("init", "Create Configurations Directory with an empty Configurations File as well as the Data and User Directories .", init)
     .command("example", "Create an example Node Configurations file from a source.", example)
     .command("run", "Starts the [thing-it-node] Server.", run)
+    .command("version", "Displays version information.", version)
     .alias("h", "help")
     .argv;
 
@@ -198,42 +200,53 @@ function run(yargs) {
 
     var server = app
         .listen(
-        options.port,
-        function () {
-            console.log("\n");
-            console
-                .log("---------------------------------------------------------------------------");
-            if (!options.proxy || options.proxy === "local") {
-                console.log(" Protocol                     : %s",
-                    options.protocol);
-                console.log(" Port                         : %s",
-                    options.port);
-                console.log(" Node Configurations Directory: %s",
-                    options.nodeConfigurationsDirectory);
+            options.port,
+            function () {
+                console.log("\n");
+                console
+                    .log("---------------------------------------------------------------------------");
+                console.log(" Firmware                     : %s",
+                    package.version);
+                if (!options.proxy || options.proxy === "local") {
+                    console.log(" Protocol                     : %s",
+                        options.protocol);
+                    console.log(" Port                         : %s",
+                        options.port);
+                    console.log(" Node Configurations Directory: %s",
+                        options.nodeConfigurationsDirectory);
+                }
+                else {
+                    console.log(" Node Box UUID                : %s",
+                        options.uuid);
+                    console.log(" Proxy Server                 : %s",
+                        options.proxy);
+                }
+
                 console.log(" Simulated                    : %s",
                     options.simulated);
-            }
-            else {
-                console.log(" UUID                         : %s",
-                    options.uuid);
-                console.log(" Proxy Server                 : %s",
-                    options.proxy);
-            }
+                console.log(" Log Level                    : %s",
+                    options.logLevel);
+                console
+                    .log("-----------------------------------------------------------------------------");
+                console.log("\n");
 
-            console.log(" Log Level                    : %s",
-                options.logLevel);
-            console
-                .log("-----------------------------------------------------------------------------");
-            console.log("\n");
+                try {
+                    io.listen(server);
 
-            try {
-                io.listen(server);
+                    node.bootstrap(options, app, io);
+                } catch (x) {
+                    console.error("Cannot start node: ", x);
 
-                node.bootstrap(options, app, io);
-            } catch (x) {
-                console.error("Cannot start node: ", x);
+                    process.exit();
+                }
+            });
+}
 
-                process.exit();
-            }
-        });
+/**
+ *
+ */
+function version() {
+    console.log("Current [thing-it-node] version is %s.",
+        package.version);
+
 }
