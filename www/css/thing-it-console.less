@@ -60,6 +60,18 @@
   background-color: @ternaryColor;
 }
 
+.lightTernaryColor {
+  color: lighten(@ternaryColor, @lightPercentage);
+}
+
+.lighterTernaryColor {
+  color: lighten(@ternaryColor, @lighterPercentage);
+}
+
+.lightestTernaryColor {
+  color: lighten(@ternaryColor, @lightestPercentage);
+}
+
 .lightTernaryBackgroundColor {
   background-color: lighten(@ternaryColor, @lightPercentage);
 }
@@ -196,7 +208,8 @@ input[type=checkbox]:before {
   border-radius: 3px;
   border-top: 1px solid #F7F7F7;
   border-right: 1px solid #999999;
-  border-bottom: 1px solid: #BABABA;
+  border-bottom: 1px
+  solid: #BABABA;
   border-left: 1px solid #BDBDBD;
   background-image: -webkit-gradient(
           linear, left top, left bottom,
