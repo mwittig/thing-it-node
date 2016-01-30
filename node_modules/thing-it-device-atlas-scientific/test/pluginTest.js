@@ -4,7 +4,7 @@ describe('[thing-it] Atlas Scientific', function () {
     var testDriver;
 
     before(function () {
-        testDriver = require("thing-it-test").createTestDriver({logLevel: "error"});
+        testDriver = require("thing-it-test").createTestDriver({logLevel: "debug"});
 
         testDriver.registerDevicePlugin(__dirname + "/../pHMeter");
     });
@@ -12,12 +12,13 @@ describe('[thing-it] Atlas Scientific', function () {
         it('should complete without error', function () {
             return testDriver.start({
                 configuration: require("../examples/configuration.js"),
-                heartbeat: 10
+                heartbeat: 10,
+                simulated: true
             });
         });
     });
     describe('Receive Measurements', function () {
-        this.timeout(20000);
+        this.timeout(30000);
 
         before(function () {
             testDriver.removeAllListeners();
@@ -25,6 +26,7 @@ describe('[thing-it] Atlas Scientific', function () {
         it('should produce Device values', function (done) {
             testDriver.addListener({
                 publishDeviceStateChange: function (event) {
+                    console.log(event);
                     done();
                 }
             });

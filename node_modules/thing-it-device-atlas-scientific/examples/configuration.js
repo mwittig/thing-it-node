@@ -5,7 +5,7 @@ module.exports = {
     devices: [{
         label: "pH Meter",
         id: "pHMeter",
-        plugin: "atlas-scientifc/pHMeter",
+        plugin: "atlas-scientific/pHMeter",
         configuration: {},
         logLevel: "debug",
         actors: [],
