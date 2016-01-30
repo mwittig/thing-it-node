@@ -20,7 +20,6 @@ module.exports = {
         configuration: []
     },
     create: function () {
-        console.log("Create >>>>");
         return new pHMeter();
     },
     discovery: function () {
@@ -42,16 +41,14 @@ function pHMeter() {
     pHMeter.prototype.start = function () {
         var deferred = q.defer();
 
-        console.log(">>> Start");
         this.state = {pHValue: 6.0};
 
         if (this.isSimulated()) {
             this.interval = setInterval(function () {
                 this.state.pHValue = 5 + 0.1 * new Date().getTime() % 2;
 
-                console.log(this.state);
                 this.publishStateChange();
-            }.bind(this), 5000);
+            }.bind(this), 20000);
 
             deferred.resolve();
         } else {
