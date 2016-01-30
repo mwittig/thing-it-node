@@ -5,6 +5,7 @@ module.exports = {
         label: 'pH Meter',
         manufacturer: 'Atlas Scientific',
         discoverable: false,
+        tangible: true,
         additionalSoftware: [],
         actorTypes: [],
         sensorTypes: [],
