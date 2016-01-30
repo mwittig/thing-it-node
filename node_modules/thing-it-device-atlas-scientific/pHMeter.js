@@ -10,7 +10,7 @@ module.exports = {
         actorTypes: [],
         sensorTypes: [],
         state: [{
-            id: "phValue",
+            id: "pHValue",
             label: "pH Value",
             type: {
                 id: "decimal"
@@ -99,7 +99,7 @@ function pHMeter() {
      *
      */
     pHMeter.prototype.getState = function () {
-        return {};
+        return this.state;
     };
 
     /**
