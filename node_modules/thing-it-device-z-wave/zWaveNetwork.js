@@ -31,6 +31,7 @@ module.exports = {
 };
 
 var q = require('q');
+var _ = require('lodash');
 
 /**
  *
@@ -55,11 +56,68 @@ function ZWaveNetworkDiscovery() {
                 });
             }
 
+            this.nodes = [];
+
             this.zWave.on('driver ready', function (homeid) {
                 this.logDebug('Scanning network with homeid 0x%s...', homeid.toString(16));
 
                 this.currentHomeId = parseInt("0x" + homeid.toString(16));
-            });
+
+                // Wait 20 seconds to collect all nodes and create Device/Actor structure
+                // TODO Make timeout configurable
+
+                this.timer = setTimeout(function () {
+                    // Add the Z-Wave Network Device
+
+                    var zWaveNetwork = new ZWaveNetwork();
+
+                    if (this.defaultConfiguration) {
+                        zWaveNetwork.configuration = _.cloneDeep(this.defaultConfiguration);
+                    } else {
+                        zWaveNetwork.configuration = {};
+                    }
+
+                    zWaveNetwork.configuration.homeId = this.currentHomeId;
+                    zWaveNetwork.configuration.nodeId = 1;
+                    zWaveNetwork.actors = [];
+
+                    // Add all ready Nodes depending on their types
+                    // TODO Add all remaining device classes
+
+                    for (n in this.nodes) {
+                        this.logDebug("++++++++ ", this.nodes[n].type);
+
+                        var actor;
+
+                        if (this.nodes[n].type === 'Binary Power Switch') {
+                            this.logDebug("Adding Binary Power Switch", this.nodes[n]);
+
+                            zWaveNetwork.actors.push(actor = {
+                                id: "binaryPowerSwitch" + n,
+                                label: "Binary Power Switch " + n,
+                                type: "binaryPowerSwitch",
+                                configuration: {
+                                    nodeId: n
+                                }
+                            });
+                        }
+                        else if (this.nodes[n].type === 'Routing Multilevel Sensor') {
+                            this.logDebug("Adding Routing Multilevel Sensor", this.nodes[n]);
+
+                            zWaveNetwork.actors.push(actor = {
+                                id: "multilevelSensor" + n,
+                                label: "Multilevel Sensor " + n,
+                                type: "multilevelSensor",
+                                configuration: {
+                                    nodeId: n
+                                }
+                            });
+                        }
+                    }
+
+                    this.advertiseDevice(zWaveNetwork);
+                }.bind(this), 20000);
+            }.bind(this));
 
             this.zWave.on('driver failed', function () {
                 this.logDebug('Failed to start driver.');
@@ -67,35 +125,33 @@ function ZWaveNetworkDiscovery() {
                 this.zWave.disconnect();
 
                 throw 'Cannot connect to driver.';
-            });
+            }.bind(this));
 
-            this.zWave.on('node ready', function (nodeid, nodeinfo) {
+            this.zWave.on('node ready', function (nodeId, nodeInfo) {
                 this.logDebug('Node ready');
-                this.logDebug('Manufacturer: ' + nodeinfo.manufacturer);
-                this.logDebug('Product     : ' + nodeinfo.product);
-                this.logDebug('Product Type: ' + nodeinfo.producttype);
-                this.logDebug('Location    : ' + nodeinfo.loc);
-            });
+                this.logDebug('ID          : ' + nodeId);
+                this.logDebug('Type        : ' + nodeInfo.type);
+                this.logDebug('Manufacturer: ' + nodeInfo.manufacturer);
+                this.logDebug('Product     : ' + nodeInfo.product);
+                this.logDebug('Product Type: ' + nodeInfo.producttype);
+                this.logDebug('Location    : ' + nodeInfo.loc);
+
+                this.nodes[nodeId] = {
+                    manufacturer: nodeInfo.manufacturer,
+                    manufacturerid: nodeInfo.manufacturerid,
+                    product: nodeInfo.product,
+                    producttype: nodeInfo.producttype,
+                    productid: nodeInfo.productid,
+                    type: nodeInfo.type,
+                    name: nodeInfo.name,
+                    loc: nodeInfo.loc,
+                    ready: true
+                };
+            }.bind(this));
 
             this.zWave.on('node added', function (nodeid) {
-                //this.logDebug('Node added: ' + nodeid);
-                //
-                //var zWaveNetwork = new ZWaveNetwork();
-                //
-                //zWaveNetwork.configuration = this.defaultConfiguration;
-                //zWaveNetwork.configuration.homeId = this.currentHomeId;
-                //zWaveNetwork.configuration.nodeId = nodeId;
-                //
-                //this.advertiseDevice(zWaveNetwork);
-            });
-
-            this.zWave.on('node ready', function (nodeid, nodeinfo) {
-                this.logDebug('Node ready');
-                this.logDebug('Manufacturer: ' + nodeinfo.manufacturer);
-                this.logDebug('Product     : ' + nodeinfo.product);
-                this.logDebug('Product Type: ' + nodeinfo.producttype);
-                this.logDebug('Location    : ' + nodeinfo.loc);
-            });
+                this.logDebug('Node added: ' + nodeid);
+            }.bind(this));
 
             this.zWave.connect('/dev/cu.SLAB_USBtoUART'); // TODO From Config
 
