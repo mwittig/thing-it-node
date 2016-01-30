@@ -41,12 +41,14 @@ function pHMeter() {
     pHMeter.prototype.start = function () {
         var deferred = q.defer();
 
+        this.state = {pHValue: 6.0};
+
         if (this.isSimulated()) {
             this.interval = setInterval(function () {
                 this.state.pHValue = 5 + 0.1 * new Date().getTime() % 2;
 
                 this.publishStateChange();
-            }.bind(this), this.configuration.interval);
+            }.bind(this), 20000);
 
             deferred.resolve();
         } else {
