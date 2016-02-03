@@ -24,6 +24,7 @@ module.exports = {
     }
 };
 
+var os = require('os');
 var q = require('q');
 var _ = require('lodash');
 
