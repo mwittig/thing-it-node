@@ -72,6 +72,9 @@ function ZWaveNetworkDiscovery() {
                         zWaveNetwork.configuration = {};
                     }
 
+                    zWaveNetwork.id = this.currentHomeId;
+                    zWaveNetwork.uuid = this.currentHomeId;
+                    zWaveNetwork.label = "Z-Wave Network " + this.currentHomeId;
                     zWaveNetwork.configuration.homeId = this.currentHomeId;
                     zWaveNetwork.configuration.nodeId = 1;
                     zWaveNetwork.actors = [];
