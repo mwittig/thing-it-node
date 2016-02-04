@@ -140,6 +140,9 @@ function run(yargs) {
         alias: "s",
         description: 'Activate simulation mode',
         type: "boolean"
+    }).option("log", {
+        alias: "l",
+        description: 'Log Level'
     }).help("help").argv;
 
     console.log();
@@ -171,6 +174,10 @@ function run(yargs) {
 
     if (argv.simulate != undefined) {
         options.simulated = argv.simulate;
+    }
+
+    if (argv.log != undefined) {
+        options.logLevel = argv.log;
     }
 
     var io = new Server({
