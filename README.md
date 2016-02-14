@@ -56,7 +56,7 @@ If you are not interested in tinkering with Z-Wave Devices and just intend to e.
 * aquaponics ecosystem
 * drones,
 
-then maybe stop reading. Check what we have on **(github)[https://www.github.com]**/**(npm)[www.npmjs.com]** under
+then maybe stop reading. Check what we have on **[github](https://www.github.com)**/**[npm](www.npmjs.com)** under
 
 * [thing-it-device-sonos](https://www.npmjs.com/package/thing-it-device-sonos) to connect Sonos Entertainment systems,
 * [thing-it-device-aircable](https://www.npmjs.com/package/thing-it-device-aircable) to connect Aircable Smart Dimmers,
@@ -284,7 +284,7 @@ With
 but **no programming** we were able to access a not-too-trivial Actor/Sensor setup.
 
 However, in real live you would usually not directly edit the Configuration File. You would either modify the configuration with the Mobile App
-or use **(thing-it.com)[http://www.thing-it.com]** as described below.
+or use **[thing-it.com](https://www.thing-it.com)** as described below.
 
 ## Using thing-it.com
 
