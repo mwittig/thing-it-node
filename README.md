@@ -39,7 +39,7 @@ Let's set up a simple Smart Home scenario leveraging the easy-to-configure Z-Wav
 
 * an Ambient Light Sensor,
 * a Light Buld and
-* a Switch fo arbitrary powered Devices (e.g. your electrical rocking chair)
+* a Switch for arbitrary powered Devices (e.g. your electrical rocking chair)
 
 In our scenario we will
 
@@ -67,12 +67,18 @@ then stop reading. Check what we have on git/npm under
 * [thing-it-device-philips-hue](https://www.npmjs.com/package/thing-it-device-philips-hue) to control lighting with Philips Hue,
 * [thing-it-device-plugwise](https://www.npmjs.com/package/thing-it-device-plugwise) to control Plugwise switches, thermostats and sensors,
 * [thing-it-device-foscam](https://www.npmjs.com/package/thing-it-device-foscam) to access Foscam cameras,
-* [thing-it-device-atlas-scientific](https://www.npmjs.com/package/thing-it-device-atlas-scientific) to access Atlas Scientific probes e.g. for PH value measurement,
+* [thing-it-device-atlas-scientific](https://www.npmjs.com/package/thing-it-device-atlas-scientific) to access Atlas Scientific probes e.g. for pH value measurement,
 * and more every day ...
 
 Or check the [thing-it.com Mesh Market](http://www.thing-it.com/thing-it/index.html#/marketPanel).
 
 Or just continue reading ...
+
+But wait. May be you want to switch on your Sonos if the Z-Wave Sensor detected motion, switch on your vents for you Aquaponics greenhouse if the
+ambient temperature is above a certain threshold. Or the fish pond's water temperature. Or you want to have your drone flying over the fish pond while
+your Sonos is playing "Girl from Ipanema", but only if the Foscam camera detects an intruder?
+
+OK, keep reading ...
 
 ## Prerequisites
 
