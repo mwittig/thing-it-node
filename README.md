@@ -4,7 +4,7 @@
 **[thing-it-node]** is **a scalable Operating System for Things** and allows you to
 
 * connect multiple Devices (e.g. Heart Rate Monitors, Sensor Tags, Drones) as well as low-level Actors and Sensors managed via Microcontrollers like an Arduino
-  to your node computer (e.g. a regular server, a [Raspberry Pi Zero](https://github.com/marcgille/thing-it-node/wiki/Installation-Raspberry-Pi-Zero) or a BeagleBone Black)
+  to your Device Gateway computer (e.g. a regular server, a [Raspberry Pi Zero](https://github.com/marcgille/thing-it-node/wiki/Installation-Raspberry-Pi-Zero) or a BeagleBone Black)
 * invoke **REST Services** on all Devices and Actors,
 * receive **WebSocket Notifications** on all Device and Sensor state changes and events,
 * define **Higher-level REST Services** to control multiple Actors,
@@ -25,7 +25,7 @@ More details can be found on the [thing-it-node Wiki](https://github.com/marcgil
 # thing-it.com
 
 You can use [www.thing-it.com](http://www.thing-it.com) to create and simulate your setup for **[thing-it-node]** and then just push the configuration file or
-connect your Nodes safely to the Internet.
+connect your Device Gateways safely to the Internet.
 
 # Dual License
 
@@ -38,7 +38,7 @@ connect your Nodes safely to the Internet.
 Let's set up a simple Smart Home scenario leveraging the easy-to-configure Z-Wave standard with
 
 * an Ambient Light Sensor,
-* a Light Buld and
+* a Light Bulb and
 * a Switch for arbitrary powered Devices (e.g. your electrical rocking chair)
 
 In our scenario we will
@@ -56,7 +56,7 @@ If you are not interested in tinkering with Z-Wave Devices and just intend to e.
 * aquaponics ecosystem
 * drones,
 
-then stop reading. Check what we have on git/npm under
+then maybe stop reading. Check what we have on git/npm under
 
 * [thing-it-device-sonos](https://www.npmjs.com/package/thing-it-device-sonos) to connect Sonos Entertainment systems,
 * [thing-it-device-aircable](https://www.npmjs.com/package/thing-it-device-aircable) to connect Aircable Smart Dimmers,
@@ -128,36 +128,15 @@ cd ~/thing-it-test
 Then invoke
 
 ```
-tin example -f simple-z-wave
+tin example -f z-wave-empty
 ```
 
 which will create a directory **_installDir_/configurations** and copy the sample **[thing-it-node]** Node Configuration
-**simple-z-wave.js** into it from which **[thing-it-node]** can be booted.
+**z-wave-empty.js** into it from which **[thing-it-node]** can be booted.
 
-If you are interested, have a look at this [Node Configuration File](./thing-it-node/examples/simple-lighting/configuration.json) - the content should be self-explanatory.
+If you are interested, have a look at this [Node Configuration File](./thing-it-node/examples/z-wave/z-wave-empty.json) - the content should be self-explanatory.
 
-Probably the most interesting part is the Event Processing
-
-```javascript
-{
-            id: "eventProcessor3",
-            label: "Event Processor 3",
-            observables: ["zWaveNetwork.multiSensor"],
-            trigger: {
-                type: "timeInterval",
-                content: {
-                    interval: 10000,
-                    cumulation: "maximum",
-                    stateVariable: "luminousIntensity",
-                    compareOperator: "<",
-                    compareValue: 600
-                }
-            },
-            action: {
-                type: "nodeService", "content": {"service": "toggleAll"}
-            }
-        }
-```
+You will see that we have not configured any devices (nor anything else); we have just told **[thing-it-node]** to auto-discover any Z-Wave device.
 
 Start the **[thing-it-node]** first via
 
@@ -228,6 +207,59 @@ The output should now look like
     12/1/2015 6:32:01 AM INFO Node[The Node] Jobs activated.
     12/1/2015 6:32:01 AM INFO Node[The Node] Node [The Node] started.
 
+## Adding Services
+
+Extend the **eventProcessors** section with something like
+
+```javascript
+...
+services: [{
+                   id: "toggleAll",
+                   label: "Toggle All",
+                   type: "script",
+                   content: {
+                       script: "if ([node].zWaveNetwork.lightBulb.state.light == 'on') {[node].zWaveNetwork.lightBulb.off(); [node].zWaveNetwork.switch.off();} else {[node].zWaveNetwork.lightBulb.on(); [node].zWaveNetwork.switch.on();}"
+                   }
+               }, {
+                   id: "lightsOff",
+                   label: "Lights Off",
+                   type: "script",
+                   content: {
+                       script: "[node].arduino1.led1.off(); [node].arduino1.led2.off();"
+                   }
+               }]
+```
+
+Restart **tin**. You can now invoke both services via REST against your **[thing-it-node]** Device Gateway computer.
+
+## Adding Event Processing
+
+Extend the **eventProcessors** section with something like
+
+```javascript
+...
+eventProcessors: [{id: "eventProcessor1",
+            label: "Event Processor 1",
+            observables: ["zWaveNetwork.multiSensor"],
+            trigger: {
+                type: "timeInterval",
+                content: {
+                    interval: 10000,
+                    conditions: [{observable: "zWaveNetwork.multiSensor",
+                    cumulation: "maximum",
+                    stateVariable: "luminousIntensity",
+                    compareOperator: "<",
+                    compareValue: 600
+                }]
+            },
+            action: {
+                type: "nodeService", "content": {"service": "toggleAll"}
+            }
+        }]
+```
+
+to the configuration.js file and restart **tin**.
+
 ## Running the Mobile Web App
 
 Connect your browser to 
@@ -245,15 +277,16 @@ Let us recap what we did:
 
 With
 
-* a simple configuration file,
-* the corresponding wiring of the Arduino 
+* purchasing and pairing some Z-Wave products,
+* installing **[thing-it-node]** and
+* editing a simple configuration file
 
-but **no programming** we were able to access a not-too-trivial Actor/Sensor setup. Imagine you had put together complex electronics, 
-wanted a control panel and put most of the Device's logic in the [thing-it-node] configuration.
+but **no programming** we were able to access a not-too-trivial Actor/Sensor setup.
+
+However, in real live you would usually not directly edit the Configuration File. You would either modify the configuration with the Mobile App
+or use **(thing-it.com)[http://www.thing-it.com]** as described below.
 
 ## Using thing-it.com
-
-If you still find the creation of the configuration file too technical (we agree ...) - you may consider to use the free services of [www.thing-it.com](http://www.thing-it.com) to create and simulate your setup and then just download the configuration file.
 
 The Simple Lighting solution presented here is available as a Mesh under
 
