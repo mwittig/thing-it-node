@@ -1,16 +1,35 @@
-var utils = require("./lib/utils");
+var _ = require("lodash");
 
+/**
+ *
+ */
+function cloneFiltered(object) {
+    if (!object) {
+        return null;
+    }
 
-var x = {a: "12",
-         b: 12,
-         c: [{a: 12, b: "12"}],
-         d: {a: 77}};
+    var clone = _.cloneDeep(object, function (value, key, object) {
+        console.log("value = ", value);
+        console.log("key = ", key);
 
-x.__cylic = x;
+        // Nullify all members starting with "_" or "__"
 
-clone = utils.cloneDeep([x]);
+        if (key && _.isString(key) && key.indexOf("__") == 0) {
+            return null;
+        }
 
-x.d.a = 9999999;
+        return undefined;
+    });
 
-console.log(clone);
+    return clone;
+}
 
+var x = {a: 17, b: "willi", __b: "Nase"};
+
+var y = {r: 18, t: x, s: x, __s: x};
+
+y.rec = y;
+
+var z = cloneFiltered(y);
+
+console.log("z = ", z);

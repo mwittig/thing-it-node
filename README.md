@@ -35,19 +35,25 @@ connect your Nodes safely to the Internet.
 
 ## The Scenario
 
-Let's set up a simple - but not too simple - configuration:
+Let's set up a simple Smart Home scenario leveraging the easy-to-configure Z-Wave standard with
 
-1. Two LEDs representing e.g. two lamps (you could actually immediately replace the LEDs by two relays to switch lamps on and off).
-1. A Photocell to detect the ambient light in a room and event processing to switch both LEDs on if the light goes below some threshold for a while (to distinguish sunset from the Photocell being temporarily covered by your curious cat).
-1. Two buttons to toggle the state of each lamp.
-1. A simple (mobile capable) web application to toggle the state of both lamps individually and together - alternatively to using the buttons - and to display the event under 2.
+* an Ambient Light Sensor,
+* a Light Buld and
+* a Switch fo arbitrary powered Devices (e.g. your electrical rocking chair)
 
-## Not interested in Arduino Experiments?
+In our scenario we will
 
-If you are not interested in tinkering with microcontrollers and just intend to e.g. control your
+* discover all the above Z-Wave Devices automatically with [thing-it-node] after they are paired,
+* expose toggle on Light Bulb and Switch with a simple service call - which you could invoke from the [thing-it] Mobile App or from your own Web App via REST,
+* detect if the ambient light goes below a certain threshold for a longer timeframe - not if your cat strays past -, switch the light bulb on
+and whatever you have connected to the switch.
+
+## Not interested in Smart Home Experiments with Z-Wave?
+
+If you are not interested in tinkering with Z-Wave Devices and just intend to e.g. control your
 
 * sound system,
-* lighting or
+* aquaponics ecosystem
 * drones,
 
 then stop reading. Check what we have on git/npm under
@@ -61,11 +67,30 @@ then stop reading. Check what we have on git/npm under
 * [thing-it-device-philips-hue](https://www.npmjs.com/package/thing-it-device-philips-hue) to control lighting with Philips Hue,
 * [thing-it-device-plugwise](https://www.npmjs.com/package/thing-it-device-plugwise) to control Plugwise switches, thermostats and sensors,
 * [thing-it-device-foscam](https://www.npmjs.com/package/thing-it-device-foscam) to access Foscam cameras,
+* [thing-it-device-atlas-scientific](https://www.npmjs.com/package/thing-it-device-atlas-scientific) to access Atlas Scientific probes e.g. for PH value measurement,
 * and more every day ...
 
 Or check the [thing-it.com Mesh Market](http://www.thing-it.com/thing-it/index.html#/marketPanel).
 
 Or just continue reading ...
+
+## Prerequisites
+
+As Z-Wave communication is a standard component of [thing-it-node], you need to install *Open Z-Wave* on your Device Gateway Computer.
+
+### Linux and OSX
+
+For all Raspberry Pi/C.H.I.P/BeagleBone - and yes, OSX - users:
+
+You will need to ensure the OpenZWave library and headers are installed first. You can do this one of two ways:
+
+* Downloading the source tarball from the [OpenZWave repository](https://github.com/OpenZWave/open-zwave/releases) and then compiling it and installing on your system via **make** and **sudo make install**.
+* You could also install OpenZWave via a precompiled package that's suitable for your Linux distribution and architecture. Notice: Be sure to install BOTH the binary (libopenzwave-x.y) AND the development package (libopenzwave-dev).
+
+### Windows
+
+Since there is no standard installation location for Open Z-Wave on Windows, it will be automatically downloaded, compiled, and installed when you install
+**openzwave-shared** via **npm** (which we will be installing with [thing-it-node]).
 
 ## Installing, Configuring and Running [thing-it-node]
 
@@ -99,35 +124,21 @@ cd ~/thing-it-test
 Then invoke
 
 ```
-tin example -f simple-lighting
+tin example -f simple-z-wave
 ```
 
 which will create a directory **_installDir_/configurations** and copy the sample **[thing-it-node]** Node Configuration
-**simple-lighting.js** into it from which **[thing-it-node]** can be booted.
+**simple-z-wave.js** into it from which **[thing-it-node]** can be booted.
 
 If you are interested, have a look at this [Node Configuration File](./thing-it-node/examples/simple-lighting/configuration.json) - the content should be self-explanatory.
 
-Probably the most interesting part is the definition of the Photocell 
-
-```javascript
-{
-       "id": "photocell1",
-       "label": "Photocell 1",
-       "type": "photocell",
-       "configuration": {
-       "pin": "A0",
-       "rate": 2000
-       }
-}
-```
-
-and the Event Processing for the same
+Probably the most interesting part is the Event Processing
 
 ```javascript
 {
             id: "eventProcessor3",
             label: "Event Processor 3",
-            observables: ["arduino1.photocell1"],
+            observables: ["zWaveNetwork.multiSensor"],
             trigger: {
                 type: "timeInterval",
                 content: {
@@ -139,12 +150,12 @@ and the Event Processing for the same
                 }
             },
             action: {
-                type: "nodeService", "content": {"service": "lightsOff"}
+                type: "nodeService", "content": {"service": "toggleAll"}
             }
         }
 ```
 
-Start the **[thing-it-node]** via
+Start the **[thing-it-node]** first via
 
 ```
 tin run --simulate
@@ -172,42 +183,21 @@ You will see something like
 which means that your **[thing-it-node]** Server found its configuration and has been started properly. It is not doing anything because the option **simulated** is set to **true** in the default options. 
 You could already use the **[thing-it-node]** Mobile Client against the simulated configuration (which you definitely would do on a new configuration), but for now we want the real thing.
 
-Stop the **[thing-it-node]** Server with **CTRL-C** to prepare **[thing-it-node]** to talk to a real Device - which we still have to set up.
+Stop the **[thing-it-node]** Server with **CTRL-C** to prepare **[thing-it-node]** to talk to a real Device.
 
-## Setting up Device, Actors and Sensors
+## Setting up Devices
 
-To setup your Device you need the following hardware
+You need to purchase a Z-Wave controller,
+e.g. an [Aeotec Z-Stick](http://aeotec.com/z-wave-usb-stick).
 
-* an Arduino Uno board (e.g. [http://www.adafruit.com/product/50](http://www.adafruit.com/product/50)),
-* two LEDs (e.g. [https://www.sparkfun.com/products/9590](https://www.sparkfun.com/products/9590)),
-* a Photocell (e.g. [http://www.adafruit.com/product/161](http://www.adafruit.com/product/161)),
-* two buttons (e.g.),
-* possibly a breadboard (e.g. [http://www.adafruit.com/product/64](http://www.adafruit.com/product/64)) and 
-* possibly some jumper wires (e.g. [http://www.adafruit.com/product/758](http://www.adafruit.com/product/758)).
+Also purchase a few Z-Wave devices, e.g.
 
-All of the above is also available with Arduino Starter Kits like
+* an [Aeotec By Aeon Labs Gen5 Z-wave Plus 6-in-1 Multisensor 6 ZW100-A](http://www.amazon.com/Aeotec-Aeon-Labs-Z-wave-Multisensor/dp/B00WMEVRRW/ref=sr_1_cc_3?s=aps&ie=UTF8&qid=1455407667&sr=1-3-catcorr&keywords=z-wave+light+sensor),
+* a [GoControl Z-Wave Dimmable LED Light Bulb] (http://www.amazon.com/GoControl-Z-Wave-Dimmable-Light-LB60Z-1/dp/B00PJH16UC),
+* a [Aeon Labs DSC06106-ZWUS - Z-Wave Smart Energy Switch](http://www.amazon.com/Aeon-Labs-DSC06106-ZWUS-Z-Wave-Energy/dp/B007UZH7B8)
 
-* the [Arduino Starter Kit](http://www.amazon.com/Arduino-Starter-Official-170-page-Projects/dp/B009UKZV0A/ref=sr_1_1?s=electronics&ie=UTF8&qid=1420481357&sr=1-1&keywords=arduino+starter+kit) or 
-* the [Sparkfun Inventor's Kit]() or
-* the [Fritzing Creator Kit](http://shop.fritzing.org/en/a-136/).
-
-To get the Arduino Uno connected
-
-* download and install the Arduino IDE
-* plug in your Arduino or Arduino compatible microcontroller via USB,
-* open the Arduino IDE, select: *File &raquo; Examples &raquo; Firmata &raquo; StandardFirmata*,
-* click *Upload*.
-
-If the upload was successful, the board is now prepared. Now,
-
-* connect your Arduino Board via USB,
-* connect the LEDs to Pin 12 and 13.
-* connect the Buttons to Pin 2 and 4.
-* connect the Photocell to Pin A0.
-
-e.g. like
-
-![wiring](./examples/simple-lighting/wiring.png)
+Pair these devices with you Z-Wave Controller in the above order by following the documentation which comes with the Controller. It usually involves
+just clicking the pairing button close to the Device.
 
 Restart the **thing-it-node** server with
 
@@ -233,8 +223,6 @@ The output should now look like
     12/1/2015 6:32:01 AM INFO Node[The Node] Event Processors started.
     12/1/2015 6:32:01 AM INFO Node[The Node] Jobs activated.
     12/1/2015 6:32:01 AM INFO Node[The Node] Node [The Node] started.
-
-You should also be able switch both LEDs on and off via the respective buttons or switch both LEDs on by covering the Photocell for more than a few seconds.
 
 ## Running the Mobile Web App
 
