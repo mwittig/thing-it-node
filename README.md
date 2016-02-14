@@ -48,7 +48,7 @@ In our scenario we will
 * detect if the ambient light goes below a certain threshold for a longer timeframe - not if your cat strays past -, switch the light bulb on
 and whatever you have connected to the switch.
 
-## Not interested in Smart Home Experiments with Z-Wave?
+**Not interested in Smart Home Experiments with Z-Wave?**
 
 If you are not interested in tinkering with Z-Wave Devices and just intend to e.g. control your
 
@@ -71,8 +71,6 @@ then stop reading. Check what we have on git/npm under
 * and more every day ...
 
 Or check the [thing-it.com Mesh Market](http://www.thing-it.com/thing-it/index.html#/marketPanel).
-
-Or just continue reading ...
 
 But wait. May be you want to switch on your Sonos if the Z-Wave Sensor detected motion, switch on your vents for you Aquaponics greenhouse if the
 ambient temperature is above a certain threshold. Or the fish pond's water temperature. Or you want to have your drone flying over the fish pond while
