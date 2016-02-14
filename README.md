@@ -39,7 +39,7 @@ Let's set up a simple Smart Home scenario leveraging the easy-to-configure Z-Wav
 
 * an Ambient Light Sensor,
 * a Light Bulb and
-* a Switch for arbitrary powered Devices (e.g. your electrical rocking chair)
+* a Switch for arbitrary powered Devices (e.g. your electrical rocking chair).
 
 In our scenario we will
 
@@ -56,7 +56,7 @@ If you are not interested in tinkering with Z-Wave Devices and just intend to e.
 * aquaponics ecosystem
 * drones,
 
-then maybe stop reading. Check what we have on git/npm under
+then maybe stop reading. Check what we have on **(github)[https://www.github.com]**/**(npm)[www.npmjs.com]** under
 
 * [thing-it-device-sonos](https://www.npmjs.com/package/thing-it-device-sonos) to connect Sonos Entertainment systems,
 * [thing-it-device-aircable](https://www.npmjs.com/package/thing-it-device-aircable) to connect Aircable Smart Dimmers,
@@ -70,9 +70,9 @@ then maybe stop reading. Check what we have on git/npm under
 * [thing-it-device-atlas-scientific](https://www.npmjs.com/package/thing-it-device-atlas-scientific) to access Atlas Scientific probes e.g. for pH value measurement,
 * and more every day ...
 
-Or check the [thing-it.com Mesh Market](http://www.thing-it.com/thing-it/index.html#/marketPanel).
+Or check the [thing-it.com Mesh Market](https://www.thing-it.com/thing-it/index.html#/marketPanel).
 
-But wait. May be you want to switch on your Sonos if the Z-Wave Sensor detected motion, switch on your vents for you Aquaponics greenhouse if the
+But wait! May be you want to switch on your Sonos if the Z-Wave Sensor detected motion, switch on your vents for you Aquaponics greenhouse if the
 ambient temperature is above a certain threshold. Or the fish pond's water temperature. Or you want to have your drone flying over the fish pond while
 your Sonos is playing "Girl from Ipanema", but only if the Foscam camera detects an intruder?
 
