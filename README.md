@@ -80,7 +80,7 @@ OK, keep reading ...
 
 ## Prerequisites
 
-As Z-Wave communication is a standard component of [thing-it-node], you need to install **Open Z-Wave** on your Device Gateway Computer.
+As Z-Wave communication is a standard component of **[thing-it-node]**, you need to install **Open Z-Wave** on your Device Gateway Computer.
 
 ### Linux and OSX
 
@@ -136,7 +136,7 @@ which will create a directory **_installDir_/configurations** and copy the sampl
 
 If you are interested, have a look at this [Node Configuration File](./thing-it-node/examples/z-wave/z-wave-empty.json) - the content should be self-explanatory.
 
-The most important part is
+The important part is
 
 ```javascript
 autoDiscoveryDeviceTypes: [{
@@ -150,7 +150,7 @@ autoDiscoveryDeviceTypes: [{
 
 which tells **[thing-it-node]** to auto-discover Z-Wave networks and add them (and their devices) to the Configuration permanently and without user confirmation.
 
-Start the **[thing-it-node]** first via
+Start **[thing-it-node]** first via
 
 ```
 tin run --simulate
@@ -237,7 +237,7 @@ services: [{
                    label: "Lights Off",
                    type: "script",
                    content: {
-                       script: "[node].arduino1.led1.off(); [node].arduino1.led2.off();"
+                       script: "[node].zWaveNetwork.lightBulb.off(); [node].zWaveNetwork.switch.off();"
                    }
                }]
 ```
