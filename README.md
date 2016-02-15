@@ -242,7 +242,17 @@ services: [{
                }]
 ```
 
-Restart **tin**. You can now invoke both services via REST against your **[thing-it-node]** Device Gateway computer.
+Restart **tin**. You can now invoke both services via REST against your **[thing-it-node]** Device Gateway computer. Test e.g. with
+
+```
+curl -X POST http://localhost:80/services/toggleAll
+```
+
+or
+
+```
+curl -X POST http://localhost:80/services/lightsOff
+```
 
 ## Adding Event Processing
 
@@ -271,6 +281,8 @@ eventProcessors: [{id: "eventProcessor1",
 ```
 
 to the configuration.js file and restart **tin**.
+
+Now, covering the light sensor for a few seconds should switch on your light bulb and your, hmmm, rocking chair.
 
 ## Running the Mobile Web App
 
