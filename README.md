@@ -150,8 +150,6 @@ autoDiscoveryDeviceTypes: [{
 
 which tells **[thing-it-node]** to auto-discover Z-Wave networks and add them (and their devices) to the Configuration permanently and without user confirmation.
 
-You will see that we have not configured any devices (nor anything else); we have just told **[thing-it-node]** to auto-discover any Z-Wave device.
-
 Start the **[thing-it-node]** first via
 
 ```
