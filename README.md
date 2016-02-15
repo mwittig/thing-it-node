@@ -195,12 +195,12 @@ If you check the content of your configuration file after you saw the Device dis
 for the discovered components.
 
 ```javascript
+...
 devices: [{
         label: "Z-Wave Network",
         id: "zWaveNetwork",
         plugin: "z-wave/zWaveNetwork",
         configuration: {},
-        logLevel: "debug",
         actors: [{
             id: "multilevelSensor1",
             label: "Multilevel Sensor 1",
@@ -227,7 +227,8 @@ devices: [{
             logLevel: "debug"
         }],
         sensors: []
-    }]
+    }],
+...
 ```
 
 ## Adding Services
@@ -250,7 +251,8 @@ services: [{
                    content: {
                        script: "[node].zWaveNetwork.lightBulb.off(); [node].zWaveNetwork.switch.off();"
                    }
-               }]
+               }],
+...
 ```
 
 Stop **tin** via **Ctrl-C** and restart. You can now invoke both services via REST against your **[thing-it-node]** Device Gateway computer. Test e.g. with
@@ -271,7 +273,8 @@ Extend the **eventProcessors** section with something like
 
 ```javascript
 ...
-eventProcessors: [{id: "eventProcessor1",
+eventProcessors: [{
+            id: "eventProcessor1",
             label: "Event Processor 1",
             observables: ["zWaveNetwork.multiSensor"],
             trigger: {
@@ -288,12 +291,13 @@ eventProcessors: [{id: "eventProcessor1",
             action: {
                 type: "nodeService", "content": {"service": "toggleAll"}
             }
-        }]
+        }],
+...
 ```
 
-to the configuration.js file and restart **tin**.
+to the configuration.js file and restart **tin** again.
 
-Now, covering the light sensor for a few seconds should switch on your light bulb and your, hmmm, rocking chair.
+Now, covering the light sensor for a few seconds should switch on your light bulb and your switch.
 
 ## Running the Mobile Web App
 
