@@ -245,13 +245,13 @@ services: [{
 Restart **tin**. You can now invoke both services via REST against your **[thing-it-node]** Device Gateway computer. Test e.g. with
 
 ```
-curl -X POST http://localhost:80/services/toggleAll
+curl -X POST http://localhost:3001/services/toggleAll
 ```
 
 or
 
 ```
-curl -X POST http://localhost:80/services/lightsOff
+curl -X POST http://localhost:3001/services/lightsOff
 ```
 
 ## Adding Event Processing
