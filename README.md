@@ -6,16 +6,16 @@
 * connect multiple Devices (e.g. Heart Rate Monitors, Sensor Tags, Drones) as well as low-level Actors and Sensors managed via Microcontrollers like an Arduino
   to your Device Gateway computer (e.g. a regular server, a [Raspberry Pi Zero](https://github.com/marcgille/thing-it-node/wiki/Installation-Raspberry-Pi-Zero) or a BeagleBone Black)
 * invoke **REST Services** on all Devices and Actors,
-* receive **WebSocket Notifications** on all Device and Sensor state changes and events,
+* receive **WebSocket Notifications** on all Device, Actor and Sensor state changes and events,
 * define **Higher-level REST Services** to control multiple Actors,
-* define **Complex Event Processing** to react to Sensor events and state changes,
+* define **Complex Event Processing** to react to Device, Actor and Sensor events and state changes,
 * define **Storyboards** for the timeline-based invocation of Node, Device and Actor Services (e.g. for robotics),
 * define **Job Schedules** for a calendar-based, recurring execution of Services including start of Storyboards,
 * define **Complex Data Variables** to persistently store Event Data for later evaluation or for configurations
 * manage **Users an their Entitlements** to access the above elements and
 * use a **Mobile App** to monitor and control arbitrary Devices.
 
-All of the above is controlled by a [nodejs](http://nodejs.org/) server which is bootstrapped from a **simple JSON configuration**, which allows you to
+All of the above is controlled by a [nodejs](http://nodejs.org/) server which is bootstrapped from a **simple JSON Configuration File**, which allows you to
 e.g. configure a **complex Device control in minutes**.
 
 <p align="center"><a href="./documentation/images/architecture.png"><img src="./documentation/images/architecture.png" width="80%" height="80%"></a></p>
@@ -53,7 +53,8 @@ and whatever you have connected to the switch.
 If you are not interested in tinkering with Z-Wave Devices and just intend to e.g. control your
 
 * sound system,
-* aquaponics ecosystem
+* aquaponics ecosystem,
+* solar panels and
 * drones,
 
 then maybe stop reading. Check what we have on **[github](https://www.github.com)**/**[npm](www.npmjs.com)** under
@@ -99,7 +100,8 @@ Since there is no standard installation location for Open Z-Wave on Windows, it 
 ## Installing, Configuring and Running [thing-it-node]
 
 To install, configure and run  **[thing-it-node]**, first install [nodejs](https://nodejs.org/en/download/)
-on your computer (e.g. your PC or your [Raspberry Pi Zero](https://github.com/marcgille/thing-it-node/wiki/Installation-Raspberry-Pi-Zero)). 
+on your computer (e.g. your PC, your [Raspberry Pi Zero](https://github.com/marcgille/thing-it-node/wiki/Installation-Raspberry-Pi-Zero) or
+your [C.H.I.P.](https://github.com/marcgille/thing-it-node/wiki/Installation-CHIP)).
 
 Then install **[thing-it-node]** via
 
@@ -132,7 +134,7 @@ tin example -f z-wave-empty
 ```
 
 which will create a directory **_installDir_/configurations** and copy the sample **[thing-it-node]** Node Configuration
-**z-wave-empty.js** into it from which **[thing-it-node]** can be booted.
+**[z-wave-empty.js](./thing-it-node/examples/z-wave/z-wave-empty.json)** into it from which **[thing-it-node]** can be booted.
 
 If you are interested, have a look at this [Node Configuration File](./thing-it-node/examples/z-wave/z-wave-empty.json) - the content should be self-explanatory.
 
@@ -150,36 +152,6 @@ autoDiscoveryDeviceTypes: [{
 
 which tells **[thing-it-node]** to auto-discover Z-Wave networks and add them (and their devices) to the Configuration permanently and without user confirmation.
 
-Start **[thing-it-node]** first via
-
-```
-tin run --simulate
-```
-
-You will see something like
-
-    Running [thing-it-node] from Default Options.
-      
-    ---------------------------------------------------------------------------
-     Protocol                     : http
-     Port                         : 3001
-     Node Configurations Directory: /Users/marcgille/git/thing-it-node/configurations
-     Simulated                    : true
-     Log Level                    : debug
-    -----------------------------------------------------------------------------
-    
-    
-    12/1/2015 6:32:01 AM INFO NodeManager ===> Scanning directory [/Users/marcgille/git/thing-it-node/lib/../node_modules] for Device Plugins: 		    Actor [LED1] started.
-    ...
-    12/1/2015 6:32:01 AM INFO Node[The Node] Event Processors started.
-    12/1/2015 6:32:01 AM INFO Node[The Node] Jobs activated.
-    12/1/2015 6:32:01 AM INFO Node[The Node] Node [The Node] started.
-
-which means that your **[thing-it-node]** Server found its configuration and has been started properly. It is not doing anything because the option **simulated** is set to **true** in the default options. 
-You could already use the **[thing-it-node]** Mobile Client against the simulated configuration (which you definitely would do on a new configuration), but for now we want the real thing.
-
-Stop the **[thing-it-node]** Server with **CTRL-C** to prepare **[thing-it-node]** to talk to a real Device.
-
 ## Setting up Devices
 
 You need to purchase a Z-Wave controller,
@@ -194,7 +166,7 @@ Also purchase a few Z-Wave devices, e.g.
 Pair these devices with you Z-Wave Controller in the above order by following the documentation which comes with the Controller. It usually involves
 just clicking the pairing button close to the Device.
 
-Restart the **thing-it-node** server with
+Start the **thing-it-node** server with
 
 ```
 tin run
@@ -219,9 +191,48 @@ The output should now look like
     12/1/2015 6:32:01 AM INFO Node[The Node] Jobs activated.
     12/1/2015 6:32:01 AM INFO Node[The Node] Node [The Node] started.
 
+If you check the content of your configuration file after you saw the Device discovery in the output, you will see that it contains Device and Actor definitions
+for the discovered components.
+
+```javascript
+devices: [{
+        label: "Z-Wave Network",
+        id: "zWaveNetwork",
+        plugin: "z-wave/zWaveNetwork",
+        configuration: {},
+        logLevel: "debug",
+        actors: [{
+            id: "multilevelSensor1",
+            label: "Multilevel Sensor 1",
+            type: "multilevelSensor",
+            configuration: {
+                nodeId: 2
+            },
+            logLevel: "debug"
+        }, {
+            id: "binaryPowerSwitch1",
+            label: "Binary Power Switch 1",
+            type: "binaryPowerSwitch",
+            configuration: {
+                nodeId: 3
+            },
+            logLevel: "debug"
+        }, {
+            id: "binaryPowerSwitch2",
+            label: "Binary Power Switch 2",
+            type: "binaryPowerSwitch",
+            configuration: {
+                nodeId: 4
+            },
+            logLevel: "debug"
+        }],
+        sensors: []
+    }]
+```
+
 ## Adding Services
 
-Extend the **services** section with something like
+Extend the **services** section in the Configuration with something like
 
 ```javascript
 ...
@@ -242,7 +253,7 @@ services: [{
                }]
 ```
 
-Restart **tin**. You can now invoke both services via REST against your **[thing-it-node]** Device Gateway computer. Test e.g. with
+Stop **tin** via **Ctrl-C** and restart. You can now invoke both services via REST against your **[thing-it-node]** Device Gateway computer. Test e.g. with
 
 ```
 curl -X POST http://localhost:3001/services/toggleAll
@@ -305,7 +316,7 @@ With
 * installing **[thing-it-node]** and
 * editing a simple configuration file
 
-but **no programming** we were able to access a not-too-trivial Actor/Sensor setup.
+but **no programming** we were able to access a not too trivial Actor/Sensor setup.
 
 However, in real live you would usually not directly edit the Configuration File. You would either modify the configuration with the Mobile App
 or use **[thing-it.com](https://www.thing-it.com)** as described below.
