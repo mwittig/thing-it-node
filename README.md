@@ -172,7 +172,7 @@ Start the **thing-it-node** server with
 tin run
 ```
 
-The output should now look like 
+The output should look like
 
     Running [thing-it-node] from Default Options.
       
@@ -207,24 +207,21 @@ devices: [{
             type: "multilevelSensor",
             configuration: {
                 nodeId: 2
-            },
-            logLevel: "debug"
+            }
         }, {
             id: "binaryPowerSwitch1",
             label: "Binary Power Switch 1",
             type: "binaryPowerSwitch",
             configuration: {
                 nodeId: 3
-            },
-            logLevel: "debug"
+            }
         }, {
             id: "binaryPowerSwitch2",
             label: "Binary Power Switch 2",
             type: "binaryPowerSwitch",
             configuration: {
                 nodeId: 4
-            },
-            logLevel: "debug"
+            }
         }],
         sensors: []
     }],
