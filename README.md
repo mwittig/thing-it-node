@@ -43,7 +43,7 @@ Let's set up a simple Smart Home scenario leveraging the easy-to-configure Z-Wav
 
 In our scenario we will
 
-* discover all the above Z-Wave Devices automatically with [thing-it-node] after they are paired,
+* discover all the above Z-Wave Devices automatically with **[thing-it-node]** after they are paired,
 * expose toggle on Light Bulb and Switch with a simple service call - which you could invoke from the [thing-it] Mobile App or from your own Web App via REST,
 * detect if the ambient light goes below a certain threshold for a longer timeframe - not if your cat strays past -, switch the light bulb on
 and whatever you have connected to the switch.
@@ -80,7 +80,7 @@ OK, keep reading ...
 
 ## Prerequisites
 
-As Z-Wave communication is a standard component of [thing-it-node], you need to install *Open Z-Wave* on your Device Gateway Computer.
+As Z-Wave communication is a standard component of [thing-it-node], you need to install **Open Z-Wave** on your Device Gateway Computer.
 
 ### Linux and OSX
 
@@ -135,6 +135,20 @@ which will create a directory **_installDir_/configurations** and copy the sampl
 **z-wave-empty.js** into it from which **[thing-it-node]** can be booted.
 
 If you are interested, have a look at this [Node Configuration File](./thing-it-node/examples/z-wave/z-wave-empty.json) - the content should be self-explanatory.
+
+The most important part is
+
+```javascript
+autoDiscoveryDeviceTypes: [{
+        plugin: "z-wave/zWaveNetwork",
+        confirmRegistration: false,
+        persistRegistration: true,
+        defaultConfiguration: {},
+        options: {}
+    }]
+```
+
+which tells **[thing-it-node]** to ato-discover Z-Wave networks and add them (and their devices to the Configuration permanently and without user confirmation.
 
 You will see that we have not configured any devices (nor anything else); we have just told **[thing-it-node]** to auto-discover any Z-Wave device.
 
@@ -209,7 +223,7 @@ The output should now look like
 
 ## Adding Services
 
-Extend the **eventProcessors** section with something like
+Extend the **services** section with something like
 
 ```javascript
 ...
