@@ -38,6 +38,14 @@ module.exports = {
                 nodeId: 4
             },
             logLevel: "debug"
+        }, {
+            id: "routingBinarySensor1",
+            label: "Routing Binary Sensor 1",
+            type: "routingBinarySensor",
+            configuration: {
+                nodeId: 5
+            },
+            logLevel: "debug"
         }],
         sensors: []
     }],

@@ -19,7 +19,7 @@ describe('[thing-it] Z-Wave', function () {
         });
     });
     describe('Switch Discovery', function () {
-        this.timeout(40000);
+        this.timeout(60000);
 
         before(function () {
             testDriver.removeAllListeners();
@@ -34,7 +34,7 @@ describe('[thing-it] Z-Wave', function () {
         });
     });
     describe('Binary Power Switch Methods', function () {
-        this.timeout(20000);
+        this.timeout(60000);
 
         before(function () {
             testDriver.removeAllListeners();
