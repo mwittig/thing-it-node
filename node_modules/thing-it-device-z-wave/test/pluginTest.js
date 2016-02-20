@@ -9,6 +9,7 @@ describe('[thing-it] Z-Wave', function () {
         testDriver.registerDevicePlugin(__dirname + "/../zWaveNetwork");
         testDriver.registerUnitPlugin(__dirname + "/../default-units/multilevelSensor");
         testDriver.registerUnitPlugin(__dirname + "/../default-units/binaryPowerSwitch");
+        testDriver.registerUnitPlugin(__dirname + "/../default-units/routingBinarySensor");
     });
     describe('Start Configuration', function () {
         it('should complete without error', function () {

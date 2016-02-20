@@ -114,7 +114,7 @@ function ZWaveNetworkDiscovery() {
                     }
 
                     this.advertiseDevice(zWaveNetwork);
-                }.bind(this), 40000);
+                }.bind(this), 10000);
             }.bind(this));
 
             this.zWave.on('driver failed', function () {

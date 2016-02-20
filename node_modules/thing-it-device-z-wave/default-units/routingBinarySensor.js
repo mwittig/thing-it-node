@@ -1,16 +1,16 @@
 module.exports = {
     metadata: {
         plugin: "routingBinarySensor",
-        label: "Multilevel Sensor",
+        label: "Routing Binary Sensor",
         role: "actor",
         family: "routingBinarySensor",
         deviceTypes: ["z-wave/zWaveNetwork"],
         services: [],
         state: [
             {
-                id: "temperature", label: "Temperature",
+                id: "value", label: "Value",
                 type: {
-                    id: "decimal"
+                    id: "integer"
                 }
             }],
         configuration: [{
@@ -40,10 +40,7 @@ function RoutingBinarySensor() {
         var deferred = q.defer();
 
         this.state = {
-            temperature: 0,
-            luminecance: 0,
-            relativeHumidity: 0,
-            ultraviolet: 0
+            temperature: 0
         };
 
         if (this.isSimulated()) {
@@ -59,24 +56,36 @@ function RoutingBinarySensor() {
     /**
      *
      */
-    RoutingBinarySensor.prototype.setStateFromZWave = function (comClass, value) {
-        this.logDebug("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% State Change", comClass, value);
-        if (comClass == 49) {
-            //if (value.index == 1) {
-            //    this.state.temperature = value.value;
-            //}
-            //else if (value.index == 3) {
-            //    this.state.luminecance = value.value;
-            //}
-            //else if (value.index == 5) {
-            //    this.state.relativeHumidity = value.value;
-            //}
-            //else if (value.index == 27) {
-            //    this.state.ultraviolet = value.value;
-            //}
-
-            this.logDebug("State", this.state);
+    RoutingBinarySensor.prototype.setStateFromZWave = function (comClass, command) {
+        if (comClass == 32) { // Basic
             this.publishStateChange();
+        }
+        else if (comClass == 48) { // SensorBinary
+            this.logDebug("Level of Binary Sensor", command);
+
+            this.state.value = command.value ? 100 : 0;
+            this.publishStateChange();
+        }
+        else if (comClass == 132) { // Wakeup
+            this.logDebug("Wakeup", command.value);
+
+//        default: default wakeup interval (constant), only filled if device support Wakeup Command
+//            Class Version 2
+//• interval: wakeup interval in seconds
+//• lastSleep: UNIX time stamp of last sleep() command sent
+//• lastWakeup: UNIX time stamp of last wakeup notification() received
+//• max: maximum accepted wakeup interval (constant), only filled if device support Wakeup
+//            Command Class Version 2
+//• min: min. allowed wakeup interval (constant), only filled if device support Wakeup Command
+//            Class Version 2
+//• nodeId: Node ID of the device that will receive the wakeup notification of this device
+//• step: step size of wakeup interval setting allows (constant), only filled if device support
+//            Wakeup Command Class Version 2
+
+            this.publishStateChange();
+        }
+        else {
+            this.logDebug("Other State Change", comClass, value);
         }
     };
 
