@@ -244,6 +244,124 @@ describe('[thing-it] Complex Event Processing', function () {
             eventProcessor.stop();
         });
     });
+    describe('Dependent, excluded events', function () {
+        before(function () {
+            eventProcessor = EventProcessor.bind(testNode, {
+                id: "eventProcessor1",
+                label: "Event Processor 1",
+                observables: ["testDevice1", "testDevice2"],
+                trigger: {
+                    type: "timeInterval",
+                    content: {
+                        interval: 10000,
+                        conditions: [{
+                            cumulation: "maximum",
+                            observable: "testDevice1",
+                            stateVariable: "testValue",
+                            compareOperator: ">",
+                            compareValue: 800
+                        }, {
+                            cumulation: "minimum",
+                            observable: "testDevice2",
+                            stateVariable: "testValue",
+                            compareOperator: "<",
+                            compareValue: 400,
+                            referencedCondition: 0,
+                            delayInterval: 3000,
+                            delayVarianceInterval: 2000,
+                            exclude: true
+                        }]
+                    }
+                },
+                action: {
+                    type: "nodeService", "content": {"service": "testService"}
+                }
+            });
+        });
+        it('should result in Node Service action invocation', function (done) {
+            testNode.testCallback = function () {
+                done();
+            };
+
+            eventProcessor.start();
+
+            this.timeout(15000);
+
+            setTimeout(function () {
+                eventProcessor.pushDeviceState(testNode.testDevice1, {testValue: 820});
+
+                setTimeout(function () {
+                    eventProcessor.pushDeviceState(testNode.testDevice2, {testValue: 500});
+                }, 4000);
+            }, 1000);
+        });
+        after(function () {
+            eventProcessor.stop();
+        });
+    });
+    describe('Dependent, excluded events, negative test', function () {
+        before(function () {
+            eventProcessor = EventProcessor.bind(testNode, {
+                id: "eventProcessor1",
+                label: "Event Processor 1",
+                observables: ["testDevice1", "testDevice2"],
+                trigger: {
+                    type: "timeInterval",
+                    content: {
+                        interval: 10000,
+                        conditions: [{
+                            cumulation: "maximum",
+                            observable: "testDevice1",
+                            stateVariable: "testValue",
+                            compareOperator: ">",
+                            compareValue: 800
+                        }, {
+                            cumulation: "minimum",
+                            observable: "testDevice2",
+                            stateVariable: "testValue",
+                            compareOperator: "<",
+                            compareValue: 400,
+                            referencedCondition: 0,
+                            delayInterval: 3000,
+                            delayVarianceInterval: 2000,
+                            exclude: true
+                        }]
+                    }
+                },
+                action: {
+                    type: "nodeService", "content": {"service": "testService"}
+                }
+            });
+        });
+        it('should result in Node Service action invocation', function (done) {
+            testNode.testCallback = function () {
+                // Callback must not be fired
+
+                done(false);
+            };
+
+            eventProcessor.start();
+
+            // If after 15 seconds no action is fired, OK
+
+            this.timeout(17000);
+
+            setTimeout(function () {
+                done();
+            }, 15000);
+
+            setTimeout(function () {
+                eventProcessor.pushDeviceState(testNode.testDevice1, {testValue: 820});
+
+                setTimeout(function () {
+                    eventProcessor.pushDeviceState(testNode.testDevice2, {testValue: 200});
+                }, 4000);
+            }, 1000);
+        });
+        after(function () {
+            eventProcessor.stop();
+        });
+    });
     describe('Legacy Processing', function () {
         before(function () {
             eventProcessor = EventProcessor.bind(testNode, {
