@@ -15,7 +15,7 @@ function TestNode() {
         eventProcessors: []
     };
     this.testDevice2 = {
-        type: {state: {id: "testValue"}},
+        type: {state: [{id: "testValue"}]},
         id: "testDevice2",
         state: {testValue: 17},
         eventProcessors: []
@@ -30,52 +30,33 @@ function TestNode() {
 };
 
 var testNode = new TestNode();
-var eventProcessor = {
-    id: "eventProcessor1",
-    label: "Event Processor 1",
-    observables: ["testDevice1"],
-    trigger: {
-        type: "timeInterval",
-        content: {
-            interval: 10000,
-            conditions: [{
-                cumulation: "maximum",
-                observable: "testDevice1",
-                stateVariable: "testValue",
-                compareOperator: ">",
-                compareValue: 800
-            }]
-        }
-    },
-    action: {
-        type: "nodeService", "content": {"service": "testService"}
-    }
-};
-
-var legacyEventProcessor = {
-    id: "eventProcessor1",
-    label: "Event Processor 1",
-    observables: ["testDevice1"],
-    trigger: {
-        type: "timeInterval",
-        content: {
-            interval: 10000,
-            cumulation: "maximum",
-            stateVariable: "testValue",
-            compareOperator: ">",
-            compareValue: 800
-        }
-    },
-    action: {
-        type: "nodeService", "content": {"service": "testService"}
-    }
-};
+var eventProcessor;
 
 describe('[thing-it] Complex Event Processing', function () {
-    before(function () {
-        eventProcessor = EventProcessor.bind(testNode, eventProcessor);
-    });
     describe('Start and Stop Event Processor', function () {
+        before(function () {
+            eventProcessor = EventProcessor.bind(testNode, {
+                id: "eventProcessor1",
+                label: "Event Processor 1",
+                observables: ["testDevice1"],
+                trigger: {
+                    type: "timeInterval",
+                    content: {
+                        interval: 10000,
+                        conditions: [{
+                            cumulation: "maximum",
+                            observable: "testDevice1",
+                            stateVariable: "testValue",
+                            compareOperator: ">",
+                            compareValue: 800
+                        }]
+                    }
+                },
+                action: {
+                    type: "nodeService", "content": {"service": "testService"}
+                }
+            });
+        });
         it('should complete without error', function () {
             eventProcessor.start();
             eventProcessor.stop();
@@ -84,55 +65,225 @@ describe('[thing-it] Complex Event Processing', function () {
         });
     });
     describe('Event Detection', function () {
-        this.timeout(15000);
-
         before(function () {
             eventProcessor = EventProcessor.bind(testNode, eventProcessor);
         });
-        it('should produce Device Discovery message', function (done) {
+        it('should result in Node Service action invocation', function (done) {
+            testNode.testCallback = function () {
+                eventProcessor.stop();
+                done();
+            };
+
             eventProcessor.start();
+            this.timeout(15000);
 
             setTimeout(function () {
                 eventProcessor.pushDeviceState(testNode.testDevice1, {testValue: 800});
 
                 setTimeout(function () {
                     eventProcessor.pushDeviceState(testNode.testDevice1, {testValue: 810});
-
-                    testNode.testCallback = function () {
-                        done();
-                    };
-
-                    setTimeout(function () {
-                        // Wait for interval to finish
-                    }, 10000);
                 }, 1000);
             }, 2000);
+        });
+        after(function () {
+            eventProcessor.stop();
+        });
+    });
+    describe('Event Detection End of Interval', function () {
+        before(function () {
+            eventProcessor = EventProcessor.bind(testNode, {
+                id: "eventProcessor1",
+                label: "Event Processor 1",
+                observables: ["testDevice1"],
+                trigger: {
+                    type: "timeInterval",
+                    content: {
+                        interval: 10000,
+                        conditions: [{
+                            cumulation: "average",
+                            observable: "testDevice1",
+                            stateVariable: "testValue",
+                            compareOperator: ">",
+                            compareValue: 800
+                        }]
+                    }
+                },
+                action: {
+                    type: "nodeService", "content": {"service": "testService"}
+                }
+            });
+        });
+        it('should result in Node Service action invocation', function (done) {
+            testNode.testCallback = function () {
+                eventProcessor.stop();
+                done();
+            };
+
+            eventProcessor.start();
+
+            this.timeout(15000);
+
+            setTimeout(function () {
+                eventProcessor.pushDeviceState(testNode.testDevice1, {testValue: 800});
+                setTimeout(function () {
+                    eventProcessor.pushDeviceState(testNode.testDevice1, {testValue: 800});
+
+                    setTimeout(function () {
+                        eventProcessor.pushDeviceState(testNode.testDevice1, {testValue: 810});
+                    }, 1000);
+                }, 1000);
+            }, 1000);
+        });
+        after(function () {
+            eventProcessor.stop();
+        });
+    });
+    describe('Subsequent single events', function () {
+        before(function () {
+            eventProcessor = EventProcessor.bind(testNode, {
+                id: "eventProcessor1",
+                label: "Event Processor 1",
+                observables: ["testDevice1", "testDevice2"],
+                trigger: {
+                    type: "timeInterval",
+                    content: {
+                        interval: 10000,
+                        conditions: [{
+                            cumulation: "maximum",
+                            observable: "testDevice1",
+                            stateVariable: "testValue",
+                            compareOperator: ">",
+                            compareValue: 800
+                        }, {
+                            cumulation: "minimum",
+                            observable: "testDevice2",
+                            stateVariable: "testValue",
+                            compareOperator: "<",
+                            compareValue: 400
+                        }]
+                    }
+                },
+                action: {
+                    type: "nodeService", "content": {"service": "testService"}
+                }
+            });
+        });
+        it('should result in Node Service action invocation', function (done) {
+            testNode.testCallback = function () {
+                done();
+            };
+
+            eventProcessor.start();
+
+            this.timeout(15000);
+
+            setTimeout(function () {
+                eventProcessor.pushDeviceState(testNode.testDevice1, {testValue: 820});
+
+                setTimeout(function () {
+                    eventProcessor.pushDeviceState(testNode.testDevice2, {testValue: 200});
+                }, 4000);
+            }, 1000);
+        });
+        after(function () {
+            eventProcessor.stop();
+        });
+    });
+    describe('Dependent events', function () {
+        before(function () {
+            eventProcessor = EventProcessor.bind(testNode, {
+                id: "eventProcessor1",
+                label: "Event Processor 1",
+                observables: ["testDevice1", "testDevice2"],
+                trigger: {
+                    type: "timeInterval",
+                    content: {
+                        interval: 10000,
+                        conditions: [{
+                            cumulation: "maximum",
+                            observable: "testDevice1",
+                            stateVariable: "testValue",
+                            compareOperator: ">",
+                            compareValue: 800
+                        }, {
+                            cumulation: "minimum",
+                            observable: "testDevice2",
+                            stateVariable: "testValue",
+                            compareOperator: "<",
+                            compareValue: 400,
+                            referencedCondition: 0,
+                            delayInterval: 3000,
+                            delayVarianceInterval: 2000
+                        }]
+                    }
+                },
+                action: {
+                    type: "nodeService", "content": {"service": "testService"}
+                }
+            });
+        });
+        it('should result in Node Service action invocation', function (done) {
+            testNode.testCallback = function () {
+                done();
+            };
+
+            eventProcessor.start();
+
+            this.timeout(15000);
+
+            setTimeout(function () {
+                eventProcessor.pushDeviceState(testNode.testDevice1, {testValue: 820});
+
+                setTimeout(function () {
+                    eventProcessor.pushDeviceState(testNode.testDevice2, {testValue: 200});
+
+                }, 4000);
+            }, 1000);
+        });
+        after(function () {
+            eventProcessor.stop();
         });
     });
     describe('Legacy Processing', function () {
-        this.timeout(15000);
-
         before(function () {
-            eventProcessor = EventProcessor.bind(testNode, legacyEventProcessor);
+            eventProcessor = EventProcessor.bind(testNode, {
+                id: "eventProcessor1",
+                label: "Event Processor 1",
+                observables: ["testDevice1"],
+                trigger: {
+                    type: "timeInterval",
+                    content: {
+                        interval: 10000,
+                        cumulation: "maximum",
+                        stateVariable: "testValue",
+                        compareOperator: ">",
+                        compareValue: 800
+                    }
+                },
+                action: {
+                    type: "nodeService", "content": {"service": "testService"}
+                }
+            });
         });
         it('should produce Device Discovery message', function (done) {
+            testNode.testCallback = function () {
+                done();
+            };
+
             eventProcessor.start();
+
+            this.timeout(15000);
 
             setTimeout(function () {
                 eventProcessor.pushDeviceState(testNode.testDevice1, {testValue: 800});
 
                 setTimeout(function () {
                     eventProcessor.pushDeviceState(testNode.testDevice1, {testValue: 810});
-
-                    testNode.testCallback = function () {
-                        done();
-                    };
-
-                    setTimeout(function () {
-                        // Wait for interval to finish
-                    }, 10000);
                 }, 1000);
             }, 2000);
+        });
+        after(function () {
+            eventProcessor.stop();
         });
     });
 });
