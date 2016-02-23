@@ -134,7 +134,7 @@ tin example -f z-wave
 ```
 
 which will create a directory **_installDir_/configurations** and copy the sample **[thing-it-node]** Node Configuration
-**[z-wave-empty.js](./thing-it-node/examples/z-wave/z-wave-empty.json)** into it from which **[thing-it-node]** can be booted.
+**[z-wave-empty.js](./thing-it-node/examples/z-wave/z-wave-.js)** into it from which **[thing-it-node]** can be booted.
 
 If you are interested, have a look at this [Node Configuration File](./thing-it-node/examples/z-wave/z-wave-empty.json) - the content should be self-explanatory.
 
