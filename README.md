@@ -130,7 +130,7 @@ cd ~/thing-it-test
 Then invoke
 
 ```
-tin example -f z-wave-empty
+tin example -f z-wave
 ```
 
 which will create a directory **_installDir_/configurations** and copy the sample **[thing-it-node]** Node Configuration

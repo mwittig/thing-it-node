@@ -3,7 +3,7 @@ module.exports = {
     id: "zWaveEmpty",
     autoDiscoveryDeviceTypes: [{
         plugin: "z-wave/zWaveNetwork",
-        confirmRegistration: true,
+        confirmRegistration: false,
         persistRegistration: true,
         defaultConfiguration: {},
         options: {}
