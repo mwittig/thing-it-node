@@ -1,0 +1,16 @@
+<table style="width: 100%; margin-top: 1em;">
+    <tr>
+        <td>
+            <ti-switch ti-model="component._state.switch"
+                       ti-change="panel.callActorService(component, 'toggle')"></ti-switch>
+        </td>
+    </tr>
+    <tr>
+        <td style="width: 99%">
+            <input ti-slider=""
+                   ti-model="component._state.level" ti-min="0" ti-max="99"
+                   ti-change="panel.callActorService(component, 'changeLevel', {level: component._state.level} )">
+
+        </td>
+    </tr>
+</table>
