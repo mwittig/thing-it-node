@@ -212,6 +212,9 @@ function run(yargs) {
                 console.log("\n");
                 console
                     .log("---------------------------------------------------------------------------");
+                console.log(" [thing-it-node]");
+                console
+                    .log("---------------------------------------------------------------------------");
                 console.log(" Firmware                     : %s",
                     package.version);
                 if (!options.proxy || options.proxy === "local") {

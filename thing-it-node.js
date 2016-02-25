@@ -30,7 +30,7 @@ app.use(function (req, res, next) {
 });
 app.use(express.static(__dirname + "/www"));
 app.use("/node_modules", express.static(__dirname + "/node_modules"));
-app.use("/files", express.static(options.dataDirectory + "/files")); // TODO Remove
+//app.use("/files", express.static(options.dataDirectory + "/files")); // TODO Remove
 app.use("/data", express.static(options.dataDirectory));
 app.use(bodyParser.json());
 
@@ -41,14 +41,17 @@ var server = app
             console.log("\n");
             console
                 .log("---------------------------------------------------------------------------");
-            console.log(" [thing-it-node] at http://%s:%s", server.address().address, server.address().port);
-            console.log("\n");
-            console.log(" Firmware Version       : %s",
-                package.version);
+            console.log(" [thing-it-node]");
+            console
+                .log("---------------------------------------------------------------------------");
+            console.log(" Protocol                     : %s",
+                options.protocol);
+            console.log(" Port                         : %s",
+                options.port);
             console.log(" Simulated              : %s",
                 options.simulated);
-            console.log(" Node Configuration File: %s",
-                options.nodeConfigurationFile);
+            console.log(" Node Configurations Directory: %s",
+                options.nodeConfigurationsDirectory);
             if (options.proxy != "local") {
                 console.log(" UUID                   : %s",
                     options.uuid);
@@ -56,9 +59,6 @@ var server = app
 
             console.log(" Log Level              : %s",
                 options.logLevel);
-            console.log("\n");
-            console
-                .log(" Copyright (c) 2014-2015 Marc Gille. All rights reserved.");
             console
                 .log("-----------------------------------------------------------------------------");
             console.log("\n");

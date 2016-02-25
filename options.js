@@ -5,7 +5,6 @@ module.exports = {
     dataDirectory: "../thing-it-data",
     usersDirectory: "../thing-it-users",
     simulated: false,
-    verifyCallSignature: false,
     authentication: "none",//"user",
     logLevel: "debug",
     //proxy: "https://www.thing-it.com",
