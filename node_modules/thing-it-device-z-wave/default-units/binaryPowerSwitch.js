@@ -118,14 +118,14 @@ function BinaryPowerSwitch() {
     /**
      *
      */
-    GenericDevice.prototype.handleEventFromZWave = function(event, valueid) {
+    BinaryPowerSwitch.prototype.handleEventFromZWave = function(event, valueid) {
         this.logDebug("Event: " + event + " on Value ID " + valueid);
     }
 
     /**
      *
      */
-    GenericDevice.prototype.handleNotificationFromZWave = function(notif, help) {
+    BinaryPowerSwitch.prototype.handleNotificationFromZWave = function(notif, help) {
         this.logDebug(help + " (" + notif + ")");
     }
 
