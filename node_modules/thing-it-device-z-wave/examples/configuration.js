@@ -46,7 +46,7 @@ module.exports = {
                 nodeId: 5
             },
             logLevel: "debug"
-        }, , {
+        }, {
             id: "thermostatGeneric1",
             label: "Thermostat Generic 1",
             type: "thermostatGeneric",
