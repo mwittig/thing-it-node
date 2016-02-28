@@ -175,4 +175,46 @@ function ThermostatGeneric() {
      */
     ThermostatGeneric.prototype.setState = function (state) {
     };
+
+    /**
+     *
+     */
+    ThermostatGeneric.prototype.incrementSetpoint = function () {
+        this.logDebug("Called incrementSetpoint()");
+
+        if (this.isSimulated()) {
+            this.state.setpoint + 0.5;
+
+            this.publishStateChange();
+        } else {
+            if (this.device.nodes[this.configuration.nodeId]) {
+                this.device.zWave.setValue(this.configuration.nodeId, 67, 1, 0, this.state.setpoint + 0.5);
+                this.publishStateChange();
+            }
+            else {
+                this.logError("Z-Wave Node is not ready.");
+            }
+        }
+    };
+
+    /**
+     *
+     */
+    ThermostatGeneric.prototype.decrementSetpoint = function () {
+        this.logDebug("Called decrementSetpoint()");
+
+        if (this.isSimulated()) {
+            this.state.setpoint + 0.5;
+
+            this.publishStateChange();
+        } else {
+            if (this.device.nodes[this.configuration.nodeId]) {
+                this.device.zWave.setValue(this.configuration.nodeId, 67, 1, 0, this.state.setpoint - 0.5);
+                this.publishStateChange();
+            }
+            else {
+                this.logError("Z-Wave Node is not ready.");
+            }
+        }
+    };
 };

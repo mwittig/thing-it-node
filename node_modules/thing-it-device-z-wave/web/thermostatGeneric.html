@@ -1,7 +1,16 @@
 <div style="display: table-row; vertical-align: middle;">
+    <div style="display: table-cell; text-align: center; padding-left: 1em;">
+        <a ng-click="panel.callActorService(component, 'toggleFanMode')"><i class="mode icon sl-nuclear-1"></i></a>
+        {{component._state.fanMode}}
+    </div>
+    <div style="display: table-cell; text-align: right; padding-right: 1em;">
+        <ti-battery ti-model="component._state.batteryLevel"></ti-battery>
+    </div>
+</div>
+<div style="display: table-row; vertical-align: middle;">
     <div style="display: table-cell; text-align: center; width: 3em; padding-right: 1em;">
         <div class="circleButton" style="display: inline-block;"
-             ng-click="panel.callDeviceService(component, 'lowerNominalTemperature')">
+             ng-click="panel.callActorService(component, 'decrementSetpoint')">
             <div><i class="icon sl-minus-1"></i></div>
         </div>
     </div>
@@ -21,8 +30,10 @@
     </table>
     <div style="display: table-cell; text-align: center; width: 3em; padding-left: 1em;">
         <div class="circleButton" style="display: inline-block;"
-             ng-click="panel.callDeviceService(component, 'raiseNominalTemperature')">
+             ng-click="panel.callActorService(component, 'incrementSetpoint')">
             <div><i class="icon sl-add-1"></i></div>
         </div>
     </div>
 </div>
+
+
