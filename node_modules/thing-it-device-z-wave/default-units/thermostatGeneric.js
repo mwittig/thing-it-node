@@ -1,9 +1,9 @@
 module.exports = {
     metadata: {
-        plugin: "routingBinarySensor",
-        label: "Routing Binary Sensor",
+        plugin: "thermostatGeneric",
+        label: "Thermostat Generic",
         role: "actor",
-        family: "routingBinarySensor",
+        family: "thermostatGeneric",
         deviceTypes: ["z-wave/zWaveNetwork"],
         services: [],
         state: [
@@ -23,7 +23,7 @@ module.exports = {
         }]
     },
     create: function () {
-        return new RoutingBinarySensor();
+        return new ThermostatGeneric();
     }
 };
 
@@ -32,11 +32,11 @@ var q = require('q');
 /**
  *
  */
-function RoutingBinarySensor() {
+function ThermostatGeneric() {
     /**
      *
      */
-    RoutingBinarySensor.prototype.start = function () {
+    ThermostatGeneric.prototype.start = function () {
         var deferred = q.defer();
 
         this.state = {
@@ -56,7 +56,7 @@ function RoutingBinarySensor() {
     /**
      *
      */
-    RoutingBinarySensor.prototype.setStateFromZWave = function (comClass, command) {
+    ThermostatGeneric.prototype.setStateFromZWave = function (comClass, command) {
         if (comClass == 32) { // Basic
             this.publishStateChange();
         }
@@ -69,19 +69,6 @@ function RoutingBinarySensor() {
         else if (comClass == 132) { // Wakeup
             this.logDebug("Wakeup", command.value);
 
-//        default: default wakeup interval (constant), only filled if device support Wakeup Command
-//            Class Version 2
-//• interval: wakeup interval in seconds
-//• lastSleep: UNIX time stamp of last sleep() command sent
-//• lastWakeup: UNIX time stamp of last wakeup notification() received
-//• max: maximum accepted wakeup interval (constant), only filled if device support Wakeup
-//            Command Class Version 2
-//• min: min. allowed wakeup interval (constant), only filled if device support Wakeup Command
-//            Class Version 2
-//• nodeId: Node ID of the device that will receive the wakeup notification of this device
-//• step: step size of wakeup interval setting allows (constant), only filled if device support
-//            Wakeup Command Class Version 2
-
             this.publishStateChange();
         }
         else {
@@ -92,21 +79,21 @@ function RoutingBinarySensor() {
     /**
      *
      */
-    RoutingBinarySensor.prototype.handleEventFromZWave = function(event, valueid) {
+    ThermostatGeneric.prototype.handleEventFromZWave = function(event, valueid) {
         this.logDebug("Event: " + event + " on Value ID " + valueid);
     }
 
     /**
      *
      */
-    RoutingBinarySensor.prototype.handleNotificationFromZWave = function(notif, help) {
+    ThermostatGeneric.prototype.handleNotificationFromZWave = function(notif, help) {
         this.logDebug(help + " (" + notif + ")");
     }
 
     /**
      *
      */
-    RoutingBinarySensor.prototype.stop = function () {
+    ThermostatGeneric.prototype.stop = function () {
         var deferred = q.defer();
 
         deferred.resolve();
@@ -117,13 +104,13 @@ function RoutingBinarySensor() {
     /**
      *
      */
-    RoutingBinarySensor.prototype.getState = function () {
+    ThermostatGeneric.prototype.getState = function () {
         return this.state;
     };
 
     /**
      *
      */
-    RoutingBinarySensor.prototype.setState = function (state) {
+    ThermostatGeneric.prototype.setState = function (state) {
     };
 };

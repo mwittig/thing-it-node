@@ -20,7 +20,7 @@ describe('[thing-it] Z-Wave', function () {
         });
     });
     describe('Switch Discovery', function () {
-        this.timeout(60000);
+        this.timeout(80000);
 
         before(function () {
             testDriver.removeAllListeners();
@@ -28,7 +28,6 @@ describe('[thing-it] Z-Wave', function () {
         it('should produce Device Discovery message', function (done) {
             testDriver.addListener({
                 publishDeviceRegistration: function (device) {
-                    console.log("Here we go! >>>>>>>");
                     done();
                 }
             });

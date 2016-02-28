@@ -1,13 +1,13 @@
 module.exports = {
     label: "Suite 1302",
     id: "suite1302",
-    autoDiscoveryDeviceTypes: [{
-        plugin: "z-wave/zWaveNetwork",
-        confirmRegistration: true,
-        persistRegistration: false,
-        defaultConfiguration: {},
-        options: {}
-    }],
+    autoDiscoveryDeviceTypes: [/*{
+     plugin: "z-wave/zWaveNetwork",
+     confirmRegistration: true,
+     persistRegistration: false,
+     defaultConfiguration: {},
+     options: {}
+     }*/],
     devices: [{
         label: "Z-Wave Network",
         id: "zWaveNetwork",
@@ -44,6 +44,14 @@ module.exports = {
             type: "routingBinarySensor",
             configuration: {
                 nodeId: 5
+            },
+            logLevel: "debug"
+        }, , {
+            id: "thermostatGeneric1",
+            label: "Thermostat Generic 1",
+            type: "thermostatGeneric",
+            configuration: {
+                nodeId: 8
             },
             logLevel: "debug"
         }],
