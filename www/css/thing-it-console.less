@@ -1,103 +1,135 @@
 /* Reusable Tags */
 
+.lighterTextColor {
+  color: lighten(@textColor, @lightPercentage) !important;
+}
+
 .lightenedPrimaryColor {
-  color: lighten(@primaryColor, @lightPercentage);
+  color: lighten(@primaryColor, @lightPercentage) !important;
 }
 
 .lightPrimaryColor {
-  color: lighten(@primaryColor, @lightPercentage);
+  color: lighten(@primaryColor, @lightPercentage) !important;
 }
 
 .secondaryColor {
-  color: @secondaryColor;
+  color: @secondaryColor !important;
 }
 
 .ternaryColor {
-  color: @ternaryColor;
+  color: @ternaryColor !important;
 }
 
 .alertColor {
-  color: @ternaryColor;
+  color: @ternaryColor !important;
+}
+
+.defaultBackgroundColor {
+  background-color: @backgroundColor;
 }
 
 .primaryBackgroundColor {
-  background-color: @primaryColor;
+  background-color: @primaryColor !important;
 }
 
 .lightPrimaryColor {
-  color: lighten(@primaryColor, @lightPercentage);
+  color: lighten(@primaryColor, @lightPercentage) !important;
+}
+
+.lighterPrimaryColor {
+  color: lighten(@primaryColor, @lighterPercentage) !important;
 }
 
 .lightPrimaryBackgroundColor {
-  background-color: lighten(@primaryColor, @lightPercentage);
+  background-color: lighten(@primaryColor, @lightPercentage) !important;
 }
 
 .lighterPrimaryBackgroundColor {
-  background-color: lighten(@primaryColor, @lighterPercentage);
+  background-color: lighten(@primaryColor, @lighterPercentage) !important;
 }
 
 .lightestPrimaryBackgroundColor {
-  background-color: lighten(@primaryColor, @lightestPercentage);
+  background-color: lighten(@primaryColor, @lightestPercentage) !important;
 }
 
 .secondaryBackgroundColor {
-  background-color: @secondaryColor;
+  background-color: @secondaryColor !important;
 }
 
 .lightSecondaryBackgroundColor {
-  background-color: lighten(@secondaryColor, @lightPercentage);
+  background-color: lighten(@secondaryColor, @lightPercentage) !important;
 }
 
 .lighterSecondaryBackgroundColor {
-  background-color: lighten(@secondaryColor, @lighterPercentage);
+  background-color: lighten(@secondaryColor, @lighterPercentage) !important;
 }
 
 .lightestSecondaryBackgroundColor {
-  background-color: lighten(@secondaryColor, @lightestPercentage);
+  background-color: lighten(@secondaryColor, @lightestPercentage) !important;
 }
 
 .ternaryBackgroundColor {
-  background-color: @ternaryColor;
+  background-color: @ternaryColor !important;
 }
 
 .lightTernaryColor {
-  color: lighten(@ternaryColor, @lightPercentage);
+  color: lighten(@ternaryColor, @lightPercentage) !important;
 }
 
 .lighterTernaryColor {
-  color: lighten(@ternaryColor, @lighterPercentage);
+  color: lighten(@ternaryColor, @lighterPercentage) !important;
 }
 
 .lightestTernaryColor {
-  color: lighten(@ternaryColor, @lightestPercentage);
+  color: lighten(@ternaryColor, @lightestPercentage) !important;
 }
 
 .lightTernaryBackgroundColor {
-  background-color: lighten(@ternaryColor, @lightPercentage);
+  background-color: lighten(@ternaryColor, @lightPercentage) !important;
 }
 
 .lighterTernaryBackgroundColor {
-  background-color: lighten(@ternaryColor, @lighterPercentage);
+  background-color: lighten(@ternaryColor, @lighterPercentage) !important;
 }
 
 .lightestTernaryBackgroundColor {
-  background-color: lighten(@ternaryColor, @lightestPercentage);
+  background-color: lighten(@ternaryColor, @lightestPercentage) !important;
 }
 
 .contrastBackgroundColor {
-  background-color: @contrastColor;
+  background-color: @contrastColor !important;
 }
 
 .lightContrastBackgroundColor {
-  background-color: lighten(@contrastColor, @lightPercentage);
+  background-color: lighten(@contrastColor, @lightPercentage) !important;
 }
 
 .lighterContrastBackgroundColor {
-  background-color: lighten(@contrastColor, @lighterPercentage);
+  background-color: lighten(@contrastColor, @lighterPercentage) !important;
 }
 
 .lightestContrastBackgroundColor {
-  background-color: lighten(@contrastColor, @lightestPercentage);
+  background-color: lighten(@contrastColor, @lightestPercentage) !important;
+}
+
+.okColor {
+  color: #30b455 !important;
+}
+
+.warningColor {
+  color: #EFAF13 !important;
+}
+
+.alertColor {
+  color: @alertColor !important;
+}
+
+.defaultBackgroundColorAsColor {
+  color: @backgroundColor !important;
+}
+
+.noBorder {
+  border: none !important;
 }
 
 .titleFont {
@@ -114,16 +146,44 @@
   font-family: @defaultFontFamily;
 }
 
-.okColor {
-  color: #30b455;
+.semiBold {
+  font-weight: 600;
 }
 
-.warningColor {
-  color: #EFAF13;
+.bold {
+  font-weight: 700;
 }
 
-.alertColor {
-  color: @alertColor;
+.fontSize1_5 {
+  font-size: @defaultFontSize * 1.5;
+}
+
+.fontSize2 {
+  font-size: @defaultFontSize * 2;
+}
+
+.fontSize3 {
+  font-size: @defaultFontSize * 3;
+}
+
+.fontSize4 {
+  font-size: @defaultFontSize * 4;
+}
+
+/* Layout */
+
+.centeredContent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.padding0_5em {
+  padding: 0.5em;
+}
+
+.padding1em {
+  padding: 1em;
 }
 
 // Basic Tags
@@ -374,6 +434,97 @@ fieldset[disabled] .formControl {
 
 .ellipsisTextOverflow {
   text-overflow: ellipsis;
+}
+
+/* Tile Page */
+
+.tileContainer {
+  border-collapse: collapse;
+  border: none !important;
+  width: 100%;
+}
+
+.tile {
+  float: left;
+  width: 50%;
+  border-right: 1px solid lighten(@contrastColor, @lightPercentage);
+  border-bottom: 1px solid lighten(@contrastColor, @lightPercentage);
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.tile:nth-child(even) {
+  border-right: none
+}
+
+.tileButton {
+  position: relative;
+  display: block;
+  width: 6em;
+  height: 6em;
+  border-radius: 50%;
+  background: #FFFFFF;
+  text-decoration: none;
+}
+
+.tileButton div {
+  display: block;
+  float: left;
+  width: 100%;
+  padding-top: 50%;
+  padding-bottom: 50%;
+  font-size: 4em;
+  line-height: 4em;
+  margin-top: -1.6em;
+  text-align: center;
+}
+
+.tileButton:hover {
+  -webkit-animation: tileButtonClick 1s;
+  -moz-animation: tileButtonClick 1s;
+  -o-animation: tileButtonClick 1s;
+  animation: tileButtonClick 1s;
+  cursor: hand;
+}
+
+@keyframes tileButtonClick {
+  0% {
+    background: @ternaryColor;
+    -webkit-box-shadow: 1px 1px 1px 0px @ternaryColor;
+    -moz-box-shadow: 1px 1px 1px 1px @ternaryColor;
+    -o-box-shadow: 1px 1px 1px 1px @ternaryColor;
+    box-shadow: 1px 1px 1px 0px @ternaryColor;
+  }
+  100% {
+    background: #FFFFFF;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    -o-box-shadow: none;
+    box-shadow: none;
+  }
+}
+
+@-webkit-keyframes tileButtonClick {
+  0% {
+    background: @ternaryColor;
+  }
+  100% {
+    background: #FFFFFF;
+  }
+}
+
+.notificationBubble {
+  position: absolute;
+  top: 0em;
+  right: 0em;
+  padding: 1em 1em 1em 1em;
+  background-color: @alertColor;
+  color: white;
+  font-weight: bold;
+  font-size: @defaultFontSize * 0.8 !important;
+  line-height: @defaultFontSize * 0.8 !important;
+  border-radius: 2em;
 }
 
 /* jqPlot Overwrites*/
