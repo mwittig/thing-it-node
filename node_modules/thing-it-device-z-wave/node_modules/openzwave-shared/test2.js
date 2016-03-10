@@ -32,6 +32,10 @@ zwave.on('node added', function(nodeid) {
     };
 });
 
+zwave.on('node event', function(nodeid, data) {
+	  console.log('node%d event: Basic set %d', nodeid, data);
+});
+
 zwave.on('value added', function(nodeid, comclass, value) {
     if (!nodes[nodeid]['classes'][comclass])
         nodes[nodeid]['classes'][comclass] = {};
@@ -118,7 +122,7 @@ zwave.on('scan complete', function() {
     console.log('====> scan complete, hit ^C to finish.');
     // set dimmer node 5 to 50%
     zwave.setValue(5,38,1,0,50);
-		//zwave.setValue({nodeid:5,	class_id: 38,	instance:1,	index:0}, 50 );
+	//zwave.setValue({node_id:5,	class_id: 38,	instance:1,	index:0}, 50 );
 });
 
 zwave.on('controller command', function(n,rv,st,msg) {

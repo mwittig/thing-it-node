@@ -19,7 +19,7 @@ module.exports = {
             {
                 id: "switch", label: "Switch",
                 type: {
-                    id: "boolen"
+                    id: "boolean"
                 }
             }, {
                 id: "power", label: "Power",
@@ -128,6 +128,14 @@ function BinaryPowerSwitch() {
     BinaryPowerSwitch.prototype.handleNotificationFromZWave = function(notif, help) {
         this.logDebug(help + " (" + notif + ")");
     }
+
+    /**
+     *
+     */
+    BinaryPowerSwitch.prototype.scanComplete = function () {
+        this.logDebug("Received scan complete on node id " + this.configuration.nodeId + " with device type "
+            + this.configuration.deviceType + ".");
+    };
 
     /**
      *

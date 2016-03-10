@@ -133,6 +133,14 @@ function MultilevelSceneSwitch() {
     /**
      *
      */
+    MultilevelSceneSwitch.prototype.scanComplete = function () {
+        this.logDebug("Received scan complete on node id " + this.configuration.nodeId + " with device type "
+            + this.configuration.deviceType + ".");
+    };
+
+    /**
+     *
+     */
     MultilevelSceneSwitch.prototype.stop = function () {
         var deferred = q.defer();
 
