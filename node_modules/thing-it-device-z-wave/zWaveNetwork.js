@@ -141,7 +141,8 @@ function ZWaveNetworkDiscovery() {
                             label: "Binary Power Switch " + n,
                             type: "binaryPowerSwitch",
                             configuration: {
-                                nodeId: n
+                                nodeId: n,
+                                deviceType: this.nodes[n].type
                             }
                         });
                     } else if (this.nodes[n].type === 'Routing Multilevel Sensor') {
@@ -152,7 +153,8 @@ function ZWaveNetworkDiscovery() {
                             label: "Multilevel Sensor " + n,
                             type: "multilevelSensor",
                             configuration: {
-                                nodeId: n
+                                nodeId: n,
+                                deviceType: this.nodes[n].type
                             }
                         });
                     } else if ((this.nodes[n].type === 'Multilevel Scene Switch') || (this.nodes[n].type === 'Multilevel Power Switch')) {
@@ -163,7 +165,8 @@ function ZWaveNetworkDiscovery() {
                             label: "Multilevel Scene Switch " + n,
                             type: "multilevelSceneSwitch",
                             configuration: {
-                                nodeId: n
+                                nodeId: n,
+                                deviceType: this.nodes[n].type
                             }
                         });
                     } else if (this.nodes[n].type === 'Home Security Sensor') {

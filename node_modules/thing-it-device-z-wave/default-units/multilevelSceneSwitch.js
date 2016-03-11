@@ -35,21 +35,30 @@ module.exports = {
                     id: "boolean"
                 }
             }],
-        configuration: [{
-            label: "Node ID",
-            id: "nodeId",
-            type: {
-                id: "integer"
+        configuration: [
+            {
+                label: "Node ID",
+                id: "nodeId",
+                type: {
+                    id: "integer"
+                },
+                defaultValue: "1"
+            }, {
+                label: "Default Level",
+                id: "defaultLevel",
+                type: {
+                    id: "integer"
+                },
+                defaultValue: "99"
             },
-            defaultValue: "1"
-        }, {
-            label: "Default Level",
-            id: "defaultLevel",
-            type: {
-                id: "integer"
-            },
-            defaultValue: "100"
-        }]
+            {
+                label: "DeviceType",
+                id: "deviceType",
+                type: {
+                    id: "string"
+                },
+                defaultValue: ""
+            }]
     },
     create: function () {
         return new MultilevelSceneSwitch();
@@ -212,7 +221,7 @@ function MultilevelSceneSwitch() {
     MultilevelSceneSwitch.prototype.setLevel = function (level) {
         this.logDebug("Setting level to " + level);
 
-        if (level > 0){
+        if (level > 0) {
             this.state.lastLevel = level;
             this.state.level = level;
             this.state.switch = true;
@@ -227,7 +236,12 @@ function MultilevelSceneSwitch() {
         } else {
             // setLevel not working reliably
             // this.device.zWave.setLevel(this.configuration.nodeId, level);
-            this.device.zWave.setValue({ node_id:this.configuration.nodeId, class_id: 38, instance:1, index:0}, level);
+            this.device.zWave.setValue({
+                node_id: this.configuration.nodeId,
+                class_id: 38,
+                instance: 1,
+                index: 0
+            }, level);
             this.ignoreNextUpdate = true;
         }
 

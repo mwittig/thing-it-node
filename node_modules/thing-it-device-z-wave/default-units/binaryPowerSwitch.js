@@ -42,14 +42,23 @@ module.exports = {
                     id: "decimal"
                 }
             }],
-        configuration: [{
-            label: "Node ID",
-            id: "nodeId",
-            type: {
-                id: "integer"
+        configuration: [
+            {
+                label: "Node ID",
+                id: "nodeId",
+                type: {
+                    id: "integer"
+                },
+                defaultValue: "1"
             },
-            defaultValue: "1"
-        }]
+            {
+                label: "DeviceType",
+                id: "deviceType",
+                type: {
+                    id: "string"
+                },
+                defaultValue: ""
+            }]
     },
     create: function () {
         return new BinaryPowerSwitch();
@@ -118,14 +127,14 @@ function BinaryPowerSwitch() {
     /**
      *
      */
-    BinaryPowerSwitch.prototype.handleEventFromZWave = function(event, valueid) {
+    BinaryPowerSwitch.prototype.handleEventFromZWave = function (event, valueid) {
         this.logDebug("Event: " + event + " on Value ID " + valueid);
     }
 
     /**
      *
      */
-    BinaryPowerSwitch.prototype.handleNotificationFromZWave = function(notif, help) {
+    BinaryPowerSwitch.prototype.handleNotificationFromZWave = function (notif, help) {
         this.logDebug(help + " (" + notif + ")");
     }
 
@@ -159,7 +168,7 @@ function BinaryPowerSwitch() {
      *
      */
     BinaryPowerSwitch.prototype.setState = function (state) {
-        if (state.switch){
+        if (state.switch) {
             this.on();
         } else {
             this.off();

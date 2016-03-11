@@ -89,6 +89,7 @@ function GenericDevice() {
         this.logDebug("Received scan complete on node id " + this.configuration.nodeId + " with device type "
             + this.configuration.deviceType + ".");
         this.logDebug("Polling Frequency (ms): " + this.device.zWave.getPollInterval());
+        this.device.zWave.requestAllConfigParams(this.configuration.nodeId);
         this.device.zWave.enablePoll(this.configuration.nodeId, 32);
         this.device.zWave.enablePoll(this.configuration.nodeId, 48);
         this.device.zWave.enablePoll(this.configuration.nodeId, 49);
