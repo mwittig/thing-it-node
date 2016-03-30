@@ -454,8 +454,12 @@ fieldset[disabled] .formControl {
   box-sizing: border-box;
 }
 
-.tile:nth-child(even) {
-  border-right: none
+.tileNoRightBorderOdd:nth-child(odd) {
+  border-right: none !important;
+}
+
+.tileNoRightBorder {
+  border-right: none !important;
 }
 
 .tileButton {
@@ -616,6 +620,13 @@ i.treeHandle {
   color: #FFFFFF !important;
   border-color: @primaryColor;
   box-shadow: none !important;
+  font-size: @defaultFontSize;
+}
+
+.navbar-absolute-bottom {
+  height: 30px !important;
+  padding-top: 0 !important;
+  font-size: @defaultFontSize;
 }
 
 .colorBar {
