@@ -29,6 +29,8 @@
 <div class="app">
     <div class="navbar navbar-app navbar-absolute-top" ui-yield-to="topbar">
     </div>
+    <div ng-show="mobileConsole.topPage().showBottomBar" class="navbar navbar-app navbar-absolute-bottom" ui-yield-to="bottombar">
+    </div>
 
     <div class="app-body" ng-class="{loading: loading}">
         <div ng-show="loading" class="app-content-loading">

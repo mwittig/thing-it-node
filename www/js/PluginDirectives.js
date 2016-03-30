@@ -1,4 +1,9 @@
 angular.module("ThingItMobile.PluginDirectives", [])
+    .filter('unsafe', function ($sce) {
+        return function (value) {
+            return $sce.trustAsHtml(value);
+        };
+    })
     .filter('characters', function () {
         return function (input, chars, breakOnWord) {
             if (isNaN(chars)) return input;
@@ -204,7 +209,13 @@ angular.module("ThingItMobile.PluginDirectives", [])
                 }.bind(this));
 
                 scope.$watch(attrs.tiVideoStream, function (value) {
-                    jQuery(element).children("video").children("source").attr("src", value);
+                    if (value.indexOf(".cgi") > 0) {
+                        video.css("display", "none");
+                        img.css("display", "inline-block");
+                        img.attr("src", value);
+                    } else {
+                        jQuery(element).children("video").children("source").attr("src", value);
+                    }
                 });
 
                 scope.$watch(attrs.tiSnapshotImage, function (value) {
@@ -482,98 +493,98 @@ angular.module("ThingItMobile.PluginDirectives", [])
             }
         }
     }).directive('tiIconOrPhoto', function ($timeout, $parse) {
-        return {
-            restrict: "E",
-            template: "<img class='photo' style='width: auto; height: 2em;'><span><i></i></span>",
-            link: function (scope, element, attrs) {
-                var img = jQuery(element).find("img");
-                var span = jQuery(element).find("span");
-                var i = jQuery(element).find("i");
-                var mobileConsole = scope.$eval(attrs.tiMobileConsole);
-                var defaultIcon = scope.$eval(attrs.tiDefaultIcon);
+    return {
+        restrict: "E",
+        template: "<img class='photo' style='width: auto; height: 2em;'><span><i></i></span>",
+        link: function (scope, element, attrs) {
+            var img = jQuery(element).find("img");
+            var span = jQuery(element).find("span");
+            var i = jQuery(element).find("i");
+            var mobileConsole = scope.$eval(attrs.tiMobileConsole);
+            var defaultIcon = scope.$eval(attrs.tiDefaultIcon);
 
-                scope.$watch(attrs.ngModel, function (element) {
-                    if (element.photoUri) {
-                        img.show();
-                        span.hide();
-                        img.prop("src", mobileConsole.consoleService.getFilePath(mobileConsole.node, element.photoUri));
+            scope.$watch(attrs.ngModel, function (element) {
+                if (element.photoUri) {
+                    img.show();
+                    span.hide();
+                    img.prop("src", mobileConsole.consoleService.getFilePath(mobileConsole.node, element.photoUri));
+                }
+                else {
+                    img.hide();
+                    span.show();
+
+                    if (element.icon) {
+                        i.addClass(element.icon);
                     }
                     else {
-                        img.hide();
-                        span.show();
-
-                        if (element.icon) {
-                            i.addClass(element.icon);
-                        }
-                        else {
-                            i.addClass(defaultIcon);
-                        }
+                        i.addClass(defaultIcon);
                     }
-                });
-            }
-        };
-    }).directive('tiClickOverlay', function ($timeout, $parse) {
-        return {
-            restrict: "A",
-            link: function (scope, element, attrs) {
-                jQuery(element).addClass("center-overlay");
+                }
+            });
+        }
+    };
+}).directive('tiClickOverlay', function ($timeout, $parse) {
+    return {
+        restrict: "A",
+        link: function (scope, element, attrs) {
+            jQuery(element).addClass("center-overlay");
 
-                var i = jQuery("<i class='fa fa-bullseye overlay-icon'></i>");
+            var i = jQuery("<i class='fa fa-bullseye overlay-icon'></i>");
 
-                jQuery(element).click(function () {
-                    i.addClass("pulseAnimation");
+            jQuery(element).click(function () {
+                i.addClass("pulseAnimation");
 
-                    window.setTimeout(function () {
-                        i.removeClass("pulseAnimation");
-                    }, 2000);
-                });
+                window.setTimeout(function () {
+                    i.removeClass("pulseAnimation");
+                }, 2000);
+            });
 
-                jQuery(element).append(i);
-            }
-        };
-    }).directive('tiMotionSensor', function ($timeout, $parse) {
-        return {
-            restrict: "E",
-            template: "<div style='display: table-row; height: 2em; vertical-align: middle'><div style='display: table-cell; width: 100%; text-align: center'><i class='icon sl-contacts-1 overlay-alarm-icon' style='display: inline-block:'></i><span class='smallFont lightPrimaryColor'>No Motion detected.</span></div></div>",
-            link: function (scope, element, attrs) {
-                var i = jQuery(element).find("i");
-                var span = jQuery(element).find("span");
+            jQuery(element).append(i);
+        }
+    };
+}).directive('tiMotionSensor', function ($timeout, $parse) {
+    return {
+        restrict: "E",
+        template: "<div style='display: table-row; height: 2em; vertical-align: middle'><div style='display: table-cell; width: 100%; text-align: center'><i class='icon sl-contacts-1 overlay-alarm-icon' style='display: inline-block:'></i><span class='smallFont lightPrimaryColor'>No Motion detected.</span></div></div>",
+        link: function (scope, element, attrs) {
+            var i = jQuery(element).find("i");
+            var span = jQuery(element).find("span");
 
-                scope.$watch(attrs.ngModel, function (value) {
-                    if (value) {
-                        i.css("display", "inline-block");
-                        span.css("display", "none");
-                        i.addClass("infinitePulseAnimation");
-                    } else {
-                        i.removeClass("infinitePulseAnimation");
-                        i.css("display", "none");
-                        span.css("display", "inline-block");
-                    }
-                });
-            }
-        };
-    }).directive('tiSmokeDetector', function ($timeout, $parse) {
-        return {
-            restrict: "E",
-            template: "<div style='display: table-row; height: 2em; vertical-align: middle'><div style='display: table-cell; width: 2em;  height: 2em; text-align: center'><i class='noSmoke icon sl-smiley-happy-1 okColor' style='font-size: 2em;'></i><i class='smoke fa fa-bullseye overlay-alarm-icon' style='display: inline-block:'></i></div></div>",
-            link: function (scope, element, attrs) {
-                var noSmokeIcon = jQuery(element).find(".noSmoke");
-                var smokeIcon = jQuery(element).find(".smoke");
+            scope.$watch(attrs.ngModel, function (value) {
+                if (value) {
+                    i.css("display", "inline-block");
+                    span.css("display", "none");
+                    i.addClass("infinitePulseAnimation");
+                } else {
+                    i.removeClass("infinitePulseAnimation");
+                    i.css("display", "none");
+                    span.css("display", "inline-block");
+                }
+            });
+        }
+    };
+}).directive('tiSmokeDetector', function ($timeout, $parse) {
+    return {
+        restrict: "E",
+        template: "<div style='display: table-row; height: 2em; vertical-align: middle'><div style='display: table-cell; width: 2em;  height: 2em; text-align: center'><i class='noSmoke icon sl-smiley-happy-1 okColor' style='font-size: 2em;'></i><i class='smoke fa fa-bullseye overlay-alarm-icon' style='display: inline-block:'></i></div></div>",
+        link: function (scope, element, attrs) {
+            var noSmokeIcon = jQuery(element).find(".noSmoke");
+            var smokeIcon = jQuery(element).find(".smoke");
 
-                scope.$watch(attrs.ngModel, function (value) {
-                    if (value > scope.$eval(attrs.tiThreshold)) {
-                        noSmokeIcon.css("display", "none");
-                        smokeIcon.css("display", "inline-block");
-                        smokeIcon.addClass("infinitePulseAnimation");
-                    } else {
-                        noSmokeIcon.css("display", "inline-block");
-                        smokeIcon.css("display", "none");
-                        smokeIcon.removeClass("infinitePulseAnimation");
-                    }
-                });
-            }
-        };
-    });
+            scope.$watch(attrs.ngModel, function (value) {
+                if (value > scope.$eval(attrs.tiThreshold)) {
+                    noSmokeIcon.css("display", "none");
+                    smokeIcon.css("display", "inline-block");
+                    smokeIcon.addClass("infinitePulseAnimation");
+                } else {
+                    noSmokeIcon.css("display", "inline-block");
+                    smokeIcon.css("display", "none");
+                    smokeIcon.removeClass("infinitePulseAnimation");
+                }
+            });
+        }
+    };
+});
 
 /**
  * Does not write to the model! Could do if we would block watches during change.
