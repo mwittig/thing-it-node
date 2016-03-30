@@ -1,6 +1,6 @@
 {
   "name": "thing-it-node",
-  "version": "0.7.50",
+  "version": "0.7.51",
   "description": "thing-it Node Server",
   "main": "lib/node.js",
   "scripts": {},
@@ -39,6 +39,7 @@
     "thing-it-device-kidde": "0.0.12",
     "thing-it-device-philips-hue": "^0.1.20",
     "thing-it-device-plugwise": "0.0.13",
+    "thing-it-device-radio-thermostat": "0.0.2",
     "thing-it-device-safe-plug": "0.0.2",
     "thing-it-device-sonos": "^0.2.7",
     "thing-it-device-swann": "0.0.20",
