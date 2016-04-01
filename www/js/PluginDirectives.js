@@ -183,9 +183,9 @@ angular.module("ThingItMobile.PluginDirectives", [])
                 var video = jQuery(element).children("video");
                 var img = jQuery(element).children("img");
 
-                video.css("display", "none");
+                img.css("display", "none");
                 img.css("width", "100%");
-                img.css("display", "inline-block");
+                video.css("display", "inline-block");
                 img.addClass("snapshotImage");
 
                 img.click(function () {
@@ -209,13 +209,7 @@ angular.module("ThingItMobile.PluginDirectives", [])
                 }.bind(this));
 
                 scope.$watch(attrs.tiVideoStream, function (value) {
-                    if (value.indexOf(".cgi") > 0) {
-                        video.css("display", "none");
-                        img.css("display", "inline-block");
-                        img.attr("src", value);
-                    } else {
-                        jQuery(element).children("video").children("source").attr("src", value);
-                    }
+                    video.children("source").attr("src", value);
                 });
 
                 scope.$watch(attrs.tiSnapshotImage, function (value) {
