@@ -111,7 +111,7 @@ function pair(yargs) {
             }
 
             request.post({
-                url: "https://www.thing-it.com/portal/gateways/pair",
+                url: "https://www.thing-it.com/gateways/pair",
                 json: true,
                 body: {account: account, password: password, macAddress: macAddress, mesh: mesh}
             }, function (error, response, body) {
@@ -130,7 +130,7 @@ function pair(yargs) {
                     }
                     else {
 
-                        options = {};
+                        options = defaultOptions();
                     }
 
                     options.uuid = gateway.uuid;
@@ -260,17 +260,7 @@ function run(yargs) {
     else {
         console.log("No options file in start directory [" + process.cwd() + "]. Using defaults.");
 
-        options = {
-            port: 3001,
-            protocol: "http",
-            proxy: "local",
-            nodeConfigurationsDirectory: process.cwd() + "/configurations",
-            dataDirectory: process.cwd() + "/data",
-            usersDirectory: process.cwd() + "/users",
-            simulated: true,
-            authentication: "none",
-            logLevel: "debug"
-        }
+        options = defaultOptions();
     }
 
     // Overwrite file or default options with command line options
@@ -353,6 +343,23 @@ function run(yargs) {
                     process.exit();
                 }
             });
+}
+
+/**
+ *
+ */
+function defaultOptions() {
+    return {
+        port: 3001,
+        protocol: "http",
+        proxy: "local",
+        nodeConfigurationsDirectory: process.cwd() + "/configurations",
+        dataDirectory: process.cwd() + "/data",
+        usersDirectory: process.cwd() + "/users",
+        simulated: true,
+        authentication: "none",
+        logLevel: "debug"
+    };
 }
 
 /**
