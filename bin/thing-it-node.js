@@ -148,6 +148,7 @@ function pair(yargs) {
 
                         delete body.mesh.nodes[n].__v;
                         delete body.mesh.nodes[n]._id;
+                        delete body.mesh.nodes[n].connectionMode;
 
                         fs.writeFileSync(configurations[n], "module.exports = " + JSON.stringify(body.mesh.nodes[n]) + ";", {
                             encoding: "utf-8"
