@@ -83,8 +83,8 @@ function pair(yargs) {
             throw error;
         } else {
             var mesh;
+            var configurations = [];
 
-            console.log("Mesh >>> ", argv.mesh);
             if (argv.mesh) {
                 mesh = {
                     id: argv.mesh,
@@ -105,6 +105,7 @@ function pair(yargs) {
                         mesh.nodes.push(require(process.cwd() + "/configurations/" + list[n], {
                             encoding: "utf-8"
                         }));
+                        configurations.push(process.cwd() + "/configurations/" + list[n]);
                     }
                 }
             }
@@ -126,8 +127,6 @@ function pair(yargs) {
                     var options;
 
                     if (fs.existsSync(process.cwd() + "/options.js")) {
-                        console.log("Running [thing-it-node] from Options File [" + process.cwd() + "/options.js]");
-
                         options = require(process.cwd() + "/options.js");
                     }
                     else {
@@ -138,9 +137,21 @@ function pair(yargs) {
                     options.uuid = gateway.uuid;
                     options.proxy = "https://www.thing-it.com";
 
+                    console.log("Updating Options File [" + process.cwd() + "/options.js]");
+
                     fs.writeFileSync(process.cwd() + "/options.js", "module.exports = " + JSON.stringify(options) + ";", {
                         encoding: "utf-8"
                     });
+
+                    for (var n in configurations) {
+                        console.log("Updating Gateway Configuration File [" + configurations[n] + "]");
+
+                        delete body.mesh.nodes[n]._id;
+
+                        fs.writeFileSync(configurations[n], "module.exports = " + JSON.stringify(body.mesh.nodes[n]) + ";", {
+                            encoding: "utf-8"
+                        });
+                    }
 
                     console.log("\nGateway sucessfully paired with UUID " + gateway.uuid + ".");
                 }
