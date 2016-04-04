@@ -1,6 +1,6 @@
 {
   "name": "thing-it-node",
-  "version": "0.7.55",
+  "version": "0.7.56",
   "description": "thing-it Node Server",
   "main": "lib/node.js",
   "scripts": {},
@@ -22,6 +22,7 @@
     "nodemailer": "^1.4.0",
     "npm": "^3.3.5",
     "q": "^1.1.2",
+    "readline-sync": "^1.4.1",
     "request": "^2.60.0",
     "socket.io": "^1.3.3",
     "socket.io-client": "^1.3.5",
