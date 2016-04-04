@@ -146,6 +146,7 @@ function pair(yargs) {
                     for (var n in configurations) {
                         console.log("Updating Gateway Configuration File [" + configurations[n] + "]");
 
+                        delete body.mesh.nodes[n].__v;
                         delete body.mesh.nodes[n]._id;
 
                         fs.writeFileSync(configurations[n], "module.exports = " + JSON.stringify(body.mesh.nodes[n]) + ";", {
