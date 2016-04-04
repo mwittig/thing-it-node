@@ -111,8 +111,7 @@ function pair(yargs) {
             }
 
             request.post({
-                url: "http://localhost:3000/portal/gateways/pair",
-                //url: "https://www.thing-it.com/portal/gateways/pair",
+                url: "https://www.thing-it.com/portal/gateways/pair",
                 json: true,
                 body: {account: account, password: password, macAddress: macAddress, mesh: mesh}
             }, function (error, response, body) {
