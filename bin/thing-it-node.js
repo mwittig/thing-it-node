@@ -71,17 +71,32 @@ function pair(yargs) {
 
     console.log("Pairing [thing-it-node] Gateway with thing-it.com.\n");
 
-    var account = readlineSync.question('thing-it.com Account: ');
-    var password = readlineSync.question('Password            : ', {
-        hideEchoBack: true
-    });
-
     getmac.getMac(function (error, macAddress) {
         if (error) {
             this.logError("Cannot retrieve MAC address: " + error);
 
             throw error;
         } else {
+            // Determine options
+
+            var options;
+
+            if (fs.existsSync(process.cwd() + "/options.js")) {
+                options = require(process.cwd() + "/options.js");
+            }
+            else {
+
+                options = defaultOptions();
+            }
+
+            if (options.uuid) {
+                var decision = readlineSync.question('It seems that your Gateway installation is already paired. Proceed to overwrite current settings (y/n): ');
+
+                if (decision != 'y') {
+                    return;
+                }
+            }
+
             var mesh;
             var configurations = [];
 
@@ -108,7 +123,14 @@ function pair(yargs) {
                         configurations.push(process.cwd() + "/configurations/" + list[n]);
                     }
                 }
+
+                console.log();
             }
+
+            var account = readlineSync.question('thing-it.com Account: ');
+            var password = readlineSync.question('thing-it.com Password: ', {
+                hideEchoBack: true
+            });
 
             request.post({
                 url: "https://www.thing-it.com/gateways/pair",
@@ -120,18 +142,6 @@ function pair(yargs) {
                 }
                 else {
                     var gateway = body.nodeComputer;
-
-                    // Determine options
-
-                    var options;
-
-                    if (fs.existsSync(process.cwd() + "/options.js")) {
-                        options = require(process.cwd() + "/options.js");
-                    }
-                    else {
-
-                        options = defaultOptions();
-                    }
 
                     options.uuid = gateway.uuid;
                     options.proxy = "https://www.thing-it.com";
