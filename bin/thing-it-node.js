@@ -10,11 +10,15 @@ var express = require('express');
 var app = express();
 var Server = require('socket.io');
 var fs = require('fs');
+var request = require('request');
+var getmac = require('getmac');
+var readlineSync = require('readline-sync');
 
 require("yargs").usage("tin <command> [options]")
     .help("help", "Print this help")
     .demand(1)
     .command("init", "Create Configurations Directory with an empty Configurations File as well as the Data and User Directories .", init)
+    .command("pair", "Pairs the Gateway with thing-it.com and create Configurations Directory with an empty Configurations File as well as the Data and User Directories.", pair)
     .command("example", "Create an example Node Configurations file from a source.", example)
     .command("run", "Starts the [thing-it-node] Server.", run)
     .command("version", "Displays version information.", version)
@@ -57,6 +61,92 @@ function init(yargs) {
 
     fs
         .writeFileSync(process.cwd() + "/configurations/default.js", configuration);
+}
+
+function pair(yargs) {
+    var argv = yargs.option("mesh", {
+        alias: "m",
+        description: 'Mesh'
+    }).help("help").argv;
+
+    console.log("Pairing [thing-it-node] Gateway with thing-it.com.\n");
+
+    var account = readlineSync.question('thing-it.com Account: ');
+    var password = readlineSync.question('Password            : ', {
+        hideEchoBack: true
+    });
+
+    getmac.getMac(function (error, macAddress) {
+        if (error) {
+            this.logError("Cannot retrieve MAC address: " + error);
+
+            throw error;
+        } else {
+            var mesh;
+
+            console.log("Mesh >>> ", argv.mesh);
+            if (argv.mesh) {
+                mesh = {
+                    id: argv.mesh,
+                    label: argv.mesh,
+                    nodes: []
+                };
+
+                console.log("\nCollecting Gateway Configurations in directory " + process.cwd() + "/configurations:");
+
+                var list = fs.readdirSync(process.cwd() + "/configurations");
+
+                for (var n in list) {
+                    var fileStat = fs.statSync(process.cwd() + "/configurations/" + list[n]);
+
+                    if (fileStat && fileStat.isFile()) {
+                        console.log("Gateway Configuration [" + process.cwd() + "/configurations/" + list[n] + "]");
+
+                        mesh.nodes.push(require(process.cwd() + "/configurations/" + list[n], {
+                            encoding: "utf-8"
+                        }));
+                    }
+                }
+            }
+
+            request.post({
+                url: "http://localhost:3000/portal/gateways/pair",
+                //url: "https://www.thing-it.com/portal/gateways/pair",
+                json: true,
+                body: {account: account, password: password, macAddress: macAddress, mesh: mesh}
+            }, function (error, response, body) {
+                if (error) {
+                    this.logInfo("Cannot reach server.");
+                }
+                else {
+                    var gateway = body.nodeComputer;
+
+                    // Determine options
+
+                    var options;
+
+                    if (fs.existsSync(process.cwd() + "/options.js")) {
+                        console.log("Running [thing-it-node] from Options File [" + process.cwd() + "/options.js]");
+
+                        options = require(process.cwd() + "/options.js");
+                    }
+                    else {
+
+                        options = {};
+                    }
+
+                    options.uuid = gateway.uuid;
+                    options.proxy = "https://www.thing-it.com";
+
+                    fs.writeFileSync(process.cwd() + "/options.js", "module.exports = " + JSON.stringify(options) + ";", {
+                        encoding: "utf-8"
+                    });
+
+                    console.log("\nGateway sucessfully paired with UUID " + gateway.uuid + ".");
+                }
+            });
+        }
+    });
 }
 
 /**
@@ -111,6 +201,7 @@ function createDirectory(name, purpose) {
         }
     }
 }
+
 function copyFile(source, target) {
     var rd = fs.createReadStream(source);
 
