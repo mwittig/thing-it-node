@@ -71,104 +71,48 @@ function pair(yargs) {
 
     console.log("Pairing [thing-it-node] Gateway with thing-it.com.\n");
 
-    getmac.getMac(function (error, macAddress) {
-        if (error) {
-            this.logError("Cannot retrieve MAC address: " + error);
+    // Initialize Gateway Manager without starting
 
-            throw error;
-        } else {
-            // Determine options
+    // TODO Load options via Gateway Manager
 
-            var options;
+    var options;
 
-            if (fs.existsSync(process.cwd() + "/options.js")) {
-                options = require(process.cwd() + "/options.js");
-            }
-            else {
+    if (fs.existsSync(process.cwd() + "/options.js")) {
+        options = require(process.cwd() + "/options.js");
+    }
+    else {
 
-                options = defaultOptions();
-            }
+        options = defaultOptions();
+    }
 
-            if (options.uuid) {
-                var decision = readlineSync.question('It seems that your Gateway installation is already paired. Proceed to overwrite current settings (y/n): ');
+    if (options.uuid) {
+        var decision = readlineSync.question('It seems that your Gateway installation is already paired. Proceed to overwrite current settings (y/n): ');
 
-                if (decision != 'y') {
-                    return;
-                }
-            }
-
-            var mesh;
-            var configurations = [];
-
-            if (argv.mesh) {
-                mesh = {
-                    id: argv.mesh,
-                    label: argv.mesh,
-                    nodes: []
-                };
-
-                console.log("\nCollecting Gateway Configurations in directory " + process.cwd() + "/configurations:");
-
-                var list = fs.readdirSync(process.cwd() + "/configurations");
-
-                for (var n in list) {
-                    var fileStat = fs.statSync(process.cwd() + "/configurations/" + list[n]);
-
-                    if (fileStat && fileStat.isFile()) {
-                        console.log("Gateway Configuration [" + process.cwd() + "/configurations/" + list[n] + "]");
-
-                        mesh.nodes.push(require(process.cwd() + "/configurations/" + list[n], {
-                            encoding: "utf-8"
-                        }));
-                        configurations.push(process.cwd() + "/configurations/" + list[n]);
-                    }
-                }
-
-                console.log();
-            }
-
-            var account = readlineSync.question('thing-it.com Account: ');
-            var password = readlineSync.question('thing-it.com Password: ', {
-                hideEchoBack: true
-            });
-
-            request.post({
-                url: "https://www.thing-it.com/gateways/pair",
-                json: true,
-                body: {account: account, password: password, macAddress: macAddress, mesh: mesh}
-            }, function (error, response, body) {
-                if (error) {
-                    this.logInfo("Cannot reach server.");
-                }
-                else {
-                    var gateway = body.nodeComputer;
-
-                    options.uuid = gateway.uuid;
-                    options.proxy = "https://www.thing-it.com";
-
-                    console.log("Updating Options File [" + process.cwd() + "/options.js]");
-
-                    fs.writeFileSync(process.cwd() + "/options.js", "module.exports = " + JSON.stringify(options) + ";", {
-                        encoding: "utf-8"
-                    });
-
-                    for (var n in configurations) {
-                        console.log("Updating Gateway Configuration File [" + configurations[n] + "]");
-
-                        delete body.mesh.nodes[n].__v;
-                        delete body.mesh.nodes[n]._id;
-                        delete body.mesh.nodes[n].connectionMode;
-
-                        fs.writeFileSync(configurations[n], "module.exports = " + JSON.stringify(body.mesh.nodes[n]) + ";", {
-                            encoding: "utf-8"
-                        });
-                    }
-
-                    console.log("\nGateway sucessfully paired with UUID " + gateway.uuid + ".");
-                }
-            });
+        if (decision != 'y') {
+            return;
         }
+    }
+
+    if (argv.mesh) {
+        mesh = {
+            id: argv.mesh,
+            label: argv.mesh,
+            nodes: []
+        };
+    }
+
+    var account = readlineSync.question('thing-it.com Account: ');
+    var password = readlineSync.question('thing-it.com Password: ', {
+        hideEchoBack: true
     });
+
+    var gatewayManager = node.initialize(options);
+
+    node.pair(mesh, null, account, password).then(function (gateway) {
+        console.log("\nGateway sucessfully paired with UUID " + gateway.uuid + ".");
+    }.bind(this)).fail(function (error) {
+        console.log("Failed to pair Gateway:\n" + error);
+    }.bind(this));
 }
 
 /**
