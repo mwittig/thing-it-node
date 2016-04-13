@@ -66,7 +66,10 @@ function init(yargs) {
 function pair(yargs) {
     var argv = yargs.option("mesh", {
         alias: "m",
-        description: 'Mesh'
+        description: 'Label of (existing or new) Mesh to push Gateway Configurations to'
+    }).option("server", {
+        alias: "s",
+        description: 'Server to pair with'
     }).help("help").argv;
 
     console.log("Pairing [thing-it-node] Gateway with thing-it.com.\n");
@@ -101,6 +104,8 @@ function pair(yargs) {
         };
     }
 
+    console.log('Targeting Mesh [' + argv.mesh + "].\n");
+
     var account = readlineSync.question('thing-it.com Account: ');
     var password = readlineSync.question('thing-it.com Password: ', {
         hideEchoBack: true
@@ -108,7 +113,7 @@ function pair(yargs) {
 
     var gatewayManager = node.initialize(options);
 
-    node.pair(mesh, null, account, password).then(function (gateway) {
+    gatewayManager.pair(argv.mesh, null, account, password, argv.server).then(function (gateway) {
         console.log("\nGateway sucessfully paired with UUID " + gateway.uuid + ".");
     }.bind(this)).fail(function (error) {
         console.log("Failed to pair Gateway:\n" + error);
