@@ -198,7 +198,7 @@ function copyFile(source, target) {
  *
  */
 function run(yargs) {
-    var argv = yargs.option("simulate", {
+    var argv = yargs.option("simulated", {
         alias: "s",
         description: 'Activate simulation mode',
         type: "boolean"
@@ -224,8 +224,8 @@ function run(yargs) {
 
     // Overwrite file or default options with command line options
 
-    if (argv.simulate != undefined) {
-        options.simulated = argv.simulate;
+    if (argv.simulated) {
+        options.simulated = argv.simulated;
     }
 
     if (argv.log != undefined) {
