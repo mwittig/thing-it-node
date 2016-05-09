@@ -470,16 +470,19 @@ angular.module("ThingItMobile.PluginDirectives", [])
                     "lighterContrast",
                     "lightestContrast"]
                 var totalWidth = 0;
+                var n = 0;
 
                 while (totalWidth < 100) {
                     var color = colors[Math.floor(Math.random() * colors.length)];
                     var width = Math.floor(Math.random() * 12) + 1;
+                    var animationClass = n % 2 == 1 ? 'slideLeftAnimation' : 'slideRightAnimation';
+                    var durationClass = n % 3 == 1 ? 'animationDuration1_0' : 'animationDuration3_0';
 
                     if (totalWidth + width > 100) {
                         width = 100 - totalWidth;
                     }
 
-                    div.append("<div class='" + color + "BackgroundColor' style='display: table-cell; width: "
+                    div.append("<div class='" + color + "BackgroundColor " + animationClass + " " + durationClass + "' style='display: table-cell; width: "
                         + width + "%;'>");
 
                     totalWidth += width;
@@ -578,7 +581,24 @@ angular.module("ThingItMobile.PluginDirectives", [])
             });
         }
     };
+}).directive('tiPostList', function ($timeout, $parse) {
+    return {
+        restrict: "A",
+        link: function (scope, element, attrs) {
+            var controller = angular.element(element).controller('scrollableContent');
+            var scrollableContent = jQuery(element);
+
+            window.setTimeout(function () {
+                controller.scrollTo(scrollableContent[0].scrollHeight + 50);
+            }.bind(this), 1000);
+
+            scope.$watch(attrs.tiPostList, function (posts) {
+                controller.scrollTo(scrollableContent[0].scrollHeight + 50);
+            });
+        }
+    };
 });
+
 
 /**
  * Does not write to the model! Could do if we would block watches during change.
