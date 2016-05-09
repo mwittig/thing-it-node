@@ -29,12 +29,25 @@
 <div class="app">
     <div class="navbar navbar-app navbar-absolute-top" ui-yield-to="topbar">
     </div>
-    <div ng-show="mobileConsole.topPage().showBottomBar" class="navbar navbar-app navbar-absolute-bottom" ui-yield-to="bottombar">
-    </div>
-
-    <div class="app-body" ng-class="{loading: loading}">
-        <div ng-show="loading" class="app-content-loading">
-            <i class="fa fa-spinner fa-spin loading-spinner"></i>
+    <div class="app-body" ng-class="{loading: mobileConsole.loading}">
+        <div ng-show="mobileConsole.loading" class="app-content-loading loadingOverlay">
+            <div style="display: table; border: none !important; width: 100%;">
+                <div style="display: table-row;">
+                    <div style="display: table-cell; text-align: center; padding-top: 100px;">
+                        {{mobileConsole.loadingText}}
+                    </div>
+                </div>
+                <div style="display: table-row;">
+                </div>
+            </div>
+            <table style="text-align:center; width: 100%;">
+                <tr>
+                    <td class="spinFix" style="display: flex; justify-content: center; margin-top: 100px;">
+                        <i class="fa fa-circle-o-notch fa-spin lightestPrimaryColor"
+                           style="font-size: 100px;"></i>
+                    </td>
+                </tr>
+            </table>
         </div>
         <div class="app-content">
             <ng-view></ng-view>
