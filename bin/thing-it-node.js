@@ -69,7 +69,7 @@ function pair(yargs) {
         description: 'Label of (existing or new) Mesh to push Gateway Configurations to'
     }).option("server", {
         alias: "s",
-        description: 'Server to pair with'
+        description: 'Full URL of Server to pair with, e.g. https://www.thing-it.com or http://localhost:3003.'
     }).help("help").argv;
 
     console.log("Pairing [thing-it-node] Gateway with thing-it.com.\n");
@@ -84,7 +84,6 @@ function pair(yargs) {
         options = require(process.cwd() + "/options.js");
     }
     else {
-
         options = defaultOptions();
     }
 
@@ -103,6 +102,8 @@ function pair(yargs) {
             nodes: []
         };
     }
+
+    // TODO Check for existing Gateway Configuration file(s) and warn - or load into nodes
 
     console.log('Targeting Mesh [' + argv.mesh + "].\n");
 
