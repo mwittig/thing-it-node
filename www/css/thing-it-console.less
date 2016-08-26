@@ -120,6 +120,26 @@
   background-color: lighten(@contrastColor, @lightestPercentage) !important;
 }
 
+.borderColor {
+  color: @borderColor !important;
+}
+
+.lightTextColor {
+  color: lighten(@textColor, @lightPercentage) !important;
+}
+
+.lighterTextColor {
+  color: lighten(@textColor, @lighterPercentage) !important;
+}
+
+.lightestTextColor {
+  color: lighten(@textColor, @lightestPercentage) !important;
+}
+
+.borderBorderColor {
+  border-color: @borderColor !important;
+}
+
 .okColor {
   color: #30b455 !important;
 }
@@ -190,12 +210,104 @@
   align-items: center;
 }
 
+.noTopMargin {
+  margin-top: 0 !important;
+}
+
+.defaultMargin {
+  margin: 0.5em !important;
+}
+
+.defaultTopMargin {
+  margin-top: 0.5em !important;
+}
+
+.defaultLeftMargin {
+  margin-left: 0.5em !important;
+}
+
+.defaultRightMargin {
+  margin-right: 0.5em !important;
+}
+
+.defaultBottomMargin {
+  margin-bottom: 0.5em !important;
+}
+
+.margin1 {
+  margin: 1em !important;
+}
+
+.bottomMargin1 {
+  margin: 1em !important;
+}
+
+.marginTop1 {
+  margin-top: 1em !important;
+}
+
+.marginBottom1 {
+  margin-bottom: 1em !important;
+}
+
+.defaultPadding {
+  padding: 0.5em !important;
+}
+
+.padding1 {
+  padding: 1em !important;
+}
+
+.padding0_2 {
+  padding: 0.2em !important;
+}
+
+.defaultTopPadding {
+  padding-top: 0.5em !important;
+}
+
+.defaultLeftPadding {
+  padding-left: 0.5em !important;
+}
+
+.defaultRightPadding {
+  padding-right: 0.5em !important;
+}
+
 .padding0_5em {
   padding: 0.5em;
 }
 
 .padding1em {
   padding: 1em;
+}
+
+.padding1 {
+  padding: 1em !important;
+}
+
+.defaultBorder {
+  border: 1px solid @borderColor !important;
+}
+
+.borderRadius {
+  border-radius: @borderRadius !important;
+}
+
+.flexLayout {
+  display: flex;
+}
+
+.flexJustifyEnd {
+  justify-content: flex-end;
+}
+
+.flexJustifyCenter {
+  justify-content: center;
+}
+
+.flexGrow1 {
+  flex-grow: 1;
 }
 
 // Basic Tags
@@ -316,18 +428,21 @@ input.ng-invalid.ng-touched, select.ng-invalid.ng-touched {
 }
 
 ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
-  color:    @borderColor;
+  color: @borderColor;
 }
+
 :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
-  color:    @borderColor;
-  opacity:  1;
+  color: @borderColor;
+  opacity: 1;
 }
+
 ::-moz-placeholder { /* Mozilla Firefox 19+ */
-  color:    @borderColor;
-  opacity:  1;
+  color: @borderColor;
+  opacity: 1;
 }
+
 :-ms-input-placeholder { /* Internet Explorer 10-11 */
-  color:    @borderColor;
+  color: @borderColor;
 }
 
 select {
