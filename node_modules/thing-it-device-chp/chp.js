@@ -16,8 +16,32 @@ module.exports = {
                 id: "decimal"
             }
         }, {
-            id: "idlePower",
-            label: "Idle Power",
+            id: "drive",
+            label: "Drive",
+            type: {
+                id: "decimal"
+            }
+        }, {
+            id: "gasConsumption",
+            label: "Gas Consumption",
+            type: {
+                id: "decimal"
+            }
+        }, {
+            id: "heatOutput",
+            label: "Heat Output",
+            type: {
+                id: "decimal"
+            }
+        }, {
+            id: "exhaustTemperature",
+            label: "Exhaust Temeperature",
+            type: {
+                id: "decimal"
+            }
+        }, {
+            id: "coolingWaterTemperature",
+            label: "Cooling Water Temperature",
             type: {
                 id: "decimal"
             }
@@ -75,11 +99,19 @@ function Chp() {
         if (this.isSimulated()) {
             this.interval = setInterval(function () {
                 if (this.state.running) {
-                    this.state.power = 10 + 0.1 * new Date().getTime() % 2;
-                    this.state.idlePower = 0.1 * this.state.power;
+                    this.state.power = 400 + 0.1 * new Date().getTime() % 2;
+                    this.state.gasConsumption = 134 + new Date().getTime() % 10;
+                    this.state.drive = 1500 - 0.1 * new Date().getTime() % 2;
+                    this.state.heatOutput = 314 + 5 * new Date().getTime() % 20;
+                    this.state.exhaustTemperature = 106 + 0.1 * new Date().getTime() % 2;
+                    this.state.coolingWaterTemperature = 88 + 0.1 * new Date().getTime() % 2;
                 } else {
                     this.state.power = 0;
-                    this.state.idlePower = 0;
+                    this.state.gasConsumption = 0;
+                    this.state.drive = 0;
+                    this.state.heatOutput = 0;
+                    this.state.exhaustTemperature = 0;
+                    this.state.coolingWaterTemperature = 0;
                 }
 
                 this.publishStateChange();
