@@ -193,22 +193,23 @@ function Chp() {
 
                 if ((state.gasConsumption == 0 && this.state.gasConsumption == 0 ) ||
                     0.001 > Math.abs((this.state.gasConsumption - state.gasConsumption) / Math.max(this.state.gasConsumption, state.gasConsumption))) {
-                    return;
+
+                    this.__timeout = null;
+                } else {
+                    this.state.gasConsumption = state.gasConsumption;
+
+                    this.state.drive += 100 * state.gasConsumption - 0.1 * this.__lastDrive;
+                    this.state.power += 30 * state.gasConsumption - 0.2 * this.__lastPower;
+
+                    this.logDebug('Set Drive: ', this.state.drive);
+                    this.logDebug('Set Power: ', this.state.power);
+
+                    this.__lastDrive = this.state.drive;
+                    this.__lastPower = this.state.power;
+                    this.__timeout = null;
+
+                    this.publishStateChange();
                 }
-
-                this.state.gasConsumption = state.gasConsumption;
-
-                this.state.drive += 100 * state.gasConsumption - 0.1 * this.__lastDrive;
-                this.state.power += 30 * state.gasConsumption - 0.2 * this.__lastPower;
-
-                this.logDebug('Set Drive: ', this.state.drive);
-                this.logDebug('Set Power: ', this.state.power);
-
-                this.__lastDrive = this.state.drive;
-                this.__lastPower = this.state.power;
-                this.__timeout = null;
-
-                this.publishStateChange();
             }.bind(this), 1000);
         }
     };
