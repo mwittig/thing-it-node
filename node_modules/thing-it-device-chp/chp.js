@@ -175,6 +175,8 @@ function Chp() {
     Chp.prototype.setState = function (state) {
         // Only allow changes of gas consumption
 
+        this.logDebug('Set State', state);
+
         if (state.gasConsumption) {
             if (this.__timeout) {
                 return;
