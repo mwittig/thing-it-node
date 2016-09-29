@@ -187,8 +187,6 @@ function Chp() {
 
                 this.logDebug('Set Gas Consumption: ', state.gasConsumption);
 
-                var delta =;
-
                 // Changes under 0.1% are not applied
 
                 if ((state.gasConsumption == 0 && this.state.gasConsumption == 0 ) ||
