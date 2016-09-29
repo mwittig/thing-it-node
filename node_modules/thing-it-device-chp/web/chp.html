@@ -29,13 +29,8 @@
         margin-top: -40px;
     }
 </style>
-<div class="primaryColor" style="display: flex; justify-content: center; align-items: bottom;">
-    <i class="icon sl-torch fontSize1_5"></i>
-    <span class="fontSize1_5">{{component._state.gasConsumption | number:2}}</span>
-    <span class="fontSize0_8">kg</span>
-</div>
-<div style="display: flex; justify-content: center;">
-    <div class="marginTop1" style="display: flex; flex-direction: column; align-items: center;">
+<div class="marginTop1" style="display: flex; justify-content: center;">
+    <div style="display: flex; flex-direction: column; align-items: center;">
         <h3 class="noTopMargin">Motor</h3>
         <div class="compass marginTop0_5">
             <div class="direction primaryColor">
@@ -55,11 +50,11 @@
         </div>
     </div>
     <div style="margin-left: 1em; display: flex; flex-direction: column; align-items: center;">
-        <h3 class="noTopMargin">Heat Exchanger</h3>
+        <h3 class="noTopMargin">Temperature</h3>
         <div class="compass marginTop0_5">
             <div class="direction primaryColor fontSize2">
-                <p class="fontSize1_5">{{component._state.heatOutput | number:2}}<span
-                        class="fontSize0_8 marginLeft0_2">kW</span>
+                <p class="fontSize1_5">{{component._state.exhaustTemperature | number:1}}<span
+                        class="fontSize0_8 marginLeft0_2">&#8451;</span>
                 </p>
             </div>
         </div>
@@ -76,17 +71,10 @@
             <i class="icon sl-power-4 fontSize1_5"></i>
         </div>
     </div>
-    <div class="flexLayout flexJustifyEnd flexGrow1">
-        <span>&nbsp;</span>
+    <div class="flexLayout flexJustifyEnd flexGrow1 flexAlignBaseline primaryColor">
+        <i class="icon sl-torch fontSize1_5"></i>
+        <span class="fontSize1_5">{{component._state.gasConsumption | number:2}}</span>
+        <span class="fontSize0_8">kg</span>
     </div>
 </div>
-<div class="flexLayout flexAlignCenter" style="min-height: 2em;">
-    <div class="flexLayout flexJustifyStart flexGrow1">
-        <i ng-if="component._state.aircraftWarningMarker"
-           class="icon alertColor sl-hotspot-2 fadePulse fontSize1_5"></i>
-    </div>
-    <div class="flexLayout flexJustifyEnd flexGrow1">
-        <i ng-if="component._state.rotorDeIcing"
-           class="icon sl-thermometer-low alertColor fadePulse fontSize1_5"></i>
-    </div>
-</div>
+
