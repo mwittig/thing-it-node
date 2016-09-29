@@ -187,11 +187,12 @@ function Chp() {
 
                 this.logDebug('Set Gas Consumption: ', state.gasConsumption);
 
-                var delta = Math.abs((this.state.gasConsumption - state.gasConsumption) / this.state.gasConsumption);
+                var delta =;
 
                 // Changes under 0.1% are not applied
 
-                if (delta < 0.001) {
+                if ((state.gasConsumption == 0 && this.state.gasConsumption == 0 ) ||
+                    0.001 > Math.abs((this.state.gasConsumption - state.gasConsumption) / Math.max(this.state.gasConsumption, state.gasConsumption))) {
                     return;
                 }
 

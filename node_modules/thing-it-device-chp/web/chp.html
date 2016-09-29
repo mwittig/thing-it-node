@@ -30,7 +30,12 @@
     }
 </style>
 <div style="display: flex; justify-content: center;">
-    <div style="display: flex; flex-direction: column; align-items: center;">
+    <div class="flexLayout flexAlignBottom">
+        <i class="icon sl-torch fontSize1_5"></i>
+        <span class="fontSize1_5">{{component._state.drive | number:2}}</span>
+        <span class="fontSize0_8">kg</span>
+    </div>
+    <div class="marginTop1" style="display: flex; flex-direction: column; align-items: center;">
         <h3 class="noTopMargin">Motor</h3>
         <div class="compass marginTop0_5">
             <div class="direction primaryColor">
