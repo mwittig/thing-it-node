@@ -100,6 +100,7 @@ function Chp() {
         if (this.isSimulated()) {
             this.__lastDrive = 0;
             this.__lastPower = 0;
+            this.__lastExhaustTemperature = 20;
 
             this.statusChangeInterval = setInterval(function () {
                 if (new Date().getTime() % 2) {
@@ -154,7 +155,7 @@ function Chp() {
      */
     Chp.prototype.activate = function () {
         this.state.running = true;
-        this.state.exhaustTemperature = 0;
+        this.state.exhaustTemperature = 20;
         this.state.power = 0;
         this.state.idlePower = 0;
 
@@ -200,12 +201,15 @@ function Chp() {
 
                     this.state.drive += 100 * state.gasConsumption - 0.1 * this.__lastDrive;
                     this.state.power += 30 * state.gasConsumption - 0.2 * this.__lastPower;
+                    this.state.exhaustTemperature += 1.8 * state.gasConsumption - 0.3 * this.__lastExhaustTemperature;
 
                     this.logDebug('Set Drive: ', this.state.drive);
                     this.logDebug('Set Power: ', this.state.power);
+                    this.logDebug('Set Power: ', this.state.exhaustTemperature);
 
                     this.__lastDrive = this.state.drive;
                     this.__lastPower = this.state.power;
+                    this.__lastExhaustTemperature = this.state.exhaustTemperature;
                     this.__timeout = null;
 
                     this.publishStateChange();
