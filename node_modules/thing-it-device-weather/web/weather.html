@@ -1,0 +1,12 @@
+<div style="display: table-row; vertical-align: middle;">
+    <table style="display: inline-block;">
+        <tr>
+            <td colspan="3" style="text-align: center;"><span class="lightPrimaryColor" style="font-size: 4em;">{{component._state.temperature | number:1}}</span><span class="smallFont lightPrimaryColor">&deg;C</span></td>
+        </tr>
+        <tr>
+            <td style="width: 30%; text-align: center;"></td>
+            <td style="width: 30%; text-align: center;"><span class="smallFont lightPrimaryColor">{{component._state.weatherDescription}} </span></td>
+            <td style="width: 30%; text-align: center;"><img class="trackImage" src="{{component._state.weatherIconURL}}"/></td>
+        </tr>
+    </table>
+</div>
