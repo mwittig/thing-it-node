@@ -1,6 +1,6 @@
 {
   "name": "thing-it-node",
-  "version": "0.8.63",
+  "version": "0.8.64",
   "description": "thing-it Node Server",
   "main": "lib/node.js",
   "scripts": {},
@@ -35,6 +35,7 @@
     "thing-it-device-chp": "0.0.14",
     "thing-it-device-ecobee": "0.0.4",
     "thing-it-device-foscam": "^0.1.11",
+    "thing-it-device-hibox": "0.0.2",
     "thing-it-device-helbio": "0.0.2",
     "thing-it-device-ibeacon": "0.0.3",
     "thing-it-device-itach": "^0.2.11",
