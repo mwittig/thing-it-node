@@ -1,0 +1,43 @@
+// http://api.openweathermap.org/data/2.5/weather?zip=65193,de&units=metric&lang=de&APPID=1e53c2e3757bee1dfc6da5768f27aa99
+{
+  "coord": {
+    "lon": 8.25,
+    "lat": 50.08
+  },
+  "weather": [
+    {
+      "id": 803,
+      "main": "Clouds",
+      "description": "überwiegend bewölkt",
+      "icon": "04d"
+    }
+  ],
+  "base": "stations",
+  "main": {
+    "temp": 9.32,
+    "pressure": 1003,
+    "humidity": 71,
+    "temp_min": 9,
+    "temp_max": 10
+  },
+  "visibility": 10000,
+  "wind": {
+    "speed": 5.7,
+    "deg": 210
+  },
+  "clouds": {
+    "all": 75
+  },
+  "dt": 1479478800,
+  "sys": {
+    "type": 1,
+    "id": 4881,
+    "message": 0.0049,
+    "country": "DE",
+    "sunrise": 1479451578,
+    "sunset": 1479483476
+  },
+  "id": 2809346,
+  "name": "Wiesbaden",
+  "cod": 200
+}
