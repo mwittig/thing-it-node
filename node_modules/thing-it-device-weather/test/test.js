@@ -13,7 +13,7 @@ weather.isSimulated = function () {
 };
 weather.configuration = {
     simulated: false,
-    zip: "65193",
+    cityName: "Wiesbaden",
     countryCode: "de",
     languageCode: "de",
     units: "metric",
