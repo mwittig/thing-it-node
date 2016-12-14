@@ -8,13 +8,13 @@ Device Plugins for [[thing-it-node]](https://github.com/marcgille/thing-it-node)
 ## Configuration
 
 Simply configure the following parameters via [thing-it] Mobile or [thing-it.com](wwww.thing-it.com).
-* Open Weather Map Key: They key you get after registering at (http://openweathermap.org).
-* ZIP: The ZIP code of the city you want to get weather for.
-* Country Code: The country code (such as us, de) for the country the city is in.
-* Language Code: The language code (en, de) for the result.
-* Units: Either metric or imperial
+* City Name: The name of the city the weather should be retrieved for. Examples are 'Sydney' and 'Frankfurt am Main'.
+* Country Code: The country code (such as 'au' and 'de') for the country the city is in.
+* Language Code: The language code (such as 'en', 'de') for the result.
+* Units: Either 'metric' or 'imperial', default is 'metric'
 * Update Frequency Seconds: Time in seconds until [thing-it] requests the next weather update. This should typically be
 more than 10 minutes, so a value of 600 or higher.
+* Open Weather Map Key: They key you get after registering at (http://openweathermap.org).
 
 ## User Interface
 
