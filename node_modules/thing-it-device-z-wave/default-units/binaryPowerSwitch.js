@@ -52,8 +52,24 @@ module.exports = {
                 defaultValue: "1"
             },
             {
-                label: "DeviceType",
+                label: "Device Type",
                 id: "deviceType",
+                type: {
+                    id: "string"
+                },
+                defaultValue: ""
+            },
+            {
+                label: "Manufacturer",
+                id: "manufacturer",
+                type: {
+                    id: "string"
+                },
+                defaultValue: ""
+            },
+            {
+                label: "Product",
+                id: "product",
                 type: {
                     id: "string"
                 },
@@ -144,6 +160,19 @@ function BinaryPowerSwitch() {
     BinaryPowerSwitch.prototype.scanComplete = function () {
         this.logDebug("Received scan complete on node id " + this.configuration.nodeId + " with device type "
             + this.configuration.deviceType + ".");
+
+        if (!this.isSimulated() &&
+            ("Smart Energy Switch" == this.configuration.product) &&
+            ("Aeotec" == this.configuration.manufacturer)) {
+            this.logDebug("1st generation Aeotec power switch - enabling polling.");
+/*
+            this.device.zWave.setValue(this.configuration.nodeId, 112, 1, 80, 1);
+            this.device.zWave.setValue(this.configuration.nodeId, 112, 1, 90, true);
+            this.device.zWave.setValue(this.configuration.nodeId, 112, 1, 100, 0);
+            this.device.zWave.setValue(this.configuration.nodeId, 50, 1, 32, true);
+*/
+            this.device.zWave.enablePoll(this.configuration.nodeId, 50);
+        }
     };
 
     /**

@@ -105,6 +105,7 @@ function MultilevelSceneSwitch() {
      *
      */
     MultilevelSceneSwitch.prototype.setStateFromZWave = function (comClass, value) {
+        //Todo implement code from Jan Erik Hanssen
         if (!this.ignoreNextUpdate) {
             if ((comClass == 38) && (value.label = "Level") && (value.value === parseInt(value.value, 10))) {
                 if (value.value > 0) {

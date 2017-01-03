@@ -106,9 +106,12 @@ you will be able control these from the **[thing-it] Mobile App** immediately.
 
 ## Mobile UI
 
-The following screenshot shows the Node Page of the [sample configuration]("./examples.configuration"):
+The following screenshot shows a few typical Z-Wave devices in the [thing-it] Mobile UI:
+* Binary power switch with electricity consumption measurement
+* Multilevel switch, often used as dimmer, with the ability to switch on and off as well as setting the level
+* Multilevel sensor with temperature, luminance and humidity data
 
-<p align="center"><a href="./documentation/images/mobile-ui.png"><img src="./documentation/images/mobile-ui.png" width="70%" height="70%"></a></p>
+<p align="center"><a href="./documentation/images/thing-it-mobile-z-wave-switches-and-multimeter_iphone6plus_silver_side1.png"><img src="./documentation/images/thing-it-mobile-z-wave-switches-and-multimeter_iphone6plus_silver_side1.png" width="70%" height="70%"></a></p>
 
 ## Tested Devices
 
