@@ -1,0 +1,9 @@
+<ti-switch ti-model="component._state.presentValue"
+           ti-change="panel.callActorService(component, 'toggle')"></ti-switch>
+<!--<md-switch ng-model="component._state.presentValue" ng-change="panel.callActorService(component, 'toggle') "aria-label="Switch 1">
+    Present Value: {{ component._state.presentValue }}
+</md-switch>-->
+<div style="text-align: center;">
+    <span class="">{{component._state.alarmValue}}</span><br>
+    <span class="">{{component._state.outOfService}}</span><br>
+</div>

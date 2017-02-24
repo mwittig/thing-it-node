@@ -1,0 +1,213 @@
+module.exports = {
+    metadata: {
+        plugin: "led",
+        label: "LED",
+        role: "actor",
+        family: "led",
+        deviceTypes: ["osram-lightify/lightifyGateway"],
+        services: [{
+            id: "on",
+            label: "On"
+        }, {
+            id: "off",
+            label: "Off"
+        }, {
+            id: "softOn",
+            label: "Soft On"
+        }, {
+            id: "softOff",
+            label: "Soft Off"
+        }, {
+            id: "toggle",
+            label: "Toggle"
+        }, {
+            id: "setBrightnessPercent",
+            label: "Set Brightness (%)"
+        }],
+        state: [
+            {
+                id: "brightness", label: "Brightness",
+                type: {
+                    id: "integer"
+                }
+            }, {
+                id: "brightnessPercent", label: "Brightness (%)",
+                type: {
+                    id: "integer"
+                }
+            },
+            {
+                id: "reachable", label: "Reachable",
+                type: {
+                    id: "boolean"
+                }
+            }],
+        configuration: [{
+            label: "MAC Address",
+            id: "mac",
+            type: {
+                id: "string"
+            }
+        }]
+    },
+    create: function () {
+        return new Led();
+    }
+};
+
+var q = require('q');
+var lightifyGateway;
+
+/**
+ *
+ */
+function Led() {
+    /**
+     *
+     */
+    Led.prototype.start = function () {
+        var deferred = q.defer();
+
+        this.state = {
+            brightness: 0,
+            brightnessPercent: 0,
+            reachable: false
+        };
+
+        if (!this.isSimulated()) {
+        }
+
+        deferred.resolve();
+
+        return deferred.promise;
+    };
+
+    /**
+     *
+     */
+    Led.prototype.stop = function () {
+        var deferred = q.defer();
+
+        if (this.interval) {
+            clearInterval(this.interval);
+        }
+
+        deferred.resolve();
+
+        return deferred.promise;
+    };
+
+    /**
+     *
+     */
+    Led.prototype.getState = function () {
+        return this.state;
+    };
+
+    /**
+     *
+     */
+    Led.prototype.setState = function (state) {
+        // TODO Needs work
+
+        this.state = {
+            brightness: state.brightness ? state.brightness : this.state.brightness,
+            brightnessPercent: state.brightnessPercent ? state.brightnessPercent : this.state.brightnessPercent,
+            rgbHex: state.rgbHex ? state.rgbHex : this.state.rgbHex
+        };
+
+        if (this.isSimulated()) {
+            this.publishStateChange();
+        }
+        else {
+            this.publishStateChange();
+        }
+    };
+
+    /**
+     *
+     */
+    Led.prototype.on = function () {
+        this.state.on = true;
+
+        if (this.isSimulated()) {
+            this.publishStateChange();
+        } else {
+            this.device.connector.nodeOnOff(this.configuration.mac, true);
+            this.publishStateChange();
+        }
+    };
+
+    /**
+     *
+     */
+    Led.prototype.off = function () {
+        this.state.on = false;
+
+        if (this.isSimulated()) {
+            this.publishStateChange();
+        } else {
+            this.device.connector.nodeOnOff(this.configuration.mac, false).then(function () {
+                this.publishStateChange();
+            }.bind(this));
+        }
+    };
+
+    /**
+     *
+     */
+    Led.prototype.softOn = function () {
+        this.state.on = true;
+
+        if (this.isSimulated()) {
+            this.publishStateChange();
+        } else {
+            this.device.connector.nodeSoftOnOff(this.configuration.mac, true, 1000).then(function () {
+                this.publishStateChange();
+            }.bind(this));
+        }
+    };
+
+    /**
+     *
+     */
+    Led.prototype.softOff = function () {
+        this.state.on = false;
+
+        if (this.isSimulated()) {
+            this.publishStateChange();
+        } else {
+            this.device.connector.nodeSoftOnOff(this.configuration.mac, false, 1000).then(function () {
+                this.publishStateChange();
+            }.bind(this));
+        }
+    };
+
+    /**
+     *
+     */
+    Led.prototype.toggle = function () {
+        if (this.state.on) {
+            this.off();
+        }
+        else {
+            this.on();
+        }
+    };
+
+    /**
+     *
+     */
+    Led.prototype.setBrightnessPercent = function (parameters) {
+        this.state.brightnessPercent = parameters.brightnessPercent;
+        this.state.brightness = parameters.brightnessPercent / 100;
+
+        if (this.isSimulated()) {
+            this.publishStateChange();
+        } else {
+            this.device.connector.nodeBrightness(this.configuration.mac, this.state.brightnessPercent).then(function () {
+                this.publishStateChange();
+            }.bind(this));
+        }
+    };
+};
