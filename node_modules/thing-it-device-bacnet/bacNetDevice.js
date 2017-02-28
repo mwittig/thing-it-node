@@ -5,8 +5,8 @@
 module.exports = {
     metadata: {
         family: 'bacnet',
-        plugin: 'bacNet',
-        label: 'BACnet',
+        plugin: 'bacNetDevice',
+        label: 'BACnet Device',
         manufacturer: '',
         discoverable: true,
         additionalSoftware: [],

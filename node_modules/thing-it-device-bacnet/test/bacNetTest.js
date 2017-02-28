@@ -5,7 +5,7 @@
  */
 
 //Create Instance of BACnet device
-var BacNet = require('../bacNet');
+var BacNet = require('../bacNetDevice');
 
 var bacnet = BacNet.create({});
 

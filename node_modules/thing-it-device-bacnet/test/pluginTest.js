@@ -1,14 +1,16 @@
 var assert = require("assert");
 
-describe('[thing-it] BACnet Plugin', function () {
+describe('[thing-it] BACnet Device', function () {
     var testDriver;
 
     before(function () {
         testDriver = require("thing-it-test").createTestDriver({logLevel: "error"});
 
-        testDriver.registerDevicePlugin(__dirname + "/../bacNetNetwork");
-        testDriver.registerUnitPlugin(__dirname + "/../default-units/lightBulb");
-        testDriver.registerUnitPlugin(__dirname + "/../default-units/led");
+        testDriver.registerDevicePlugin(__dirname + "/../bacNetDevice");
+        testDriver.registerUnitPlugin(__dirname + "/../default-units/binaryInput");
+        testDriver.registerUnitPlugin(__dirname + "/../default-units/binaryValue");
+        testDriver.registerUnitPlugin(__dirname + "/../default-units/analogInput");
+        testDriver.registerUnitPlugin(__dirname + "/../default-units/analogValue");
     });
     describe('Start Configuration', function () {
         this.timeout(10000);
@@ -24,242 +26,175 @@ describe('[thing-it] BACnet Plugin', function () {
             });
         });
     });
-    describe('LED off', function () {
-        this.timeout(5000);
+
+    describe('Binary Input Test Update', function () {
+        this.timeout(20000);
 
         before(function () {
             testDriver.removeAllListeners();
         });
-        it('should produce Actor State Change message', function (done) {
-            testDriver.addListener({
-                publishActorStateChange: function (device, actor, state) {
-                    if (actor.id === "led1Kitchen" && device.id === "lightifyGateway" && state.on === false) {
-                        done();
-                    }
-                    /*else {
-                        done('Unexpected Actor State Change message');
-                    }*/
-                }
-            });
-
-            testDriver.lightifyGateway.led1Kitchen.off();
-            //testDriver.lightifyGateway.led2Kitchen.off();
-            //testDriver.lightifyGateway.lightBulbLounge.softOff();
-        });
-    });
-    describe('LED on', function () {
-        this.timeout(5000);
-
-        before(function () {
-            testDriver.removeAllListeners();
-        });
-        it('should produce Actor State Change message', function (done) {
-            testDriver.addListener({
-                publishActorStateChange: function (device, actor, state) {
-                    if (actor.id === "led1Kitchen" && device.id === "lightifyGateway" && state.on === true) {
-                        done();
-                    }
-                    /*else {
-                        done('Unexpected Actor State Change message');
-                    }*/
-                }
-            });
-
-            testDriver.lightifyGateway.led1Kitchen.on();
-            //testDriver.lightifyGateway.led2Kitchen.off();
-            //testDriver.lightifyGateway.lightBulbLounge.softOff();
-        });
-    });
-    describe('LED brightness 50%', function () {
-        this.timeout(5000);
-
-        before(function () {
-            testDriver.removeAllListeners();
-        });
-        it('should produce Actor State Change message', function (done) {
-            testDriver.addListener({
-                publishActorStateChange: function (device, actor, state) {
-                    if (actor.id === "led1Kitchen" && device.id === "lightifyGateway" && state.brightnessPercent === 50) {
-                        done();
-                    }
-                    //else {
-                    //    done("Unexpected Actor State Change message.");
-                    //}
-                }
-            });
-
-            //testDriver.lightifyGateway.lightBulbLounge.softOn();
-            testDriver.lightifyGateway.led1Kitchen.setBrightnessPercent({brightnessPercent: 50});
-            //testDriver.lightifyGateway.led2Kitchen.on();
-        });
-    });
-    describe('LED brightness 100%', function () {
-        this.timeout(5000);
-
-        before(function () {
-            testDriver.removeAllListeners();
-        });
-        it('should produce Actor State Change message', function (done) {
-            testDriver.addListener({
-                publishActorStateChange: function (device, actor, state) {
-                    if (actor.id === "led1Kitchen" && device.id === "lightifyGateway" && state.brightnessPercent === 100) {
-                        done();
-                    }
-                    //else {
-                    //    done("Unexpected Actor State Change message.");
-                    //}
-                }
-            });
-
-            //testDriver.lightifyGateway.lightBulbLounge.softOn();
-            testDriver.lightifyGateway.led1Kitchen.setBrightnessPercent({brightnessPercent: 100});
-            //testDriver.lightifyGateway.led2Kitchen.on();
-        });
-    });
-    describe('LED brightness 0%', function () {
-        this.timeout(5000);
-
-        before(function () {
-            testDriver.removeAllListeners();
-        });
-        it('should produce Actor State Change message', function (done) {
-            testDriver.addListener({
-                publishActorStateChange: function (device, actor, state) {
-                    if (actor.id === "led1Kitchen" && device.id === "lightifyGateway" && state.brightnessPercent === 0) {
-                        done();
-                    }
-                    //else {
-                    //    done("Unexpected Actor State Change message.");
-                    //}
-                }
-            });
-
-            //testDriver.lightifyGateway.lightBulbLounge.softOn();
-            testDriver.lightifyGateway.led1Kitchen.setBrightnessPercent({brightnessPercent: 0});
-            //testDriver.lightifyGateway.led2Kitchen.on();
-        });
-    });
-    describe('LED brightness 30%', function () {
-        this.timeout(5000);
-
-        before(function () {
-            testDriver.removeAllListeners();
-        });
-        it('should produce Actor State Change message', function (done) {
-            testDriver.addListener({
-                publishActorStateChange: function (device, actor, state) {
-                    if (actor.id === "led1Kitchen" && device.id === "lightifyGateway" && state.brightnessPercent === 30) {
-                        done();
-                    }
-                    //else {
-                    //    done("Unexpected Actor State Change message.");
-                    //}
-                }
-            });
-
-            //testDriver.lightifyGateway.lightBulbLounge.softOn();
-            testDriver.lightifyGateway.led1Kitchen.setBrightnessPercent({brightnessPercent: 30});
-            //testDriver.lightifyGateway.led2Kitchen.on();
-        });
-    });
-    setTimeout(function () {
-        this.timeout(5000);
-
-        before(function () {
-            testDriver.removeAllListeners();
-        });
-        it('should produce Actor State Change message', function (done) {
-            testDriver.addListener({
-                publishActorStateChange: function (device, actor, state) {
-                    if (actor.id === "led1Kitchen" && device.id === "lightifyGateway" && state.brightnessPercent === 30) {
-                        done();
-                    }
-                    //else {
-                    //    done("Unexpected Actor State Change message.");
-                    //}
-                }
-            });
-
-            //testDriver.lightifyGateway.lightBulbLounge.softOn();
-            testDriver.lightifyGateway.led1Kitchen.setBrightnessPercent({brightnessPercent: 30});
-            //testDriver.lightifyGateway.led2Kitchen.on();
-        });
-    }.bind(this), 2000);
-    setTimeout(function () {
-        describe('LED brightness 50%', function () {
-            this.timeout(5000);
-
-            before(function () {
-                testDriver.removeAllListeners();
-            });
-            it('should produce Actor State Change message', function (done) {
-                testDriver.addListener({
-                    publishActorStateChange: function (device, actor, state) {
-                        if (actor.id === "led1Kitchen" && device.id === "lightifyGateway" && state.brightnessPercent === 30) {
-                            done();
-                        }
-                        //else {
-                        //    done("Unexpected Actor State Change message.");
-                        //}
-                    }
+        it('should execute the update service successfully', function (done) {
+            testDriver.bacnet1.binaryInput1.update()
+                .then(function() {
+                    done();
                 });
-
-                //testDriver.lightifyGateway.lightBulbLounge.softOn();
-                testDriver.lightifyGateway.led1Kitchen.setBrightnessPercent({brightnessPercent: 30});
-                //testDriver.lightifyGateway.led2Kitchen.on();
-            });
         });
-    }.bind(this), 2000);
-    setTimeout(function () {
-        describe('Light Bulb brightness 30%', function () {
-            this.timeout(5000);
+    });
 
-            before(function () {
-                testDriver.removeAllListeners();
-            });
-            it('should produce Actor State Change message', function (done) {
-                testDriver.addListener({
-                    publishActorStateChange: function (device, actor, state) {
-                        if (actor.id === "lightBulbLounge" && device.id === "lightifyGateway" && state.brightnessPercent === 30) {
-                            done();
-                        }
-                        //else {
-                        //    done("Unexpected Actor State Change message.");
-                        //}
+    describe('Binary Value Test ON', function () {
+        this.timeout(20000);
+
+        before(function () {
+            testDriver.removeAllListeners();
+            testDriver.bacnet1.binaryValue1.state.presentValue = false;
+        });
+        it('should produce Actor State Change message', function (done) {
+
+            testDriver.addListener({
+                publishActorStateChange: function (device, actor, state) {
+                    if (actor.id === "binaryValue1" && device.id === "bacnet1" && state.presentValue === true) {
+                        done();
                     }
-                });
 
-                testDriver.lightifyGateway.lightBulbLounge.setBrightnessPercent({brightnessPercent: 30});
+                }
             });
+
+            testDriver.bacnet1.binaryValue1.on();
+
+            //testDriver.bacnet1.binaryValue1.off()
+            //    .then(function () {
+            //        testDriver.bacnet1.binaryValue1.on();
+            //    });
+        });
+    });
+
+    describe('Binary Value Test OFF', function () {
+        this.timeout(20000);
+
+        before(function () {
+            testDriver.removeAllListeners();
+            testDriver.bacnet1.binaryValue1.state.presentValue = true;
+        });
+        it('should produce Actor State Change message', function (done) {
+
+            testDriver.addListener({
+                publishActorStateChange: function (device, actor, state) {
+                    if (actor.id === "binaryValue1" && device.id === "bacnet1" && state.presentValue === false) {
+                        done();
+                    }
+
+                }
+            });
+
+            testDriver.bacnet1.binaryValue1.off();
+        });
+    });
+
+    describe('Binary Value Test Toggle OFF/ON', function () {
+        this.timeout(20000);
+
+        before(function () {
+            testDriver.removeAllListeners();
+            testDriver.bacnet1.binaryValue1.state.presentValue = false;
+        });
+        it('should toggle from off to on and produce Actor State Change message', function (done) {
+
+            testDriver.addListener({
+                publishActorStateChange: function (device, actor, state) {
+                    if (actor.id === "binaryValue1" && device.id === "bacnet1" && state.presentValue === true) {
+                        done();
+                    }
+
+                }
+            });
+
+            testDriver.bacnet1.binaryValue1.toggle();
+        });
+    });
+
+    describe('Binary Value Test Toggle ON/OFF', function () {
+        this.timeout(20000);
+
+        before(function () {
+            testDriver.removeAllListeners();
+            testDriver.bacnet1.binaryValue1.state.presentValue = true;
         });
 
-        setTimeout(function () {
-            describe('Light Bulb brightness 100%', function () {
-                this.timeout(5000);
+        it('should toggle from on to off and produce Actor State Change message', function (done) {
 
-                before(function () {
-                    testDriver.removeAllListeners();
-                });
-                it('should produce Actor State Change message', function (done) {
-                    testDriver.addListener({
-                        publishActorStateChange: function (device, actor, state) {
-                            if (actor.id === "lightBulbLounge" && device.id === "lightifyGateway" && state.brightnessPercent === 100) {
-                                done();
-                            }
-                            //else {
-                            //    done("Unexpected Actor State Change message.");
-                            //}
-                        }
-                    });
+            testDriver.addListener({
+                publishActorStateChange: function (device, actor, state) {
+                    if (actor.id === "binaryValue1" && device.id === "bacnet1" && state.presentValue === false) {
+                        done();
+                    }
 
-                    testDriver.lightifyGateway.lightBulbLounge.setBrightnessPercent({brightnessPercent: 100});
-                });
+                }
             });
-        }.bind(this), 2000);
-    }.bind(this), 2000);
+
+            testDriver.bacnet1.binaryValue1.toggle();
+        });
+    });
+
+    describe('Analog Input Test Update', function () {
+        this.timeout(20000);
+
+        before(function () {
+            testDriver.removeAllListeners();
+        });
+        it('should execute the update service successfully', function (done) {
+            testDriver.bacnet1.analogInput1.update()
+                .then(function() {
+                    done();
+                });
+        });
+    });
+
+    describe('Analog Value Test Update', function () {
+        this.timeout(20000);
+
+        before(function () {
+            testDriver.removeAllListeners();
+        });
+        it('should execute the update service successfully', function (done) {
+            testDriver.bacnet1.analogValue1.update()
+                .then(function() {
+                    done();
+                });
+        });
+    });
+
+    describe('Analog Value Test setPresentValue', function () {
+        this.timeout(20000);
+
+        before(function () {
+            testDriver.removeAllListeners();
+            testDriver.bacnet1.binaryValue1.state.presentValue = 10.1;
+        });
+        it('should set the present value and produce Actor State Change message', function (done) {
+
+            testDriver.addListener({
+                publishActorStateChange: function (device, actor, state) {
+                    if (actor.id === "analogValue1" && device.id === "bacnet1" && state.presentValue === 123.45) {
+                        done();
+                    }
+
+                }
+            });
+
+            testDriver.bacnet1.analogValue1.setPresentValue(Math.random() * 1000);
+            testDriver.bacnet1.analogValue1.setPresentValue(123.45);
+        });
+    });
+
+    describe('Stop Configuration', function () {
+        this.timeout(10000);
+
+        it('should complete without error', function (done) {
+            setTimeout(function () {
+                done();
+            }.bind(this), 5000);
+
+            testDriver.stop();
+        });
+    });
 });
-
-
-
-
-

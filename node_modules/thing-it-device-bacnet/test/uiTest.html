@@ -6,8 +6,26 @@
     <link href="https://www.thing-it.com/thing-it//css/fonts/oswald.css" rel="stylesheet" type="text/css">
     <link href="https://www.thing-it.com/thing-it//css/fonts/streamline.css" rel="stylesheet" type="text/css">
     <link href="https://www.thing-it.com/thing-it//css/bpmn/bpmn.css" rel="stylesheet" type="text/css">
+    <!--
     <link rel="stylesheet"
           href="https://www.thing-it.com/thing-it//css/thirdparty/font-awesome/css/font-awesome.min.css">
+    -->
+
+    <link rel="stylesheet"
+          href="http://fontawesome.io/assets/font-awesome/css/font-awesome.css">
+
+    <!--
+    <link rel="stylesheet" href="https://www.thing-it.com/bower_components/pdf.js-viewer/viewer.css" style="cursor: default;">
+    -->
+
+    <link rel="stylesheet" href="https://www.thing-it.com/thing-it-node/www/css/ion.rangeSlider.css" style="cursor: default;">
+    <link rel="stylesheet" href="https://www.thing-it.com/thing-it-node/www/css/ion.rangeSlider.skinHTML5.css" style="cursor: default;">
+    <link rel="stylesheet" href="https://www.thing-it.com/thing-it-node/www/css/normalize.css" style="cursor: default;">
+    <link rel="stylesheet" href="https://www.thing-it.com/thing-it-node/www/css/spectrum.css" style="cursor: default;">
+    <link rel="stylesheet" href="https://www.thing-it.com/thing-it-node/www/css/jquery.jqplot.css" style="cursor: default;">
+    <link rel="stylesheet" href="https://www.thing-it.com/thing-it-node/www/css/responsive.min.css" style="cursor: default;">
+    <link rel="stylesheet" href="https://www.thing-it.com/thing-it-node/www/css/thing-it-plugins.min.css" style="cursor: default;">
+
     <link href="https://www.thing-it.com/thing-it//css/thing-it-portal.css" rel="stylesheet" type="text/css">
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.0/angular.min.js"></script>
     <script src="./uiTest.js"></script>
@@ -15,11 +33,18 @@
 <body>
 <div class="padding1" ng-controller="TestController as test">
     <h1>BACnet Binary Input</h1>
-    <div class="formSection flexLayout flexJustifyCenter" style="width: 40em;" ng-repeat="component in [test.bacnet]"
+    <div class="formSection flexLayout flexJustifyCenter" style="width: 40em;" ng-repeat="component in [test.binary]"
          ng-include="'../web/binaryInput.html'"></div>
     <h1>BACnet Binary Value</h1>
-    <div class="formSection flexLayout flexJustifyCenter" style="width: 40em;" ng-repeat="component in [test.bacnet]"
+    <div class="formSection flexLayout flexJustifyCenter" style="width: 40em;" ng-repeat="component in [test.binary]"
          ng-include="'../web/binaryValue.html'"></div>
+
+    <h1>BACnet Analog Input</h1>
+    <div class="formSection flexLayout flexJustifyCenter" style="width: 40em;" ng-repeat="component in [test.analog]"
+         ng-include="'../web/analogInput.html'"></div>
+    <h1>BACnet Analog Value</h1>
+    <div class="formSection flexLayout flexJustifyCenter" style="width: 40em;" ng-repeat="component in [test.analog]"
+         ng-include="'../web/analogValue.html'"></div>
 </div>
 </body>
 </html>
