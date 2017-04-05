@@ -7,46 +7,62 @@ ByteQueue = require('./byteQueue.js');
 
 module.exports = {};
 
-exports.primitiveTypesService = function (type, queue) {
-    if (type == NULLT.TYPE_ID) // 1
+exports.primitiveTypesService = function (typeId, queue) {
+    if (typeId == NULLT.typeId) // 1
         return new NULLT(queue);
-    if (type == BooleanT.TYPE_ID) // 1
+    if (typeId == BooleanT.typeId) // 1
         return new BooleanT(queue);
-    if (type == UnsignedIntegerT.TYPE_ID) // 1
+    if (typeId == UnsignedIntegerT.typeId) // 1
         return new UnsignedIntegerT(queue);
-    if (type == SignedIntegerT.TYPE_ID) // 1
+    if (typeId == SignedIntegerT.typeId) // 1
         return new SignedIntegerT(queue);
-    if (type == RealT.TYPE_ID) // 1
+    if (typeId == RealT.typeId) // 1
         return new RealT(queue);
-    if (type == DoubleT.TYPE_ID) // 1
+    if (typeId == DoubleT.typeId) // 1
         return new DoubleT(queue);
-    /*    if (type == OctetStringT.TYPE_ID) // 1
+    if (typeId == OctetStringT.typeId) // 1
         return new OctetStringT(queue);
-    if (type == CharacterStringT.TYPE_ID) // 1
-        return new CharacterStringT(queue);
-    if (type == BitStringT.TYPE_ID) // 1
-        return new BitStringT(queue);
-    if (type == EnumeratedT.TYPE_ID) // 1
-        return new EnumeratedT(queue);
-    if (type == DateT.TYPE_ID) // 1
-        return new DateT(queue);
-    if (type == TimeT.TYPE_ID) // 1
-        return new TimeT(queue);
-    if (type == ObjectIdentifierT.TYPE_ID) // 1
+    /*
+     if (type == CharacterStringT.typeId) // 1
+     return new CharacterStringT(queue);
+     if (type == BitStringT.typeId) // 1
+     return new BitStringT(queue);
+     */
+     if (typeId == EnumeratedT.typeId) // 1
+     return new EnumeratedT(queue);
+     /*
+     if (type == DateT.typeId) // 1
+     return new DateT(queue);
+     if (type == TimeT.typeId) // 1
+     return new TimeT(queue);
+     */
+    if (typeId == ObjectIdentifierT.typeId) // 1
         return new ObjectIdentifierT(queue);
- */
     else
-        console.log("Illegal or unimplemented Primitive BACnet Type: "+type+"!!");
-}
+        console.log("Illegal or unimplemented Primitive BACnet Type: "+typeId+"!!");
+};
 
+exports.isPrimitiveType = function (typeiD) {
+    if (typeiD == NULLT.typeId ||
+        typeiD == BooleanT.typeId ||
+        typeiD == UnsignedIntegerT.typeId ||
+        typeiD == SignedIntegerT.typeId ||
+        typeiD == RealT.typeId ||
+        typeiD == DoubleT.typeId ||
+        typeiD == OctetStringT.typeId ||
+        typeiD == CharacterStringT.typeId ||
+        typeiD == BitStringT.typeId ||
+        typeiD == EnumeratedT.typeId ||
+        typeiD == DateT.typeId  ||
+        typeiD == TimeT.typeId ||
+        typeiD == ObjectIdentifierT.typeId) {
+        return true;
+    }
+    else {
+        return false;
+    }
 
-
-function PrimitiveT (queue) {
-    this.queue = queue;
-
-    this.typeId;
-
-    PrimitiveT.prototype.createPrimitive = function (queue) {
+    exports.createPrimitive = function (queue) {
         // Get the first byte. The 4 high-order bits will tell us what the data type is.
         var type = queue.peek(0);
         type = ((type & 0xff) >> 4);
@@ -54,16 +70,23 @@ function PrimitiveT (queue) {
         return primitiveTypesService (type, queue);
     };
 
-    PrimitiveT.prototype.createPrimitive = function (queue, contextId, type)  {
-        var tagNumber = peekTagNumber(queue);
+    exports.createPrimitive = function (queue, contextId, typeiD)  {
+        var tagNumber = queue.peekTagNumber();
 
         // Check if the tag number matches the context id. If they match, then create the context-specific parameter,
         // otherwise return null.
         if (tagNumber != contextId)
             return null;
 
-        return primitiveTypesService (type, queue);
+        return primitiveTypesService (typeiD, queue);
     };
+};
+
+
+function PrimitiveT (queue) {
+    this.queue = queue;
+
+    this.typeId = null;
 
     /**
      * This field is maintained specifically for boolean types, since their encoding differs depending on whether the
@@ -72,21 +95,22 @@ function PrimitiveT (queue) {
     this.contextSpecific = false;
 
 
-    PrimitiveT.prototype.write = function (queue) {
-        writeTag(queue, getTypeId(), false, getLength());
-        writeImpl(queue);
-    };
-
     PrimitiveT.prototype.write = function (queue, contextId) {
-        this.contextSpecific = true;
-        writeTag(queue, contextId, true, getLength());
-        writeImpl(queue);
+        if (contextId == undefined) {
+            this.writeTag(queue, getTypeId(), false, getLength());
+            writeImpl(queue);
+        }
+        else {
+            this.contextSpecific = true;
+            this.writeTag(queue, contextId, true, getLength());
+            this.writeImpl(queue);
+        }
     };
 
     PrimitiveT.prototype.writeEncodable = function (queue, contextId) {
-        writeContextTag(queue, contextId, true);
-        write(queue);
-        writeContextTag(queue, contextId, false);
+        this.writeContextTag(queue, contextId, true);
+        this.write(queue);
+        this.writeContextTag(queue, contextId, false);
     };
 
     PrimitiveT.prototype.writeImpl = function (queue) {
@@ -165,8 +189,8 @@ NULLT.prototyp = new PrimitiveT ();
 NULLT.prototype.constructor = NULLT;
 NULLT.prototype.parent = PrimitiveT.prototype;
 function NULLT (queue) {
-    this.parent.typeId = allEnumerations.PrimitiveTypes[0].getId();
-    this.value = 0;
+    this.typeId = allEnumerations.PrimitiveTypes[0].getId();
+    this.value = null;
 
     this.parent.readTag(queue);
 
@@ -187,8 +211,8 @@ BooleanT.prototype.constructor = BooleanT;
 BooleanT.prototype.parent = PrimitiveT.prototype;
 function BooleanT (queue) {
     this.queue = queue;
-    this.parent.typeId = allEnumerations.PrimitiveTypes[1].getId();
-    this.value; // boolean
+    this.typeId = allEnumerations.PrimitiveTypes[1].getId();
+    this.value = null; // boolean
 
     var length = readTag(queue);
 
@@ -218,8 +242,8 @@ UnsignedIntegerT.prototype.constructor = UnsignedIntegerT;
 UnsignedIntegerT.prototype.parent = PrimitiveT.prototype;
 function UnsignedIntegerT (queue) {
     this.queue = queue;
-    this.parent.typeId = allEnumerations.PrimitiveTypes[2].getId();
-    this.value;
+    this.typeId = allEnumerations.PrimitiveTypes[2].getId();
+    this.value = null;
 
     var length = readTag(queue);
     if (length < 4) {
@@ -254,13 +278,33 @@ function UnsignedIntegerT (queue) {
 
 
 
+EnumeratedT.prototype = new UnsignedIntegerT();
+EnumeratedT.prototype.constructor = EnumeratedT;
+EnumeratedT.prototype.parent = UnsignedIntegerT.prototype;
+function EnumeratedT (queue) {
+    this.queue = queue;
+    this.typeId = allEnumerations.PrimitiveTypes[9].getId();
+    this.value = null;
+
+    parent.prototype.
+
+    EnumeratedT.prototype.writeImpl = function (queue) {
+        parent.prototype.writeImpl(queue);
+    };
+    EnumeratedT.prototype.getLength = function () {
+        return parent.prototype.getLength();
+    };
+};
+
+
+
 SignedIntegerT.prototype = new PrimitiveT();
 SignedIntegerT.prototype.constructor = SignedIntegerT;
 SignedIntegerT.prototype.parent = PrimitiveT.prototype;
 function SignedIntegerT (queue) {
     this.queue = queue;
-    this.parent.typeId = allEnumerations.PrimitiveTypes[3].getId();
-    this.value;
+    this.typeId = allEnumerations.PrimitiveTypes[3].getId();
+    this.value = null;
 
 
     var length = readTag(queue);
@@ -301,8 +345,8 @@ RealT.prototype.constructor = RealT;
 RealT.prototype.parent = PrimitiveT.prototype;
 function RealT (queue) {
     this.queue = queue;
-    this.parent.typeId = allEnumerations.PrimitiveTypes[4].getId();
-    this.value;
+    this.typeId = allEnumerations.PrimitiveTypes[4].getId();
+    this.value = null;
 
 
     var length = readTag(queue);
@@ -324,8 +368,8 @@ DoubleT.prototype.constructor = DoubleT;
 DoubleT.prototype.parent = PrimitiveT.prototype;
 function DoubleT (queue) {
     this.queue = queue;
-    this.parent.typeId = allEnumerations.PrimitiveTypes[5].getId();
-    this.value;
+    this.typeId = allEnumerations.PrimitiveTypes[5].getId();
+    this.value = null;
 
 
     var length = readTag(queue);
@@ -347,8 +391,8 @@ OctetStringT.prototype.constructor = OctetStringT;
 OctetStringT.prototype.parent = PrimitiveT.prototype;
 function OctetStringT (queue) {
     this.queue = queue;
-    this.parent.typeId = allEnumerations.PrimitiveTypes[6].getId();
-    this.value;
+    this.typeId = allEnumerations.PrimitiveTypes[6].getId();
+    this.value = null;
 
 
     var length = readTag(queue);
@@ -363,3 +407,38 @@ function OctetStringT (queue) {
         return this.value.byteLength;
     };
 };
+
+
+
+ObjectIdentifierT.prototype = new PrimitiveT();
+ObjectIdentifierT.prototype.constructor = ObjectIdentifierT;
+ObjectIdentifierT.prototype.parent = PrimitiveT.prototype;
+function ObjectIdentifierT (queue) {
+    this.queue = queue;
+    this.typeId = allEnumerations.PrimitiveTypes[12].getId();
+    this.value = null;
+
+    readTag(queue);
+
+    var objectType = queue.readUint8() << 2;
+    var i = queue.readUInt8();
+    objectType |= i >> 6;
+
+    this.objectType = allEnumerations.ObjectType[objectType];
+
+    this.instanceNumber = (i & 0x3f) << 16;
+    this.instanceNumber |= queue.readUInt8() << 8;
+    this.instanceNumber |= queue.readUInt8();
+
+    ObjectIdentifierT.prototype.writeImpl = function (queue) {
+        var objectTypeId = this.objectType.getId();
+
+        queue.push(objectTypeId >> 2);
+        queue.push(((objectTypeId & 3) << 6) | (this.instanceNumber >> 16));
+        queue.push(this.instanceNumber >> 8);
+        queue.push(this.instanceNumber);
+    };
+    ObjectIdentifierT.prototype.getLength = function () {
+        return 4;
+    };
+}

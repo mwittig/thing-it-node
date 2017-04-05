@@ -17,11 +17,11 @@ module.exports = {};
 
 exports.createAPDU = function (queue) {
     // Get the first byte. The 4 high-order bits will tell us the type of PDU this is.
-    var type = msg.queue().readBytes(1,0);
+    var type = msg.queue().peek(1);
     type = ((type & 0xff) >> 4);
 
     if (type == 0)
-        return new ConfirmedRequest(queu);
+        return new ConfirmedRequest(queue);
         ;
     if (type == 1)
     // UnconfirmedRequest
@@ -98,7 +98,7 @@ Segmentable.prototype = new APDU ();
 Segment.prototype.constructor = Segmentable;
 Segment.prototype.parent = APDU.prototype;
 function Segmentable (queue) {
-    this.parent.queue = queue;
+    this.queue = queue;
 
     var segmentedMessage = false;
     var mordeFollows = false;
@@ -348,7 +348,7 @@ Abort.prototype = new AckAPDU();
 Abort.prototype.constructor = Abort;
 Abort.prototype.parent = AckAPDU.prototype;
 function Abort (queue) {
-    this.parent.parent.typeId = 7;
+    this.typeId = 7;
 
     /**
      * This parameter shall be TRUE when the Abort PDU is sent by a server. This parameter shall be FALSE when the Abort
@@ -363,7 +363,7 @@ function Abort (queue) {
     this.abortReason = 0;
 
     this.is_server = (queue.readUInt8() & 1) == 1;
-    this.parent.originalInvokeId = queue.readUInt8();
+    this.originalInvokeId = queue.readUInt8();
     this.abortReason = queue.readUInt8();
 
 

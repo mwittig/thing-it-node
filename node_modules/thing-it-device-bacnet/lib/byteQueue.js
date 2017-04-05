@@ -119,7 +119,7 @@ function ByteQueue(msgBuffer) {
         var data = this.dv.getFloat32(pos);
         this.incPos(size);
         return data;
-    }
+    };
     ByteQueue.prototype.readFloat64 = function () {
         var sz = 8;
         if (!this.sizeAvailable(sz))
@@ -128,10 +128,13 @@ function ByteQueue(msgBuffer) {
         var data = this.dv.getFloat64(pos);
         this.incPos(size);
         return data;
-    }
+    };
     ByteQueue.prototype.readString = function (){
         // get encoding before reading
         // TODO
+    };
+    ByteQueue.prototype.peek = function (pos) {
+        return readBytes(1,pos);
     };
     ByteQueue.prototype.readBytes = function (len, idx){
         var arrayPos = this.pos;
@@ -145,7 +148,7 @@ function ByteQueue(msgBuffer) {
                 return null;
         }
 
-        var data = new Uint8Array(this.buffer, arrayPos, len);
+        var data = new Int8Array(this.buffer, arrayPos, len);
 
         if (idx === undefined) {
             this.incPos(len);
@@ -161,31 +164,31 @@ function ByteQueue(msgBuffer) {
         this.dv.setInt8(this.pos, value);
 
         this.incPos(sz);
-    }
+    };
     ByteQueue.prototype.writeInt8 = function (value) {
         var sz = 1;
         this.dv.setInt8(this.pos, value);
 
         this.incPos(sz);
-    }
+    };
     ByteQueue.prototype.writeFloat32 = function (value) {
         var sz = 4;
         this.dv.setFloat32(this.pos, value);
 
         this.incPos(sz);
-    }
+    };
     ByteQueue.prototype.writeFloat64 = function (value) {
         var sz = 8;
         this.dv.setFloat64(this.pos, value);
 
         this.incPos(sz);
-    }
+    };
     ByteQueue.prototype.writeInt32 = function (value) {
         var sz = 4;
         this.dv.setInt32(this.pos, value);
 
         this.incPos(sz);
-    }
+    };
     ByteQueue.prototype.writeBytes = function (uint8bytearray){
         var bytesItr =  uint8bytearray.entries();
         var b;
@@ -194,6 +197,26 @@ function ByteQueue(msgBuffer) {
         }
 
         this.incPos(uint8bytearray.byteLength);
+    };
+
+    ByteQueue.prototype.peekTagNumber = function () {
+        if (!this.sizeAvailable(1))
+            return -1;
+
+        // Take a peek at the tag number.
+        var tagNumber = (this.peek(0) & 0xff) >> 4;
+        if (tagNumber == 15)
+            tagNumber = this.peek(1) & 0xff;
+        return tagNumber;
+    };
+    // Write context tags for base types.
+    ByteQueue.prototype.writeContextTag = function (contextId, is_start) {
+        if (contextId <= 14)
+            this.push((contextId << 4) | (is_start ? 0xe : 0xf));
+        else {
+            this.push(is_start ? 0xfe : 0xff);
+            this.push(contextId);
+        }
     };
 }
 
