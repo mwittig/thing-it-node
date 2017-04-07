@@ -1,1 +1,5 @@
 .vscode
+.DS_Store
+.idea/
+configurations/
+node_modules/
