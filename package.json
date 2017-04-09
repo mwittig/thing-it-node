@@ -58,12 +58,14 @@
     "thing-it-device-weather": "0.1.0",
     "thing-it-device-wind-turbine": "0.0.5",
     "thing-it-device-yamaha": "^0.2.0",
-    "thing-it-device-z-wave": "0.0.33",
     "yargs": "^3.30.0"
   },
   "directories": {
     "example": "examples",
     "test": "test"
+  },
+  "optionalDependencies": {
+    "thing-it-device-z-wave": "0.0.33"
   },
   "devDependencies": {},
   "repository": {
