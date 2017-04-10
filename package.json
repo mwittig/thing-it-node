@@ -1,6 +1,6 @@
 {
   "name": "thing-it-node",
-  "version": "0.15.2",
+  "version": "0.15.3",
   "description": "thing-it Node Server",
   "main": "lib/node.js",
   "scripts": {},
@@ -65,7 +65,7 @@
     "test": "test"
   },
   "optionalDependencies": {
-    "thing-it-device-z-wave": "0.0.33"
+    "thing-it-device-z-wave": "~0.0.33"
   },
   "devDependencies": {},
   "repository": {
