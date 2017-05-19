@@ -1,6 +1,6 @@
 {
   "name": "thing-it-node",
-  "version": "0.20.39",
+  "version": "0.20.40",
   "description": "thing-it Node Server",
   "main": "lib/node.js",
   "scripts": {},
@@ -39,7 +39,7 @@
     "thing-it-device-halytech": "0.0.18",
     "thing-it-device-helbio": "0.0.2",
     "thing-it-device-hibox": "0.0.3",
-    "thing-it-device-ibeacon": "0.0.24",
+    "thing-it-device-ibeacon": "0.0.25",
     "thing-it-device-itach": "^0.2.11",
     "thing-it-device-kidde": "0.0.12",
     "thing-it-device-microcontroller": ">=0.2.1",
