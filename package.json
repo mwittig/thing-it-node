@@ -1,6 +1,6 @@
 {
   "name": "thing-it-node",
-  "version": "0.20.46",
+  "version": "0.20.47",
   "description": "thing-it Node Server",
   "main": "lib/node.js",
   "scripts": {},
@@ -42,7 +42,7 @@
     "thing-it-device-ibeacon": "0.0.31",
     "thing-it-device-itach": "^0.2.11",
     "thing-it-device-kidde": "0.0.12",
-    "thing-it-device-microcontroller": "^0.2.3",
+    "thing-it-device-microcontroller": "^0.2.4",
     "thing-it-device-occupancy-sensor": "0.0.1",
     "thing-it-device-osram-lightify": "0.0.1",
     "thing-it-device-philips-hue": "^0.1.20",
