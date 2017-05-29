@@ -1,6 +1,6 @@
 {
   "name": "thing-it-node",
-  "version": "0.20.52",
+  "version": "0.20.53",
   "description": "thing-it Node Server",
   "main": "lib/node.js",
   "scripts": {},
@@ -45,7 +45,7 @@
     "thing-it-device-microcontroller": "^0.2.5",
     "thing-it-device-occupancy-sensor": "0.0.1",
     "thing-it-device-osram-lightify": "0.0.1",
-    "thing-it-device-osram-sympholight": "0.0.7",
+    "thing-it-device-osram-sympholight": "0.0.8",
     "thing-it-device-philips-hue": "^0.1.20",
     "thing-it-device-plugwise": "0.0.22",
     "thing-it-device-radio-thermostat": "^0.1.2",
