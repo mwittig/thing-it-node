@@ -57,11 +57,14 @@ If you are not interested in tinkering with Z-Wave Devices and just intend to e.
 * solar panels and
 * drones,
 
-then maybe stop reading. Check what we have on **[github](https://www.github.com)**/**[npm](www.npmjs.com)** under
+or you want to control ****large scale device installations in office buildings, hotels or hospitals**** with technologies like BACnet or KNX.
+
+Then maybe stop reading. Check what we have on **[github](https://www.github.com)**/**[npm](www.npmjs.com)** under
 
 * [thing-it-device-sonos](https://www.npmjs.com/package/thing-it-device-sonos) to connect Sonos Entertainment systems,
 * [thing-it-device-aircable](https://www.npmjs.com/package/thing-it-device-aircable) to connect Aircable Smart Dimmers,
 * [thing-it-device-ar-drone](https://www.npmjs.com/package/thing-it-device-ar-drone) to control AR Drones,
+* [thing-it-device-bacnet](https://www.npmjs.com/package/thing-it-device-bacnet) to control BACnet networks,
 * [thing-it-device-ti-sensortag](https://www.npmjs.com/package/thing-it-device-sensortag) to monitor Texas Instruments SensorTag devices,
 * [thing-it-device-ti-art-net](https://www.npmjs.com/package/thing-it-device-art-net) to control lighting and more in an ArtNet/DMX network,
 * [thing-it-device-itach](https://www.npmjs.com/package/thing-it-device-itach) to get access to IR-controlled devices (e.g. TVs, cleaning robots),
@@ -71,7 +74,7 @@ then maybe stop reading. Check what we have on **[github](https://www.github.com
 * [thing-it-device-atlas-scientific](https://www.npmjs.com/package/thing-it-device-atlas-scientific) to access Atlas Scientific probes e.g. for pH value measurement,
 * and more every day ...
 
-Or check the [thing-it.com Mesh Market](https://www.thing-it.com/thing-it/index.html#/marketPanel).
+Check the [complete list](https://www.thing-it.com/thing-it/index.html#/product/devicePlugins) of Device Plugins.
 
 But wait! May be you want to switch on your Sonos if the Z-Wave Sensor detected motion, switch on your vents for you Aquaponics greenhouse if the
 ambient temperature is above a certain threshold. Or the fish pond's water temperature. Or you want to have your drone flying over the fish pond while
@@ -334,9 +337,9 @@ To create your own solutions on [www.thing-it.com](http://www.thing-it.com) you 
 
 <img src="./documentation/images/thing-it-node-configuration.png" style="">
 
-put **Actors**, **Sensors**, **Services** and **Event Processors** together,
+put **Actors**, **Sensors**, **Services** and **Event Processors** together and control their behavior
 
-<img src="./documentation/images/thing-it-switchboard.png" style="">
+<img src="./documentation/images/thing-it-dashboard.png" style="">
 
 edit the logic of **Event Processors**
 
