@@ -327,13 +327,7 @@ or use **[thing-it.com](https://www.thing-it.com)** as described below.
 
 ## Using thing-it.com
 
-The Simple Lighting solution presented here is available as a Mesh under
-
-[http://www.thing-it.com/thing-it/index.html?offer=54d417205a538cc81b0d31c9#/meshOfferPanel](http://www.thing-it.com/thing-it/index.html?offer=54d417205a538cc81b0d31c9#/meshOfferPanel)
-
-You can find other Meshes in the [thing-it] [Mesh Market](http://www.thing-it.com/thing-it/index.html#/searchPanel) for free simulation and download.
-
-To create your own solutions on [www.thing-it.com](http://www.thing-it.com) you would define **Nodes** and **Devices**
+With [www.thing-it.com](http://www.thing-it.com) you can create complex solutions with many Gateways (running [thing-it-node], Devices, Actors and Sensors,
 
 <img src="./documentation/images/thing-it-node-configuration.png" style="">
 
@@ -341,6 +335,4 @@ put **Actors**, **Sensors**, **Services** and **Event Processors** together and 
 
 <img src="./documentation/images/thing-it-dashboard.png" style="">
 
-edit the logic of **Event Processors** and **Services** and then simulate and test the configuration before you download it to your **[thing-it-node]** deployment.
-
-Consider the [[thing-it] Documentation](http://www.thing-it.com/thing-it/index.html#/documentationPanel) to configure the scenario described above.
+connect these to Business Processes and Big Data and access the solution via the [thing-it] Mobile App.
