@@ -341,10 +341,6 @@ put **Actors**, **Sensors**, **Services** and **Event Processors** together and 
 
 <img src="./documentation/images/thing-it-dashboard.png" style="">
 
-edit the logic of **Event Processors**
-
-<img src="./documentation/images/thing-it-event-processor.png" style="">
-
-and **Services** and then simulate and test the configuration before you download it to your **[thing-it-node]** deployment.
+edit the logic of **Event Processors** and **Services** and then simulate and test the configuration before you download it to your **[thing-it-node]** deployment.
 
 Consider the [[thing-it] Documentation](http://www.thing-it.com/thing-it/index.html#/documentationPanel) to configure the scenario described above.
