@@ -1,6 +1,6 @@
 {
   "name": "thing-it-node",
-  "version": "0.20.62",
+  "version": "0.20.63",
   "description": "thing-it Node Server",
   "main": "lib/node.js",
   "scripts": {},
@@ -59,6 +59,7 @@
     "thing-it-device-weather": "0.1.0",
     "thing-it-device-wind-turbine": "0.0.5",
     "thing-it-device-wtec": "^0.1.1",
+    "thing-it-device-xiaomi-smart-plant-monitor": "0.0.1",
     "thing-it-device-yamaha": "^0.2.0",
     "yargs": "^3.30.0"
   },
