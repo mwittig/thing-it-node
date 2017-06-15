@@ -112,13 +112,23 @@ function pair(yargs) {
         hideEchoBack: true
     });
 
-    var gatewayManager = node.initialize(options);
+    var gatewayManager;
 
-    gatewayManager.pair(argv.mesh, null, account, password, argv.server).then(function (gateway) {
-        console.log("\nGateway sucessfully paired with UUID " + gateway.uuid + ".");
-    }.bind(this)).fail(function (error) {
+    try {
+        gatewayManager = node.initialize(options);
+    } catch (error) {
+        console.log('Failed to initialize Gateway:\n' + error);
+    }
+
+    try {
+        gatewayManager.pair(argv.mesh, null, account, password, argv.server).then(function (gateway) {
+            console.log("\nGateway sucessfully paired with UUID " + gateway.uuid + ".");
+        }.bind(this)).fail(function (error) {
+            console.log("Failed to pair Gateway:\n" + error);
+        }.bind(this));
+    } catch (error) {
         console.log("Failed to pair Gateway:\n" + error);
-    }.bind(this));
+    }
 }
 
 /**
