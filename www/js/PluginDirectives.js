@@ -1,5 +1,3 @@
-var Utils = require('../utils/Utils');
-
 angular.module("ThingItMobile.PluginDirectives", [])
     .filter('unsafe', function ($sce) {
         return function (value) {
