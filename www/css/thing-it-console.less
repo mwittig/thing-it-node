@@ -1,15 +1,15 @@
 /* Reusable Tags */
 
 .lighterTextColor {
-  color: lighten(@textColor, @lightPercentage) !important;
+  color: tint(@textColor, @lightPercentage) !important;
 }
 
 .lightenedPrimaryColor {
-  color: lighten(@primaryColor, @lightPercentage) !important;
+  color: tint(@primaryColor, @lightPercentage) !important;
 }
 
 .lightPrimaryColor {
-  color: lighten(@primaryColor, @lightPercentage) !important;
+  color: tint(@primaryColor, @lightPercentage) !important;
 }
 
 .secondaryColor {
@@ -37,27 +37,35 @@
 }
 
 .lightPrimaryColor {
-  color: lighten(@primaryColor, @lightPercentage) !important;
+  color: tint(@primaryColor, @lightPercentage) !important;
 }
 
 .lighterPrimaryColor {
-  color: lighten(@primaryColor, @lighterPercentage) !important;
+  color: tint(@primaryColor, @lighterPercentage) !important;
 }
 
 .lightestPrimaryColor {
-  color: lighten(@primaryColor, @lightestPercentage) !important;
+  color: tint(@primaryColor, @lightestPercentage) !important;
 }
 
 .lightPrimaryBackgroundColor {
-  background-color: lighten(@primaryColor, @lightPercentage) !important;
+  background-color: tint(@primaryColor, @lightPercentage) !important;
 }
 
 .lighterPrimaryBackgroundColor {
-  background-color: lighten(@primaryColor, @lighterPercentage) !important;
+  background-color: tint(@primaryColor, @lighterPercentage) !important;
 }
 
 .lightestPrimaryBackgroundColor {
-  background-color: lighten(@primaryColor, @lightestPercentage) !important;
+  background-color: tint(@primaryColor, @lightestPercentage) !important;
+}
+
+.backgroundColorPrimaryColorTint80 {
+  background-color: tint(@primaryColor, 80) !important;
+}
+
+.backgroundColorPrimaryColorTint90 {
+  background-color: tint(@primaryColor, 80) !important;
 }
 
 .secondaryBackgroundColor {
@@ -65,15 +73,15 @@
 }
 
 .lightSecondaryBackgroundColor {
-  background-color: lighten(@secondaryColor, @lightPercentage) !important;
+  background-color: tint(@secondaryColor, @lightPercentage) !important;
 }
 
 .lighterSecondaryBackgroundColor {
-  background-color: lighten(@secondaryColor, @lighterPercentage) !important;
+  background-color: tint(@secondaryColor, @lighterPercentage) !important;
 }
 
 .lightestSecondaryBackgroundColor {
-  background-color: lighten(@secondaryColor, @lightestPercentage) !important;
+  background-color: tint(@secondaryColor, @lightestPercentage) !important;
 }
 
 .ternaryBackgroundColor {
@@ -81,27 +89,27 @@
 }
 
 .lightTernaryColor {
-  color: lighten(@ternaryColor, @lightPercentage) !important;
+  color: tint(@ternaryColor, @lightPercentage) !important;
 }
 
 .lighterTernaryColor {
-  color: lighten(@ternaryColor, @lighterPercentage) !important;
+  color: tint(@ternaryColor, @lighterPercentage) !important;
 }
 
 .lightestTernaryColor {
-  color: lighten(@ternaryColor, @lightestPercentage) !important;
+  color: tint(@ternaryColor, @lightestPercentage) !important;
 }
 
 .lightTernaryBackgroundColor {
-  background-color: lighten(@ternaryColor, @lightPercentage) !important;
+  background-color: tint(@ternaryColor, @lightPercentage) !important;
 }
 
 .lighterTernaryBackgroundColor {
-  background-color: lighten(@ternaryColor, @lighterPercentage) !important;
+  background-color: tint(@ternaryColor, @lighterPercentage) !important;
 }
 
 .lightestTernaryBackgroundColor {
-  background-color: lighten(@ternaryColor, @lightestPercentage) !important;
+  background-color: tint(@ternaryColor, @lightestPercentage) !important;
 }
 
 .contrastBackgroundColor {
@@ -109,15 +117,23 @@
 }
 
 .lightContrastBackgroundColor {
-  background-color: lighten(@contrastColor, @lightPercentage) !important;
+  background-color: tint(@contrastColor, @lightPercentage) !important;
 }
 
 .lighterContrastBackgroundColor {
-  background-color: lighten(@contrastColor, @lighterPercentage) !important;
+  background-color: tint(@contrastColor, @lighterPercentage) !important;
 }
 
 .lightestContrastBackgroundColor {
-  background-color: lighten(@contrastColor, @lightestPercentage) !important;
+  background-color: tint(@contrastColor, @lightestPercentage) !important;
+}
+
+.borderColorBackgroundColor {
+  background-color: @borderColor !important;
+}
+
+.lightBorderColorBackgroundColor {
+  background-color: tint(@borderColor, @lightPercentage) !important;
 }
 
 .borderColor {
@@ -125,19 +141,23 @@
 }
 
 .lightTextColor {
-  color: lighten(@textColor, @lightPercentage) !important;
+  color: tint(@textColor, @lightPercentage) !important;
 }
 
 .lighterTextColor {
-  color: lighten(@textColor, @lighterPercentage) !important;
+  color: tint(@textColor, @lighterPercentage) !important;
 }
 
 .lightestTextColor {
-  color: lighten(@textColor, @lightestPercentage) !important;
+  color: tint(@textColor, @lightestPercentage) !important;
 }
 
 .borderBorderColor {
   border-color: @borderColor !important;
+}
+
+.defaultBackgroundColorColor {
+  color: @backgroundColor;
 }
 
 .okColor {
@@ -160,6 +180,18 @@
   border: none !important;
 }
 
+.topBorder {
+  border-top: 1px solid @borderColor !important;
+}
+
+.bottomBorder {
+  border-bottom: 1px solid @borderColor !important;
+}
+
+.defaultBorderBottom {
+  border-bottom: 1px solid @borderColor !important;
+}
+
 .titleFont {
   font-family: @headerFontFamily;
 }
@@ -167,6 +199,10 @@
 .defaultFont {
   font-size: @defaultFontSize;
   font-family: @defaultFontFamily;
+}
+
+.monospaceFontFamily {
+  font-family: @monospaceFontFamily;
 }
 
 .smallFont {
@@ -182,8 +218,24 @@
   font-weight: 700;
 }
 
+.fontSize0_9 {
+  font-size: @defaultFontSize * 0.9 !important;
+}
+
 .fontSize0_8 {
   font-size: @defaultFontSize * 0.8;
+}
+
+.fontSize0_7 {
+  font-size: @defaultFontSize * 0.7;
+}
+
+.fontSize0_6 {
+  font-size: @defaultFontSize * 0.6;
+}
+
+.fontSize0_5 {
+  font-size: @defaultFontSize * 0.5;
 }
 
 .fontSize1_5 {
@@ -202,6 +254,10 @@
   font-size: @defaultFontSize * 4;
 }
 
+.fontSize5 {
+  font-size: @defaultFontSize * 5;
+}
+
 /* Layout */
 
 .centeredContent {
@@ -209,6 +265,8 @@
   justify-content: center;
   align-items: center;
 }
+
+/* Predefined Margins */
 
 .noTopMargin {
   margin-top: 0 !important;
@@ -222,28 +280,92 @@
   margin-top: 0.5em !important;
 }
 
+.marginTopDefault {
+  margin-top: 0.5em !important;
+}
+
+.marginTop0_5 {
+  margin-top: 0.5em !important;
+}
+
+.marginTop1 {
+  margin-top: 1em !important;
+}
+
+.marginTop2 {
+  margin-top: 2em !important;
+}
+
 .defaultLeftMargin {
   margin-left: 0.5em !important;
+}
+
+.marginLeftDefault {
+  margin-left: 0.5em !important;
+}
+
+.marginLeft0_2 {
+  margin-left: 0.2em !important;
+}
+
+.marginLeft0_5 {
+  margin-left: 0.5em !important;
+}
+
+.marginLeft1 {
+  margin-left: 1em !important;
+}
+
+.marginLeft2 {
+  margin-left: 2em !important;
 }
 
 .defaultRightMargin {
   margin-right: 0.5em !important;
 }
 
+.marginRightDefault {
+  margin-right: 0.5em !important;
+}
+
+.marginRight0_5 {
+  margin-right: 0.5em !important;
+}
+
+.marginRight1 {
+  margin-right: 1em !important;
+}
+
 .defaultBottomMargin {
   margin-bottom: 0.5em !important;
+}
+
+.marginBottom0_5 {
+  margin-bottom: 0.5em !important;
+}
+
+.margin0_2 {
+  margin: 0.2em !important;
+}
+
+.margin0_5 {
+  margin: 0.5em !important;
 }
 
 .margin1 {
   margin: 1em !important;
 }
 
-.bottomMargin1 {
-  margin: 1em !important;
+.margin2 {
+  margin: 2em !important;
 }
 
-.marginTop1 {
-  margin-top: 1em !important;
+.margin3 {
+  margin: 3em !important;
+}
+
+.bottomMargin1 {
+  margin-bottom: 1em !important;
 }
 
 .marginBottom1 {
@@ -254,12 +376,40 @@
   padding: 0.5em !important;
 }
 
+.padding0_2 {
+  padding: 0.2em !important;
+}
+
+.padding0_5 {
+  padding: 0.5em !important;
+}
+
+.paddingLeft0_5 {
+  padding-left: 0.5em !important;
+}
+
+.paddingRight0_5 {
+  padding-right: 0.5em !important;
+}
+
+.paddingTop0_5 {
+  padding-top: 0.5em !important;
+}
+
+.paddingBottom0_5 {
+  padding-bottom: 0.5em !important;
+}
+
 .padding1 {
   padding: 1em !important;
 }
 
-.padding0_2 {
-  padding: 0.2em !important;
+.paddingLeft1 {
+  padding-left: 1em !important;
+}
+
+.paddingRight1 {
+  padding-right: 1em !important;
 }
 
 .defaultTopPadding {
@@ -274,18 +424,6 @@
   padding-right: 0.5em !important;
 }
 
-.padding0_5em {
-  padding: 0.5em;
-}
-
-.padding1em {
-  padding: 1em;
-}
-
-.padding1 {
-  padding: 1em !important;
-}
-
 .defaultBorder {
   border: 1px solid @borderColor !important;
 }
@@ -298,6 +436,10 @@
   display: flex;
 }
 
+.flexDirectionColumn {
+  flex-direction: column;
+}
+
 .flexJustifyEnd {
   justify-content: flex-end;
 }
@@ -308,6 +450,26 @@
 
 .flexGrow1 {
   flex-grow: 1;
+}
+
+.flexAlignStart {
+  align-items: flex-start !important;
+}
+
+.flexAlignCenter {
+  align-items: center;
+}
+
+.flexAlignBaseline {
+  align-items: baseline;
+}
+
+.flexAlignEnd {
+  align-items: flex-end;
+}
+
+.flexAlignStretch {
+  align-items: stretch;
 }
 
 // Basic Tags
@@ -331,15 +493,16 @@ a {
 }
 
 label {
-  color: lighten(@textColor, @lightestPercentage);
+  color: tint(@textColor, @lightestPercentage);
   font-weight: normal;
 }
 
 h1 {
   text-transform: uppercase;
-  color: lighten(@primaryColor, @lightPercentage);
+  color: tint(@primaryColor, @lightPercentage);
   font-family: @headerFontFamily;
   font-size: @h1FontSize;
+  margin-top: 1em;
 }
 
 h2 {
@@ -347,6 +510,7 @@ h2 {
   color: @secondaryColor;
   font-family: @headerFontFamily;
   font-size: @h2FontSize;
+  margin-top: 1em;
 }
 
 h3 {
@@ -354,12 +518,15 @@ h3 {
   color: @contrastColor;
   font-family: @headerFontFamily;
   font-size: @h3FontSize;
+  font-weight: 600;
+  margin-top: 1em;
 }
 
 h4 {
   text-transform: uppercase;
   font-family: @headerFontFamily;
   font-size: @defaultFontSize;
+  margin-top: 1em;
 }
 
 input, input[type=text], input[type=password] {
@@ -392,7 +559,7 @@ input[type=checkbox]:before {
   border-radius: 3px;
   border-top: 1px solid #F7F7F7;
   border-right: 1px solid #999999;
-  border-bottom: 1px
+  border-bottom: 1px;
   solid: #BABABA;
   border-left: 1px solid #BDBDBD;
   background-image: -webkit-gradient(
@@ -432,17 +599,17 @@ input.ng-invalid.ng-touched, select.ng-invalid.ng-touched {
 }
 
 :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
-  color: @borderColor;
+  color: @borderColor !important;
   opacity: 1;
 }
 
 ::-moz-placeholder { /* Mozilla Firefox 19+ */
-  color: @borderColor;
+  color: @borderColor !important;
   opacity: 1;
 }
 
 :-ms-input-placeholder { /* Internet Explorer 10-11 */
-  color: @borderColor;
+  color: @borderColor !important;
 }
 
 select {
@@ -504,24 +671,24 @@ fieldset[disabled] .formControl {
 
 ::-webkit-input-placeholder {
   font-size: @defaultFontSize;
-  color: red;
+  color: @borderColor;
 }
 
 :-moz-placeholder {
   /* older Firefox*/
   font-size: @defaultFontSize;
-  color: red;
+  color: @borderColor;
 }
 
 ::-moz-placeholder {
   /* Firefox 19+ */
   font-size: @defaultFontSize;
-  color: red;
+  color: @borderColor;
 }
 
 :-ms-input-placeholder {
   font-size: @defaultFontSize;
-  color: red;
+  color: @borderColor;
 }
 
 .btn, .btn:focus, a.btn {
@@ -564,7 +731,7 @@ fieldset[disabled] .formControl {
 }
 
 .horizontalLine {
-  border-top: 1px solid lighten(@secondaryColor, @lighterPercentage);
+  border-top: 1px solid tint(@secondaryColor, @lighterPercentage);
   width: 100%;
   height: 0px;
   clear: both;
@@ -604,43 +771,29 @@ fieldset[disabled] .formControl {
 }
 
 .tile {
+  position: relative;
   float: left;
-  width: 50%;
-  border-right: 1px solid lighten(@contrastColor, @lightPercentage);
-  border-bottom: 1px solid lighten(@contrastColor, @lightPercentage);
+  width: 25%;
+  border-right: none;
+  border-bottom: none;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+  padding: 0.5em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.tileNoRightBorderOdd:nth-child(odd) {
-  border-right: none !important;
-}
-
-.tileNoRightBorder {
-  border-right: none !important;
-}
-
-.tileButton {
-  position: relative;
-  display: block;
-  width: 6em;
-  height: 6em;
-  border-radius: 50%;
-  background: #FFFFFF;
-  text-decoration: none;
-}
-
-.tileButton div {
-  display: block;
-  float: left;
-  width: 100%;
-  padding-top: 50%;
-  padding-bottom: 50%;
-  font-size: 4em;
-  line-height: 4em;
-  margin-top: -1.6em;
-  text-align: center;
+.tile .iconBackground {
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 5px;
+  width: 4.8em;
+  height: 4.8em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .tileButton:hover {
@@ -662,7 +815,7 @@ fieldset[disabled] .formControl {
 
 .selectedItem {
   padding: 0.5em;
-  background-color: lighten(@primaryColor, 60);
+  background-color: tint(@primaryColor, 60);
 }
 
 @keyframes tileButtonClick {
@@ -691,17 +844,26 @@ fieldset[disabled] .formControl {
   }
 }
 
+.roundImage {
+  border-radius: 50% !important;
+}
+
 .notificationBubble {
   position: absolute;
-  top: 0em;
-  right: 0em;
-  padding: 1em 1em 1em 1em;
+  top: -1em;
+  left: -1em;
+  width: 2em;
+  height: 2em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background-color: @alertColor;
+  opacity: 1 !important;
   color: white;
-  font-weight: bold;
-  font-size: @defaultFontSize * 0.8 !important;
-  line-height: @defaultFontSize * 0.8 !important;
-  border-radius: 2em;
+  font-weight: 600;
+  font-size: 1em;
+  line-height: 1em;
+  border-radius: 50%;
 }
 
 /* jqPlot Overwrites*/
@@ -755,7 +917,7 @@ i.treeHandle {
 
 .monitoringPage .value {
   font-size: 40px;
-  color: lighten(@primaryColor, @lightPercentage);
+  color: tint(@primaryColor, @lightPercentage);
 }
 
 /* Mobile Angular UI Overwrites */
@@ -814,20 +976,27 @@ i.treeHandle {
   padding-top: 63px !important;
 }
 
+a.list-group-item {
+  color: @textColor;
+}
+
 .list-group-item {
-  border-bottom: 1px solid lighten(@contrastColor, @lightPercentage) !important;
+  margin-left: 0.5em;
+  margin-right: 0.5em;
+  border-bottom: 1px solid tint(@textColor, @lightestPercentage) !important;
 }
 
 .itemLabel {
-  font-size: @defaultFontSize - 2;
+  font-size: @defaultFontSize;
+  font-weight: 600;
   position: absolute;
   width: 70%;
   max-width: 70%;
   top: 0;
   left: 0;
   padding: 2px 5px 2px 5px;
-  background-color: lighten(@contrastColor, 45);
-  color: lighten(@contrastColor, 15);
+  background-color: tint(@contrastColor, 45);
+  color: @backgroundColor !important;
   text-transform: uppercase;
   text-overflow: ellipsis;
   border-color: @contrastColor;
@@ -850,9 +1019,9 @@ i.treeHandle {
 
 .formControl:focus {
   border-color: @contrastColor;
-  -webkit-box-shadow: 0 0 2px lighten(@contrastColor, @lightPercentage);
-  -moz-box-shadow: 0 0 2px lighten(@contrastColor, @lightPercentage);
-  box-shadow: 0 0 2px lighten(@contrastColor, @lightPercentage);
+  -webkit-box-shadow: 0 0 2px tint(@contrastColor, @lightPercentage);
+  -moz-box-shadow: 0 0 2px tint(@contrastColor, @lightPercentage);
+  box-shadow: 0 0 2px tint(@contrastColor, @lightPercentage);
 }
 
 .section {
@@ -860,13 +1029,13 @@ i.treeHandle {
 }
 
 .panel {
-  border-color: lighten(@contrastColor, @lighterPercentage) !important;
+  border-color: tint(@contrastColor, @lighterPercentage) !important;
   margin-bottom: 0.5em !important;
   box-shadow: none;
 }
 
 .panel-heading {
-  background-color: lighten(@contrastColor, @lighterPercentage) !important;
+  background-color: tint(@contrastColor, @lighterPercentage) !important;
   border-bottom: none;
   color: @contrastColor !important;
 }
@@ -903,7 +1072,7 @@ i.treeHandle {
 
 @keyframes divLinkClick {
   0% {
-    background: lighten(@ternaryColor, @lightestPercentage);
+    background: tint(@ternaryColor, @lightestPercentage);
   }
   100% {
     background: #FFFFFF;
@@ -911,51 +1080,49 @@ i.treeHandle {
 }
 
 .listGroupItem {
-  display: table;
-  width: 100%;
+  display: flex;
+  align-items: center;
+  margin-left: 0.5em;
+  margin-right: 0.5em;
 }
 
 .listGroupItem .titleIcon {
   width: 2em;
   display: table-cell;
   vertical-align: middle;
-  color: lighten(@ternaryColor, @lightPercentage);
+  color: tint(@ternaryColor, @lightPercentage);
   font-size: @defaultFontSize + 4;
 }
 
 .buttonIcon {
-  color: lighten(@ternaryColor, @lightPercentage);
+  color: tint(@ternaryColor, @lightPercentage);
   font-size: @defaultFontSize + 4;
 }
 
 .listGroupItem .listGroupItemRow {
-  display: table-row;
-  vertical-align: middle;
 }
 
 .listGroupItem .content {
-  display: table-cell;
-  vertical-align: middle;
 }
 
 .listGroupItem .navigationIcon {
-  color: lighten(@ternaryColor, @lightPercentage);
-  font-size: @defaultFontSize + 4;
+  color: tint(@ternaryColor, @lightPercentage);
+  font-size: @defaultFontSize * 1.5;
   width: 2em;
-  display: table-cell;
-  vertical-align: middle;
-  text-align: right;
+  display: flex;
+  justify-content: flex-end;
+  flex-grow: 1;
 }
 
 .stateIcon {
-  color: lighten(@ternaryColor, @lightPercentage);
+  color: tint(@ternaryColor, @lightPercentage);
 }
 
 .listGroupItem .titleIcon {
   width: 2em;
   display: table-cell;
   vertical-align: middle;
-  color: lighten(@ternaryColor, @lightPercentage);
+  color: tint(@ternaryColor, @lightPercentage);
   font-size: @defaultFontSize + 4;
 }
 
@@ -990,7 +1157,7 @@ i.treeHandle {
 
 .value {
   font-size: 40px;
-  color: lighten(@primaryColor, @lightPercentage);
+  color: tint(@primaryColor, @lightPercentage);
 }
 
 img.photo {
@@ -1019,7 +1186,7 @@ img.photo {
 .overlay-alarm-icon {
   display: inline-block;
   font-size: 2em;
-  color: red;
+  color: @alertColor;
   visibility: hidden;
 }
 
@@ -1029,7 +1196,7 @@ img.photo {
   width: 3em;
   display: table-cell;
   vertical-align: middle;
-  color: lighten(@ternaryColor, @lightPercentage);
+  color: tint(@ternaryColor, @lightPercentage);
   padding-right: 1em;
 }
 
@@ -1037,3 +1204,185 @@ img.photo {
   list-style: none;
   padding-left: 0;
 }
+
+.chart {
+  width: 100%;
+  height: 100%;
+}
+
+// Calendar
+
+.calendar {
+  width: 100%;
+  table-layout: fixed;
+}
+
+.calendarItem {
+  width: 14.29%;
+  height: 3em;
+  text-align: center;
+}
+
+.weekDay {
+  color: @primaryColor !important;
+  font-weight: 600;
+}
+
+.day {
+  height: 2.5em;
+  width: 2.5em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.today {
+  color: white !important;
+  background-color: @primaryColor !important;
+  border-radius: 50% !important;
+  font-weight: 600;
+}
+
+.holiday {
+  color: @primaryColor !important;
+}
+
+.otherMonth {
+  color: tint(@textColor, @lighterPercentage) !important;
+}
+
+.pastDate {
+  color: tint(@textColor, @lightestPercentage) !important;
+}
+
+.calendarEvent {
+  border-left: 3px solid @primaryColor;
+  background-color: tint(@primaryColor, 70);
+  padding: 0.5em;
+  font-size: @smallFontSize;
+}
+
+// Patches for imported CSS
+
+.form-control {
+  font-size: @defaultFontSize;
+  font-family: @defaultFontFamily;
+}
+
+// Progress Indicator
+
+.progress {
+  padding: 0;
+  list-style-type: none;
+  font-family: @defaultFontFamily;
+  font-size: 12px;
+  text-transform: uppercase;
+  clear: both;
+  line-height: 1em;
+  margin: 0 -1px;
+  text-align: center;
+  min-height: 40px;
+  background-color: white;
+}
+
+.progress li {
+  float: left;
+  padding: 10px 30px 10px 30px;
+  background: @primaryColor;
+  color: #fff;
+  position: relative;
+  border-top: 1px solid @primaryColor;
+  border-bottom: 1px solid @primaryColor;
+  width: 23.5%;
+  margin: 0 1px;
+}
+
+.progress li:before {
+  content: '';
+  border-left: 16px solid #fff;
+  border-top: 16px solid transparent;
+  border-bottom: 16px solid transparent;
+  position: absolute;
+  top: 0;
+  left: 0;
+
+}
+
+.progress li:after {
+  content: '';
+  border-left: 16px solid @primaryColor;
+  border-top: 16px solid transparent;
+  border-bottom: 16px solid transparent;
+  position: absolute;
+  top: 0;
+  left: 100%;
+  z-index: 20;
+}
+
+.progress li.active {
+  background: tint(@primaryColor, @lightPercentage);
+}
+
+.progress li.active:after {
+  border-left-color: tint(@primaryColor, @lightPercentage);
+}
+
+.angular-google-map-container {
+  height: 400px;
+}
+
+.googleLoginButton {
+  background-color: @googleColor !important;
+  border-color: @googleColor !important;
+  color: white !important;
+}
+
+.googleLoginButton:hover {
+  background-color: tint(@googleColor, @lightPercentage) !important;
+  border-color: tint(@googleColor, @lightPercentage) !important;
+}
+
+.twitterLoginButton {
+  background-color: @twitterColor !important;
+  border-color: @twitterColor !important;
+  color: white !important;
+}
+
+.twitterLoginButton:hover {
+  background-color: tint(@twitterColor, @lightPercentage) !important;
+  border-color: tint(@twitterColor, @lightPercentage) !important;
+}
+
+.facebookLoginButton {
+  background-color: @facebookColor !important;
+  border-color: @facebookColor !important;
+  color: white !important;
+}
+
+.facebookLoginButton:hover {
+  background-color: tint(@facebookColor, @lightPercentage) !important;
+  border-color: tint(@facebookColor, @lightPercentage) !important;
+}
+
+.githubLoginButton {
+  background-color: @githubColor !important;
+  border-color: @githubColor !important;
+  color: white !important;
+}
+
+.githubLoginButton:hover {
+  background-color: tint(@githubColor, @lightPercentage) !important;
+  border-color: tint(@githubColor, @lightPercentage) !important;
+}
+
+.cobotLoginButton {
+  background-color: @cobotColor !important;
+  border-color: @cobotColor !important;
+  color: white !important;
+}
+
+.cobotLoginButton:hover {
+  background-color: tint(@cobotColor, @lightPercentage) !important;
+  border-color: tint(@cobotColor, @lightPercentage) !important;
+}
+
