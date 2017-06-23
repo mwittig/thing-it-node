@@ -786,7 +786,7 @@ fieldset[disabled] .formControl {
 }
 
 .tile .iconBackground {
-  background-color: rgba(255, 255, 255, 0.3);
+  background-color: rgba(255, 255, 255, 0.5);
   border-radius: 5px;
   width: 4.8em;
   height: 4.8em;
@@ -796,12 +796,54 @@ fieldset[disabled] .formControl {
   justify-content: center;
 }
 
+.tile .img {
+  border-radius: 5px;
+  min-width: 4.8em;
+  min-height: 4.8em;
+  width: 4.8em;
+  height: 4.8em;
+}
+
 .tileButton:hover {
   -webkit-animation: tileButtonClick 1s;
   -moz-animation: tileButtonClick 1s;
   -o-animation: tileButtonClick 1s;
   animation: tileButtonClick 1s;
   cursor: hand;
+}
+
+.horizontalScrollBand {
+  background-color: white;
+  height: 15em;
+}
+
+.horizontalScrollBand .tile {
+  margin: 2em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.horizontalScrollBand .tile .iconBackground {
+  width: 10em;
+  height: 10em;
+  padding: 0.5em;
+  background-color: tint(@primaryColor, 90);
+  border-radius: 0.5em;
+}
+
+.horizontalScrollBand .tile .icon {
+  font-size: 5em;
+  font-weight: 400;
+  color: @primaryColor;
+}
+
+.horizontalScrollBand .tile img {
+  min-width: 10em !important;
+  min-height: 10em !important;
+  width: 10em !important;
+  height: 10em !important;
+  border-radius: 0.5em;
 }
 
 .itemList {
