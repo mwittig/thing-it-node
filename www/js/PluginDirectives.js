@@ -114,7 +114,7 @@ angular.module("ThingItMobile.PluginDirectives", [])
         }
     };
 }).directive(
-    'tiDateTimeInput',
+    'timDateTimeInput',
     function ($log, $filter) {
         return {
             restrict: 'E',
