@@ -1,7 +1,7 @@
 module.exports = {
     port: 3001,
     protocol: "http",
-    nodeConfigurationsDirectory: "/Users/marcgille/git/thing-it-node/configurations",
+    nodeConfigurationsDirectory: process.env.HOME + "/dev/thing-it-node/configurations",
     dataDirectory: "../thing-it-data",
     usersDirectory: "../thing-it-users",
     simulated: true,
