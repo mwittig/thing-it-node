@@ -583,11 +583,11 @@ input[type=number] {
   width: 5em;
 }
 
-input.ng-untouched, select.ng-untouched {
-  border: 1px solid @secondaryColor !important;
+input.ng-untouched, select.ng-untouched, textarea.ng-untouched {
+  border: 1px solid @borderColor !important;
 }
 
-input.ng-invalid.ng-touched, select.ng-invalid.ng-touched {
+input.ng-invalid.ng-touched, select.ng-invalid.ng-touched, textarea.ng-invalid.ng-touched {
   border-color: @alertColor !important;
   -webkit-box-shadow: none !important;
   -moz-box-shadow: none !important;
@@ -703,8 +703,8 @@ fieldset[disabled] .formControl {
 }
 
 .btn:active, .btn:hover {
-  background-color: @contrastColor;
-  border-color: @contrastColor;
+  background-color: @primaryColor;
+  border-color: @primaryColor;
   color: #FFFFFF;
 }
 
@@ -765,8 +765,7 @@ fieldset[disabled] .formControl {
 /* Tile Page */
 
 .tileContainer {
-  border-collapse: collapse;
-  border: none !important;
+  disaplay: inline-block;
   width: 100%;
 }
 
@@ -815,35 +814,41 @@ fieldset[disabled] .formControl {
 .horizontalScrollBand {
   background-color: white;
   height: 15em;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  margin-left: 0.5em;
+  margin-right: 0.5em;
 }
 
 .horizontalScrollBand .tile {
-  margin: 2em;
+  margin: 1em;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
 .horizontalScrollBand .tile .iconBackground {
-  width: 10em;
-  height: 10em;
+  width: 7em;
+  height: 7em;
   padding: 0.5em;
-  background-color: tint(@primaryColor, 90);
+  background-color: @primaryColor;
   border-radius: 0.5em;
+  box-shadow: 0 2px 1px 0 fade(@primaryColor, 30%);
 }
 
 .horizontalScrollBand .tile .icon {
-  font-size: 5em;
-  font-weight: 400;
-  color: @primaryColor;
+  font-size: 4em;
+  font-weight: 300;
+  color: white;
 }
 
 .horizontalScrollBand .tile img {
-  min-width: 10em !important;
-  min-height: 10em !important;
-  width: 10em !important;
-  height: 10em !important;
+  min-width: 7em !important;
+  min-height: 7em !important;
+  width: 7em !important;
+  height: 7em !important;
   border-radius: 0.5em;
+  box-shadow: 0 2px 1px 0 fade(@primaryColor, 30%);
 }
 
 .itemList {
@@ -1028,6 +1033,10 @@ a.list-group-item {
   border-bottom: 1px solid tint(@textColor, @lightestPercentage) !important;
 }
 
+.list-group-item .line {
+  border-top: 1px solid tint(@textColor, @lightestPercentage) !important;
+}
+
 .itemLabel {
   font-size: @defaultFontSize;
   font-weight: 600;
@@ -1043,6 +1052,10 @@ a.list-group-item {
   text-overflow: ellipsis;
   border-color: @contrastColor;
   border-bottom-right-radius: 3px;
+}
+
+.componentPluginContainer {
+  min-height: 7em;
 }
 
 .componentPlugin {
@@ -1427,4 +1440,49 @@ img.photo {
   background-color: tint(@cobotColor, @lightPercentage) !important;
   border-color: tint(@cobotColor, @lightPercentage) !important;
 }
+
+.gradientAnimation {
+  //background: linear-gradient(130deg, @primaryColor, tint(@primaryColor, 80), tint(@primaryColor, 30));
+  background: linear-gradient(130deg, #999999, #DDDDDD, #BBBBBB);
+  -webkit-animation: gradientAnimationFrames 1s ease infinite;
+  -moz-animation: gradientAnimationFrames 1s ease infinite;
+  animation: gradientAnimationFrames 1s ease infinite;
+}
+
+@-webkit-keyframes gradientAnimationFrames {
+  0% {
+    background-position: 10% 0%
+  }
+  50% {
+    background-position: 91% 100%
+  }
+  100% {
+    background-position: 10% 0%
+  }
+}
+
+@-moz-keyframes gradientAnimationFrames {
+  0% {
+    background-position: 10% 0%
+  }
+  50% {
+    background-position: 91% 100%
+  }
+  100% {
+    background-position: 10% 0%
+  }
+}
+
+@keyframes gradientAnimationFrames {
+  0% {
+    background-position: 10% 0%
+  }
+  50% {
+    background-position: 91% 100%
+  }
+  100% {
+    background-position: 10% 0%
+  }
+}
+
 
