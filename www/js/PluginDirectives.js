@@ -10,7 +10,7 @@ angular.module("ThingItMobile.PluginDirectives", [])
                 return '-';
             }
 
-            return moment(input).local().format(format) + ' @ ' + input + ' @ ' + moment(input);
+            return moment(input).local().format(format);
         }
     })
     .filter('characters', function () {
