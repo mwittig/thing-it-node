@@ -31,7 +31,8 @@
      ui-track-as-search-param='true'
      class="sidebar sidebar-right"></div>
 <div class="app">
-    <div class="navbar navbar-app navbar-absolute-top" ui-yield-to="topbar">
+    <div id="header" ng-if="mobileConsole.topPage().id != 'image'" class="navbar navbar-app navbar-absolute-top"
+         ui-yield-to="topbar" style="position: fixed; top: 0; left: 0;">
     </div>
     <div class="app-body" ng-class="{loading: mobileConsole.loading}">
         <div ng-show="mobileConsole.loading" class="app-content-loading loadingOverlay">

@@ -4,13 +4,17 @@ angular.module("ThingItMobile.PluginDirectives", [])
             return $sce.trustAsHtml(value);
         };
     })
-    .filter('moment', function () {
+    .filter('moment', function ($translate) {
         return function (input, format) {
             if (!input) {
                 return '-';
             }
 
-            return moment(input).local().format(format);
+            var time = moment(input);
+
+            time.locale($translate.preferredLanguage());
+
+            return time.format(format);
         }
     })
     .filter('characters', function () {
@@ -681,13 +685,13 @@ angular.module("ThingItMobile.PluginDirectives", [])
         link: function link(scope, element, attr) {
             var fn = $parse(attr['tiClickWait']);
             var target = element[0];
-            var content = element.html();
 
             element.on('click', function (event) {
+                var content = element.html();
+
                 safeApply(scope, function () {
                     attr.$set('disabled', true);
                     element.html('<i class="fa fa-circle-o-notch fa-spin"></i> ' + content);
-                    //element.width(oldWidth + oldWidth / 2); // make room for spinner
 
                     fn(scope, {$event: event})
                         .done(function (res) {
