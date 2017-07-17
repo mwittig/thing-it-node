@@ -1,7 +1,15 @@
 /* Reusable Tags */
 
-.lighterTextColor {
+.lightTextColor {
   color: tint(@textColor, @lightPercentage) !important;
+}
+
+.lighterTextColor {
+  color: tint(@textColor, @lighterPercentage) !important;
+}
+
+.lightestTextColor {
+  color: tint(@textColor, @lightestPercentage) !important;
 }
 
 .lightenedPrimaryColor {
@@ -256,6 +264,10 @@
 
 .fontSize5 {
   font-size: @defaultFontSize * 5;
+}
+
+.fontSize6 {
+  font-size: @defaultFontSize * 6;
 }
 
 /* Layout */
@@ -695,29 +707,30 @@ fieldset[disabled] .formControl {
   font-size: @defaultFontSize;
   background-color: #FFFFFF;
   color: @primaryColor;
-  border-color: @primaryColor;
+  border: 2px solid @primaryColor;
+  border-radius: 2px;
   outline: none !important;
   -webkit-box-shadow: none !important;
   -moz-box-shadow: none !important;
   box-shadow: none !important;
+  text-transform: uppercase;
+  font-weight: 600;
 }
 
 .btn:active, .btn:hover {
   background-color: @primaryColor;
-  border-color: @primaryColor;
+  border: 2px solid @primaryColor;
   color: #FFFFFF;
 }
 
 .btn-primary {
-  background-color: @primaryColor;
-  border-color: @primaryColor;
-  color: #FFFFFF;
+  background-color: tint(@primaryColor, 95);
 }
 
 .btn-primary.disabled, .btn-primary[disabled] {
-  background-color: #BBBBBB;
+  background-color: white;
   border-color: #BBBBBB;
-  color: #FFFFFF;
+  color: #BBBBBB;
 }
 
 .dropdown-menu {
@@ -797,10 +810,10 @@ fieldset[disabled] .formControl {
 
 .tile .img {
   border-radius: 5px;
-  min-width: 4.8em;
-  min-height: 4.8em;
-  width: 4.8em;
-  height: 4.8em;
+  //min-width: 4.8em !important;
+  //min-height: 4.8em !important;
+  width: 100% !important;
+  //height: 4.8em !important;
 }
 
 .tileButton:hover {
@@ -831,15 +844,17 @@ fieldset[disabled] .formControl {
   width: 7em;
   height: 7em;
   padding: 0.5em;
-  background-color: @primaryColor;
+  background-color: white;
   border-radius: 0.5em;
-  box-shadow: 0 2px 1px 0 fade(@primaryColor, 30%);
+  color: @secondaryColor;
+  border: 2px solid @secondaryColor;
+  //box-shadow: 0 2px 1px 0 fade(@primaryColor, 30%);
 }
 
 .horizontalScrollBand .tile .icon {
   font-size: 4em;
   font-weight: 300;
-  color: white;
+  color: @primaryColor;
 }
 
 .horizontalScrollBand .tile img {
@@ -848,7 +863,7 @@ fieldset[disabled] .formControl {
   width: 7em !important;
   height: 7em !important;
   border-radius: 0.5em;
-  box-shadow: 0 2px 1px 0 fade(@primaryColor, 30%);
+  //box-shadow: 0 2px 1px 0 fade(@primaryColor, 30%);
 }
 
 .itemList {
