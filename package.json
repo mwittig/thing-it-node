@@ -1,6 +1,6 @@
 {
   "name": "thing-it-node",
-  "version": "0.20.75",
+  "version": "0.20.76",
   "description": "thing-it Node Server",
   "main": "lib/node.js",
   "scripts": {},
@@ -29,7 +29,7 @@
     "thing-it-device-ar-drone": "0.0.9",
     "thing-it-device-art-net": "0.0.19",
     "thing-it-device-atlas-scientific": "0.0.7",
-    "thing-it-device-bacnet": "0.0.25",
+    "thing-it-device-bacnet": "0.0.26",
     "thing-it-device-btle-heart-rate-monitor": "0.0.10",
     "thing-it-device-camera": "0.0.1",
     "thing-it-device-chp": "0.0.14",
