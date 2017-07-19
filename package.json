@@ -1,12 +1,13 @@
 {
   "name": "thing-it-node",
-  "version": "0.20.77",
+  "version": "0.20.78",
   "description": "thing-it Node Server",
   "main": "lib/node.js",
   "scripts": {},
   "authors": "Marc Gille, Julian Seibert, Neil Palmer",
   "license": "MIT, EPL",
   "dependencies": {
+    "bleno": "^0.4.2",
     "body-parser": "^1.11.0",
     "busboy": "^0.2.11",
     "cors": "^2.5.3",
@@ -29,7 +30,7 @@
     "thing-it-device-ar-drone": "0.0.9",
     "thing-it-device-art-net": "0.0.19",
     "thing-it-device-atlas-scientific": "0.0.7",
-    "thing-it-device-bacnet": "0.0.27",
+    "thing-it-device-bacnet": "0.0.29",
     "thing-it-device-btle-heart-rate-monitor": "0.0.10",
     "thing-it-device-camera": "0.0.1",
     "thing-it-device-chp": "0.0.14",
