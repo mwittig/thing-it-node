@@ -4,6 +4,7 @@
 
 var package = require('../package.json');
 var node = require("../lib/node");
+var ConfigurationManager = require("../lib/configurationManager");
 var utils = require("../lib/utils");
 var bodyParser = require('body-parser')
 var express = require('express');
@@ -21,6 +22,7 @@ require("yargs").usage("tin <command> [options]")
     .command("pair", "Pairs the Gateway with thing-it.com and create Configurations Directory with an empty Configurations File as well as the Data and User Directories.", pair)
     .command("example", "Create an example Node Configurations file from a source.", example)
     .command("run", "Starts the [thing-it-node] Server.", run)
+    .command("listen", "Starts listening to configuration changes provided via Bluetooth.", listen)
     .command("version", "Displays version information.", version)
     .alias("h", "help")
     .argv;
@@ -170,14 +172,18 @@ function createDirectories() {
     createDirectory("data", "Data");
 }
 
-function createDirectory(name, purpose) {
+function createDirectory(name, purpose, parent) {
+    if (!parent) {
+        parent = process.cwd();
+    }
+
     try {
-        fs.mkdirSync(process.cwd() + "/" + name);
+        fs.mkdirSync(parent + "/" + name);
     } catch (e) {
         if (e.code == "EEXIST") {
-            console.log(purpose + " Directory  [" + process.cwd() + "/" + name + "] already exists");
+            console.log(purpose + " Directory  [" + parent + "/" + name + "] already exists");
         } else {
-            console.error("Cannot create " + purpose + " Directory [" + process.cwd() + "/" + name + "]: ", e);
+            console.error("Cannot create " + purpose + " Directory [" + parent + "/" + name + "]: ", e);
 
             process.exit();
         }
@@ -313,6 +319,28 @@ function run(yargs) {
                     process.exit();
                 }
             });
+}
+
+function listen(yargs) {
+    var argv = yargs.option("boot", {
+        alias: "b",
+        description: 'Boot Directory'
+    }).option("config", {
+        alias: "c",
+        description: 'Configuration Directory'
+    }).help("help").argv;
+
+    if (!argv.boot) {
+        arg.boot = process.cwd();
+    }
+
+    if (!argv.config) {
+        arg.config = process.cwd();
+    }
+
+    var configurationManager = ConfigurationManager.create(arg.boot, arg.config);
+
+    configurationManager.listen();
 }
 
 /**
