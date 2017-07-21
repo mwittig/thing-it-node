@@ -31,6 +31,7 @@
     "thing-it-device-art-net": "0.0.19",
     "thing-it-device-atlas-scientific": "0.0.7",
     "thing-it-device-bacnet": "^0.1.0",
+    "thing-it-device-blueid": "0.0.1",
     "thing-it-device-btle-heart-rate-monitor": "0.0.10",
     "thing-it-device-camera": "0.0.1",
     "thing-it-device-chp": "0.0.14",
