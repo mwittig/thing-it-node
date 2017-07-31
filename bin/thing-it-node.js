@@ -338,7 +338,7 @@ function listen(yargs) {
         argv.config = process.cwd();
     }
 
-    var configurationManager = ConfigurationManager.create(arg.boot, arg.config);
+    var configurationManager = ConfigurationManager.create(argv.boot, argv.config);
 
     configurationManager.listen();
 }
