@@ -331,11 +331,11 @@ function listen(yargs) {
     }).help("help").argv;
 
     if (!argv.boot) {
-        arg.boot = process.cwd();
+        argv.boot = process.cwd();
     }
 
     if (!argv.config) {
-        arg.config = process.cwd();
+        argv.config = process.cwd();
     }
 
     var configurationManager = ConfigurationManager.create(arg.boot, arg.config);
