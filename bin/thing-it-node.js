@@ -328,6 +328,9 @@ function listen(yargs) {
     }).option("config", {
         alias: "c",
         description: 'Configuration Directory'
+    }).option("reboot", {
+        alias: "r",
+        description: 'Reboot Command (e.g. \'sudo /sbin/shutdown -r now\')'
     }).help("help").argv;
 
     if (!argv.boot) {
@@ -338,7 +341,7 @@ function listen(yargs) {
         argv.config = process.cwd();
     }
 
-    var configurationManager = ConfigurationManager.create(argv.boot, argv.config);
+    var configurationManager = ConfigurationManager.create(argv.boot, argv.config, argv.reboot);
 
     configurationManager.listen();
 }
