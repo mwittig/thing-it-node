@@ -74,7 +74,9 @@
   "optionalDependencies": {
     "thing-it-device-z-wave": "~0.0.33"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "thing-it-device-test": "0.0.3"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/marcgille/thing-it-node"
