@@ -30,6 +30,12 @@
 <div ng-include="'menu.html'"
      ui-track-as-search-param='true'
      class="sidebar sidebar-right"></div>
+<div class="headerNotificationBubble" ng-if="mobileConsole.locationNotifications.length > 0"
+     ng-click="mobileConsole.openLocationNotificationsDialog()">
+    <div class="flexLayout flexAlignCenter"><i class="icon sl-location"></i><span class="count marginLeft0_2">{{mobileConsole.locationNotifications.length}}</span>
+    </div>
+</div>
+<!-- ti-drag-away="mobileConsole.clearLocationNotifications()"-->
 <div class="app">
     <div id="header" ng-if="mobileConsole.topPage().id != 'image'" class="navbar navbar-app navbar-absolute-top"
          ui-yield-to="topbar" style="position: fixed; top: 0; left: 0;">
@@ -59,8 +65,14 @@
         </div>
     </div>
 </div>
-
+<div ng-include="'loadOverlay.html'"></div>
+<div ng-include="'messageDialog.html'"></div>
+<div ng-include="'confirmationDialog.html'"></div>
+<div ng-include="'changePasswordDialog.html'"></div>
+<div ng-include="'locationNotificationsDialog.html'"></div>
+<div ng-include="'deviceAdvertisementDialog.html'"></div>
+<div ng-include="'serviceCallDialog.html'"></div>
+<div ng-include="'pairGatewayDialog.html'"></div>
 <div ui-yield-to="modals"></div>
-
 </body>
 </html>

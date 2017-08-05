@@ -684,25 +684,24 @@ angular.module("ThingItMobile.PluginDirectives", [])
         restrict: 'A',
         link: function link(scope, element, attr) {
             var fn = $parse(attr['tiClickWait']);
-            var target = element[0];
 
             element.on('click', function (event) {
+                event.stopImmediatePropagation();
+
                 var content = element.html();
 
-                safeApply(scope, function () {
-                    attr.$set('disabled', true);
-                    element.html('<i class="fa fa-circle-o-notch fa-spin"></i> ' + content);
+                attr.$set('disabled', true);
+                element.html('<i class="fa fa-circle-o-notch fa-spin"></i> ' + content);
 
-                    fn(scope, {$event: event})
-                        .done(function (res) {
-                            element.html(content);
-                            //element.width(oldWidth); // restore size
-                            attr.$set('disabled', false);
-                            return res;
-                        }).fail(function (res) {
+                fn(scope, {$event: event})
+                    .done(function (res) {
                         element.html(content);
+                        //element.width(oldWidth); // restore size
                         attr.$set('disabled', false);
-                    });
+                        return res;
+                    }).fail(function (res) {
+                    element.html(content);
+                    attr.$set('disabled', false);
                 });
             });
         }
@@ -755,13 +754,48 @@ angular.module("ThingItMobile.PluginDirectives", [])
         link: function (scope, element, attrs) {
             var controller = angular.element(element).controller('scrollableContent');
             var scrollableContent = jQuery(element);
+            var beforeCleanup = $parse(attrs['tiBeforeCleanup']);
+
+            // Do we need the timeout here
 
             window.setTimeout(function () {
-                controller.scrollTo(scrollableContent[0].scrollHeight + 50);
+                // controller.scrollTo(scrollableContent[0].scrollHeight + 50);
+
+                var scrollable = document.getElementById('channelPageScrollable');
+
+                scrollable.scrollTop = scrollable.scrollHeight;
+
+                try {
+                    beforeCleanup(scope);
+                } catch (error) {
+                    console.error(error);
+                }
+
+                var newPosts = scope.$eval(attrs.tiPostList + '.newPosts');
+
+                if (newPosts) {
+                    newPosts.length = 0;
+                }
             }.bind(this), 1000);
 
-            scope.$watch(attrs.tiPostList, function (posts) {
-                controller.scrollTo(scrollableContent[0].scrollHeight + 50);
+            scope.$watch(attrs.tiPostList + '.posts', function (posts) {
+                try {
+                    beforeCleanup(scope);
+                } catch (error) {
+                    console.error(error);
+                }
+
+                var newPosts = scope.$eval(attrs.tiPostList + '.newPosts');
+
+                if (newPosts) {
+                    newPosts.length = 0;
+                }
+
+                var scrollable = document.getElementById('channelPageScrollable');
+
+                scrollable.scrollTop = scrollable.scrollHeight;
+
+//                controller.scrollTo(scrollableContent[0].scrollHeight + 50);
             });
         }
     };
@@ -1058,7 +1092,30 @@ angular.module("ThingItMobile.PluginDirectives", [])
                 }
             };
         })
-;
+    .directive('tiDragAway', ['$drag', '$parse', function ($drag, $parse) {
+        return {
+            scope: {
+                tiDragAway: '@'
+            },
+            controller: function ($scope, $element) {
+               var fn = $parse($scope.tiDragAway);
+
+                $drag.bind($element,
+                    {
+                        transform: $drag.TRANSLATE_INSIDE($element.parent()),
+                        end: function (drag) {
+                            drag.reset();
+                            fn($scope, {$event: event});
+                            $scope.$apply();
+                        }
+                    },
+                    { // release touch when movement is outside bounduaries
+                        sensitiveArea: $element.parent()
+                    }
+                );
+            }
+        };
+    }]);
 
 function safeApply(scope, fn) {
     var phase = scope.$root.$$phase;
