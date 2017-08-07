@@ -35,36 +35,36 @@ describe('[thing-it] Device Test', function () {
                 done();
             }.bind(this), 5000);
         });
-        it('should trigger Sensor Event Notification', function (done) {
-            testDeviceModule.getActor('testDevice1', 'testActor1').off();
-            testDeviceModule.getSensor('testDevice1', 'testSensor1').publishEvent('click', {});
-
-            setTimeout(function () {
-                console.log('Actor', testDeviceModule.getActor('testDevice1', 'testActor1').getState());
-
-                done();
-            }.bind(this), 2000);
-        });
+        // it('should trigger Sensor Event Notification', function (done) {
+        //     testDeviceModule.getActor('testDevice1', 'testActor1').off();
+        //     testDeviceModule.getSensor('testDevice1', 'testSensor1').publishEvent('click', {});
+        //
+        //     setTimeout(function () {
+        //         console.log('Actor', testDeviceModule.getActor('testDevice1', 'testActor1').getState());
+        //
+        //         done();
+        //     }.bind(this), 2000);
+        // });
         it('should trigger Actor State Change Notification', function (done) {
             testDeviceModule.getActor('testDevice1', 'testActor1').off();
             testDeviceModule.getActor('testDevice1', 'testActor2').toggle();
 
             setTimeout(function () {
-                console.log('Actor', testDeviceModule.getActor('testDevice1', 'testActor1').getState());
+                console.log('Actor for Actor State', testDeviceModule.getActor('testDevice1', 'testActor1').getState().light == 'on');
 
                 done();
             }.bind(this), 2000);
         });
-        it('should trigger Sensor Value Change Notification', function (done) {
-            testDeviceModule.getActor('testDevice1', 'testActor1').off();
-            testDeviceModule.getSensor('testDevice1', 'testSensor1').publishValueChangeEvent({booleanField1: true});
-
-            setTimeout(function () {
-                console.log('Actor', testDeviceModule.getActor('testDevice1', 'testActor1').getState());
-
-                done();
-            }.bind(this), 2000);
-        });
+        // it('should trigger Sensor Value Change Notification', function (done) {
+        //     testDeviceModule.getActor('testDevice1', 'testActor1').off();
+        //     testDeviceModule.getSensor('testDevice1', 'testSensor1').publishValueChangeEvent({booleanField1: true});
+        //
+        //     setTimeout(function () {
+        //         console.log('Actor for Sensor Value Change', testDeviceModule.getActor('testDevice1', 'testActor1').getState().light == 'on');
+        //
+        //         done();
+        //     }.bind(this), 2000);
+        // });
     });
 });
 
