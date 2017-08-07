@@ -1,6 +1,6 @@
 {
   "name": "thing-it-node",
-  "version": "0.20.87",
+  "version": "0.20.88",
   "description": "thing-it Node Server",
   "main": "lib/node.js",
   "scripts": {},
@@ -45,7 +45,7 @@
     "thing-it-device-itach": "^0.2.11",
     "thing-it-device-kidde": "0.0.12",
     "thing-it-device-kisi": "0.0.7",
-    "thing-it-device-microcontroller": "^0.2.5",
+    "thing-it-device-microcontroller": "^0.3.1",
     "thing-it-device-occupancy-sensor": "0.0.1",
     "thing-it-device-osram-lightify": "0.0.1",
     "thing-it-device-osram-sympholight": "0.0.11",
@@ -58,6 +58,7 @@
     "thing-it-device-sonos": "^0.2.7",
     "thing-it-device-swann": "0.0.20",
     "thing-it-device-temperature-alert": "0.0.15",
+    "thing-it-device-test": "0.0.4",
     "thing-it-device-ti-sensortag": "^0.2.5",
     "thing-it-device-weather": "^0.1.5",
     "thing-it-device-wind-turbine": "0.0.5",
@@ -74,9 +75,7 @@
   "optionalDependencies": {
     "thing-it-device-z-wave": "~0.0.33"
   },
-  "devDependencies": {
-    "thing-it-device-test": "0.0.3"
-  },
+  "devDependencies": {},
   "repository": {
     "type": "git",
     "url": "https://github.com/marcgille/thing-it-node"

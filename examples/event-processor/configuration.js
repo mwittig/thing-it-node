@@ -52,6 +52,25 @@ module.exports = {
         trigger: {
             type: "singleStateChange",
             content: {
+                field: 'light'
+            }
+        },
+        action: {
+            type: "actorService",
+            content: {
+                device: 'testDevice1',
+                actor: 'testActor1',
+                service: 'on'
+            }
+        }
+    }, {
+        id: "eventProcessor3",
+        label: "Event Processor 3",
+        observables: ["testDevice1.testSensor1"],
+        trigger: {
+            type: "singleStateChange",
+            content: {
+                field: 'booleanField1'
             }
         },
         action: {
