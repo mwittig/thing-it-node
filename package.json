@@ -1,6 +1,6 @@
 {
   "name": "thing-it-node",
-  "version": "0.20.91",
+  "version": "0.20.92",
   "description": "thing-it Node Server",
   "main": "lib/node.js",
   "scripts": {},
