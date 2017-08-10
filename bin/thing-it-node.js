@@ -21,7 +21,6 @@ require("yargs").usage("tin <command> [options]")
     .command("pair", "Pairs the Gateway with thing-it.com and create Configurations Directory with an empty Configurations File as well as the Data and User Directories.", pair)
     .command("example", "Create an example Node Configurations file from a source.", example)
     .command("run", "Starts the [thing-it-node] Server.", run)
-    .command("listen", "Starts listening to configuration changes provided via Bluetooth.", listen)
     .command("version", "Displays version information.", version)
     .alias("h", "help")
     .argv;
