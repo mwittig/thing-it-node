@@ -4,7 +4,6 @@
 
 var package = require('../package.json');
 var node = require("../lib/node");
-var ConfigurationManager = require("../lib/configurationManager");
 var utils = require("../lib/utils");
 var bodyParser = require('body-parser')
 var express = require('express');
@@ -319,31 +318,6 @@ function run(yargs) {
                     process.exit();
                 }
             });
-}
-
-function listen(yargs) {
-    var argv = yargs.option("boot", {
-        alias: "b",
-        description: 'Boot Directory'
-    }).option("config", {
-        alias: "c",
-        description: 'Configuration Directory'
-    }).option("reboot", {
-        alias: "r",
-        description: 'Reboot Command (e.g. \'sudo /sbin/shutdown -r now\')'
-    }).help("help").argv;
-
-    if (!argv.boot) {
-        argv.boot = process.cwd();
-    }
-
-    if (!argv.config) {
-        argv.config = process.cwd();
-    }
-
-    var configurationManager = ConfigurationManager.create(argv.boot, argv.config, argv.reboot);
-
-    configurationManager.listen();
 }
 
 /**
