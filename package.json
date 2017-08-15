@@ -43,7 +43,7 @@
     "thing-it-device-ibeacon": "0.0.35",
     "thing-it-device-itach": "^0.2.11",
     "thing-it-device-kidde": "0.0.12",
-    "thing-it-device-kisi": "0.0.8",
+    "thing-it-device-kisi": "0.0.9",
     "thing-it-device-microcontroller": "^0.3.1",
     "thing-it-device-occupancy-sensor": "0.0.1",
     "thing-it-device-osram-lightify": "0.0.1",
