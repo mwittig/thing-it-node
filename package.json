@@ -1,6 +1,6 @@
 {
   "name": "thing-it-node",
-  "version": "0.20.99",
+  "version": "0.21.0",
   "description": "thing-it Node Server",
   "main": "lib/node.js",
   "scripts": {},
@@ -35,7 +35,7 @@
     "thing-it-device-camera": "0.0.1",
     "thing-it-device-chp": "0.0.14",
     "thing-it-device-ecobee": "0.0.4",
-    "thing-it-device-enlighted": "0.0.5",
+    "thing-it-device-enlighted": "0.0.6",
     "thing-it-device-foscam": "^0.1.11",
     "thing-it-device-halytech": "0.0.18",
     "thing-it-device-helbio": "0.0.2",
