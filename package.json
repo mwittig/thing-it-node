@@ -66,6 +66,7 @@
     "thing-it-device-xiaomi-smart-plant-monitor": "0.0.5",
     "thing-it-device-yamaha": "^0.2.0",
     "uuid": "^3.1.0",
+    "xpc-connection": "^0.1.4",
     "yargs": "^3.30.0"
   },
   "directories": {
