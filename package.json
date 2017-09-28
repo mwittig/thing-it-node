@@ -1,6 +1,6 @@
 {
   "name": "thing-it-node",
-  "version": "0.21.42",
+  "version": "0.21.43",
   "description": "thing-it Node Server",
   "main": "lib/node.js",
   "scripts": {},
@@ -46,7 +46,7 @@
     "thing-it-device-itach": "^0.2.11",
     "thing-it-device-kidde": "0.0.12",
     "thing-it-device-kisi": "0.0.9",
-    "thing-it-device-microcontroller": "^0.3.4",
+    "thing-it-device-microcontroller": "^0.3.5",
     "thing-it-device-occupancy-sensor": "0.0.1",
     "thing-it-device-osram-lightify": "0.0.1",
     "thing-it-device-osram-sympholight": "0.0.11",
