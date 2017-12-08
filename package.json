@@ -1,6 +1,6 @@
 {
   "name": "thing-it-node",
-  "version": "0.21.62",
+  "version": "0.21.63",
   "description": "thing-it Node Server",
   "main": "lib/node.js",
   "scripts": {},
@@ -29,7 +29,7 @@
     "thing-it-device-aircable": "^0.0.21",
     "thing-it-device-ar-drone": "0.0.9",
     "thing-it-device-art-net": "0.0.19",
-    "thing-it-device-assistr": "0.0.1",
+    "thing-it-device-assistr": "0.0.3",
     "thing-it-device-atlas-scientific": "0.0.7",
     "thing-it-device-bacnet": "^0.1.5",
     "thing-it-device-blueid": "0.0.6",
