@@ -1,6 +1,6 @@
 {
   "name": "thing-it-node",
-  "version": "0.24.0",
+  "version": "0.25.0",
   "description": "thing-it Node Server",
   "main": "lib/node.js",
   "scripts": {},
@@ -31,7 +31,7 @@
     "thing-it-device-art-net": "0.0.19",
     "thing-it-device-assistr": "0.0.11",
     "thing-it-device-atlas-scientific": "0.0.7",
-    "thing-it-device-bacnet": "^0.1.11",
+    "thing-it-device-bacnet": "^0.1.14",
     "thing-it-device-blueid": "0.0.6",
     "thing-it-device-browser": "^0.1.7",
     "thing-it-device-btle-heart-rate-monitor": "0.0.10",
@@ -47,7 +47,7 @@
     "thing-it-device-itach": "^0.2.11",
     "thing-it-device-kidde": "0.0.12",
     "thing-it-device-kisi": "0.0.9",
-    "thing-it-device-microcontroller": "^0.5.0",
+    "thing-it-device-microcontroller": "^0.5.2",
     "thing-it-device-occupancy-sensor": "0.0.1",
     "thing-it-device-osram-lightify": "0.0.1",
     "thing-it-device-osram-sympholight": "0.0.11",
@@ -67,6 +67,7 @@
     "thing-it-device-wtec": "^1.0.7",
     "thing-it-device-xiaomi-smart-plant-monitor": "0.0.5",
     "thing-it-device-yamaha": "^0.2.0",
+    "thing-it-device-z-wave": "0.1.2",
     "uuid": "^3.1.0",
     "yargs": "^3.30.0"
   },
