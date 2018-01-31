@@ -431,43 +431,6 @@ angular.module("ThingItMobile.PluginDirectives", [])
             }
         };
     })
-    .directive('tiSwitch', function ($timeout, $parse) {
-        return {
-            restrict: "E",
-            template: /*"<div class='onoffswitch'>" +
-             "<input type='checkbox' class='onoffswitch-checkbox' checked><label class='onoffswitch-label'>" +
-             "<span class='onoffswitch-inner'></span> <span class='onoffswitch-switch'></span></label></div>",*/
-                "<div style='display: inline-block;'><input class='tiToggle tiToggleRoundFlat' type='checkbox'><label></label></div>",
-            link: function (scope, element, attrs) {
-                var label = jQuery(element).find("label");
-                var checkbox = jQuery(element).find("input");
-
-                checkbox.uniqueId();
-                label.attr("for", checkbox.attr("id"));
-
-                if (!scope.$eval(attrs.ngDisabled)) {
-                    label.click(function () {
-                        checkbox.prop("checked", !checkbox.prop("checked"));
-
-                        var expression = attrs.tiModel
-                            + "="
-                            + checkbox
-                                .prop("checked");
-                        scope.$eval(expression);
-
-                        if (attrs.tiChange) {
-                            scope.$eval(attrs.tiChange);
-                        }
-                    });
-                }
-
-                scope.$watch(attrs.tiModel, function (value) {
-                    checkbox.prop("checked",
-                        value);
-                });
-            }
-        };
-    })
     .directive('tiBattery', function ($timeout, $parse) {
         return {
             restrict: "E",
@@ -706,28 +669,7 @@ angular.module("ThingItMobile.PluginDirectives", [])
             });
         }
     };
-}]).directive('tiMotionSensor', function ($timeout, $parse) {
-    return {
-        restrict: "E",
-        template: "<div style='display: table-row; height: 2em; vertical-align: middle'><div style='display: table-cell; width: 100%; text-align: center'><i class='icon sl-contacts-1 overlay-alarm-icon' style='display: inline-block:'></i><span class='smallFont lightPrimaryColor'>No Motion detected.</span></div></div>",
-        link: function (scope, element, attrs) {
-            var i = jQuery(element).find("i");
-            var span = jQuery(element).find("span");
-
-            scope.$watch(attrs.ngModel, function (value) {
-                if (value) {
-                    i.css("display", "inline-block");
-                    span.css("display", "none");
-                    i.addClass("infinitePulseAnimation");
-                } else {
-                    i.removeClass("infinitePulseAnimation");
-                    i.css("display", "none");
-                    span.css("display", "inline-block");
-                }
-            });
-        }
-    };
-}).directive('tiSmokeDetector', function ($timeout, $parse) {
+}]).directive('tiSmokeDetector', function ($timeout, $parse) {
     return {
         restrict: "E",
         template: "<div style='display: table-row; height: 2em; vertical-align: middle'><div style='display: table-cell; width: 2em;  height: 2em; text-align: center'><i class='noSmoke icon sl-smiley-happy-1 okColor' style='font-size: 2em;'></i><i class='smoke fa fa-bullseye overlay-alarm-icon' style='display: inline-block:'></i></div></div>",
