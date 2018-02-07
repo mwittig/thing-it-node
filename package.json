@@ -1,6 +1,6 @@
 {
   "name": "thing-it-node",
-  "version": "0.56.0",
+  "version": "0.57.0",
   "description": "thing-it Node Server",
   "main": "lib/node.js",
   "scripts": {},
@@ -27,7 +27,7 @@
     "socket.io": "^2.0.3",
     "socket.io-client": "^2.0.3",
     "thing-it-device-aircable": "^0.0.21",
-    "thing-it-device-amx": "0.0.6",
+    "thing-it-device-amx": "0.0.7",
     "thing-it-device-ar-drone": "0.0.9",
     "thing-it-device-art-net": "0.0.19",
     "thing-it-device-assistr": "0.0.11",
