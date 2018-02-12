@@ -1,6 +1,6 @@
 {
   "name": "thing-it-node",
-  "version": "0.60.0",
+  "version": "0.60.1",
   "description": "thing-it Node Server",
   "main": "lib/node.js",
   "scripts": {},
@@ -70,7 +70,6 @@
     "thing-it-device-wtec": "^1.0.7",
     "thing-it-device-xiaomi-smart-plant-monitor": "0.0.5",
     "thing-it-device-yamaha": "^0.2.0",
-    "thing-it-device-z-wave": "^0.1.4",
     "uuid": "^3.1.0",
     "yargs": "^3.30.0"
   },
@@ -79,7 +78,7 @@
     "test": "test"
   },
   "optionalDependencies": {
-    "thing-it-device-z-wave": "~0.0.33"
+    "thing-it-device-z-wave": "^0.1.4"
   },
   "devDependencies": {},
   "repository": {
