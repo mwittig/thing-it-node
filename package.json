@@ -1,6 +1,6 @@
 {
   "name": "thing-it-node",
-  "version": "0.60.1",
+  "version": "0.61.0",
   "description": "thing-it Node Server",
   "main": "lib/node.js",
   "scripts": {},
@@ -38,7 +38,7 @@
     "thing-it-device-btle-heart-rate-monitor": "0.0.10",
     "thing-it-device-camera": "0.0.1",
     "thing-it-device-chp": "0.0.14",
-    "thing-it-device-disruptive-technologies": "0.0.7",
+    "thing-it-device-disruptive-technologies": "0.0.8",
     "thing-it-device-ecobee": "0.0.4",
     "thing-it-device-enlighted": "0.0.7",
     "thing-it-device-foscam": "^0.1.11",
@@ -70,6 +70,7 @@
     "thing-it-device-wtec": "^1.0.7",
     "thing-it-device-xiaomi-smart-plant-monitor": "0.0.5",
     "thing-it-device-yamaha": "^0.2.0",
+    "thing-it-device-z-wave": "^0.1.4",
     "uuid": "^3.1.0",
     "yargs": "^3.30.0"
   },
@@ -77,9 +78,7 @@
     "example": "examples",
     "test": "test"
   },
-  "optionalDependencies": {
-    "thing-it-device-z-wave": "^0.1.4"
-  },
+  "optionalDependencies": {},
   "devDependencies": {},
   "repository": {
     "type": "git",
