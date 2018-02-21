@@ -1,12 +1,13 @@
 {
   "name": "thing-it-node",
-  "version": "0.64.0",
+  "version": "0.65.0",
   "description": "thing-it Node Server",
   "main": "lib/node.js",
   "scripts": {},
   "authors": "Marc Gille, Julian Seibert, Neil Palmer",
   "license": "MIT, EPL",
   "dependencies": {
+    "bleno": "^0.5.0",
     "body-parser": "^1.11.0",
     "busboy": "^0.2.11",
     "cors": "^2.5.3",
