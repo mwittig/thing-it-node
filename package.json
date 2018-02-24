@@ -1,6 +1,6 @@
 {
   "name": "thing-it-node",
-  "version": "0.66.0",
+  "version": "0.67.0",
   "description": "thing-it Node Server",
   "main": "lib/node.js",
   "scripts": {},
@@ -50,7 +50,7 @@
     "thing-it-device-itach": "^0.2.11",
     "thing-it-device-kidde": "0.0.12",
     "thing-it-device-kisi": "0.0.9",
-    "thing-it-device-microcontroller": "^0.5.3",
+    "thing-it-device-microcontroller": "^0.5.4",
     "thing-it-device-occupancy-sensor": "0.0.1",
     "thing-it-device-osram-lightify": "0.0.1",
     "thing-it-device-osram-sympholight": "0.0.11",
@@ -71,7 +71,7 @@
     "thing-it-device-wtec": "^1.0.7",
     "thing-it-device-xiaomi-smart-plant-monitor": "0.0.5",
     "thing-it-device-yamaha": "^0.2.0",
-    "thing-it-device-z-wave": "^0.1.5",
+    "thing-it-device-z-wave": "^0.1.6",
     "uuid": "^3.1.0",
     "yargs": "^3.30.0"
   },
