@@ -1,6 +1,6 @@
 {
   "name": "thing-it-node",
-  "version": "0.91.0",
+  "version": "0.92.0",
   "description": "thing-it Node Server",
   "main": "lib/node.js",
   "scripts": {},
@@ -65,7 +65,7 @@
     "thing-it-device-swann": "0.0.20",
     "thing-it-device-temperature-alert": "0.0.15",
     "thing-it-device-test": "0.0.4",
-    "thing-it-device-meural":"^0.0.2",
+    "thing-it-device-meural": "^0.0.2",
     "thing-it-device-ti-sensortag": "^0.2.5",
     "thing-it-device-ubisys": "0.0.12",
     "thing-it-device-weather": "^0.1.5",
