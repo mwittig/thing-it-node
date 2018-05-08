@@ -1,6 +1,6 @@
 {
   "name": "thing-it-node",
-  "version": "0.96.0",
+  "version": "0.97.0",
   "description": "thing-it Node Server",
   "main": "lib/node.js",
   "scripts": {},
@@ -44,6 +44,7 @@
     "thing-it-device-enlighted": "0.0.7",
     "thing-it-device-enocean-ip": "0.0.3",
     "thing-it-device-foscam": "^0.1.11",
+    "thing-it-device-google-ip": "0.0.2",
     "thing-it-device-halytech": "0.0.18",
     "thing-it-device-helbio": "0.0.2",
     "thing-it-device-hibox": "0.0.3",
