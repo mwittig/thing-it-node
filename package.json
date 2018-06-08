@@ -1,6 +1,6 @@
 {
   "name": "thing-it-node",
-  "version": "0.100.1",
+  "version": "0.100.2",
   "description": "thing-it Node Server",
   "main": "lib/node.js",
   "scripts": {},
@@ -28,11 +28,7 @@
     "socket.io": "^2.0.3",
     "socket.io-client": "^2.0.3",
     "uuid": "^3.1.0",
-    "yargs": "^3.30.0",
-    "thing-it-device-ibeacon": "^0.0.40",
-    "thing-it-device-test": "0.0.4",
-    "thing-it-device-weather": "^0.1.5",
-    "thing-it-device-microcontroller": "^0.7.1"
+    "yargs": "^3.30.0"
   },
   "directories": {
     "example": "examples",
